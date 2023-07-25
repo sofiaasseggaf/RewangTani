@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".utility.DeleteAll">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_akun"
+            android:text="DELETE SEMUA AKUN"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_profil"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA PROFIL"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_rt"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA RENCANA TANAM"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_st"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA SUDAH TANAM"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_p"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA PANEN"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_ort"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA OUTPUT RT"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_rab"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA RAB"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_pt"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA PROFIL TANAH"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_produk"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA PRODUK"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_tenaga_kerja"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA TENAGA KERJA"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_sewa_mesin"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA SEWA MESIN"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/del_bpp"
+            android:layout_marginTop="10dp"
+            android:text="DELETE SEMUA BPP"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/bg_loading">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="100dp"
+                android:fontFamily="@font/inter_bold"
+                android:textSize="22sp"
+                android:textColor="@color/dark_green"/>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>

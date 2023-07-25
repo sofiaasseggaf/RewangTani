@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.rewangTani.rewangtani">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
+        android:protectionLevel="signature"
+        tools:ignore="ProtectedPermissions" />
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+
+    <application
+        android:name=".utility.App"
+        android:allowBackup="true"
+        android:debuggable="false"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:protectionLevel="signature"
+        android:roundIcon="@drawable/logo"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:ignore="HardcodedDebugMode">
+        <activity
+            android:name=".chat.Inbox"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".chat.Chat"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".upperbar.kendalapertumbuhan.DetailKendalaPertumbuhan"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.kendalapertumbuhan.InputKendalaPertumbuhan"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.kendalapertumbuhan.ListKendalaPertumbuhan"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".utility.DeleteAll"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.sudahtanam.UpdateSudahTanam"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.panen.DetailPanenNonEditable"
+            android:exported="false" /> <!-- UpperBar -->
+        <activity
+            android:name=".upperbar.panen.InputPanen"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.sudahtanam.InputSudahTanam"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.InputRencanaTanam"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.DetailRencanaTanamNonEditable"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rab.DetailRancanganAnggaranBiaya"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.DetailRencanaTanamRAB"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rab.ListRancanganAnggaranBiaya"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.panen.ListPanen"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.sudahtanam.ListSudahTanam"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.ListRencanaTanam"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca"
+            android:exported="false" /> <!-- BottomBar -->
+        <activity
+            android:name=".bottombar.warungku.PenjualanWarungku"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.warungku.ProdukTerlarisWarungku"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilakun.Tentang"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilakun.Kontak"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilakun.EditPassword"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilelahan.DetailProfilLahan"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.warungku.TambahWarungku"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.warungku.EditWarungku"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.Home"
+            android:exported="true" />
+        <activity
+            android:name=".bottombar.profilelahan.ListProfileLahan"
+            android:exported="true" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahan"
+            android:exported="true"
+            android:label="map" />
+        <activity
+            android:name=".bottombar.profilakun.EditProfil"
+            android:exported="true" />
+        <activity
+            android:name=".bottombar.profilakun.BerandaProfile"
+            android:exported="true" />
+        <activity
+            android:name=".bottombar.warungku.BerandaWarungku"
+            android:exported="false" /> <!-- MiddleBar -->
+        <activity
+            android:name=".middlebar.warungtenagakerja.DetailWarungTenagaKerja"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungpestisida.DetailWarungPestisida"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungbibitdanpupuk.DetailWarungBibitdanPupuk"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungsewamesin.DetailWarungSewaMesin"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungsewamesin.ListWarungSewaMesin"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungtenagakerja.ListWarungTenagaKerja"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.warungpestisida.ListWarungPestisida"
+            android:exported="false" /> <!-- Starter -->
+        <activity
+            android:name=".starter.SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".starter.Login"
+            android:exported="true" />
+        <activity
+            android:name=".starter.Register"
+            android:exported="true" /> <!-- Bottom Bar -->
+        <!-- ETC -->
+        <activity
+            android:name=".zzz.YoutubePage"
+            android:exported="true" /> <!-- Helper -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <service android:name=".utility.Services" />
+        <service
+            android:name=".utility.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".myNavigationService"
+            android:foregroundServiceType="location" />
+    </application>
+
+</manifest>

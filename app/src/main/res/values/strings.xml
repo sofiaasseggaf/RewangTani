@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Rewang Tani</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string-array name="gender">
+        <item>Laki - Laki</item>
+        <item>Perempuan</item>
+    </string-array>
+
+    <string-array name="urutan">
+        <item>Urutkan</item>
+        <item>Tanggal Terbaru</item>
+        <item>Tanggal Terlama</item>
+        <item>A-Z</item>
+        <item>Z-A</item>
+        <item>Harga Terendah</item>
+        <item>Harga Tertinggi</item>
+    </string-array>
+
+    <string-array name="statuspekerja">
+        <item>Milik Sendiri, Kelola Sendiri</item>
+        <item>Sewa Lahan, Kelola Sendiri</item>
+        <item>Sewa Lahan, Pengelola Orang Lain</item>
+        <item>Buruh Tani</item>
+    </string-array>
+
+    <string-array name="tujuanjual">
+        <item>Pedagang Besar</item>
+        <item>Pedagang Kecil</item>
+        <item>Bulog</item>
+    </string-array>
+
+    <string-array name="jenishasilpanen">
+        <item>Gabah Basah</item>
+        <item>Gabah Kering</item>
+        <item>Beras</item>
+    </string-array>
+
+</resources>

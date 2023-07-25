@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_warung"
+    tools:context=".middlebar.warungpestisida.DetailWarungPestisida">
+
+    <TextView
+        android:id="@+id/txttop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/santelia_script_bold_dmo"
+        android:text="Warung Pestisida"
+        android:textColor="@color/black"
+        android:textSize="26sp" />
+
+    <ImageView
+        android:id="@+id/img_warung"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/txttop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:scaleType="centerCrop" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rect_ket_produk"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/img_warung"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nama_warung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Pestisida"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+            <TextView
+                android:id="@+id/biaya_warung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="250.000"
+                android:fontFamily="@font/inter_light"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/berat_warung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 Kg"
+                android:fontFamily="@font/inter_light"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/lokasi_warung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jakarta Timur"
+                android:fontFamily="@font/inter_light"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/terjual_warung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terjual : 20"
+                android:fontFamily="@font/inter_semibold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp" />
+            <!--<ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_pisah_produk"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Keterangan :"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_ket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="keterangan pestisida"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_whatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_whatsapp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"/>
+            <!--<TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Spesifikasi :"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/txt_spesifikasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="spesifikasi pestisida"
+                android:fontFamily="@font/inter_regular"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:textSize="10sp" />-->
+        </LinearLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/bg_loading">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/textloading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="100dp"
+                android:fontFamily="@font/inter_bold"
+                android:textSize="22sp"
+                android:textColor="@color/dark_green"/>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+</RelativeLayout>

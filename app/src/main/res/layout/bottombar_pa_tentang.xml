@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_kontak_about"
+    tools:context=".bottombar.profilakun.Tentang">
+
+    <TextView
+        android:id="@+id/txttop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/comfortaa_regular"
+        android:text="Tentang Aplikasi"
+        android:textColor="@color/black"
+        android:textSize="28sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/txttop"
+        android:layout_above="@id/btn_kembali">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:text="Rewang Tani Apps merupakan aplikasi berbasis android dengan kecerdasan buatan didalamnya, aplikasi ini memiliki beberapa kegunaan sebagai berikut :"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="10dp"
+                android:text="1. Memberikan informasi  Rancangan Anggaran Belanja dan prediksi hasil produksi pertanian"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="5dp"
+                android:text="2. Memprediksi cuaca untuk memberikan saran kepada petani dalam mengelola lahannya"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="5dp"
+                android:text="3. Merekomendasikan varietas bibit padi yang cocok untuk lahan yang dikerjakan"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="5dp"
+                android:text="4. Memperingatkan jika ada hama tanaman yang akan menyerang"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="5dp"
+                android:text="5. Menjadi marketplace yang handal untuk tenaga kerja , mesin mesin pertanian, pupuk, obat, sarana pertanian dan hasil pertanian padi"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="5dp"
+                android:text="6. Memberikan informasi akurat terkait harga hasil budidaya pertanian secara lokal maupun nasional"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="10dp"
+                android:text="PT. Thani Ananta Nadi Indonesia merupakan sebuah perusahaan yang bergerak di bidang teknologi untuk membantu para petani dalam mengoptimalkan produktivitas dan hasil panen."
+                android:textColor="@color/black"
+                android:layout_marginBottom="30dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+
+    <ImageButton
+        android:id="@+id/btn_kembali"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40sp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_kembali" />
+
+</RelativeLayout>

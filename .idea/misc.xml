@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/drawable-v24/seekbar_progress.xml" value="0.179" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/drawable-v24/seekbar_progress_style.xml" value="0.179" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/drawable-v24/seekbar_track.xml" value="0.1135" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/drawable-v24/thumb.xml" value="0.179" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/drawable/show_password_selector.xml" value="0.1875" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/aaaaa_delete_all.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_home.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_p_detail_panen_non_editable.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pa_berandaprofile.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pa_editpassword.xml" value="0.26944444444444443" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pa_editprofil.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pa_kontak.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pa_popup_keluar.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pa_tentang.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pl_detail_profil_lahan.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pl_detail_profil_lahan_non_editable.xml" value="0.24351851851851852" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pl_list_profile_lahan.xml" value="0.2887179487179487" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_pl_tambah_profil_lahan.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_berandawarungku.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_detail_warungku.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_edit_warungku.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_edit_warungku_popup.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_penjualan_warungku.xml" value="0.2611111111111111" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_produk_terlaris_warungku.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/bottombar_warungku_tambah_warungku.xml" value="0.21687211093990755" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/home.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_detail_warung_mesin.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_detail_warung_pestisida.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_detail_warung_pupuk.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_detail_warung_tenaga_kerja.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_list_warung_mesin.xml" value="0.33" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_list_warung_pestisida.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_list_warung_pupuk.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/middlebar_list_warung_tenaga_kerja.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/page_login.xml" value="0.21" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/spinner_custom_layout.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/splash_screen.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/starter_login.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/starter_register.xml" value="0.2" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/starter_register_popup_kp.xml" value="0.15935828877005348" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/starter_splash_screen.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_info_Infoperingatancuaca.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_info_berandainfo.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_info_popup_tambahinfo.xml" value="0.33" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_info_tambahinfo.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_kp_detail_kendala_pertumbuhan.xml" value="0.1" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_kp_input_kendala_pertumbuhan.xml" value="0.25337533753375335" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_kp_list_kendala_pertumbuhan.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_p_detail_panen_non_editable.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_p_hasilpanen.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_p_input_panen.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_p_list_panen.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_p_popup_hasilpanen.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rab_detail_rab.xml" value="0.33" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rab_list_rab.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rab_popup_rab.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rt_detail_rencana_tanam_non_editable.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rt_detail_rencana_tanam_rab.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rt_input_rencana_tanam.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_rt_list_rencana_tanam.xml" value="0.25" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_st_detail_sudah_tanam_non_editable.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_st_input_sudah_tanam.xml" value="0.18" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_st_list_sudah_tanam.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/upperbar_st_update_sudah_tanam.xml" value="0.1" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/youtube_page.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_list.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_list_info.xml" value="0.2574074074074074" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_spinner_list.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_spinner_list_urutan.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_spinner_style.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_warung.xml" value="0.33" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_warung_garis.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_warung_monitor.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/z_warungku.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/layout/zzz_youtube_page.xml" value="0.29322916666666665" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/RewangTani/app/src/main/res/xml/provider_paths.xml" value="0.2887179487179487" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="15dp"
+    android:padding="5dp"
+    android:background="#0DFFFFFF">
+
+    <TextView
+        android:id="@+id/nama"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:text="Palawija "
+        android:layout_toLeftOf="@id/img"
+        android:layout_marginRight="5dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="12sp"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_arrow"
+        android:layout_marginTop="2dp"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line"
+        android:layout_below="@id/nama"
+        android:layout_marginTop="15dp"/>
+
+    </RelativeLayout>

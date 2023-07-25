@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:padding="7dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/rect_warung">
+
+    <ImageView
+        android:id="@+id/img_warung"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/img_warung">
+        <TextView
+            android:id="@+id/nama_warung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Traktor"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/biaya_warung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="250.000 / Hari"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+        <TextView
+            android:id="@+id/lokasi_warung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jakarta Timur"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="@color/black"
+            android:layout_marginTop="2dp"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+
+    </RelativeLayout>
