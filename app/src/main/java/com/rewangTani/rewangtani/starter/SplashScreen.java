@@ -3,81 +3,49 @@ package com.rewangTani.rewangtani.starter;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.StarterSplashScreenBinding;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 public class SplashScreen extends AppCompatActivity {
 
-    ImageButton btn_masuk, btn_daftar;
-    SplashScreen splashScreen;
-    //private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 2000;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.starter_splash_screen);
 
-        splashScreen = this;
-        btn_masuk = findViewById(R.id.btn_masuk);
-        btn_daftar = findViewById(R.id.btn_daftar);
-
-        first();
-
-        btn_masuk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToMasuk();
-            }
-        });
-
-        btn_daftar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToDaftar();
-            }
-        });
-
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent homeIntent = new Intent(SplashScreen.this, Login.class);
-                startActivity(homeIntent);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);*/
-    }
-
-    public void first(){
         if (PreferenceUtils.getIdAkun(this) == null || PreferenceUtils.getIdAkun(this).equalsIgnoreCase("")){
-            //do nothing
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent homeIntent = new Intent(SplashScreen.this, Login.class);
+                    startActivity(homeIntent);
+                    finish();
+                }
+            }, SPLASH_TIME_OUT);
         } else {
-
             goToHome();
         }
     }
 
+
     public void goToHome(){
         Intent a = new Intent(SplashScreen.this, Home.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToDaftar(){
-        Intent a = new Intent(SplashScreen.this, Register.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToMasuk(){
-        Intent a = new Intent(SplashScreen.this, Login.class);
         startActivity(a);
         finish();
     }
@@ -95,7 +63,6 @@ public class SplashScreen extends AppCompatActivity {
                         finishAffinity();
                     }
                 })
-
                 .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {

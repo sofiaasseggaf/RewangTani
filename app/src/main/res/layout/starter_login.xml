@@ -1,242 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".starter.Login">
-  <!--  <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_back"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="75dp"
-        android:fontFamily="@font/comfortaa_regular"
-        android:text="Masuk"
-        android:textColor="@color/black"
-        android:textSize="36sp" />-->
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="150dp"
-        android:layout_height="133dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/new_logo" />
-
-    <TextView
-        android:id="@+id/txtMasuk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/inter_bold"
-        android:text="Masuk"
-        android:textColor="@color/black"
-        android:textSize="26sp" />
-
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtMasuk"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/txt_username"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingLeft="15dp"
-            android:hint="Nama Pengguna"
-            android:fontFamily="@font/inter_regular"
-            android:textSize="10sp"
-            android:textColor="@color/black"
-            android:textColorHint="#80000000"
-            android:background="@drawable/bg_grey_radius"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_grey_radius"
-            android:layout_marginTop="10dp">
-            <EditText
-                android:id="@+id/txt_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="50dp"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="10dp"
-                android:hint="Kata Sandi"
-                android:background="#B3E1E1E1"
-                android:fontFamily="@font/inter_regular"
-                android:textSize="10sp"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:textColorHint="#80000000"
-                android:inputType="textPassword"/>
-
-            <ImageButton
-                android:id="@+id/btn_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/ic_eye" />
-        </RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".starter.Login">
+        <!--  <ImageButton
+              android:id="@+id/btn_back"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/btn_back"
+              android:layout_marginTop="50dp"
+              android:layout_marginLeft="20dp"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="20dp"
+              android:layout_marginTop="75dp"
+              android:fontFamily="@font/comfortaa_regular"
+              android:text="Masuk"
+              android:textColor="@color/black"
+              android:textSize="36sp" />-->
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="133dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/new_logo" />
 
         <TextView
+            android:id="@+id/txtMasuk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/inter_regular"
-            android:text="Lupa Password"
-            android:textColor="#919191"
-            android:textSize="10sp" />
+            android:layout_below="@id/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Masuk"
+            android:textColor="@color/black"
+            android:textSize="26sp" />
 
-        <RelativeLayout
-            android:id="@+id/btn_masuk"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:background="@drawable/bg_dark_green_radius">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtMasuk"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txt_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_grey_radius"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Nama Pengguna"
+                android:paddingLeft="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="#80000000"
+                android:textSize="10sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_grey_radius">
+
+                <EditText
+                    android:id="@+id/txt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="50dp"
+                    android:background="#B3E1E1E1"
+                    android:fontFamily="@font/inter_regular"
+                    android:hint="Kata Sandi"
+                    android:inputType="textPassword"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#80000000"
+                    android:textSize="10sp" />
+
+                <ImageButton
+                    android:id="@+id/btn_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/ic_eye" />
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/inter_bold"
-                android:text="MASUK"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </RelativeLayout>
+                android:fontFamily="@font/inter_regular"
+                android:text="Lupa Password"
+                android:textColor="#919191"
+                android:textSize="10sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/inter_regular"
-            android:text="Atau"
-            android:textColor="#919191"
-            android:textSize="10sp" />
-
-      <!--  <ImageButton
-            android:id="@+id/btn_masuk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_masuk2"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"/>-->
-
-
-    <!--    <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/icon_atau"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"/>-->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_blank_grey_radius"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:paddingVertical="10dp">
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/icGoogle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/ic_google"/>
+                android:id="@+id/btn_masuk"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_dark_green_radius">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@id/icGoogle"
-                    android:layout_marginLeft="10dp"
-                    android:fontFamily="@font/inter_regular"
-                    android:text="Masuk dengan Google"
-                    android:textColor="@color/black"
-                    android:textSize="10sp" />
+                    android:fontFamily="@font/inter_bold"
+                    android:text="MASUK"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
             </RelativeLayout>
-        </RelativeLayout>
-       <!-- <ImageButton
-            android:id="@+id/btn_signin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_logingoogle"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"/>-->
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Belum Punya Akun?"
-            android:fontFamily="@font/roboto_regular"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dp"/>
-        <TextView
-            android:id="@+id/btn_daftar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Daftar"
-            android:fontFamily="@font/roboto_medium"
-            android:textSize="15sp"
-            android:textColor="#16672E"
-            android:clickable="true"/>
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/bg_loading">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
             <TextView
-                android:id="@+id/textloading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="100dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="22sp"
-                android:textColor="@color/dark_green"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Atau"
+                android:textColor="#919191"
+                android:textSize="10sp" />
 
-        </RelativeLayout>
+            <!--  <ImageButton
+                  android:id="@+id/btn_masuk"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/btn_masuk2"
+                  android:layout_marginTop="20dp"
+                  android:layout_gravity="center"/>-->
 
-    </FrameLayout>
 
-</RelativeLayout>
+            <!--    <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_atau"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="50dp"/>-->
+
+            <RelativeLayout
+                android:id="@+id/btnLoginWithGoogle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_blank_grey_radius"
+                android:paddingVertical="10dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <ImageView
+                        android:id="@+id/icGoogle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ic_google" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_toRightOf="@id/icGoogle"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Masuk dengan Google"
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <!-- <ImageButton
+                 android:id="@+id/btn_signin"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:background="@drawable/btn_logingoogle"
+                 android:layout_gravity="center"
+                 android:layout_marginTop="30dp"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Belum Punya Akun?"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/btn_daftar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Daftar"
+                android:textColor="#16672E"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_loading"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textloading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="100dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/dark_green"
+                    android:textSize="22sp" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+</layout>

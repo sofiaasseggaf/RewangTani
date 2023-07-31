@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.StarterRegisterBinding;
 import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
@@ -60,45 +63,29 @@ import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
-    EditText txt_nama, txt_email, txt_username, txt_password, txt_repeat_password;
-    ImageButton btn_daftar, btn_back, btn_password, btn_password2, btn_signup;
+    StarterRegisterBinding binding;
+
     ModelAkun modelAkun, modelAkunAwal;
     DatumAkun dataAkun;
     ModelProfilAkun modelProfilAkun;
     DatumProfil dataProfil;
-    int check, checkPanjangPasword;
-    TextView txtload, panjangpassword;
     PopupWindow popupWindow;
     View popupView;
-    String token;
-    String googleid, googleusername, googleemail, googlename;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth firebaseAuth;
     GoogleSignInAccount googleSignInAccount;
-    int testUsername, testEmail;
+    AuthCredential authCredential;
+    Task<GoogleSignInAccount> signInAccountTask;
+    String token, googleid, googleusername, googleemail, googlename;
+    int check, checkPanjangPasword, testUsername, testEmail;
     int pw = 0;
     int pw2 = 0;
     int tokenis = 0;
-    AuthCredential authCredential;
-    Task<GoogleSignInAccount> signInAccountTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.starter_register);
-
-        txt_nama = findViewById(R.id.txt_nama);
-        txt_email = findViewById(R.id.txt_email);
-        txt_username = findViewById(R.id.txt_username);
-        txt_password = findViewById(R.id.txt_password);
-        txt_repeat_password = findViewById(R.id.txt_repeat_password);
-        btn_daftar = findViewById(R.id.btn_daftar);
-        btn_back = findViewById(R.id.btn_back);
-        txtload = findViewById(R.id.textloading);
-        panjangpassword = findViewById(R.id.panjangpassword);
-        btn_password = findViewById(R.id.btn_password);
-        btn_password2 = findViewById(R.id.btn_password2);
-        btn_signup = findViewById(R.id.btn_signup);
+        binding = DataBindingUtil.setContentView(this, R.layout.starter_register);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("878909563548-6a6d4mj5uqmqm4hlea3sa73agsv10fhm.apps.googleusercontent.com")
@@ -108,59 +95,59 @@ public class Register extends AppCompatActivity {
 
         first();
 
-        txt_password.addTextChangedListener(new TextWatcher() {
+        binding.txtPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int length = txt_password.length();
+                int length = binding.txtPassword.length();
                 if (length<8){
                     checkPanjangPasword = 0;
-                    panjangpassword.setText("Password kurang dari 8 karakter");
+                    binding.panjangpassword.setText("Password kurang dari 8 karakter");
                 } else {
                     checkPanjangPasword = 10;
-                    panjangpassword.setText("");
+                    binding.panjangpassword.setText("");
                 }
             }
             @Override
             public void afterTextChanged(Editable s) { }
         });
 
-        btn_password.setOnClickListener(new View.OnClickListener() {
+        binding.btnPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pw==0){
                     pw = 1;
-                    btn_password.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    txt_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                    binding.txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else if (pw==1){
                     pw = 0;
-                    btn_password.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    txt_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                    binding.txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
 
             }
         });
 
-        btn_password2.setOnClickListener(new View.OnClickListener() {
+        binding.btnPassword2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pw2 ==0){
                     pw2 = 1;
-                    btn_password2.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    txt_repeat_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    binding.btnPassword2.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                    binding.txtRepeatPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 } else if (pw2==1){
                     pw2 = 0;
-                    btn_password2.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    txt_repeat_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.btnPassword2.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                    binding.txtRepeatPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
 
             }
         });
 
-        btn_daftar.setOnClickListener(new View.OnClickListener() {
+        binding.btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (tokenis==0){
@@ -171,14 +158,8 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToSplashScreen();
-            }
-        });
 
-        btn_signup.setOnClickListener(new View.OnClickListener() {
+        binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOutGoogle();
@@ -191,7 +172,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void first(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+       binding.framelayout.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -199,11 +180,11 @@ public class Register extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("TTunggu sebentar ya . . ."); }
+                    binding.textloading.setText("TTunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -232,7 +213,7 @@ public class Register extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            binding.framelayout.setVisibility(View.GONE);
                             Toast.makeText(Register.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
 
                         }
@@ -241,7 +222,13 @@ public class Register extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ModelAkun> call, Throwable t) {
-                Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.framelayout.setVisibility(View.GONE);
+                        Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                    }
+                });
                 call.cancel();
             }
         });
@@ -309,11 +296,11 @@ public class Register extends AppCompatActivity {
                 public void run() {
                     count++;
                     if (count == 1) {
-                        txtload.setText("Tunggu sebentar ya ."); }
+                        binding.textloading.setText("Tunggu sebentar ya ."); }
                     else if (count == 2) {
-                        txtload.setText("Tunggu sebentar ya . ."); }
+                        binding.textloading.setText("Tunggu sebentar ya . ."); }
                     else if (count == 3) {
-                        txtload.setText("Tunggu sebentar ya . . ."); }
+                        binding.textloading.setText("Tunggu sebentar ya . . ."); }
                     if (count == 3)
                         count = 0;
                     handler.postDelayed(this, 1500);
@@ -434,8 +421,8 @@ public class Register extends AppCompatActivity {
     }
 
     private void checkUsername(){
-        if(!txt_username.getText().toString().equalsIgnoreCase("")){
-            String username = txt_username.getText().toString();
+        if(!binding.txtUsername.getText().toString().equalsIgnoreCase("")){
+            String username = binding.txtUsername.getText().toString();
             for(int i=0; i<modelAkunAwal.getTotalData(); i++){
                 if(modelAkunAwal.getData().get(i).getUserName().equalsIgnoreCase(username)){
                     Toast.makeText(this, "Username sudah terpakai", Toast.LENGTH_SHORT).show();
@@ -524,11 +511,11 @@ public class Register extends AppCompatActivity {
                             public void run() {
                                 count++;
                                 if (count == 1) {
-                                    txtload.setText("Tunggu sebentar ya .");
+                                    binding.textloading.setText("Tunggu sebentar ya .");
                                 } else if (count == 2) {
-                                    txtload.setText("Tunggu sebentar ya . .");
+                                    binding.textloading.setText("Tunggu sebentar ya . .");
                                 } else if (count == 3) {
-                                    txtload.setText("Tunggu sebentar ya . . .");
+                                    binding.textloading.setText("Tunggu sebentar ya . . .");
                                 }
                                 if (count == 3)
                                     count = 0;
@@ -555,8 +542,8 @@ public class Register extends AppCompatActivity {
     }
 
     private void checkEmail(){
-        if(!txt_email.getText().toString().equalsIgnoreCase("")){
-            String email = txt_email.getText().toString();
+        if(!binding.txtEmail.getText().toString().equalsIgnoreCase("")){
+            String email = binding.txtEmail.getText().toString();
             for(int i=0; i<modelAkunAwal.getTotalData(); i++){
                 if(modelAkunAwal.getData().get(i).getEmail().equalsIgnoreCase(email)){
                     Toast.makeText(this, "Email sudah terpakai", Toast.LENGTH_SHORT).show();
@@ -576,17 +563,17 @@ public class Register extends AppCompatActivity {
     }
 
     private void checkPassword(){
-        if(!txt_password.getText().toString().equalsIgnoreCase("")) {
+        if(!binding.txtPassword.getText().toString().equalsIgnoreCase("")) {
             //if pw sama kaya ulang pw
-            if (txt_password.getText().toString().equalsIgnoreCase(txt_repeat_password.getText().toString())) {
+            if (binding.txtPassword.getText().toString().equalsIgnoreCase(binding.txtRepeatPassword.getText().toString())) {
                 if (checkPanjangPasword == 10) {
                     boolean hitLetter = false;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        hitLetter = txt_password.getText().toString().codePoints().anyMatch(i -> Character.isLetter(i));
+                        hitLetter = binding.txtPassword.getText().toString().codePoints().anyMatch(i -> Character.isLetter(i));
                     }
                     boolean hitDigit = false;
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                        hitDigit = txt_password.getText().toString().codePoints().anyMatch(i -> Character.isDigit(i));
+                        hitDigit = binding.txtPassword.getText().toString().codePoints().anyMatch(i -> Character.isDigit(i));
                     }
                     boolean containsBoth = (hitLetter && hitDigit);
                     //String n = ".*[0-9].*";
@@ -605,7 +592,7 @@ public class Register extends AppCompatActivity {
                         // which view you pass in doesn't matter, it is only used for the window tolken
                         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
                         CheckBox checkBox = popupView.findViewById(R.id.checkBox);
-                        ImageButton btn_daftar2 = popupView.findViewById(R.id.btn_daftar2);
+                        RelativeLayout btn_daftar2 = popupView.findViewById(R.id.btn_daftar2);
                         // dismiss the popup window when touched
                         popupView.setOnTouchListener(new View.OnTouchListener() {
                             @Override
@@ -633,11 +620,11 @@ public class Register extends AppCompatActivity {
                                         public void run() {
                                             count++;
                                             if (count == 1) {
-                                                txtload.setText("Tunggu sebentar ya .");
+                                                binding.textloading.setText("Tunggu sebentar ya .");
                                             } else if (count == 2) {
-                                                txtload.setText("Tunggu sebentar ya . .");
+                                                binding.textloading.setText("Tunggu sebentar ya . .");
                                             } else if (count == 3) {
-                                                txtload.setText("Tunggu sebentar ya . . .");
+                                                binding.textloading.setText("Tunggu sebentar ya . . .");
                                             }
                                             if (count == 3)
                                                 count = 0;
@@ -722,10 +709,10 @@ public class Register extends AppCompatActivity {
 
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
-        jsonParams.put("userName", txt_username.getText().toString());
-        jsonParams.put("email", txt_email.getText().toString());
-        jsonParams.put("password", txt_password.getText().toString());
-        jsonParams.put("namaAkun", txt_nama.getText().toString());
+        jsonParams.put("userName", binding.txtUsername.getText().toString());
+        jsonParams.put("email", binding.txtEmail.getText().toString());
+        jsonParams.put("password", binding.txtPassword.getText().toString());
+        jsonParams.put("namaAkun", binding.txtNama.getText().toString());
         jsonParams.put("token", token);
         jsonParams.put("idGoogle", "");
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
@@ -776,7 +763,7 @@ public class Register extends AppCompatActivity {
                     try{
                         for (int i = 0; i < modelAkun.getTotalData(); i++) {
                             String email = modelAkun.getData().get(i).getEmail();
-                            if (email.equalsIgnoreCase(txt_email.getText().toString())){
+                            if (email.equalsIgnoreCase(binding.txtEmail.getText().toString())){
                                 dataAkun = modelAkun.getData().get(i);
                                 break;
                             }
@@ -979,14 +966,26 @@ public class Register extends AppCompatActivity {
         finish();
     }
 
-    public void  goToSplashScreen(){
-        Intent a = new Intent(Register.this, SplashScreen.class);
-        startActivity(a);
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
-        goToSplashScreen();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Anda mau menutup aplikasi")
+                .setCancelable(false)
+                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        Register.super.onBackPressed();
+                        finish();
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

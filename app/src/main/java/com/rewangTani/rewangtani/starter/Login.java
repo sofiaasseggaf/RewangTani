@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -37,6 +38,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditPassword;
+import com.rewangTani.rewangtani.databinding.StarterLoginBinding;
 import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
@@ -56,43 +58,24 @@ import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
 
-    //LOGIN
-    EditText txt_username, txt_password;
-    ImageButton btn_masuk, btn_back, btn_password;
-    TextView btn_daftar;
-    String token;
-    int tokenis=0;
-    // LOGIN W GOOGLE
-    ImageButton btnLoginWithGoogle;
-    GoogleSignInClient mGoogleSignInClient;
-    FirebaseAuth firebaseAuth;
-    GoogleSignInAccount googleSignInAccount;
-
-    // RETROFIT
+    StarterLoginBinding binding;
     ModelAkun modelAkun;
     ModelProfilAkun modelProfilAkun;
     DatumAkun dataAkun;
     DatumProfil dataProfil;
-    String username, password;
-    int ok;
-    TextView txtload;
-    int pw = 0;
+    String token, username, password;
+    GoogleSignInClient mGoogleSignInClient;
+    FirebaseAuth firebaseAuth;
+    GoogleSignInAccount googleSignInAccount;
     Task<GoogleSignInAccount> signInAccountTask;
+    int tokenis = 0;
+    int ok;
+    int pw = 0;
 
-    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.starter_login);
-
-        txt_username = findViewById(R.id.txt_username);
-        txt_password = findViewById(R.id.txt_password);
-        btn_masuk = findViewById(R.id.btn_masuk);
-        btn_back = findViewById(R.id.btn_back);
-        btn_daftar = findViewById(R.id.btn_daftar);
-        //btnLoginWithGoogle = findViewById(R.id.btn_signin);
-        txtload = findViewById(R.id.textloading);
-        btn_password = findViewById(R.id.btn_password);
+        binding = DataBindingUtil.setContentView(this, R.layout.starter_login);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("878909563548-6a6d4mj5uqmqm4hlea3sa73agsv10fhm.apps.googleusercontent.com")
@@ -102,75 +85,69 @@ public class Login extends AppCompatActivity {
 
         first();
 
-        btn_daftar.setOnClickListener(new View.OnClickListener() {
+        binding.btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToDaftar();
             }
         });
 
-        btnLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
+        binding.btnLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mGoogleSignInClient!=null){
+                if (mGoogleSignInClient != null) {
                     signOutGoogle();
                 }
                 // Initialize sign in intent
                 Intent intent = mGoogleSignInClient.getSignInIntent();
                 // Start activity for result
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
                 //signInWithGoogle();
                 //Toast.makeText(Login.this, "Fitur Belum tersedia", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-        btn_password.setOnClickListener(new View.OnClickListener() {
+        binding.btnPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pw==0){
+                if (pw == 0) {
                     pw = 1;
-                    btn_password.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    txt_password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else if (pw==1){
+                    binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                    binding.txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else if (pw == 1) {
                     pw = 0;
-                    btn_password.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    txt_password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                    binding.txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
 
             }
         });
 
-        btn_masuk.setOnClickListener(new View.OnClickListener() {
+        binding.btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 login();
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToSplashScreen();
-            }
-        });
-
     }
 
-    private void first(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    private void first() {
+        binding.framelayout.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textloading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textloading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -188,56 +165,59 @@ public class Login extends AppCompatActivity {
 
     public void getDataAkun() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-            final Call<ModelAkun> dataAkun = apiInterface.getDataAkun();
-            dataAkun.enqueue(new Callback<ModelAkun>() {
-                @Override
-                public void onResponse(Call<ModelAkun> call, Response<ModelAkun> response) {
-                    modelAkun = response.body();
-                    if (response.body()!=null){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-                @Override
-                public void onFailure(Call<ModelAkun> call, Throwable t) {
+        final Call<ModelAkun> dataAkun = apiInterface.getDataAkun();
+        dataAkun.enqueue(new Callback<ModelAkun>() {
+            @Override
+            public void onResponse(Call<ModelAkun> call, Response<ModelAkun> response) {
+                modelAkun = response.body();
+                if (response.body() != null) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                            call.cancel();
+                            binding.framelayout.setVisibility(View.GONE);
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.framelayout.setVisibility(View.GONE);
+                            Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
-            });
+            }
+
+            @Override
+            public void onFailure(Call<ModelAkun> call, Throwable t) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.framelayout.setVisibility(View.GONE);
+                        Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        call.cancel();
+                    }
+                });
+            }
+        });
     }
 
-    public void login(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    public void login() {
+        binding.framelayout.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textloading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textloading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -253,22 +233,23 @@ public class Login extends AppCompatActivity {
         }).start();
     }
 
-    public void check(){
-        if (!txt_username.getText().toString().isEmpty() && !txt_password.getText().toString().isEmpty()) {
+    public void check() {
+        if (!binding.txtUsername.getText().toString().isEmpty() && !binding.txtPassword.getText().toString().isEmpty()) {
             try {
                 for (int i = 0; i < modelAkun.getTotalData(); i++) {
                     username = modelAkun.getData().get(i).getUserName();
                     password = modelAkun.getData().get(i).getPassword();
                     //idUser = dataModelUser.getData().getAauthUsers().get(i).getId();
-                    if (username.equalsIgnoreCase(txt_username.getText().toString()) &&
-                            password.equalsIgnoreCase(txt_password.getText().toString())) {
+                    if (username.equalsIgnoreCase(binding.txtUsername.getText().toString()) &&
+                            password.equalsIgnoreCase(binding.txtPassword.getText().toString())) {
                         dataAkun = modelAkun.getData().get(i);
-                        ok=10;
+                        ok = 10;
                         break;
-                        }
                     }
-            } catch (Exception e){ }
-            if (ok!=10){
+                }
+            } catch (Exception e) {
+            }
+            if (ok != 10) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -277,10 +258,10 @@ public class Login extends AppCompatActivity {
 
                     }
                 });
-            }else if (ok==10){
+            } else if (ok == 10) {
                 getDataProfilAkun();
             }
-        } else if (txt_username.getText().toString().isEmpty()) {
+        } else if (binding.txtUsername.getText().toString().isEmpty()) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -288,7 +269,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
-        } else if (txt_password.getText().toString().isEmpty()) {
+        } else if (binding.txtPassword.getText().toString().isEmpty()) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -296,7 +277,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
-        } else if (txt_username.getText().toString().isEmpty() && txt_password.getText().toString().isEmpty()) {
+        } else if (binding.txtUsername.getText().toString().isEmpty() && binding.txtPassword.getText().toString().isEmpty()) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -314,34 +295,36 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelProfilAkun> call, Response<ModelProfilAkun> response) {
                 modelProfilAkun = response.body();
-                if (response.body()!=null){
-                    try{
+                if (response.body() != null) {
+                    try {
                         for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
                             String idAkun = dataAkun.getIdAkun();
                             if (modelProfilAkun.getData().get(i).getIdAkun().equalsIgnoreCase(idAkun)) {
                                 dataProfil = modelProfilAkun.getData().get(i);
-                                if (dataProfil!=null){
+                                if (dataProfil != null) {
                                     getToken();
                                 } else {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                            binding.framelayout.setVisibility(View.GONE);
                                             Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
                             }
                         }
-                    } catch (Exception e){ }
+                    } catch (Exception e) {
+                    }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelProfilAkun> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.framelayout.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -350,7 +333,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void getToken(){
+    private void getToken() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
@@ -359,7 +342,7 @@ public class Login extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    binding.framelayout.setVisibility(View.GONE);
                                     Toast.makeText(Login.this, "Fetching FCM registration token failed", Toast.LENGTH_SHORT).show();
                                     tokenis = 0;
                                     return;
@@ -369,7 +352,7 @@ public class Login extends AppCompatActivity {
                             // Get new FCM registration token
                             token = task.getResult();
                         }
-                        if (token!=null){
+                        if (token != null) {
                             tokenis = 1;
                             updateDataAkunToken();
                         } else {
@@ -380,11 +363,11 @@ public class Login extends AppCompatActivity {
                 });
     }
 
-    public void updateDataAkunToken(){
+    public void updateDataAkunToken() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
         jsonParams.put("idAkun", dataAkun.getIdAkun());
-        jsonParams.put("token", token );
+        jsonParams.put("token", token);
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
 
@@ -400,7 +383,7 @@ public class Login extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.framelayout.setVisibility(View.GONE);
                                 Toast.makeText(Login.this, "Gagal update token", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -409,12 +392,13 @@ public class Login extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.framelayout.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -423,7 +407,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void saveDataTokenBaru(){
+    public void saveDataTokenBaru() {
         PreferenceUtils.saveIdAkun(dataAkun.getIdAkun(), getApplicationContext());
         PreferenceUtils.saveToken(token, getApplicationContext());
         PreferenceUtils.saveIdProfil(dataProfil.getIdProfile(), getApplicationContext());
@@ -433,13 +417,13 @@ public class Login extends AppCompatActivity {
         PreferenceUtils.saveNamaDepan(dataProfil.getNamaDepan(), getApplicationContext());
         PreferenceUtils.saveNamaBelakang(dataProfil.getNamaBelakang(), getApplicationContext());
         PreferenceUtils.saveIDGoogle(dataAkun.getIdGoogle(), getApplicationContext());
-        if (!dataProfil.getFoto().equalsIgnoreCase("")){
+        if (!dataProfil.getFoto().equalsIgnoreCase("")) {
             PreferenceUtils.saveIDPhoto(dataProfil.getFoto(), getApplicationContext());
         }
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                binding.framelayout.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Berhasil masuk", Toast.LENGTH_SHORT).show();
                 goToHome();
             }
@@ -478,19 +462,21 @@ public class Login extends AppCompatActivity {
         if (requestCode == 100) {
             // When request code is equal to 100
             // Initialize task
-            findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+            binding.framelayout.setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 int count = 0;
+
                 @Override
                 public void run() {
                     count++;
                     if (count == 1) {
-                        txtload.setText("Tunggu sebentar ya ."); }
-                    else if (count == 2) {
-                        txtload.setText("Tunggu sebentar ya . ."); }
-                    else if (count == 3) {
-                        txtload.setText("Tunggu sebentar ya . . ."); }
+                        binding.textloading.setText("Tunggu sebentar ya .");
+                    } else if (count == 2) {
+                        binding.textloading.setText("Tunggu sebentar ya . .");
+                    } else if (count == 3) {
+                        binding.textloading.setText("Tunggu sebentar ya . . .");
+                    }
                     if (count == 3)
                         count = 0;
                     handler.postDelayed(this, 1500);
@@ -508,7 +494,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void getGoogle(Intent data){
+    private void getGoogle(Intent data) {
         signInAccountTask = GoogleSignIn
                 .getSignedInAccountFromIntent(data);
         // check condition
@@ -564,23 +550,22 @@ public class Login extends AppCompatActivity {
     }
 
 
-
-    public void checkUserByGoogle(){
+    public void checkUserByGoogle() {
         String a = googleSignInAccount.getId();
-        if (!a.equalsIgnoreCase("")){
-            for(int i=0; i<modelAkun.getTotalData(); i++){
-                if (modelAkun.getData().get(i).getIdGoogle()!=null){
-                    if (!modelAkun.getData().get(i).getIdGoogle().equalsIgnoreCase("")){
+        if (!a.equalsIgnoreCase("")) {
+            for (int i = 0; i < modelAkun.getTotalData(); i++) {
+                if (modelAkun.getData().get(i).getIdGoogle() != null) {
+                    if (!modelAkun.getData().get(i).getIdGoogle().equalsIgnoreCase("")) {
                         String id = modelAkun.getData().get(i).getIdGoogle();
-                        if (id.equalsIgnoreCase(a)){
+                        if (id.equalsIgnoreCase(a)) {
                             dataAkun = modelAkun.getData().get(i);
-                            ok=10;
+                            ok = 10;
                             break;
                         }
                     }
                 }
             }
-            if (ok!=10){
+            if (ok != 10) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -606,7 +591,7 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-            } else if (ok==10){
+            } else if (ok == 10) {
                 String s = "Google sign in successful";
                 // Display Toast
                 runOnUiThread(new Runnable() {
@@ -626,7 +611,7 @@ public class Login extends AppCompatActivity {
         //Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
     }
 
-    private void signOutGoogle(){
+    private void signOutGoogle() {
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -636,7 +621,7 @@ public class Login extends AppCompatActivity {
                 });
     }
 
-    private void revokeGoogle(){
+    private void revokeGoogle() {
         mGoogleSignInClient.revokeAccess()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -648,27 +633,38 @@ public class Login extends AppCompatActivity {
 
     // ---------------------------------------------------------------------------------------------
 
-    public void goToHome(){
+    public void goToHome() {
         Intent a = new Intent(Login.this, Home.class);
         startActivity(a);
         finish();
     }
 
-    public void goToDaftar(){
+    public void goToDaftar() {
         Intent a = new Intent(Login.this, Register.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void  goToSplashScreen(){
-        Intent a = new Intent(Login.this, SplashScreen.class);
         startActivity(a);
         finish();
     }
 
     @Override
     public void onBackPressed() {
-        goToSplashScreen();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Anda mau menutup aplikasi")
+                .setCancelable(false)
+                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        Login.super.onBackPressed();
+                        finish();
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
-
 }
