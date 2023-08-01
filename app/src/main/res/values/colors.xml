@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_green">#4D6749</color>
     <color name="red">#FF0000</color>
-    <color name="chatGreen">#327036</color>
-    <color name="chatGrey">#EAEAEA</color>
+    <color name="chatGreen">#259036</color>
+    <color name="chatGrey">#C7C5C5</color>
 </resources>

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -18,6 +20,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,13 +33,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.kosalgeek.android.photoutil.MainActivity;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.adapter.adapterbottombar.HomeImageCarouselAdapter;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.BerandaWarungku;
+import com.rewangTani.rewangtani.databinding.BottombarHomeBinding;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
+import com.rewangTani.rewangtani.model.modelphoto.Data;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
@@ -53,55 +59,36 @@ import org.json.JSONObject;
 
 public class Home extends AppCompatActivity {
 
-    TextView homeNama, txt_temp, txt_condition, txtload;
-    ImageView img_temp;
-    ImageButton btn_rencana_tanam, btn_sudah_tanam, btn_panen, btn_rab;
-    ImageButton btn_w_tenaga_kerja, btn_w_sewa_mesin, btn_w_pupuk, btn_w_pestisida;
-    ImageButton btn_beranda, btn_warungku, btn_profil_lahan, btn_profil_akun, btn_plus_info;
-    RelativeLayout btn_info;
+    BottombarHomeBinding binding;
     int PERMISSION_CODE = 1;
     Double lat = 0.0;
     Double longt = 0.0;
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+    private HomeImageCarouselAdapter homeImageCarouselAdapter;
+    private int[] imageIds = {R.drawable.background_top, R.drawable.bg_info, R.drawable.img_logo};
+    private ImageView[] dots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_home);
 
-        homeNama = findViewById(R.id.homeNama);
-        txt_temp = findViewById(R.id.txt_temp);
-        txt_condition = findViewById(R.id.txt_condition);
-        img_temp = findViewById(R.id.img_temp);
-        btn_rencana_tanam = findViewById(R.id.btn_rencana_tanam);
-        btn_sudah_tanam = findViewById(R.id.btn_sudah_tanam);
-        btn_panen = findViewById(R.id.btn_panen);
-        btn_rab = findViewById(R.id.btn_rab);
-        btn_info = findViewById(R.id.btn_info);
-        btn_w_tenaga_kerja = findViewById(R.id.btn_w_tenaga_kerja);
-        btn_w_sewa_mesin = findViewById(R.id.btn_w_sewa_mesin);
-        btn_w_pupuk = findViewById(R.id.btn_w_pupuk);
-        btn_w_pestisida = findViewById(R.id.btn_w_pestisida);
-        btn_beranda = findViewById(R.id.btn_beranda);
-        btn_warungku = findViewById(R.id.btn_warungku);
-        btn_profil_lahan = findViewById(R.id.btn_profil_lahan);
-        btn_profil_akun = findViewById(R.id.btn_profil_akun);
-        btn_plus_info = findViewById(R.id.btn_plus_info);
-        txtload = findViewById(R.id.textloading);
+        binding.txtNama.setText("Hai, "+PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
 
+        homeImageCarouselAdapter = new HomeImageCarouselAdapter(this, imageIds);
+        binding.viewPager.setAdapter(homeImageCarouselAdapter);
+        addDotsIndicator(0);
 
-        homeNama.setText(PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
         start();
 
-        btn_rencana_tanam.setOnClickListener(new View.OnClickListener() {
+        binding.btnRencanaTanam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToRencanaTanam();
             }
         });
 
-        btn_sudah_tanam.setOnClickListener(new View.OnClickListener() {
+        binding.btnSudahTanam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
@@ -125,84 +112,94 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        btn_panen.setOnClickListener(new View.OnClickListener() {
+        binding.btnHasilPanen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToPanen();
             }
         });
 
-        btn_rab.setOnClickListener(new View.OnClickListener() {
+        binding.btnRencanaBiaya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToRAB();
             }
         });
 
-        btn_info.setOnClickListener(new View.OnClickListener() {
+        binding.btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToInfo();
             }
         });
 
-        btn_plus_info.setOnClickListener(new View.OnClickListener() {
+        binding.btnPlusInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToTambahInfo();
             }
         });
 
-        btn_w_tenaga_kerja.setOnClickListener(new View.OnClickListener() {
+        binding.btnWarungTenagaKerja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent a = new Intent(Home.this, DeleteAll.class);
-                startActivity(a);
-                finish();*/
                 goToWarungTK();
             }
         });
 
-        btn_w_sewa_mesin.setOnClickListener(new View.OnClickListener() {
+        binding.btnWarungSewaMesin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToWarungSM();
             }
         });
 
-        btn_w_pupuk.setOnClickListener(new View.OnClickListener() {
+        binding.btnWarungPupuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToWarungPupuk();
             }
         });
 
-        btn_w_pestisida.setOnClickListener(new View.OnClickListener() {
+        binding.btnWarungPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToWarungPestisida();
             }
         });
 
-        btn_warungku.setOnClickListener(new View.OnClickListener() {
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToWarungku();
             }
         });
 
-        btn_profil_lahan.setOnClickListener(new View.OnClickListener() {
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToProfilLahan();
             }
         });
 
-        btn_profil_akun.setOnClickListener(new View.OnClickListener() {
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToProfilAkun();
             }
+        });
+
+        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            @Override
+            public void onPageSelected(int position) {
+                addDotsIndicator(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {}
         });
 
     }
@@ -219,11 +216,11 @@ public class Home extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya .");
+                    binding.textloading.setText("Tunggu sebentar ya .");
                 } else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . .");
+                    binding.textloading.setText("Tunggu sebentar ya . .");
                 } else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . .");
+                    binding.textloading.setText("Tunggu sebentar ya . . .");
                 }
                 if (count == 3)
                     count = 0;
@@ -301,6 +298,24 @@ public class Home extends AppCompatActivity {
         getDataWeather(lat,longt);
     }
 
+    private void addDotsIndicator(int position) {
+        dots = new ImageView[imageIds.length];
+        binding.layoutDots.removeAllViews();
+
+        for (int i = 0; i < dots.length; i++) {
+            dots[i] = new ImageView(this);
+            int dotDrawable = (i == position) ? R.drawable.dot_selected : R.drawable.dot_unselected;
+            dots[i].setImageResource(dotDrawable);
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(8, 0, 8, 0);
+            binding.layoutDots.addView(dots[i], params);
+        }
+    }
+
     public void getDataWeather(Double a, Double b){
         String url = "http://api.weatherapi.com/v1/current.json?key=14e35e2d6e264c6198c163938222104&q=" + a + "," + b;
         RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
@@ -309,11 +324,11 @@ public class Home extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     String temp = response.getJSONObject("current").getString("temp_c");
-                    txt_temp.setText(temp + " C");
+                    binding.txtTemp.setText(temp + " C");
                     String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
-                    txt_condition.setText(cond);
+                    binding.txtCondition.setText(cond);
                     String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
-                    Picasso.get().load("http:".concat(icon)).into(img_temp);
+                    Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
