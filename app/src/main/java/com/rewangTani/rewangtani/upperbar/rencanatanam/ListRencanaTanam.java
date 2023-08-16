@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +20,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRencanaTanam;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.UpperbarRtListRencanaTanamBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
@@ -37,36 +39,26 @@ import retrofit2.Response;
 
 public class ListRencanaTanam extends AppCompatActivity {
 
+    UpperbarRtListRencanaTanamBinding binding;
     AdapterListRencanaTanam itemList;
-    ImageButton btn_tambah, btn_rt, btn_st, btn_panen, btn_rab;
-    RecyclerView rvRencanaTanam;
     ModelRencanaTanam modelRencanaTanam;
     List<DatumRencanaTanam> listRencanaTanam = new ArrayList<>();
-    TextView txtload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rt_list_rencana_tanam);
-
-        btn_tambah = findViewById(R.id.btn_tambah);
-        rvRencanaTanam = findViewById(R.id.rvRencanaTanam);
-        txtload = findViewById(R.id.textloading);
-        btn_rt = findViewById(R.id.btn_rt);
-        btn_st = findViewById(R.id.btn_st);
-        btn_panen = findViewById(R.id.btn_panen);
-        btn_rab = findViewById(R.id.btn_rab);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
 
         getData();
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToInputRencanaTanam();
             }
         });
 
-        btn_st.setOnClickListener(new View.OnClickListener() {
+        binding.btnSt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListRencanaTanam.this);
@@ -90,14 +82,14 @@ public class ListRencanaTanam extends AppCompatActivity {
             }
         });
 
-        btn_panen.setOnClickListener(new View.OnClickListener() {
+        binding.btnPanen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPanen();
             }
         });
 
-        btn_rab.setOnClickListener(new View.OnClickListener() {
+        binding.btnRab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRAB();
@@ -116,11 +108,11 @@ public class ListRencanaTanam extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -188,9 +180,9 @@ public class ListRencanaTanam extends AppCompatActivity {
 
     public void setData(){
         itemList = new AdapterListRencanaTanam(listRencanaTanam);
-        rvRencanaTanam.setLayoutManager(new LinearLayoutManager(ListRencanaTanam.this));
-        rvRencanaTanam.setAdapter(itemList);
-        rvRencanaTanam.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvRencanaTanam,
+        binding.rvRencanaTanam.setLayoutManager(new LinearLayoutManager(ListRencanaTanam.this));
+        binding.rvRencanaTanam.setAdapter(itemList);
+        binding.rvRencanaTanam.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvRencanaTanam,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

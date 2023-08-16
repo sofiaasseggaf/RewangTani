@@ -126,7 +126,8 @@ public class Login extends AppCompatActivity {
         binding.btnMasuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                goToHome();
+//                login();
             }
         });
 

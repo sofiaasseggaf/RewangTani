@@ -138,9 +138,9 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="32"
+                android:text="32.0 C"
                 android:textColor="@color/black"
-                android:textSize="36sp" />
+                android:textSize="26sp" />
 
         </RelativeLayout>
 
@@ -296,7 +296,7 @@
                         android:text="Warung\nPestisida"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -321,7 +321,7 @@
                         android:text="Warung\nTenaga Kerja"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -346,7 +346,7 @@
                         android:text="Warung\nPupuk"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -371,7 +371,7 @@
                         android:text="Warung\nBibit"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -396,7 +396,7 @@
                         android:text="Warung\nSewa Mesin"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="10sp" />
+                        android:textSize="8sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -462,7 +462,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/img_logo"
                     android:clipToPadding="false"
                     android:overScrollMode="never"
                     android:paddingLeft="16dp"
