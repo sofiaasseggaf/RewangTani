@@ -39,7 +39,8 @@
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_tambah_profil_lahan">
+            app:layout_constraintBottom_toTopOf="@id/btn_tambah_profil_lahan"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="20dp"
-            android:background="@drawable/bg_dark_green_radius"
+            android:background="@drawable/frame_button_dark_green_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -130,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_semibold"
-                android:text="Tambah profil lahan anda agar punya garapan  "
+                android:text="Tambah profil lahan anda agar punya garapan"
                 android:textColor="@color/font_light_grey"
                 android:textSize="10sp"/>
         </LinearLayout>

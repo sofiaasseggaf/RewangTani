@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.bottombar.profilelahan;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListProfilLahan;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
@@ -35,48 +38,41 @@ import retrofit2.Response;
 
 public class ListProfileLahan extends AppCompatActivity {
 
+
+    BottombarPlListProfileLahanBinding binding;
     AdapterListProfilLahan itemList;
-    RecyclerView rvProfilLahan;
-    ImageButton btn_tambah;
     ModelProfilLahan modelProfilLahan;
     DataProfilById dataProfilById;
     List<DatumProfilLahan> listProfilLahan = new ArrayList<DatumProfilLahan>();
-    TextView txtload;
     int checkKelengkapan = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pl_list_profile_lahan);
-
-        rvProfilLahan = findViewById(R.id.rvProfilLahan);
-        btn_tambah = findViewById(R.id.btn_tambah);
-        txtload = findViewById(R.id.textloading);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_list_profile_lahan);
 
         getData();
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambahProfilLahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkKelengkapan==1){
                     goToTambahPL();
                 } else if (checkKelengkapan==0){
+                    binding.viewBelumPunya.setVisibility(View.GONE);
+                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
                     AlertDialog.Builder builder = new AlertDialog.Builder(ListProfileLahan.this);
-                    builder.setMessage("Lengkapi data profil terlebih dahulu")
-                            .setPositiveButton("Lengkapi Data Profil", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    goToProfil();
-                                }
-                            })
-                            .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    goToBeranda();
-                                }
-                            })
-                            .create()
-                            .show();
+                    builder.setView(customLayout);
+                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+                    buttonOk.setOnClickListener(v->{
+                        goToProfil();
+                            });
+                    buttonCancel.setOnClickListener(v->{
+                        goToBeranda();
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         });
@@ -92,11 +88,11 @@ public class ListProfileLahan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -162,7 +158,7 @@ public class ListProfileLahan extends AppCompatActivity {
                             }
                         } catch (Exception e){ }
                     }
-                    if (modelProfilLahan!=null){
+                    if (listProfilLahan!=null&&listProfilLahan.size()>0){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -170,7 +166,25 @@ public class ListProfileLahan extends AppCompatActivity {
                                 setData();
                             }
                         });
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewBelumPunya.setVisibility(View.VISIBLE);
+                                binding.scrollview.setVisibility(View.GONE);
+                            }
+                        });
                     }
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            binding.viewBelumPunya.setVisibility(View.VISIBLE);
+                            binding.scrollview.setVisibility(View.GONE);
+                        }
+                    });
                 }
             }
             @Override
@@ -188,10 +202,11 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void setData(){
+        binding.scrollview.setVisibility(View.VISIBLE);
         itemList = new AdapterListProfilLahan(listProfilLahan);
-        rvProfilLahan.setLayoutManager(new LinearLayoutManager(ListProfileLahan.this));
-        rvProfilLahan.setAdapter(itemList);
-        rvProfilLahan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvProfilLahan,
+        binding.rvProfilLahan.setLayoutManager(new LinearLayoutManager(ListProfileLahan.this));
+        binding.rvProfilLahan.setAdapter(itemList);
+        binding.rvProfilLahan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvProfilLahan,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

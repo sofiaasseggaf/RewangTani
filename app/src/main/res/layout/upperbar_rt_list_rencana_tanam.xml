@@ -68,7 +68,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/bg_dark_green_radius"
+            android:background="@drawable/frame_button_dark_green_radius"
             app:layout_constraintBottom_toTopOf="@id/bottomBar">
 
             <TextView
