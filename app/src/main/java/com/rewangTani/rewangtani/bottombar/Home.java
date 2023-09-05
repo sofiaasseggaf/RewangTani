@@ -65,7 +65,7 @@ public class Home extends AppCompatActivity {
     Double longt = 0.0;
 
     private HomeImageCarouselAdapter homeImageCarouselAdapter;
-    private int[] imageIds = {R.drawable.background_top, R.drawable.bg_info, R.drawable.img_logo};
+    private int[] imageIds = {R.drawable.img_event, R.drawable.bg_info, R.drawable.img_logo};
     private ImageView[] dots;
 
     @Override
