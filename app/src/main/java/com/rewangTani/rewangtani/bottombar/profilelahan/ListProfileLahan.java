@@ -22,6 +22,7 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListProfilLahan;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
@@ -66,7 +67,7 @@ public class ListProfileLahan extends AppCompatActivity {
                     RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
                     RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
                     buttonOk.setOnClickListener(v->{
-                        goToProfil();
+                        goToEditProfil();
                             });
                     buttonCancel.setOnClickListener(v->{
                         goToBeranda();
@@ -80,7 +81,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.view_loading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -133,7 +134,7 @@ public class ListProfileLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -162,7 +163,7 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -170,7 +171,7 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
                                 binding.viewBelumPunya.setVisibility(View.VISIBLE);
                                 binding.scrollview.setVisibility(View.GONE);
                             }
@@ -180,7 +181,7 @@ public class ListProfileLahan extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.view_loading).setVisibility(View.GONE);
                             binding.viewBelumPunya.setVisibility(View.VISIBLE);
                             binding.scrollview.setVisibility(View.GONE);
                         }
@@ -227,8 +228,8 @@ public class ListProfileLahan extends AppCompatActivity {
         finish();
     }
 
-    public void goToProfil(){
-        Intent a = new Intent(ListProfileLahan.this, BerandaProfile.class);
+    public void goToEditProfil(){
+        Intent a = new Intent(ListProfileLahan.this, EditProfil.class);
         startActivity(a);
         finish();
     }

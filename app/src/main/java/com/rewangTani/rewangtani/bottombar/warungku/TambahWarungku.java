@@ -2138,7 +2138,7 @@ public class TambahWarungku extends AppCompatActivity {
     }
 
     public void goToWarungku(){
-        Intent a = new Intent(TambahWarungku.this, BerandaWarungku.class);
+        Intent a = new Intent(TambahWarungku.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }

@@ -2,16 +2,14 @@ package com.rewangTani.rewangtani.bottombar.warungku;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
@@ -20,7 +18,9 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListWarungku;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.databinding.BottombarWarungkuPesananwarungkuBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelproduk.DatumProduk;
 import com.rewangTani.rewangtani.model.modelproduk.ModelProduk;
@@ -40,12 +40,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BerandaWarungku extends AppCompatActivity {
+public class PesananWarungku extends AppCompatActivity {
 
-    ImageButton btn_etalase, btn_produk_terlaris, btn_penjualan;
-    ImageButton btn_beranda, btn_warungku, btn_profil_lahan, btn_profil_akun;
-    ImageButton btn_tambah;
-    TextView txt_nama, txt_alamat, txt_telepon, txt_terjual, txtload;
+    BottombarWarungkuPesananwarungkuBinding binding;
     DataProfilById dataProfilById;
     ModelProduk modelProduk;
     List<DatumProduk> listDataProduk = new ArrayList<DatumProduk>();
@@ -53,114 +50,84 @@ public class BerandaWarungku extends AppCompatActivity {
     List<DatumTenagaKerja> tenagaKerjaList = new ArrayList<>();
     List<DatumPupukPestisida> pupukPestisidaList = new ArrayList<>();
     AdapterListWarungku itemList;
-    RecyclerView rvWarungku;
     int checkKelengkapan = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_warungku_berandawarungku);
-
-        btn_etalase = findViewById(R.id.btn_etalase);
-        btn_produk_terlaris = findViewById(R.id.btn_produk_terlaris);
-        btn_penjualan = findViewById(R.id.btn_penjualan);
-        btn_tambah = findViewById(R.id.btn_tambah);
-        btn_beranda = findViewById(R.id.btn_beranda);
-        btn_warungku = findViewById(R.id.btn_warungku);
-        btn_profil_lahan = findViewById(R.id.btn_profil_lahan);
-        btn_profil_akun = findViewById(R.id.btn_profil_akun);
-        txtload = findViewById(R.id.textloading);
-        txt_nama = findViewById(R.id.txt_nama);
-        txt_alamat = findViewById(R.id.txt_alamat);
-        txt_telepon = findViewById(R.id.txt_telepon);
-        txt_terjual = findViewById(R.id.txt_terjual);
-        rvWarungku = findViewById(R.id.rvWarungku);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_pesananwarungku);
 
         start();
 
-        btn_beranda.setOnClickListener(new View.OnClickListener() {
+        binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToBeranda();
             }
         });
 
-        btn_profil_lahan.setOnClickListener(new View.OnClickListener() {
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToProfilLahan();
             }
         });
 
-        btn_profil_akun.setOnClickListener(new View.OnClickListener() {
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToProfilAkun();
             }
         });
 
-        btn_produk_terlaris.setOnClickListener(new View.OnClickListener() {
+        binding.btnEtalase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(BerandaWarungku.this, "Fitur Belum Tersedia", Toast.LENGTH_SHORT).show();
-                goToProdukTerlaris();
-                /*Intent a = new Intent(BerandaWarungku.this, DeleteAll.class);
-                startActivity(a);
-                finish();*/
+                goToEtalase();
             }
         });
 
-        btn_penjualan.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambahProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(BerandaWarungku.this, "Fitur Belum Tersedia", Toast.LENGTH_SHORT).show();
-                goToPenjualan();
-            }
-        });
-
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkKelengkapan==1){
+                if (checkKelengkapan == 1) {
                     goToTambahWarungku();
-                } else if (checkKelengkapan==0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(BerandaWarungku.this);
-                    builder.setMessage("Lengkapi Data Profil Terlebih Dahulu")
-                            .setPositiveButton("Lengkapi Data Profil", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    goToProfil();
-                                }
-                            })
-                            .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    goToWarungku();
-                                }
-                            })
-                            .create()
-                            .show();
+                } else if (checkKelengkapan == 0) {
+                    binding.viewBelumPunya.setVisibility(View.GONE);
+                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PesananWarungku.this);
+                    builder.setView(customLayout);
+                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+                    buttonOk.setOnClickListener(v -> {
+                        goToEditProfil();
+                    });
+                    buttonCancel.setOnClickListener(v -> {
+                        goToPesananWarungku();
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         });
-
     }
 
-    private void start(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    private void start() {
+        findViewById(R.id.view_loading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textloading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textloading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -182,24 +149,25 @@ public class BerandaWarungku extends AppCompatActivity {
             @Override
             public void onResponse(Call<DataProfilById> call, Response<DataProfilById> response) {
                 dataProfilById = response.body();
-                if (dataProfilById.getData().getTelepon()!=null && dataProfilById.getData().getNik()!=null &&
-                        dataProfilById.getData().getIdAlamat()!=null && dataProfilById.getData().getAlamat()!=null &&
-                        dataProfilById.getData().getGender()!=null && dataProfilById.getData().getTglLahir()!=null){
+                if (dataProfilById.getData().getTelepon() != null && dataProfilById.getData().getNik() != null &&
+                        dataProfilById.getData().getIdAlamat() != null && dataProfilById.getData().getAlamat() != null &&
+                        dataProfilById.getData().getGender() != null && dataProfilById.getData().getTglLahir() != null) {
                     checkKelengkapan = 1;
-                    getDataEtalase();
+                    getDataPesanan();
                 } else {
                     checkKelengkapan = 0;
-                    getDataEtalase();
+                    getDataPesanan();
 
                 }
             }
+
             @Override
             public void onFailure(Call<DataProfilById> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(BerandaWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
+                        Toast.makeText(PesananWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -207,43 +175,44 @@ public class BerandaWarungku extends AppCompatActivity {
         });
     }
 
-    public void getDataEtalase(){
+    public void getDataEtalase() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelProduk> dataRT = apiInterface.getDataProduk();
         dataRT.enqueue(new Callback<ModelProduk>() {
             @Override
             public void onResponse(Call<ModelProduk> call, Response<ModelProduk> response) {
                 modelProduk = response.body();
-                if (response.body()!=null){
-                    try{
+                if (response.body() != null) {
+                    try {
                         for (int i = 0; i < modelProduk.getTotalData(); i++) {
                             String idp = modelProduk.getData().get(i).getIdProfil();
                             if (idp.equalsIgnoreCase(PreferenceUtils.getIdProfil(getApplicationContext()))) {
                                 listDataProduk.add(modelProduk.getData().get(i));
                             }
                         }
-                    } catch (Exception e){ }
-                    if (listDataProduk.size()>0){
+                    } catch (Exception e) {
+                    }
+                    if (listDataProduk.size() > 0) {
                         getDataSewaMesin();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(BerandaWarungku.this, "Anda belum memiliki produk", Toast.LENGTH_SHORT).show();
-                                setDataProfil();
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
+                                Toast.makeText(PesananWarungku.this, "Anda belum memiliki produk", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelProduk> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(BerandaWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
+                        Toast.makeText(PesananWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -258,36 +227,26 @@ public class BerandaWarungku extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelSewaMesin> call, Response<ModelSewaMesin> response) {
                 ModelSewaMesin modelSewaMesin = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
                     sewaMesinList.clear();
                     for (int i = 0; i < listDataProduk.size(); i++) {
-                        for (int j=0; j<modelSewaMesin.getTotalData(); j++){
-                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelSewaMesin.getData().get(j).getIdProduk())){
+                        for (int j = 0; j < modelSewaMesin.getTotalData(); j++) {
+                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelSewaMesin.getData().get(j).getIdProduk())) {
                                 sewaMesinList.add(modelSewaMesin.getData().get(j));
                             }
                         }
                     }
                     getDataTenagaKerja();
-                    /*if (sewaMesinList.size()>0){
-                        getDataTenagaKerja();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(BerandaWarungku.this, "Data Etalase Tidak Ditemukan", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }*/
                 }
             }
+
             @Override
             public void onFailure(Call<ModelSewaMesin> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(BerandaWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
+                        Toast.makeText(PesananWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -302,36 +261,26 @@ public class BerandaWarungku extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelTenagaKerja> call, Response<ModelTenagaKerja> response) {
                 ModelTenagaKerja modelTenagaKerja = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
                     tenagaKerjaList.clear();
                     for (int i = 0; i < listDataProduk.size(); i++) {
-                        for (int j=0; j<modelTenagaKerja.getTotalData(); j++){
-                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelTenagaKerja.getData().get(j).getIdProduk())){
+                        for (int j = 0; j < modelTenagaKerja.getTotalData(); j++) {
+                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelTenagaKerja.getData().get(j).getIdProduk())) {
                                 tenagaKerjaList.add(modelTenagaKerja.getData().get(j));
                             }
                         }
                     }
                     getDataPupukPestisida();
-                    /*if (tenagaKerjaList.size()>0){
-                        getDataPupukPestisida();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(BerandaWarungku.this, "Data Etalase Tidak Ditemukan", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }*/
                 }
             }
+
             @Override
             public void onFailure(Call<ModelTenagaKerja> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(BerandaWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
+                        Toast.makeText(PesananWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -339,18 +288,18 @@ public class BerandaWarungku extends AppCompatActivity {
         });
     }
 
-    public void getDataPupukPestisida(){
+    public void getDataPupukPestisida() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelPupukPestisida> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
         dataRT.enqueue(new Callback<ModelPupukPestisida>() {
             @Override
             public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
                 ModelPupukPestisida modelPupukPestisida = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
                     pupukPestisidaList.clear();
                     for (int i = 0; i < listDataProduk.size(); i++) {
-                        for (int j=0; j<modelPupukPestisida.getTotalData(); j++){
-                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelPupukPestisida.getData().get(j).getIdProduk())){
+                        for (int j = 0; j < modelPupukPestisida.getTotalData(); j++) {
+                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelPupukPestisida.getData().get(j).getIdProduk())) {
                                 pupukPestisidaList.add(modelPupukPestisida.getData().get(j));
                             }
                         }
@@ -358,36 +307,20 @@ public class BerandaWarungku extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.view_loading).setVisibility(View.GONE);
                             setAllData();
                         }
                     });
-                    /*if (tenagaKerjaList.size()>0){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                setAllData();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(BerandaWarungku.this, "Data Etalase Tidak Ditemukan", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }*/
                 }
             }
+
             @Override
             public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(BerandaWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
+                        Toast.makeText(PesananWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -395,97 +328,99 @@ public class BerandaWarungku extends AppCompatActivity {
         });
     }
 
-    public void setDataProfil(){
-        if (dataProfilById.getData().getNamaBelakang()!=null){
-            txt_nama.setText(dataProfilById.getData().getNamaDepan()+" "+dataProfilById.getData().getNamaBelakang());
+    public void getDataPesanan() {
+        // if ada pesanan ->
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.view_loading).setVisibility(View.GONE);
+            }
+        });
+
+        // if ga ada pesanan ->
+        //  binding.viewBelumPunya.setVisibility(View.VISIBLE);
+    }
+
+/*    public void setDataProfil() {
+        if (dataProfilById.getData().getNamaBelakang() != null) {
+            txt_nama.setText(dataProfilById.getData().getNamaDepan() + " " + dataProfilById.getData().getNamaBelakang());
         } else {
             txt_nama.setText(dataProfilById.getData().getNamaDepan());
         }
-        if (dataProfilById.getData().getAlamat()!=null){
+        if (dataProfilById.getData().getAlamat() != null) {
             txt_alamat.setText(dataProfilById.getData().getAlamat());
         } else {
             txt_alamat.setText("LENGKAPI DATA ALAMAT");
         }
-        if (dataProfilById.getData().getTelepon()!=null){
+        if (dataProfilById.getData().getTelepon() != null) {
             txt_telepon.setText(dataProfilById.getData().getTelepon());
         } else {
             txt_telepon.setText("LENGKAPI DATA NO TELEPON");
         }
         //txt_terjual.setText("Terjual : -");
-    }
+    }*/
 
-    public void setAllData(){
+    public void setAllData() {
 
         itemList = new AdapterListWarungku(listDataProduk, sewaMesinList, tenagaKerjaList, pupukPestisidaList);
-        rvWarungku.setLayoutManager(new GridLayoutManager(BerandaWarungku.this, 2));
-        rvWarungku.setAdapter(itemList);
-        rvWarungku.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvWarungku,
+        binding.rvPesanan.setLayoutManager(new GridLayoutManager(PesananWarungku.this, 2));
+        binding.rvPesanan.setAdapter(itemList);
+        binding.rvPesanan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvPesanan,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent a = new Intent(BerandaWarungku.this, EditWarungku.class);
+                        Intent a = new Intent(PesananWarungku.this, EditWarungku.class);
                         a.putExtra("id", listDataProduk.get(position).getIdProduk());
                         a.putExtra("tipe", listDataProduk.get(position).getIdTipeProduk());
                         startActivity(a);
                     }
+
                     @Override
                     public void onLongItemClick(View view, int position) {
 
                     }
                 }));
-        setDataProfil();
+        //setDataProfil();
     }
 
-    public void goToBeranda(){
-        Intent a = new Intent(BerandaWarungku.this, Home.class);
+    public void goToBeranda() {
+        Intent a = new Intent(PesananWarungku.this, Home.class);
         startActivity(a);
         finish();
     }
 
-    public void goToWarungku(){
-        Intent a = new Intent(BerandaWarungku.this, BerandaWarungku.class);
+    public void goToPesananWarungku() {
+        Intent a = new Intent(PesananWarungku.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }
 
-    public void goToProfilLahan(){
-        Intent a = new Intent(BerandaWarungku.this, ListProfileLahan.class);
+    public void goToProfilLahan() {
+        Intent a = new Intent(PesananWarungku.this, ListProfileLahan.class);
         startActivity(a);
         finish();
     }
 
-    public void goToProfilAkun(){
-        Intent a = new Intent(BerandaWarungku.this, BerandaProfile.class);
+    public void goToProfilAkun() {
+        Intent a = new Intent(PesananWarungku.this, BerandaProfile.class);
         startActivity(a);
         finish();
     }
 
-    public void goToProdukTerlaris(){
-        Intent a = new Intent(BerandaWarungku.this, ProdukTerlarisWarungku.class);
+    public void goToEtalase() {
+        Intent a = new Intent(PesananWarungku.this, EtalaseWarungku.class);
         startActivity(a);
         finish();
     }
 
-    public void goToProfil(){
-        Intent a = new Intent(BerandaWarungku.this, BerandaProfile.class);
+    public void goToEditProfil() {
+        Intent a = new Intent(PesananWarungku.this, EditProfil.class);
         startActivity(a);
         finish();
     }
 
-    public void goToPenjualan(){
-        Intent a = new Intent(BerandaWarungku.this, PenjualanWarungku.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToTambahWarungku(){
-        Intent a = new Intent(BerandaWarungku.this, TambahWarungku.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToEditWarungku(){
-        Intent a = new Intent(BerandaWarungku.this, EditWarungku.class);
+    public void goToTambahWarungku() {
+        Intent a = new Intent(PesananWarungku.this, TambahWarungku.class);
         startActivity(a);
         finish();
     }

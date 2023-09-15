@@ -3,7 +3,6 @@ package com.rewangTani.rewangtani.bottombar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
@@ -18,11 +17,8 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,18 +27,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.kosalgeek.android.photoutil.MainActivity;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.HomeImageCarouselAdapter;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
-import com.rewangTani.rewangtani.bottombar.warungku.BerandaWarungku;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarHomeBinding;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
-import com.rewangTani.rewangtani.model.modelphoto.Data;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
@@ -50,7 +44,6 @@ import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
-import com.rewangTani.rewangtani.utility.DeleteAll;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.squareup.picasso.Picasso;
 
@@ -416,7 +409,7 @@ public class Home extends AppCompatActivity {
     }
 
     public void goToWarungku(){
-        Intent a = new Intent(Home.this, BerandaWarungku.class);
+        Intent a = new Intent(Home.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }

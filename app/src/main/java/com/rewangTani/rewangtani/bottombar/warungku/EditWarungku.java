@@ -27,7 +27,6 @@ import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSew
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
-import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -792,7 +791,7 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void goToWarungku(){
-        Intent a = new Intent(EditWarungku.this, BerandaWarungku.class);
+        Intent a = new Intent(EditWarungku.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }

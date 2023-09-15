@@ -32,8 +32,6 @@ import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -436,7 +434,7 @@ public class PenjualanWarungku extends AppCompatActivity {
     }
 
     public void goToWarungku(){
-        Intent a = new Intent(PenjualanWarungku.this, BerandaWarungku.class);
+        Intent a = new Intent(PenjualanWarungku.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }
@@ -461,13 +459,13 @@ public class PenjualanWarungku extends AppCompatActivity {
     }
 
     public void goToEtalase(){
-        Intent a = new Intent(PenjualanWarungku.this, BerandaWarungku.class);
+        Intent a = new Intent(PenjualanWarungku.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }
 
     public void goToProdukTerlaris(){
-        Intent a = new Intent(PenjualanWarungku.this, ProdukTerlarisWarungku.class);
+        Intent a = new Intent(PenjualanWarungku.this, EtalaseWarungku.class);
         startActivity(a);
         finish();
     }
