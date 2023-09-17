@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_tambah_warungku"
-    tools:context=".bottombar.warungku.EditWarungku">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_tambah_warungku">
+        android:background="@color/white"
+        tools:context=".bottombar.warungku.EditWarungku">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txttop"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/comfortaa_regular"
-            android:text="Edit WarungKu"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Edit Warungku"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/ll_bottom"
-            android:layout_below="@id/txttop"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp">
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginBottom="15dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/btnSimpan"
+            app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,45 +48,105 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/ll1_warung_pupuk_pestisida"
+                    android:id="@+id/viewWarungPupukPestisida1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:layout_marginTop="15dp"
+                    android:visibility="gone">
+
+                    <!--<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Foto Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+                            <ImageButton
+                                android:id="@+id/btnTambahFoto1"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:background="@drawable/ic_plus"/>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk1a"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ic_warungku_on"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk1b"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk1c"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/ll1_imgproduk"
-                            android:layout_width="180dp"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:scaleType="center" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Nama Produk"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll1_et_namaproduk"
+                            android:id="@+id/namaProduk1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:hint="Masukkan Nama Produk"
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -90,23 +158,24 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Harga Produk (HET)"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll1_et_hargaproduk"
+                            android:id="@+id/hargaProduk1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:hint="Masukkan Harga Produk (HET)"
+                            android:inputType="number"
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -118,26 +187,24 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Deskripsi Produk"
-                            android:textColor="@color/dark_green"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Jumlah Produk"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll1_et_deskripsiproduk"
+                            android:id="@+id/jumlahProduk1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="left"
-                            android:hint="Masukkan Deskripsi Produk"
-                            android:minLines="5"
-                            android:padding="15dp"
-                            android:textAlignment="gravity"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Jumlah Produk"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -149,23 +216,24 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Berat Isi"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll1_et_beratproduk"
+                            android:id="@+id/beratProduk1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:hint="Masukkan Berat Isi"
+                            android:inputType="numberSigned|numberDecimal"
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -173,61 +241,181 @@
                             android:layout_gravity="right"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/inter_regular"
                             android:text="Kg / Ltr"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <ImageButton
-                        android:id="@+id/btn_ll1_imgproduk"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/btn_tambah_foto" />
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Deskripsi Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/deskProduk1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:gravity="left"
+                            android:hint="Masukkan Deskripsi Produk"
+                            android:minLines="5"
+                            android:padding="15dp"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Kota"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/kotaProduk1"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Nama Kota"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!--  <ImageButton
+                          android:id="@+id/btn_ll1_imgproduk"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:layout_marginTop="20dp"
+                          android:background="@drawable/btn_tambah_foto" />-->
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll2_warung_sewa_mesin"
+                    android:id="@+id/viewWarungSewaMesin2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginTop="15dp"
                     android:visibility="gone">
+
+                   <!-- <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Foto Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+                            <ImageButton
+                                android:id="@+id/btnTambahFoto2"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:background="@drawable/ic_plus"/>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk2a"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ic_warungku_on"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk2b"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk2c"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/ll2_imgproduk"
-                            android:layout_width="180dp"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:scaleType="center" />
-
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Nama Produk"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll2_et_namaproduk"
+                            android:id="@+id/namaProduk2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:hint="Masukkan Nama Produk"
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -239,23 +427,24 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Harga Sewa Mesin"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll2_et_hargasewa"
+                            android:id="@+id/hargaProduk2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:hint="Masukkan Harga Sewa Mesin"
+                            android:inputType="number"
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -263,9 +452,9 @@
                             android:layout_gravity="right"
                             android:layout_marginLeft="5dp"
                             android:layout_marginTop="5dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="/ Hari"
-                            android:textColor="@color/dark_green"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="/ Hektar"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -278,18 +467,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Deskripsi Produk"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll2_et_deskripsiproduk"
+                            android:id="@+id/deskProduk2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:gravity="left"
                             android:hint="Masukkan Deskripsi Produk"
                             android:minLines="5"
@@ -297,7 +486,7 @@
                             android:textAlignment="gravity"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -309,17 +498,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
+                            android:fontFamily="@font/inter_bold"
                             android:text="Spesifikasi Produk"
-                            android:textColor="@color/dark_green"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll2_et_spesifikasiproduk"
+                            android:id="@+id/spesifikasiProduk2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
+                            android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/roboto_regular"
                             android:gravity="left"
                             android:hint="Masukkan Spesifikasi Produk"
@@ -328,96 +517,6 @@
                             android:textAlignment="gravity"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/btn_ll2_imgproduk"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/btn_tambah_foto" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll3_warung_tenaga_kerja"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/ll3_imgproduk"
-                            android:layout_width="180dp"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:scaleType="center" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Nama Penyedia Jasa"
-                            android:layout_marginTop="15dp"
-                            android:textColor="@color/dark_green"
-                            android:textSize="14sp" />
-
-                        <EditText
-                            android:id="@+id/ll3_et_namapenyediajasa"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
-                            android:hint="Masukkan Nama Penyedia Jasa"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Biaya Jasa layanan"
-                            android:textColor="@color/dark_green"
-                            android:textSize="14sp" />
-
-                        <EditText
-                            android:id="@+id/ll3_et_biayajasa"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
-                            android:hint="Masukkan Biaya Jasa Layanan"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="/ Hari"
-                            android:textColor="@color/dark_green"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -430,26 +529,160 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Deskripsi Layanan Jasa"
-                            android:textColor="@color/dark_green"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Kota"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll3_et_deskripsijasa"
+                            android:id="@+id/kotaProduk2"
                             android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:gravity="left"
+                            android:hint="Masukkan Nama Kota"
+                            android:padding="15dp"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Jumlah Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/jumlahProduk2"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/inter_regular"
                             android:gravity="left"
-                            android:hint="Masukkan Deskripsi Layanan Jasa"
+                            android:hint="Masukkan Jumlah Produk"
+                            android:inputType="number"
                             android:minLines="5"
                             android:padding="15dp"
                             android:textAlignment="gravity"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewWarungTenagaKerja3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                <!--    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Foto Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+                            <ImageButton
+                                android:id="@+id/btnTambahFoto3"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:background="@drawable/ic_plus"/>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk3a"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/ic_warungku_on"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk3b"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProduk3c"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Penyedia Jasa"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/namaProdukPenyediaJasa3"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Nama Penyedia Jasa"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -461,18 +694,89 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:text="Keahlian Penyedia Jasa"
-                            android:textColor="@color/dark_green"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Biaya Jasa layanan"
+                            android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/ll3_et_keahlianjasa"
+                            android:id="@+id/hargaProdukLayananJasa3"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Biaya Jasa Layanan"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="/ Hari"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Deskripsi Layanan Jasa"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/deskProdukLayananJasa3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
-                            android:fontFamily="@font/roboto_regular"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:gravity="left"
+                            android:hint="Masukkan Deskripsi Layanan Jasa"
+                            android:minLines="5"
+                            android:padding="15dp"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Keahlian Penyedia Jasa"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/keahlianPenyediaJasa3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
                             android:gravity="left"
                             android:hint="Masukkan Keahlian Penyedia Jasa"
                             android:minLines="5"
@@ -480,69 +784,250 @@
                             android:textAlignment="gravity"
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
-                    <ImageButton
-                        android:id="@+id/btn_ll3_imgproduk"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/btn_tambah_foto" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Kota"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/kotaProduk3"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:gravity="left"
+                            android:hint="Masukkan Nama Kota"
+                            android:padding="15dp"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
 
         </ScrollView>
 
-        <LinearLayout
-            android:id="@+id/ll_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp">
-            <ImageButton
-                android:id="@+id/btn_hapus_produk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_hapus_produk" />
-            <ImageButton
-                android:id="@+id/btn_simpan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/btn_simpan_produk" />
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/bg_loading">
         <RelativeLayout
+            android:id="@+id/btnSimpan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/frame_button_dark_green_radius"
+            app:layout_constraintBottom_toTopOf="@id/btnHapusProduk"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
             <TextView
-                android:id="@+id/textloading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/inter_bold"
-                android:textSize="22sp"
-                android:textColor="@color/dark_green"/>
-
+                android:text="SIMPAN"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </RelativeLayout>
 
-    </FrameLayout>
+        <RelativeLayout
+            android:id="@+id/btnHapusProduk"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/frame_button_red_radius"
+            app:layout_constraintBottom_toTopOf="@id/bottomBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="HAPUS PRODUK"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_white_radius_top"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:weightSum="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/btnHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_home_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Beranda"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnLahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_lahan_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Lahan"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnWarungku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_warungku_on" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Warungku"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGreen"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnPesan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_pesan_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Pesan"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnAkun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_akun_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Akun"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/view_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_loading"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textloading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="100dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/dark_green"
+                    android:textSize="22sp" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

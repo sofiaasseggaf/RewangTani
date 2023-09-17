@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.bottombar.warungku;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.databinding.BottombarWarungkuEditWarungkuBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.model.modelproduk.DataProdukById;
 import com.rewangTani.rewangtani.model.modelproduk.ModelProduk;
@@ -37,13 +43,7 @@ import retrofit2.Response;
 
 public class EditWarungku extends AppCompatActivity {
 
-    TextView txtload;
-    LinearLayout ll1_warung_pupuk_pestisida, ll2_warung_sewa_mesin, ll3_warung_tenaga_kerja;
-    EditText ll1_et_namaproduk, ll1_et_hargaproduk, ll1_et_deskripsiproduk, ll1_et_beratproduk;
-    EditText ll2_et_namaproduk, ll2_et_hargasewa, ll2_et_deskripsiproduk, ll2_et_spesifikasiproduk;
-    EditText ll3_et_namapenyediajasa, ll3_et_biayajasa, ll3_et_deskripsijasa, ll3_et_keahlianjasa;
-    ImageView ll1_imgproduk, ll2_imgproduk, ll3_imgproduk;
-    ImageButton btn_ll1_imgproduk, btn_ll2_imgproduk, btn_ll3_imgproduk, btn_simpan, btn_hapus_produk;
+    BottombarWarungkuEditWarungkuBinding binding;
     String id, tipe, txt_tipe;
     DataProdukById dataProdukById;
     ModelSewaMesin modelSewaMesin;
@@ -56,78 +56,42 @@ public class EditWarungku extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_warungku_edit_warungku);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_edit_warungku);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         tipe = intent.getStringExtra("tipe");
 
-
-        // linear layout
-        ll1_warung_pupuk_pestisida = findViewById(R.id.ll1_warung_pupuk_pestisida);
-        ll2_warung_sewa_mesin = findViewById(R.id.ll2_warung_sewa_mesin);
-        ll3_warung_tenaga_kerja = findViewById(R.id.ll3_warung_tenaga_kerja);
-
-        // bibit pupuk pestisida
-        ll1_et_namaproduk = findViewById(R.id.ll1_et_namaproduk);
-        ll1_et_hargaproduk = findViewById(R.id.ll1_et_hargaproduk);
-        ll1_et_deskripsiproduk = findViewById(R.id.ll1_et_deskripsiproduk);
-        ll1_et_beratproduk = findViewById(R.id.ll1_et_beratproduk);
-        ll1_imgproduk = findViewById(R.id.ll1_imgproduk);
-
-        // sewa mesin
-        ll2_et_namaproduk = findViewById(R.id.ll2_et_namaproduk);
-        ll2_et_hargasewa = findViewById(R.id.ll2_et_hargasewa);
-        ll2_et_deskripsiproduk = findViewById(R.id.ll2_et_deskripsiproduk);
-        ll2_et_spesifikasiproduk = findViewById(R.id.ll2_et_spesifikasiproduk);
-        ll2_imgproduk = findViewById(R.id.ll2_imgproduk);
-
-        // tenaga kerja
-        ll3_et_namapenyediajasa = findViewById(R.id.ll3_et_namapenyediajasa);
-        ll3_et_biayajasa = findViewById(R.id.ll3_et_biayajasa);
-        ll3_et_deskripsijasa = findViewById(R.id.ll3_et_deskripsijasa);
-        ll3_et_keahlianjasa = findViewById(R.id.ll3_et_keahlianjasa);
-        ll3_imgproduk = findViewById(R.id.ll3_imgproduk);
-
-        // btn ganti img produk
-        btn_ll1_imgproduk = findViewById(R.id.btn_ll1_imgproduk);
-        btn_ll2_imgproduk = findViewById(R.id.btn_ll2_imgproduk);
-        btn_ll3_imgproduk = findViewById(R.id.btn_ll3_imgproduk);
-
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_hapus_produk = findViewById(R.id.btn_hapus_produk);
-        txtload = findViewById(R.id.textloading);
-
         start();
 
-        btn_ll1_imgproduk.setOnClickListener(new View.OnClickListener() {
+        binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // ganti foto produk bibit pupuk pestisida
-                // update ke table produk
-                // update ke table bpp
+            public void onClick(View view) {
+                goToBeranda();
             }
         });
 
-        btn_ll2_imgproduk.setOnClickListener(new View.OnClickListener() {
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // ganti foto produk sewa mesin
-                // update ke table produk
-                // update ke table sewa mesin
+            public void onClick(View view) {
+                goToProfilLahan();
             }
         });
 
-        btn_ll3_imgproduk.setOnClickListener(new View.OnClickListener() {
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // ganti foto produk tenaga kerja
-                // update ke table produk
-                // update ke table tenaga kerja
+            public void onClick(View view) {
+                goToProfilAkun();
             }
         });
 
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
+
+
+        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(EditWarungku.this, "Fitur edit belum tersedia", Toast.LENGTH_SHORT).show();
@@ -141,7 +105,7 @@ public class EditWarungku extends AppCompatActivity {
             }
         });
 
-        btn_hapus_produk.setOnClickListener(new View.OnClickListener() {
+        binding.btnHapusProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EditWarungku.this);
@@ -174,7 +138,7 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void start(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.view_loading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -182,11 +146,11 @@ public class EditWarungku extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -218,7 +182,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -246,7 +210,7 @@ public class EditWarungku extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.view_loading).setVisibility(View.GONE);
                     Toast.makeText(EditWarungku.this, "Data produk tidak ditemukan", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -274,10 +238,10 @@ public class EditWarungku extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                ll2_warung_sewa_mesin.setVisibility(View.VISIBLE);
-                                ll1_warung_pupuk_pestisida.setVisibility(View.GONE);
-                                ll3_warung_tenaga_kerja.setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
+                                binding.viewWarungPupukPestisida1.setVisibility(View.GONE);
+                                binding.viewWarungSewaMesin2.setVisibility(View.VISIBLE);
+                                binding.viewWarungTenagaKerja3.setVisibility(View.GONE);
                                 setDataProdukSewaMesin();
                             }
                         });
@@ -285,7 +249,7 @@ public class EditWarungku extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
                             }
                         });
                     }
@@ -296,7 +260,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -306,16 +270,16 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void setDataProdukSewaMesin(){
-        ll2_et_namaproduk.setText(datumSewaMesin.getNamaProduk());
-        ll2_et_hargasewa.setText(datumSewaMesin.getHargaProduk().toString());
-        ll2_et_deskripsiproduk.setText(datumSewaMesin.getDeskProduk());
-        ll2_et_spesifikasiproduk.setText(datumSewaMesin.getDeskProduk());
-        if (!datumSewaMesin.getIdFoto().equalsIgnoreCase("")){
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+datumSewaMesin.getIdFoto();
-            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(ll2_imgproduk);
-        }
+        binding.namaProduk2.setText(datumSewaMesin.getNamaProduk());
+        binding.hargaProduk2.setText(datumSewaMesin.getHargaProduk().toString());
+        binding.deskProduk2.setText(datumSewaMesin.getDeskProduk());
+        binding.spesifikasiProduk2.setText(datumSewaMesin.getDeskProduk());
+//        if (!datumSewaMesin.getIdFoto().equalsIgnoreCase("")){
+//            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+datumSewaMesin.getIdFoto();
+//            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                    .into(ll2_imgproduk);
+//        }
     }
 
     public void getDataProdukTenagaKerja(){
@@ -339,10 +303,10 @@ public class EditWarungku extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                ll3_warung_tenaga_kerja.setVisibility(View.VISIBLE);
-                                ll2_warung_sewa_mesin.setVisibility(View.GONE);
-                                ll1_warung_pupuk_pestisida.setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
+                                binding.viewWarungPupukPestisida1.setVisibility(View.GONE);
+                                binding.viewWarungSewaMesin2.setVisibility(View.GONE);
+                                binding.viewWarungTenagaKerja3.setVisibility(View.VISIBLE);
                                 setDataProdukTenagaKerja();
                             }
                         });
@@ -350,7 +314,7 @@ public class EditWarungku extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
                             }
                         });
                     }
@@ -361,7 +325,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -371,16 +335,16 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void setDataProdukTenagaKerja(){
-        ll3_et_namapenyediajasa.setText(datumTenagaKerja.getNamaTenagaKerja());
-        ll3_et_biayajasa.setText(datumTenagaKerja.getBiaya().toString());
-        ll3_et_deskripsijasa.setText(datumTenagaKerja.getDeskripsi());
-        ll3_et_keahlianjasa.setText(datumTenagaKerja.getKeahlian());
-        if (!datumTenagaKerja.getIdFoto().equalsIgnoreCase("")){
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+datumTenagaKerja.getIdFoto();
-            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(ll3_imgproduk);
-        }
+        binding.namaProdukPenyediaJasa3.setText(datumTenagaKerja.getNamaTenagaKerja());
+        binding.hargaProdukLayananJasa3.setText(datumTenagaKerja.getBiaya().toString());
+        binding.deskProdukLayananJasa3.setText(datumTenagaKerja.getDeskripsi());
+        binding.keahlianPenyediaJasa3.setText(datumTenagaKerja.getKeahlian());
+//        if (!datumTenagaKerja.getIdFoto().equalsIgnoreCase("")){
+//            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+datumTenagaKerja.getIdFoto();
+//            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                    .into(ll3_imgproduk);
+//        }
     }
 
     public void getdataProdukBibitPupukPestisida(){
@@ -404,10 +368,10 @@ public class EditWarungku extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                ll1_warung_pupuk_pestisida.setVisibility(View.VISIBLE);
-                                ll2_warung_sewa_mesin.setVisibility(View.GONE);
-                                ll3_warung_tenaga_kerja.setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
+                                binding.viewWarungPupukPestisida1.setVisibility(View.VISIBLE);
+                                binding.viewWarungSewaMesin2.setVisibility(View.GONE);
+                                binding.viewWarungTenagaKerja3.setVisibility(View.GONE);
                                 setDataProdukBibitPupukPestisida();
                             }
                         });
@@ -415,7 +379,7 @@ public class EditWarungku extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.view_loading).setVisibility(View.GONE);
                             }
                         });
                     }
@@ -426,7 +390,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -436,16 +400,16 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void setDataProdukBibitPupukPestisida(){
-        ll1_et_namaproduk.setText(datumPupukPestisida.getNamaProduk());
-        ll1_et_hargaproduk.setText(datumPupukPestisida.getHargaProduk().toString());
-        ll1_et_deskripsiproduk.setText(datumPupukPestisida.getDeskProduk());
-        ll1_et_beratproduk.setText(datumPupukPestisida.getBeratProduk().toString());
-        if (!datumPupukPestisida.getIdFoto().equalsIgnoreCase("")){
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+datumPupukPestisida.getIdFoto();
-            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(ll1_imgproduk);
-        }
+        binding.namaProduk1.setText(datumPupukPestisida.getNamaProduk());
+        binding.hargaProduk1.setText(datumPupukPestisida.getHargaProduk().toString());
+        binding.deskProduk1.setText(datumPupukPestisida.getDeskProduk());
+        binding.beratProduk1.setText(datumPupukPestisida.getBeratProduk().toString());
+//        if (!datumPupukPestisida.getIdFoto().equalsIgnoreCase("")){
+//            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+datumPupukPestisida.getIdFoto();
+//            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
+//                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+//                    .into(ll1_imgproduk);
+//        }
     }
     
     // SEWA MESIN
@@ -465,7 +429,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -489,7 +453,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -514,7 +478,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -534,9 +498,9 @@ public class EditWarungku extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.view_loading).setVisibility(View.GONE);
                             Toast.makeText(EditWarungku.this, "Berhasil hapus produk sewa mesin", Toast.LENGTH_SHORT).show();
-                            goToWarungku();
+                            goToEtalase();
                         }
                     });
                 }
@@ -546,7 +510,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -572,7 +536,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -596,7 +560,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -621,7 +585,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -641,9 +605,9 @@ public class EditWarungku extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.view_loading).setVisibility(View.GONE);
                             Toast.makeText(EditWarungku.this, "Berhasil hapus produk tenaga kerja", Toast.LENGTH_SHORT).show();
-                            goToWarungku();
+                            goToEtalase();
                         }
                     });
                 }
@@ -653,7 +617,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -679,7 +643,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -703,7 +667,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -728,7 +692,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -748,9 +712,9 @@ public class EditWarungku extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.view_loading).setVisibility(View.GONE);
                             Toast.makeText(EditWarungku.this, "Berhasil hapus produk", Toast.LENGTH_SHORT).show();
-                            goToWarungku();
+                            goToEtalase();
                         }
                     });
                 }
@@ -760,7 +724,7 @@ public class EditWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.view_loading).setVisibility(View.GONE);
                         Toast.makeText(EditWarungku.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -790,8 +754,32 @@ public class EditWarungku extends AppCompatActivity {
         // update ke table tenaga kerja
     }
 
-    public void goToWarungku(){
-        Intent a = new Intent(EditWarungku.this, PesananWarungku.class);
+    public void goToEtalase(){
+        Intent a = new Intent(EditWarungku.this, EtalaseWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToBeranda() {
+        Intent a = new Intent(EditWarungku.this, Home.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilLahan() {
+        Intent a = new Intent(EditWarungku.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan() {
+        Intent a = new Intent(EditWarungku.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun() {
+        Intent a = new Intent(EditWarungku.this, BerandaProfile.class);
         startActivity(a);
         finish();
     }
@@ -803,7 +791,7 @@ public class EditWarungku extends AppCompatActivity {
                 .setPositiveButton("YA", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        goToWarungku();
+                        goToEtalase();
                     }
                 })
 

@@ -44,14 +44,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode">
         <activity
-            android:name=".chat.Inbox"
+            android:name=".bottombar.pesan.InboxPesan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".chat.Chat"
+            android:name=".bottombar.pesan.Chat"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -121,10 +121,10 @@
             android:exported="false" />
         <activity
             android:name=".upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca"
-            android:exported="false" /> <!-- BottomBar -->
-        <activity
-            android:name=".bottombar.warungku.PenjualanWarungku"
             android:exported="false" />
+
+        <!-- BottomBar -->
+
         <activity
             android:name=".bottombar.warungku.EtalaseWarungku"
             android:exported="false" />

@@ -1,4 +1,4 @@
-package com.rewangTani.rewangtani.chat;
+package com.rewangTani.rewangtani.bottombar.pesan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -14,16 +14,12 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterchatdaninbox.AdapterInbox;
-import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListPanen;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.databinding.ActivityInboxBinding;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
-import com.rewangTani.rewangtani.upperbar.panen.DetailPanenNonEditable;
-import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
@@ -35,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Inbox extends AppCompatActivity {
+public class InboxPesan extends AppCompatActivity {
 
     ActivityInboxBinding binding;
     ModelInboxParticipant modelInboxParticipant;
@@ -107,7 +103,7 @@ public class Inbox extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(Inbox.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InboxPesan.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -119,7 +115,7 @@ public class Inbox extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -157,7 +153,7 @@ public class Inbox extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(Inbox.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InboxPesan.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -169,7 +165,7 @@ public class Inbox extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -185,7 +181,7 @@ public class Inbox extends AppCompatActivity {
             idParticipants.add(listInbox.get(i).getIdInboxParticipant());
         }
         itemList = new AdapterInbox(listInbox, idProfil, idParticipants);
-        binding.rvInbox.setLayoutManager(new LinearLayoutManager(Inbox.this));
+        binding.rvInbox.setLayoutManager(new LinearLayoutManager(InboxPesan.this));
         binding.rvInbox.setAdapter(itemList);
         binding.rvInbox.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvInbox,
                 new RecyclerItemClickListener.OnItemClickListener() {
@@ -208,17 +204,17 @@ public class Inbox extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.body()!=null){
-                    Intent a = new Intent(Inbox.this, Chat.class);
+                    Intent a = new Intent(InboxPesan.this, Chat.class);
                     a.putExtra("id", id);
                     startActivity(a);
                 } else {
-                    Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     call.cancel();
                 }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
@@ -226,7 +222,7 @@ public class Inbox extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent a = new Intent(Inbox.this, BerandaProfile.class);
+        Intent a = new Intent(InboxPesan.this, BerandaProfile.class);
         startActivity(a);
         finish();
     }

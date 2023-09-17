@@ -20,9 +20,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,8 +40,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.chat.Chat;
-import com.rewangTani.rewangtani.chat.Inbox;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.starter.SplashScreen;
@@ -65,53 +61,27 @@ import retrofit2.Response;
 
 public class BerandaProfile extends AppCompatActivity {
 
-    //Button btn_page_youtube;
-    RelativeLayout btn_sunting_profil, btn_ganti_password, btn_kontak, btn_tentang, btn_signout, btn_hubungkan;
-    //GoogleSignInClient mGoogleSignInClient;
-    ImageView img_profil;
-    ImageButton btn_kamera;
-    TextView txt_nama;
+    BottombarPaBerandaprofileBinding binding;
     AlertDialog alertDialog;
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
-    TextView txtload;
     final int CAMERA_REQUEST = 12345;
     final int GALLERY_REQUEST = 54321;
     Bitmap bitmap;
-    String encodedImage;
+    String encodedImage, googleid;
     int photoExist;
-
     GoogleSignInClient mGoogleSignInClient;
     FirebaseAuth firebaseAuth;
     GoogleSignInAccount googleSignInAccount;
-    String googleid;
-
-    BottombarPaBerandaprofileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView();
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_berandaprofile);
-
-        btn_sunting_profil = findViewById(R.id.btn_sunting_profil);
-        btn_ganti_password = findViewById(R.id.btn_ganti_password);
-        btn_kontak = findViewById(R.id.btn_kontak);
-        btn_tentang = findViewById(R.id.btn_tentang);
-        btn_signout = findViewById(R.id.btn_signout);
-        btn_hubungkan = findViewById(R.id.btn_hubungkan);
-        txtload = findViewById(R.id.textloading);
-        img_profil = findViewById(R.id.img_profil);
-        txt_nama = findViewById(R.id.txt_nama);
-        btn_kamera = findViewById(R.id.btn_kamera);
 
         cameraPhoto = new CameraPhoto(getApplicationContext());
         galleryPhoto = new GalleryPhoto(getApplicationContext());
 
-        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("878909563548-6a6d4mj5uqmqm4hlea3sa73agsv10fhm.apps.googleusercontent.com")
                 .requestEmail()
@@ -122,52 +92,49 @@ public class BerandaProfile extends AppCompatActivity {
 
         setData();
 
-        btn_sunting_profil.setOnClickListener(new View.OnClickListener() {
+        binding.btnUbahProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToEditProfil();
             }
         });
 
-        btn_ganti_password.setOnClickListener(new View.OnClickListener() {
+        binding.btnGantiPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToEditPassword();
             }
         });
 
-        btn_kontak.setOnClickListener(new View.OnClickListener() {
+        binding.btnKontak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToKontak();
             }
         });
 
-        btn_tentang.setOnClickListener(new View.OnClickListener() {
+        binding.btnTentangAplikasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent a = new Intent(BerandaProfile.this, Inbox.class);
-                startActivity(a);
-                finish();
-                //goToTentang();
+                goToTentang();
             }
         });
 
-        btn_hubungkan.setOnClickListener(new View.OnClickListener() {
+        binding.btnHubungkanGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hubungkanGoogle();
             }
         });
 
-        btn_signout.setOnClickListener(new View.OnClickListener() {
+        binding.btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popUpSignOut();
             }
         });
 
-        btn_kamera.setOnClickListener(new View.OnClickListener() {
+        binding.btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(photoExist==2){
@@ -181,16 +148,16 @@ public class BerandaProfile extends AppCompatActivity {
     }
 
     public void setData(){
-        txt_nama.setText(PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
+        binding.namaProfile.setText(PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
         if (!PreferenceUtils.getIDPhoto(getApplicationContext()).equalsIgnoreCase("")){
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+PreferenceUtils.getIDPhoto(getApplicationContext());
             Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(img_profil);
+                    .into(binding.imageProfile);
             photoExist = 1;
         } else {
             photoExist = 2;
-            img_profil.setImageDrawable(getDrawable(R.drawable.elips_profil));
+            binding.imageProfile.setImageDrawable(getDrawable(R.drawable.elips_profil));
         }
     }
 
@@ -208,14 +175,6 @@ public class BerandaProfile extends AppCompatActivity {
                     photoExist = 2;
                     PreferenceUtils.saveIDPhoto("", getApplicationContext());
                     choose();
-                    /*runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(BerandaProfile.this, "Foto Harusnya Sudah di Hapus", Toast.LENGTH_LONG).show();
-                            photoExist = 2;
-                        }
-                    });*/
                 }
             }
             @Override
@@ -223,7 +182,7 @@ public class BerandaProfile extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(BerandaProfile.this, "Terjadi gangguan koneksi saat menghapus foto", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -315,7 +274,7 @@ public class BerandaProfile extends AppCompatActivity {
                             // When sign in account is not equal to null
                             // Initialize auth credential
 
-                            findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+                            findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
                             final Handler handler = new Handler();
                             Runnable runnable = new Runnable() {
                                 int count = 0;
@@ -323,11 +282,11 @@ public class BerandaProfile extends AppCompatActivity {
                                 public void run() {
                                     count++;
                                     if (count == 1) {
-                                        txtload.setText("Tunggu sebentar ya ."); }
+                                        binding.textloading.setText("Tunggu sebentar ya ."); }
                                     else if (count == 2) {
-                                        txtload.setText("Tunggu sebentar ya . ."); }
+                                        binding.textloading.setText("Tunggu sebentar ya . ."); }
                                     else if (count == 3) {
-                                        txtload.setText("Tunggu sebentar ya . . ."); }
+                                        binding.textloading.setText("Tunggu sebentar ya . . ."); }
                                     if (count == 3)
                                         count = 0;
                                     handler.postDelayed(this, 1500);
@@ -352,7 +311,7 @@ public class BerandaProfile extends AppCompatActivity {
 
 
     public void go(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -360,11 +319,11 @@ public class BerandaProfile extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -401,7 +360,7 @@ public class BerandaProfile extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     Toast.makeText(BerandaProfile.this, "Gagal ganti foto", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -415,7 +374,7 @@ public class BerandaProfile extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(BerandaProfile.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -440,7 +399,7 @@ public class BerandaProfile extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setNewPhoto();
                             }
                         });
@@ -448,7 +407,7 @@ public class BerandaProfile extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(BerandaProfile.this, "Gagal ubah profil", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -462,7 +421,7 @@ public class BerandaProfile extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(BerandaProfile.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -475,7 +434,7 @@ public class BerandaProfile extends AppCompatActivity {
         String img = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+PreferenceUtils.getIDPhoto(getApplicationContext());
         Picasso.get().load(img).networkPolicy(NetworkPolicy.NO_CACHE)
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .into(img_profil);
+                .into(binding.imageProfile);
         Toast.makeText(BerandaProfile.this, "Berhasil ganti foto", Toast.LENGTH_LONG).show();
     }
 
@@ -584,7 +543,7 @@ public class BerandaProfile extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     Toast.makeText(BerandaProfile.this, "Authentication Failed :" + task.getException()
                                             .getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -615,7 +574,7 @@ public class BerandaProfile extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(BerandaProfile.this, "Gagal gabungkan dengan Google", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -630,7 +589,7 @@ public class BerandaProfile extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(BerandaProfile.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -645,7 +604,7 @@ public class BerandaProfile extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                 Toast.makeText(BerandaProfile.this, "Berhasil gabungkan dengan Google", Toast.LENGTH_LONG).show();
             }
         });

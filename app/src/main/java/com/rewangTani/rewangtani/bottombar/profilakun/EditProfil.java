@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.bottombar.profilakun;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.BottombarPaEditprofilBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
@@ -56,12 +58,7 @@ import retrofit2.Response;
 
 public class EditProfil extends AppCompatActivity {
 
-    ImageButton btn_simpan, btn_batal;
-    EditText et_nama_depan, et_nama_belakang, et_no_telepon, et_nik, et_alamat;
-    TextView et_nama_pengguna, et_tanggal_lahir;
-    Spinner sp_jk, sp_statuspekerja;
-    AutoCompleteTextView sp_provinsi, sp_kab_kota, sp_kec, sp_kel, sp_kodepos;
-    RelativeLayout rl_provinsi, rl_kab_kota, rl_kec, rl_kel, rl_kodepos;
+    BottombarPaEditprofilBinding binding;
     ModelProfilAkun modelProfilAkun;
     DatumProfil dataProfil;
     ModelAlamat modelAlamat;
@@ -74,14 +71,12 @@ public class EditProfil extends AppCompatActivity {
     List<String> listKel = new ArrayList<String>();
     List<String> listkodepos = new ArrayList<String>();
     List<String> listProvinsi = new ArrayList<String>();
-    String provinsi, kabkota, kecamatan, kelurahan, kodepos;
+    String provinsi, kabkota, kecamatan, kelurahan;
     String idAlamat = "";
     String idAlamat2 = "";
     String jenis_kelamin = "";
     String status_pekerja = "";
-    ScrollView sv;
-    TextView txtload;
-    String[] gender, statuspekerja;
+    String[] gender;
     Calendar myCalendar;
     ArrayAdapter<String> adapterProvinsi, adapterKabKota, adapterKec, adapterKel, adapterKodepos;
     int testTelp, testNIK;
@@ -89,132 +84,115 @@ public class EditProfil extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pa_editprofil);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_editprofil);
 
-        et_nama_depan = findViewById(R.id.et_nama_depan);
-        et_nama_belakang = findViewById(R.id.et_nama_belakang);
-        et_no_telepon = findViewById(R.id.et_no_telepon);
-        et_nik = findViewById(R.id.et_nik);
-        et_nama_pengguna = findViewById(R.id.et_nama_pengguna);
-        et_tanggal_lahir = findViewById(R.id.et_tanggal_lahir);
-        et_alamat = findViewById(R.id.et_alamat);
-        sp_jk = findViewById(R.id.sp_jk);
-        sp_statuspekerja = findViewById(R.id.sp_statuspekerja);
-        sp_provinsi = findViewById(R.id.sp_provinsi);
-        sp_kab_kota = findViewById(R.id.sp_kab_kota);
-        sp_kec = findViewById(R.id.sp_kec);
-        sp_kel = findViewById(R.id.sp_kel);
-        sp_kodepos = findViewById(R.id.sp_kodepos);
-        rl_provinsi = findViewById(R.id.rl_provinsi);
-        rl_kab_kota = findViewById(R.id.rl_kab_kota);
-        rl_kec = findViewById(R.id.rl_kec);
-        rl_kel = findViewById(R.id.rl_kel);
-        rl_kodepos = findViewById(R.id.rl_kodepos);
-        sv = findViewById(R.id.sv);
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_batal = findViewById(R.id.btn_batal);
-        txtload = findViewById(R.id.textloading);
         myCalendar = Calendar.getInstance();
-
         getData();
 
-        DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH,month);
-                myCalendar.set(Calendar.DAY_OF_MONTH,day);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, day);
                 updateLabel();
             }
         };
 
-        sp_jk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerJenisKelamin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                String jk = sp_jk.getSelectedItem().toString();
-                if(jk.equalsIgnoreCase("Laki - Laki")){
+                String jk = binding.spinnerJenisKelamin.getSelectedItem().toString();
+                if (jk.equalsIgnoreCase("Laki - Laki")) {
                     jenis_kelamin = "l";
-                } else if (jk.equalsIgnoreCase("Perempuan")){
+                } else if (jk.equalsIgnoreCase("Perempuan")) {
                     jenis_kelamin = "p";
 
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
         });
 
-        sp_statuspekerja.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spinnerStatusPekerja.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                String sp = sp_statuspekerja.getSelectedItem().toString();
-                for(int i = 0; i<modelStatusPekerja.getTotalData(); i++){
-                    if(modelStatusPekerja.getData().get(i).getNamaStatusPekerja().equalsIgnoreCase(sp)){
+                String sp = binding.spinnerStatusPekerja.getSelectedItem().toString();
+                for (int i = 0; i < modelStatusPekerja.getTotalData(); i++) {
+                    if (modelStatusPekerja.getData().get(i).getNamaStatusPekerja().equalsIgnoreCase(sp)) {
                         status_pekerja = modelStatusPekerja.getData().get(i).getIdStatusPekerja();
                     }
                 }
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
-        });
 
-        sp_provinsi.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kab_kota.setEnabled(false);
-                sp_kab_kota.setText("");
-                rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kec.setEnabled(false);
-                sp_kec.setText("");
-                rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kel.setEnabled(false);
-                sp_kel.setText("");
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
-                sp_provinsi.showDropDown();
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
 
-        sp_provinsi.addTextChangedListener(new TextWatcher() {
+        binding.spinnerProvinsi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKabKota.setEnabled(false);
+                binding.spinnerKabKota.setText("");
+                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKecamatan.setEnabled(false);
+                binding.spinnerKecamatan.setText("");
+                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKelurahan.setEnabled(false);
+                binding.spinnerKelurahan.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
+
+                binding.spinnerProvinsi.showDropDown();
+            }
+        });
+
+        binding.spinnerProvinsi.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try{
-                    if (adapterProvinsi!=null){
+                try {
+                    if (adapterProvinsi != null) {
                         adapterProvinsi.getFilter().filter(charSequence);
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kab_kota.setEnabled(false);
-                sp_kab_kota.setText("");
-                rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kec.setEnabled(false);
-                sp_kec.setText("");
-                rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kel.setEnabled(false);
-                sp_kel.setText("");
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+
+                //rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKabKota.setEnabled(false);
+                binding.spinnerKabKota.setText("");
+                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKecamatan.setEnabled(false);
+                binding.spinnerKecamatan.setText("");
+                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKelurahan.setEnabled(false);
+                binding.spinnerKelurahan.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                provinsi = sp_provinsi.getText().toString();
+                provinsi = binding.spinnerProvinsi.getText().toString();
                 listKabKota.clear();
-                for (int a=0; a<listAlamat.size(); a++) {
+                for (int a = 0; a < listAlamat.size(); a++) {
                     if (listAlamat.get(a).getProvinsi().equalsIgnoreCase(provinsi)) {
                         listKabKota.add(listAlamat.get(a).getKota());
                     }
                 }
-                if (listKabKota.size()>0){
+                if (listKabKota.size() > 0) {
                     for (int i = 0; i < listKabKota.size(); i++) {
                         for (int j = i + 1; j < listKabKota.size(); j++) {
                             if (listKabKota.get(i).equalsIgnoreCase(listKabKota.get(j))) {
@@ -224,67 +202,70 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
 
-                    rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner);
-                    sp_kab_kota.setEnabled(true);
+                    //rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner);
+                    binding.spinnerKabKota.setEnabled(true);
                     adapterKabKota = new ArrayAdapter<String>(
                             EditProfil.this, R.layout.z_spinner_list, listKabKota);
-                    sp_kab_kota.setThreshold(1);
-                    sp_kab_kota.setAdapter(adapterKabKota);
+                    binding.spinnerKabKota.setThreshold(1);
+                    binding.spinnerKabKota.setAdapter(adapterKabKota);
 
                 }
             }
         });
 
-        sp_kab_kota.setOnClickListener(new View.OnClickListener() {
+        binding.spinnerKabKota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kec.setEnabled(false);
-                sp_kec.setText("");
-                rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kel.setEnabled(false);
-                sp_kel.setText("");
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKecamatan.setEnabled(false);
+                binding.spinnerKecamatan.setText("");
+                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKelurahan.setEnabled(false);
+                binding.spinnerKelurahan.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
 
-                sp_kab_kota.showDropDown();
+                binding.spinnerKabKota.showDropDown();
             }
         });
 
-        sp_kab_kota.addTextChangedListener(new TextWatcher() {
+        binding.spinnerKabKota.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try{
+                try {
                     adapterKabKota.getFilter().filter(charSequence);
-                } catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kec.setEnabled(false);
-                sp_kec.setText("");
-                rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kel.setEnabled(false);
-                sp_kel.setText("");
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+
+                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKecamatan.setEnabled(false);
+                binding.spinnerKecamatan.setText("");
+                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKelurahan.setEnabled(false);
+                binding.spinnerKelurahan.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                kabkota = sp_kab_kota.getText().toString();
+                kabkota = binding.spinnerKabKota.getText().toString();
                 listKec.clear();
-                for (int a=0; a<listAlamat.size(); a++){
-                    if (listAlamat.get(a).getKota().equalsIgnoreCase(kabkota)){
+                for (int a = 0; a < listAlamat.size(); a++) {
+                    if (listAlamat.get(a).getKota().equalsIgnoreCase(kabkota)) {
                         listKec.add(listAlamat.get(a).getKecamatan());
                     }
                 }
 
-                if (listKec.size()>0){
+                if (listKec.size() > 0) {
                     for (int i = 0; i < listKec.size(); i++) {
                         for (int j = i + 1; j < listKec.size(); j++) {
                             if (listKec.get(i).equalsIgnoreCase(listKec.get(j))) {
@@ -294,64 +275,65 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
 
-                    rl_kec.setBackgroundResource(R.drawable.bg_spinner);
-                    sp_kec.setEnabled(true);
+                    //rl_kec.setBackgroundResource(R.drawable.bg_spinner);
+                    binding.spinnerKecamatan.setEnabled(true);
                     adapterKec = new ArrayAdapter<String>(
                             EditProfil.this, R.layout.z_spinner_list, listKec);
-                    sp_kec.setThreshold(1);
-                    sp_kec.setAdapter(adapterKec);
-
+                    binding.spinnerKecamatan.setThreshold(1);
+                    binding.spinnerKecamatan.setAdapter(adapterKec);
 
                 }
             }
         });
 
-        sp_kec.setOnClickListener(new View.OnClickListener() {
+        binding.spinnerKecamatan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kel.setEnabled(false);
-                sp_kel.setText("");
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKelurahan.setEnabled(false);
+                binding.spinnerKelurahan.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
 
-                sp_kec.showDropDown();
+                binding.spinnerKecamatan.showDropDown();
             }
         });
 
-        sp_kec.addTextChangedListener(new TextWatcher() {
+        binding.spinnerKecamatan.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try{
-                    if (adapterKec!=null){
+                try {
+                    if (adapterKec != null) {
                         adapterKec.getFilter().filter(charSequence);
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kel.setEnabled(false);
-                sp_kel.setText("");
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+
+                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKelurahan.setEnabled(false);
+                binding.spinnerKelurahan.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                kecamatan = sp_kec.getText().toString();
+                kecamatan = binding.spinnerKecamatan.getText().toString();
                 listKel.clear();
-                for (int a=0; a<listAlamat.size(); a++){
-                    if (listAlamat.get(a).getKecamatan().equalsIgnoreCase(kecamatan)){
+                for (int a = 0; a < listAlamat.size(); a++) {
+                    if (listAlamat.get(a).getKecamatan().equalsIgnoreCase(kecamatan)) {
                         listKel.add(listAlamat.get(a).getKelurahan());
                     }
                 }
 
-                if (listKel.size()>0){
+                if (listKel.size() > 0) {
                     for (int i = 0; i < listKel.size(); i++) {
                         for (int j = i + 1; j < listKel.size(); j++) {
                             if (listKel.get(i).equalsIgnoreCase(listKel.get(j))) {
@@ -361,51 +343,53 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
 
-                    rl_kel.setBackgroundResource(R.drawable.bg_spinner);
-                    sp_kel.setEnabled(true);
+                    //rl_kel.setBackgroundResource(R.drawable.bg_spinner);
+                    binding.spinnerKelurahan.setEnabled(true);
                     adapterKel = new ArrayAdapter<String>(
                             EditProfil.this, R.layout.z_spinner_list, listKel);
-                    sp_kel.setThreshold(1);
-                    sp_kel.setAdapter(adapterKel);
+                    binding.spinnerKelurahan.setThreshold(1);
+                    binding.spinnerKelurahan.setAdapter(adapterKel);
 
                 }
             }
         });
 
-        sp_kel.setOnClickListener(new View.OnClickListener() {
+        binding.spinnerKelurahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
 
-                sp_kel.showDropDown();
+                binding.spinnerKelurahan.showDropDown();
             }
         });
 
-        sp_kel.addTextChangedListener(new TextWatcher() {
+        binding.spinnerKelurahan.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try{
-                    if (adapterKel!=null){
+                try {
+                    if (adapterKel != null) {
                         adapterKel.getFilter().filter(charSequence);
                     }
-                }catch (Exception e){}
+                } catch (Exception e) {
+                }
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                sp_kodepos.setEnabled(false);
-                sp_kodepos.setText("");
+
+                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.spinnerKodepos.setEnabled(false);
+                binding.spinnerKodepos.setText("");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                kelurahan = sp_kel.getText().toString();
-                for (int a=0; a<listAlamat.size(); a++){
-                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)){
+                kelurahan = binding.spinnerKelurahan.getText().toString();
+                for (int a = 0; a < listAlamat.size(); a++) {
+                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)) {
                         idAlamat2 = listAlamat.get(a).getIdAlamat();
                         break;
                     }
@@ -413,13 +397,13 @@ public class EditProfil extends AppCompatActivity {
 
 
                 listkodepos.clear();
-                for (int a=0; a<listAlamat.size(); a++){
-                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)){
+                for (int a = 0; a < listAlamat.size(); a++) {
+                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)) {
                         listkodepos.add(listAlamat.get(a).getKodepos().toString());
                     }
                 }
 
-                if (listkodepos.size()>0){
+                if (listkodepos.size() > 0) {
 
                     for (int i = 0; i < listkodepos.size(); i++) {
                         for (int j = i + 1; j < listkodepos.size(); j++) {
@@ -430,59 +414,53 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
 
-                    rl_kodepos.setBackgroundResource(R.drawable.bg_spinner);
-                    sp_kodepos.setEnabled(true);
+                    //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner);
+                    binding.spinnerKodepos.setEnabled(true);
                     adapterKodepos = new ArrayAdapter<String>(
                             EditProfil.this, R.layout.z_spinner_list, listkodepos);
-                    sp_kodepos.setThreshold(1);
-                    sp_kodepos.setAdapter(adapterKodepos);
-
+                    binding.spinnerKodepos.setThreshold(1);
+                    binding.spinnerKodepos.setAdapter(adapterKodepos);
 
                 }
             }
         });
 
-        sp_kodepos.setOnClickListener(new View.OnClickListener() {
+        binding.spinnerKodepos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sp_kodepos.showDropDown();
+                binding.spinnerKodepos.showDropDown();
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
         });
 
-        et_tanggal_lahir.setOnClickListener(new View.OnClickListener() {
+        binding.inputTanggalLahir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(EditProfil.this,date,myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(EditProfil.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-        btn_batal.setOnClickListener(new View.OnClickListener() {
+        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+                findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
                 final Handler handler = new Handler();
                 Runnable runnable = new Runnable() {
                     int count = 0;
+
                     @Override
                     public void run() {
                         count++;
                         if (count == 1) {
-                            txtload.setText("Tunggu sebentar ya ."); }
-                        else if (count == 2) {
-                            txtload.setText("Tunggu sebentar ya . ."); }
-                        else if (count == 3) {
-                            txtload.setText("Tunggu sebentar ya . . ."); }
+                            binding.textLoading.setText("Tunggu sebentar ya .");
+                        } else if (count == 2) {
+                            binding.textLoading.setText("Tunggu sebentar ya . .");
+                        } else if (count == 3) {
+                            binding.textLoading.setText("Tunggu sebentar ya . . .");
+                        }
                         if (count == 3)
                             count = 0;
                         handler.postDelayed(this, 1500);
@@ -497,25 +475,27 @@ public class EditProfil extends AppCompatActivity {
                 }).start();
             }
         });
+
     }
 
-
-    public void getData(){
-        sv.setVerticalScrollBarEnabled(false);
-        sv.setHorizontalScrollBarEnabled(false);
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    public void getData() {
+        binding.scrollView.setVerticalScrollBarEnabled(false);
+        binding.scrollView.setHorizontalScrollBarEnabled(false);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -530,41 +510,42 @@ public class EditProfil extends AppCompatActivity {
         }).start();
     }
 
-    public void getDataProfile(){
-        // masih di new thread
+    public void getDataProfile() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelProfilAkun> dataProfilAkun = apiInterface.getDataProfilAkun();
         dataProfilAkun.enqueue(new Callback<ModelProfilAkun>() {
             @Override
             public void onResponse(Call<ModelProfilAkun> call, Response<ModelProfilAkun> response) {
                 modelProfilAkun = response.body();
-                if (response.body()!=null){
-                    try{
+                if (response.body() != null) {
+                    try {
                         for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
                             if (modelProfilAkun.getData().get(i).getIdProfile().equalsIgnoreCase(PreferenceUtils.getIdProfil(getApplicationContext()))) {
                                 dataProfil = modelProfilAkun.getData().get(i);
-                                if (dataProfil!=null){
+                                if (dataProfil != null) {
                                     getDataStatusPekerja();
                                 }
                             }
                         }
-                    } catch (Exception e){ }
+                    } catch (Exception e) {
+                    }
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(EditProfil.this, "Data profil tidak ditemukan", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
             }
+
             @Override
             public void onFailure(Call<ModelProfilAkun> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -574,7 +555,7 @@ public class EditProfil extends AppCompatActivity {
         });
     }
 
-    public void getDataStatusPekerja(){
+    public void getDataStatusPekerja() {
         // masih di new thread
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelStatusPekerja> datasp = apiInterface.getStatusPekerja();
@@ -582,26 +563,27 @@ public class EditProfil extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelStatusPekerja> call, Response<ModelStatusPekerja> response) {
                 modelStatusPekerja = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
                     for (int i = 0; i < modelStatusPekerja.getTotalData(); i++) {
                         listStatusPekerja.add(modelStatusPekerja.getData().get(i).getNamaStatusPekerja());
                     }
-                    if(listStatusPekerja!=null){
+                    if (listStatusPekerja != null) {
                         getDataAlamat();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(EditProfil.this, "Data status pekerja tidak ditemukan", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelStatusPekerja> call, Throwable t) {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                 Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
@@ -616,13 +598,13 @@ public class EditProfil extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelAlamat> call, Response<ModelAlamat> response) {
                 modelAlamat = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
                     listAlamat.clear();
                     for (int i = 0; i < modelAlamat.getTotalData(); i++) {
                         listAlamat.add(modelAlamat.getData().get(i));
                         listProvinsi.add(modelAlamat.getData().get(i).getProvinsi());
                     }
-                    if (listAlamat!=null && listProvinsi!=null){
+                    if (listAlamat != null && listProvinsi != null) {
                         for (int i = 0; i < listProvinsi.size(); i++) {
                             for (int j = i + 1; j < listProvinsi.size(); j++) {
                                 if (listProvinsi.get(i).equalsIgnoreCase(listProvinsi.get(j))) {
@@ -631,10 +613,10 @@ public class EditProfil extends AppCompatActivity {
                                 }
                             }
                         }
-                        if (dataProfil.getIdAlamat()!=null){
-                            if (!dataProfil.getIdAlamat().equalsIgnoreCase("")){
-                                for (int a = 0; a < listAlamat.size(); a++){
-                                    if (listAlamat.get(a).getIdAlamat().equalsIgnoreCase(dataProfil.getIdAlamat())){
+                        if (dataProfil.getIdAlamat() != null) {
+                            if (!dataProfil.getIdAlamat().equalsIgnoreCase("")) {
+                                for (int a = 0; a < listAlamat.size(); a++) {
+                                    if (listAlamat.get(a).getIdAlamat().equalsIgnoreCase(dataProfil.getIdAlamat())) {
                                         dataAlamat = listAlamat.get(a);
                                         idAlamat = listAlamat.get(a).getIdAlamat();
                                     }
@@ -644,7 +626,7 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -652,40 +634,41 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(EditProfil.this, "Data alamat tidak ditemukan", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelAlamat> call, Throwable t) {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                 Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
     }
 
-    public void setData(){
-        et_nama_depan.setText(PreferenceUtils.getNamaDepan(getApplicationContext()));
-        et_nama_belakang.setText(PreferenceUtils.getNamaBelakang(getApplicationContext()));
-        et_nama_pengguna.setText(PreferenceUtils.getUsername(getApplicationContext()));
-        et_alamat.setText(dataProfil.getAlamat());
-        et_tanggal_lahir.setText(dataProfil.getTglLahir());
-        et_no_telepon.setText(dataProfil.getTelepon());
-        et_nik.setText(dataProfil.getNik());
+    public void setData() {
+        binding.inputNamaBelakang.setText(PreferenceUtils.getNamaDepan(getApplicationContext()));
+        binding.inputNamaBelakang.setText(PreferenceUtils.getNamaBelakang(getApplicationContext()));
+        binding.inputUsername.setText(PreferenceUtils.getUsername(getApplicationContext()));
+        binding.inputAlamat.setText(dataProfil.getAlamat());
+        binding.inputTanggalLahir.setText(dataProfil.getTglLahir());
+        binding.inputNoTelepon.setText(dataProfil.getTelepon());
+        binding.inputNik.setText(dataProfil.getNik());
         setSpinnerStatusPekerja();
         //hideKeyboard(getParent());
     }
 
-    public void setSpinnerStatusPekerja(){
+    public void setSpinnerStatusPekerja() {
 
         ArrayAdapter<String> adapterStatusPekerja = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, listStatusPekerja);
-        sp_statuspekerja.setAdapter(adapterStatusPekerja);
+        binding.spinnerStatusPekerja.setAdapter(adapterStatusPekerja);
 
-        if (dataProfil.getIdStatusPekerja()!=null) {
+        if (dataProfil.getIdStatusPekerja() != null) {
             for (int i = 0; i < modelStatusPekerja.getTotalData(); i++) {
                 if (dataProfil.getIdStatusPekerja().equalsIgnoreCase(modelStatusPekerja.getData().get(i).getIdStatusPekerja())) {
                     status_pekerja = dataProfil.getIdStatusPekerja();
@@ -695,26 +678,25 @@ public class EditProfil extends AppCompatActivity {
         }
 
         setSpinnerJk();
-
     }
 
-    public void setSpinnerJk(){
+    public void setSpinnerJk() {
         gender = getResources().getStringArray(R.array.gender);
         ArrayAdapter<String> adapterJK = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, gender);
         adapterJK.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_jk.setAdapter(adapterJK);
+        binding.spinnerJenisKelamin.setAdapter(adapterJK);
 
-        if (dataProfil.getGender() != null){
-            if (dataProfil.getGender().equalsIgnoreCase("l")){
-                sp_jk.setSelection(0);
+        if (dataProfil.getGender() != null) {
+            if (dataProfil.getGender().equalsIgnoreCase("l")) {
+                binding.spinnerJenisKelamin.setSelection(0);
                 jenis_kelamin = "l";
             } else {
-                sp_jk.setSelection(1);
+                binding.spinnerJenisKelamin.setSelection(1);
                 jenis_kelamin = "p";
             }
         }
 
-        if(idAlamat.equalsIgnoreCase("")){
+        if (idAlamat.equalsIgnoreCase("")) {
             setSpinnerProvinsi();
         } else {
             setdataSpinner();
@@ -722,36 +704,36 @@ public class EditProfil extends AppCompatActivity {
 
     }
 
-    public void setdataSpinner(){
-        sp_provinsi.setText(dataAlamat.getProvinsi());
-        sp_kab_kota.setText(dataAlamat.getKota());
-        sp_kec.setText(dataAlamat.getKecamatan());
-        sp_kel.setText(dataAlamat.getKelurahan());
-        sp_kodepos.setText(dataAlamat.getKodepos().toString());
+    public void setdataSpinner() {
+        binding.spinnerProvinsi.setText(dataAlamat.getProvinsi());
+        binding.spinnerKabKota.setText(dataAlamat.getKota());
+        binding.spinnerKecamatan.setText(dataAlamat.getKecamatan());
+        binding.spinnerKelurahan.setText(dataAlamat.getKelurahan());
+        binding.spinnerKodepos.setText(dataAlamat.getKodepos().toString());
         setSpinnerProvinsi();
     }
 
-    private void setSpinnerProvinsi(){
+    private void setSpinnerProvinsi() {
         adapterProvinsi = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, listProvinsi);
-        sp_provinsi.setThreshold(1);
-        sp_provinsi.setAdapter(adapterProvinsi);
+        binding.spinnerProvinsi.setThreshold(1);
+        binding.spinnerProvinsi.setAdapter(adapterProvinsi);
     }
 
-    private void checkNoTelp(){
+    private void checkNoTelp() {
 
-        if(dataProfil.getTelepon()!=null){
+        if (dataProfil.getTelepon() != null) {
 
-            if(!et_no_telepon.getText().toString().equalsIgnoreCase("")){
-                String notelp = et_no_telepon.getText().toString();
-                for(int i=0; i<modelProfilAkun.getTotalData(); i++){
-                    if (modelProfilAkun.getData().get(i).getTelepon()!=null){
-                        if (!modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase("")){
-                            if(modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase(notelp) &&
-                                    !dataProfil.getTelepon().equalsIgnoreCase(notelp)){
+            if (!binding.inputNoTelepon.getText().toString().equalsIgnoreCase("")) {
+                String notelp = binding.inputNoTelepon.getText().toString();
+                for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
+                    if (modelProfilAkun.getData().get(i).getTelepon() != null) {
+                        if (!modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase("")) {
+                            if (modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase(notelp) &&
+                                    !dataProfil.getTelepon().equalsIgnoreCase(notelp)) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "No telepon sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -761,29 +743,29 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
                 }
-            } else if(et_no_telepon.getText().toString().equalsIgnoreCase("")) {
+            } else if (binding.inputNoTelepon.getText().toString().equalsIgnoreCase("")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi no telepon terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
-                testTelp=1;
+                testTelp = 1;
             }
 
         } else {
 
-            if(!et_no_telepon.getText().toString().equalsIgnoreCase("")){
-                String notelp = et_no_telepon.getText().toString();
-                for(int i=0; i<modelProfilAkun.getTotalData(); i++){
-                    if (modelProfilAkun.getData().get(i).getTelepon()!=null){
-                        if (!modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase("")){
-                            if(modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase(notelp)){
+            if (!binding.inputNoTelepon.getText().toString().equalsIgnoreCase("")) {
+                String notelp = binding.inputNoTelepon.getText().toString();
+                for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
+                    if (modelProfilAkun.getData().get(i).getTelepon() != null) {
+                        if (!modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase("")) {
+                            if (modelProfilAkun.getData().get(i).getTelepon().equalsIgnoreCase(notelp)) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "No telepon sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -793,28 +775,27 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
                 }
-            } else if(et_no_telepon.getText().toString().equalsIgnoreCase("")) {
+            } else if (binding.inputNoTelepon.getText().toString().equalsIgnoreCase("")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi no telepon terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
-                testTelp=1;
+                testTelp = 1;
             }
 
         }
 
 
-
-        if(testTelp!=1){
-            testTelp=0;
-            if (et_no_telepon.getText().toString().length()<10){
+        if (testTelp != 1) {
+            testTelp = 0;
+            if (binding.inputNoTelepon.getText().toString().length() < 10) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfil.this);
                         builder.setMessage("NO TELEPON TIDAK BOLEH KURANG DARI 10 DIGIT")
                                 .setCancelable(false)
@@ -824,15 +805,15 @@ public class EditProfil extends AppCompatActivity {
                                         dialog.cancel();
                                     }
                                 });
-                        AlertDialog alertDialog =builder.create();
+                        AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                     }
                 });
-            } else if (et_no_telepon.getText().toString().length()>13) {
+            } else if (binding.inputNoTelepon.getText().toString().length() > 13) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfil.this);
                         builder.setMessage("NO TELEPON TIDAK BOLEH LEBIH DARI 13 DIGIT")
                                 .setCancelable(false)
@@ -849,26 +830,26 @@ public class EditProfil extends AppCompatActivity {
             } else {
                 checkNik();
             }
-        }else{
-            testTelp=0;
+        } else {
+            testTelp = 0;
         }
     }
 
-    public void checkNik(){
+    public void checkNik() {
 
-        if(dataProfil.getNik()!=null){
+        if (dataProfil.getNik() != null) {
 
-            if(!et_nik.getText().toString().equalsIgnoreCase("")){
-                String a = et_nik.getText().toString();
-                for(int i=0; i<modelProfilAkun.getTotalData(); i++){
-                    if (modelProfilAkun.getData().get(i).getNik()!=null){
-                        if (!modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase("")){
-                            if(modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase(a) &&
-                                    !dataProfil.getNik().equalsIgnoreCase(a)){
+            if (!binding.inputNik.getText().toString().equalsIgnoreCase("")) {
+                String a = binding.inputNik.getText().toString();
+                for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
+                    if (modelProfilAkun.getData().get(i).getNik() != null) {
+                        if (!modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase("")) {
+                            if (modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase(a) &&
+                                    !dataProfil.getNik().equalsIgnoreCase(a)) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "NIK sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -878,29 +859,29 @@ public class EditProfil extends AppCompatActivity {
                         }
                     }
                 }
-            } else if(et_nik.getText().toString().equalsIgnoreCase("")) {
+            } else if (binding.inputNik.getText().toString().equalsIgnoreCase("")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi NIK terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
-                testNIK=1;
+                testNIK = 1;
             }
 
         } else {
 
-            if(!et_nik.getText().toString().equalsIgnoreCase("")){
-                String a = et_nik.getText().toString();
-                for(int i=0; i<modelProfilAkun.getTotalData(); i++){
-                    if (modelProfilAkun.getData().get(i).getNik()!=null){
-                        if (!modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase("")){
-                            if(modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase(a)){
+            if (!binding.inputNik.getText().toString().equalsIgnoreCase("")) {
+                String a = binding.inputNik.getText().toString();
+                for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
+                    if (modelProfilAkun.getData().get(i).getNik() != null) {
+                        if (!modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase("")) {
+                            if (modelProfilAkun.getData().get(i).getNik().equalsIgnoreCase(a)) {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "NIK sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -914,25 +895,23 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi NIK terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
-                testNIK=1;
+                testNIK = 1;
             }
 
         }
 
 
-
-
-        if(testNIK!=1){
-            testNIK=0;
-            if (et_nik.getText().toString().length()<16){
+        if (testNIK != 1) {
+            testNIK = 0;
+            if (binding.inputNik.getText().toString().length() < 16) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfil.this);
                         builder.setMessage("NIK TIDAK BOLEH KURANG DARI 16")
                                 .setCancelable(false)
@@ -942,58 +921,51 @@ public class EditProfil extends AppCompatActivity {
                                         dialog.cancel();
                                     }
                                 });
-                        AlertDialog alertDialog =builder.create();
+                        AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                     }
                 });
             } else {
                 checkTTL();
             }
-        }else{
-            testNIK=0;
-        }
-       /* if (et_nik.getText().toString().equalsIgnoreCase("")){
-            nikk = "-";
-            checkIdalamat();
         } else {
-            nikk = et_nik.getText().toString();
-            checkIdalamat();
-        }*/
+            testNIK = 0;
+        }
     }
 
-    public void checkTTL(){
-        if(!et_tanggal_lahir.getText().toString().equalsIgnoreCase("")){
+    public void checkTTL() {
+        if (!binding.inputTanggalLahir.getText().toString().equalsIgnoreCase("")) {
             checkJenisKelamin();
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Lengkapi tanggal lahir terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    public void checkJenisKelamin(){
-        if(!jenis_kelamin.equalsIgnoreCase("")){
+    public void checkJenisKelamin() {
+        if (!jenis_kelamin.equalsIgnoreCase("")) {
             checkIdalamat();
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Pilih jenis kelamin terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    public void checkIdalamat(){
+    public void checkIdalamat() {
 
-        if(!idAlamat2.equalsIgnoreCase("")){
-            if(!idAlamat.equalsIgnoreCase("")){
-                if(idAlamat.equalsIgnoreCase(idAlamat2)){
+        if (!idAlamat2.equalsIgnoreCase("")) {
+            if (!idAlamat.equalsIgnoreCase("")) {
+                if (idAlamat.equalsIgnoreCase(idAlamat2)) {
                     idAlamat2 = idAlamat;
                     checkAlamat();
                 } else {
@@ -1006,35 +978,22 @@ public class EditProfil extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Lengkapi alamat terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
-       /* if(idAlamat2!=null && dataProfil.getIdAlamat()!=null){
-            if (idAlamat2.equalsIgnoreCase(dataProfil.getIdAlamat())){
-                idAlamat2 = idAlamat;
-                updateDataProfile();
-            } else {
-                updateDataProfile();
-            }
-        } else {
-
-            idAlamat2 = "-";
-            updateDataProfile();
-        }*/
-
     }
 
-    public void checkAlamat(){
-        if(!et_alamat.getText().toString().equalsIgnoreCase("")){
+    public void checkAlamat() {
+        if (!binding.inputAlamat.getText().toString().equalsIgnoreCase("")) {
             updateDataProfile();
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Lengkapi alamat terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -1042,19 +1001,19 @@ public class EditProfil extends AppCompatActivity {
     }
 
 
-    public void updateDataProfile(){
+    public void updateDataProfile() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
         jsonParams.put("idProfile", PreferenceUtils.getIdProfil(getApplicationContext()));
         jsonParams.put("idAkun", PreferenceUtils.getIdAkun(getApplicationContext()));
-        jsonParams.put("namaDepan", et_nama_depan.getText().toString());
-        jsonParams.put("namaBelakang", et_nama_belakang.getText().toString());
-        jsonParams.put("alamat", et_alamat.getText().toString());
+        jsonParams.put("namaDepan", binding.inputNamaDepan.getText().toString());
+        jsonParams.put("namaBelakang", binding.inputNamaBelakang.getText().toString());
+        jsonParams.put("alamat", binding.inputAlamat.getText().toString());
         jsonParams.put("idAlamat", idAlamat2);
-        jsonParams.put("nik", et_nik.getText().toString());
+        jsonParams.put("nik", binding.inputNik.getText().toString());
         jsonParams.put("gender", jenis_kelamin);
-        jsonParams.put("tglLahir", et_tanggal_lahir.getText().toString());
-        jsonParams.put("telepon", et_no_telepon.getText().toString());
+        jsonParams.put("tglLahir", binding.inputTanggalLahir.getText().toString());
+        jsonParams.put("telepon", binding.inputNoTelepon.getText().toString());
         jsonParams.put("idStatusPekerja", status_pekerja);
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
@@ -1072,7 +1031,7 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(EditProfil.this, "Gagal ubah profil", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -1081,12 +1040,13 @@ public class EditProfil extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -1102,17 +1062,17 @@ public class EditProfil extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelProfilAkun> call, Response<ModelProfilAkun> response) {
                 modelProfilAkun = response.body();
-                try{
+                try {
                     for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
                         if (modelProfilAkun.getData().get(i).getIdProfile().equalsIgnoreCase(PreferenceUtils.getIdProfil(getApplicationContext()))) {
                             dataProfil = modelProfilAkun.getData().get(i);
-                            if (dataProfil!=null){
+                            if (dataProfil != null) {
                                 PreferenceUtils.saveNamaDepan(dataProfil.getNamaDepan(), getApplicationContext());
                                 PreferenceUtils.saveNamaBelakang(dataProfil.getNamaBelakang(), getApplicationContext());
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "Berhasil ubah profil", Toast.LENGTH_LONG).show();
                                         goToBerandaProfil();
                                     }
@@ -1120,14 +1080,16 @@ public class EditProfil extends AppCompatActivity {
                             }
                         }
                     }
-                } catch (Exception e){ }
+                } catch (Exception e) {
+                }
             }
+
             @Override
             public void onFailure(Call<ModelProfilAkun> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -1136,10 +1098,10 @@ public class EditProfil extends AppCompatActivity {
         });
     }
 
-    private void updateLabel(){
-        String myFormat="dd/MM/yyyy";
-        SimpleDateFormat dateFormat=new SimpleDateFormat(myFormat, Locale.US);
-        et_tanggal_lahir.setText(dateFormat.format(myCalendar.getTime()));
+    private void updateLabel() {
+        String myFormat = "dd/MM/yyyy";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(myFormat, Locale.US);
+        binding.inputTanggalLahir.setText(dateFormat.format(myCalendar.getTime()));
     }
 
     public static void hideKeyboard(Activity activity) {
@@ -1153,7 +1115,7 @@ public class EditProfil extends AppCompatActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public void goToBerandaProfil(){
+    public void goToBerandaProfil() {
         Intent a = new Intent(EditProfil.this, BerandaProfile.class);
         startActivity(a);
         finish();
@@ -1176,7 +1138,7 @@ public class EditProfil extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog alertDialog =builder.create();
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 }

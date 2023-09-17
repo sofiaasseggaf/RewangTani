@@ -1,0 +1,8 @@
+<!-- hollow_circle.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#00000000" />
+    <stroke
+        android:width="10dp"
+    android:color="#FFBF3A" />
+</shape>

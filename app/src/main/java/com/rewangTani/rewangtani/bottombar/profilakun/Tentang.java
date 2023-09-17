@@ -1,6 +1,7 @@
 package com.rewangTani.rewangtani.bottombar.profilakun;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,24 +9,16 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.BottombarPaTentangBinding;
 
 public class Tentang extends AppCompatActivity {
 
-    ImageButton btn_kembali;
+    BottombarPaTentangBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pa_tentang);
-
-        btn_kembali = findViewById(R.id.btn_kembali);
-
-        btn_kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToBerandaProfil();
-            }
-        });
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_tentang);
 
     }
 

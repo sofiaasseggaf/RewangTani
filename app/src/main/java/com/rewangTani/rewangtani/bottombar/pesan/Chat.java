@@ -1,4 +1,4 @@
-package com.rewangTani.rewangtani.chat;
+package com.rewangTani.rewangtani.bottombar.pesan;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -15,14 +15,10 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterchatdaninbox.AdapterChat;
-import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.bottombar.profilelahan.TambahProfilLahan;
 import com.rewangTani.rewangtani.databinding.ActivityChatBinding;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.DatumChat;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.ModelChat;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
 import org.json.JSONObject;
 
@@ -229,7 +225,7 @@ public class Chat extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent a = new Intent(Chat.this, Inbox.class);
+        Intent a = new Intent(Chat.this, InboxPesan.class);
         startActivity(a);
         finish();
     }

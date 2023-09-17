@@ -17,6 +17,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListWarungku;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
@@ -74,6 +75,10 @@ public class EtalaseWarungku extends AppCompatActivity {
             public void onClick(View view) {
                 goToProfilLahan();
             }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
         });
 
         binding.btnAkun.setOnClickListener(new View.OnClickListener() {
@@ -462,6 +467,12 @@ public class EtalaseWarungku extends AppCompatActivity {
 
     public void goToProfilLahan() {
         Intent a = new Intent(EtalaseWarungku.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan() {
+        Intent a = new Intent(EtalaseWarungku.this, InboxPesan.class);
         startActivity(a);
         finish();
     }

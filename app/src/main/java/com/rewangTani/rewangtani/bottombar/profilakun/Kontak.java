@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.bottombar.profilakun;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,49 +11,37 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.BottombarPaKontakBinding;
 
 public class Kontak extends AppCompatActivity {
 
-    //ImageButton btn_kembali;
-    LinearLayout ll_whatsapp, ll_google, ll_telepon;
+    BottombarPaKontakBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pa_kontak);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_kontak);
 
-        ll_whatsapp = findViewById(R.id.ll_whatsapp);
-        ll_google = findViewById(R.id.ll_google);
-        ll_telepon = findViewById(R.id.ll_telepon);
-        //btn_kembali = findViewById(R.id.btn_kembali);
-
-        ll_whatsapp.setOnClickListener(new View.OnClickListener() {
+        binding.btnWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 kontakWhatsapp();
             }
         });
 
-        ll_google.setOnClickListener(new View.OnClickListener() {
+        binding.btnGmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 kontakEmail();
             }
         });
 
-        ll_telepon.setOnClickListener(new View.OnClickListener() {
+        binding.btnTelepon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 kontakTelepon();
             }
         });
-
-       /* btn_kembali.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToBerandaProfil();
-            }
-        });*/
 
     }
 

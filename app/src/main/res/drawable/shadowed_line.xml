@@ -1,0 +1,16 @@
+<!-- shadowed_line.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background: A solid colored line -->
+    <item android:drawable="@drawable/shadowed_line_background" />
+
+    <!-- Shadow: A semi-transparent gradient that simulates a shadow at the bottom -->
+    <item android:top="1dp">
+        <shape>
+            <gradient
+                android:angle="270"
+                android:centerColor="#00000000"
+                android:endColor="#00000000"
+                android:startColor="#1A000000" />
+        </shape>
+    </item>
+</layer-list>

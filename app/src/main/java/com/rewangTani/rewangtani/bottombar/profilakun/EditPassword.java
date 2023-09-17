@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.bottombar.profilakun;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.BottombarPaEditpasswordBinding;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
@@ -35,11 +37,9 @@ import retrofit2.Callback;
 
 public class EditPassword extends AppCompatActivity {
 
-    EditText et_sandi_lama, et_sandi_baru, et_ulangi_sandi_baru;
-    ImageButton btn_simpan, btn_batal, btn_password_lama, btn_password_baru, btn_password_baru_ulangi;
+    BottombarPaEditpasswordBinding binding;
     String pw_lama;
     int check, checkPanjangPasword;
-    TextView txtload, panjangpassword;
     int pw = 0;
     int pw2 = 0;
     int pw3 = 0;
@@ -47,117 +47,101 @@ public class EditPassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pa_editpassword);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_editpassword);
 
-        et_sandi_lama = findViewById(R.id.et_sandi_lama);
-        et_sandi_baru = findViewById(R.id.et_sandi_baru);
-        et_ulangi_sandi_baru = findViewById(R.id.et_ulangi_sandi_baru);
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_batal = findViewById(R.id.btn_batal);
-        txtload = findViewById(R.id.textloading);
-        panjangpassword = findViewById(R.id.panjangpassword);
-        btn_password_lama = findViewById(R.id.btn_password_lama);
-        btn_password_baru = findViewById(R.id.btn_password_baru);
-        btn_password_baru_ulangi = findViewById(R.id.btn_password_baru_ulangi);
-
-
-        et_sandi_baru.addTextChangedListener(new TextWatcher() {
+        binding.inputPasswordBaru.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                int length = et_sandi_baru.length();
-                if (length<8){
+                int length = binding.inputPasswordBaru.length();
+                if (length < 8) {
                     checkPanjangPasword = 0;
-                    panjangpassword.setText("Password kurang dari 8 karakter");
+                    binding.textErrorInputPassword.setVisibility(View.VISIBLE);
+                    binding.textErrorInputPassword.setText("Password kurang dari 8 karakter");
                 } else {
                     checkPanjangPasword = 10;
-                    panjangpassword.setText("");
+                    binding.textErrorInputPassword.setVisibility(View.GONE);
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable s) { }
+            public void afterTextChanged(Editable s) {
+            }
         });
 
-        btn_password_lama.setOnClickListener(new View.OnClickListener() {
+        binding.btnHideViewPasswordLama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pw==0){
+                if (pw == 0) {
                     pw = 1;
-                    btn_password_lama.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    et_sandi_lama.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else if (pw==1){
+                    binding.btnHideViewPasswordLama.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                    binding.inputPasswordLama.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else if (pw == 1) {
                     pw = 0;
-                    btn_password_lama.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    et_sandi_lama.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.btnHideViewPasswordLama.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                    binding.inputPasswordLama.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
 
             }
         });
 
-        btn_password_baru.setOnClickListener(new View.OnClickListener() {
+        binding.btnHideViewPasswordBaru.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pw2==0){
+                if (pw2 == 0) {
                     pw2 = 1;
-                    btn_password_baru.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    et_sandi_baru.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else if (pw2==1){
+                    binding.btnHideViewPasswordBaru.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                    binding.inputPasswordBaru.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else if (pw2 == 1) {
                     pw2 = 0;
-                    btn_password_baru.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    et_sandi_baru.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.btnHideViewPasswordBaru.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                    binding.inputPasswordBaru.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
-
             }
         });
 
-        btn_password_baru_ulangi.setOnClickListener(new View.OnClickListener() {
+        binding.btnHideViewPasswordBaruKonfirmasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pw3==0){
+                if (pw3 == 0) {
                     pw3 = 1;
-                    btn_password_baru_ulangi.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    et_ulangi_sandi_baru.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else if (pw3==1){
+                    binding.btnHideViewPasswordBaruKonfirmasi.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                    binding.inputPasswordBaruKonfirmasi.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else if (pw3 == 1) {
                     pw3 = 0;
-                    btn_password_baru_ulangi.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    et_ulangi_sandi_baru.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    binding.btnHideViewPasswordBaruKonfirmasi.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                    binding.inputPasswordBaruKonfirmasi.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
 
             }
         });
 
-        btn_batal.setOnClickListener(new View.OnClickListener() {
+        binding.btnGantiPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (et_sandi_lama.getText().toString().equalsIgnoreCase(PreferenceUtils.getPassword(getApplicationContext()))){
+                if (binding.inputPasswordLama.getText().toString().equalsIgnoreCase(PreferenceUtils.getPassword(getApplicationContext()))) {
                     check = 10;
                 } else {
                     Toast.makeText(EditPassword.this, "Sandi lama salah", Toast.LENGTH_SHORT).show();
                     check = 0;
                 }
 
-                if(check==10){
-                    if (et_sandi_baru.getText().toString().equalsIgnoreCase(et_ulangi_sandi_baru.getText().toString())) {
-                        if(checkPanjangPasword==10){
+                if (check == 10) {
+                    if (binding.inputPasswordBaru.getText().toString().equalsIgnoreCase(binding.inputPasswordBaruKonfirmasi.getText().toString())) {
+                        if (checkPanjangPasword == 10) {
                             boolean hitLetter = false;
                             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                                hitLetter = et_sandi_baru.getText().toString().codePoints().anyMatch( i -> Character.isLetter( i ) );
+                                hitLetter = binding.inputPasswordBaru.getText().toString().codePoints().anyMatch(i -> Character.isLetter(i));
                             }
                             boolean hitDigit = false;
                             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                                hitDigit = et_sandi_baru.getText().toString().codePoints().anyMatch( i -> Character.isDigit( i ) );
+                                hitDigit = binding.inputPasswordBaru.getText().toString().codePoints().anyMatch(i -> Character.isDigit(i));
                             }
-                            boolean containsBoth = ( hitLetter && hitDigit ) ;
+                            boolean containsBoth = (hitLetter && hitDigit);
                             if (containsBoth) {
                                 simpanEdit();
                             } else {
@@ -166,8 +150,7 @@ public class EditPassword extends AppCompatActivity {
                         } else {
                             Toast.makeText(EditPassword.this, "Password kurang dari 8 karakter", Toast.LENGTH_SHORT).show();
                         }
-
-                    }else {
+                    } else {
                         Toast.makeText(EditPassword.this, "Sandi baru tidak sama", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -176,22 +159,24 @@ public class EditPassword extends AppCompatActivity {
 
     }
 
-    public  void simpanEdit(){
-        if (PreferenceUtils.getIDGoogle(getApplicationContext()).equalsIgnoreCase("")){
+    public void simpanEdit() {
+        if (PreferenceUtils.getIDGoogle(getApplicationContext()).equalsIgnoreCase("")) {
             pw_lama = PreferenceUtils.getPassword(getApplicationContext());
-            findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 int count = 0;
+
                 @Override
                 public void run() {
                     count++;
                     if (count == 1) {
-                        txtload.setText("Tunggu sebentar ya ."); }
-                    else if (count == 2) {
-                        txtload.setText("Tunggu sebentar ya . ."); }
-                    else if (count == 3) {
-                        txtload.setText("Tunggu sebentar ya . . ."); }
+                        binding.textLoading.setText("Tunggu sebentar ya .");
+                    } else if (count == 2) {
+                        binding.textLoading.setText("Tunggu sebentar ya . .");
+                    } else if (count == 3) {
+                        binding.textLoading.setText("Tunggu sebentar ya . . .");
+                    }
                     if (count == 3)
                         count = 0;
                     handler.postDelayed(this, 1500);
@@ -209,11 +194,11 @@ public class EditPassword extends AppCompatActivity {
         }
     }
 
-    public void updateDataAkun(){
+    public void updateDataAkun() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
         jsonParams.put("idAkun", PreferenceUtils.getIdAkun(getApplicationContext()));
-        jsonParams.put("password", et_sandi_baru.getText().toString() );
+        jsonParams.put("password", binding.inputPasswordBaru.getText().toString());
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
 
@@ -229,7 +214,7 @@ public class EditPassword extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(EditPassword.this, "Gagal ubah password", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -238,12 +223,13 @@ public class EditPassword extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(EditPassword.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -252,19 +238,19 @@ public class EditPassword extends AppCompatActivity {
         });
     }
 
-    public void saveData(){
-        PreferenceUtils.savePassword(et_sandi_baru.getText().toString(), getApplicationContext());
+    public void saveData() {
+        PreferenceUtils.savePassword(binding.inputPasswordBaru.getText().toString(), getApplicationContext());
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                 Toast.makeText(EditPassword.this, "Berhasil ubah password", Toast.LENGTH_LONG).show();
                 goToBerandaProfil();
             }
         });
     }
 
-    public void goToBerandaProfil(){
+    public void goToBerandaProfil() {
         Intent a = new Intent(EditPassword.this, BerandaProfile.class);
         startActivity(a);
         finish();
@@ -287,7 +273,7 @@ public class EditPassword extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog alertDialog =builder.create();
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 

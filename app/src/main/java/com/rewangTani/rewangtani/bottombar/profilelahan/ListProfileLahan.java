@@ -39,7 +39,6 @@ import retrofit2.Response;
 
 public class ListProfileLahan extends AppCompatActivity {
 
-
     BottombarPlListProfileLahanBinding binding;
     AdapterListProfilLahan itemList;
     ModelProfilLahan modelProfilLahan;

@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.HomeImageCarouselAdapter;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
@@ -175,6 +176,10 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
         binding.btnAkun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,7 +205,7 @@ public class Home extends AppCompatActivity {
     // ------------------------------------------------------------------------------
 
     public void start() {
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -238,7 +243,7 @@ public class Home extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
                 }
             });
@@ -251,7 +256,7 @@ public class Home extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     @SuppressLint("MissingPermission")
                     Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -410,6 +415,12 @@ public class Home extends AppCompatActivity {
 
     public void goToWarungku(){
         Intent a = new Intent(Home.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(Home.this, InboxPesan.class);
         startActivity(a);
         finish();
     }

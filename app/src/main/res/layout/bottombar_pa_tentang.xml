@@ -1,125 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_kontak_about"
-    tools:context=".bottombar.profilakun.Tentang">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/txttop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/comfortaa_regular"
-        android:text="Tentang Aplikasi"
-        android:textColor="@color/black"
-        android:textSize="28sp" />
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/txttop"
-        android:layout_above="@id/btn_kembali">
-        <LinearLayout
+        android:background="@color/white"
+        tools:context=".bottombar.profilakun.Tentang">
+
+        <FrameLayout
+            android:id="@+id/viewTop"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="40dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Tentang Aplikasi"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/viewTop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/viewTop" />
+
+        <FrameLayout
+            android:id="@+id/sectionA"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:background="@drawable/shadowed_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewTop" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="40dp"
             android:layout_marginTop="30dp"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@id/sectionA">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Rewang Tani"
+                android:textColor="#5B5B5B"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_logo_tentang_aplikasi"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Rewang Tani"
+                android:textColor="#5B5B5B"
+                android:textSize="10sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="1.0"
+                android:textColor="#5B5B5B"
+                android:textSize="8sp"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="Rewang Tani Apps merupakan aplikasi berbasis android dengan kecerdasan buatan didalamnya, aplikasi ini memiliki beberapa kegunaan sebagai berikut :"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="1. Memberikan informasi  Rancangan Anggaran Belanja dan prediksi hasil produksi pertanian"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="2. Memprediksi cuaca untuk memberikan saran kepada petani dalam mengelola lahannya"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textColor="#525252"
+                android:textSize="10sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="3. Merekomendasikan varietas bibit padi yang cocok untuk lahan yang dikerjakan"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="4. Memperingatkan jika ada hama tanaman yang akan menyerang"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="5. Menjadi marketplace yang handal untuk tenaga kerja , mesin mesin pertanian, pupuk, obat, sarana pertanian dan hasil pertanian padi"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="6. Memberikan informasi akurat terkait harga hasil budidaya pertanian secara lokal maupun nasional"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/comfortaa_regular"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_regular"
                 android:text="PT. Thani Ananta Nadi Indonesia merupakan sebuah perusahaan yang bergerak di bidang teknologi untuk membantu para petani dalam mengoptimalkan produktivitas dan hasil panen."
-                android:textColor="@color/black"
-                android:layout_marginBottom="30dp"
-                android:textSize="16sp" />
+                android:textColor="#525252"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Developed by"
+                android:textColor="#5B5B5B"
+                android:textSize="10sp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ic_logo_scom"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Rewang Tani v1.0"
+                android:textColor="#5B5B5B"
+                android:textSize="10sp"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
-    </ScrollView>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-
-    <ImageButton
-        android:id="@+id/btn_kembali"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40sp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btn_kembali" />
-
-</RelativeLayout>
+</layout>

@@ -17,6 +17,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListWarungku;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
@@ -71,6 +72,10 @@ public class PesananWarungku extends AppCompatActivity {
             public void onClick(View view) {
                 goToProfilLahan();
             }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
         });
 
         binding.btnAkun.setOnClickListener(new View.OnClickListener() {
@@ -365,21 +370,21 @@ public class PesananWarungku extends AppCompatActivity {
         itemList = new AdapterListWarungku(listDataProduk, sewaMesinList, tenagaKerjaList, pupukPestisidaList);
         binding.rvPesanan.setLayoutManager(new GridLayoutManager(PesananWarungku.this, 2));
         binding.rvPesanan.setAdapter(itemList);
-        binding.rvPesanan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvPesanan,
-                new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Intent a = new Intent(PesananWarungku.this, EditWarungku.class);
-                        a.putExtra("id", listDataProduk.get(position).getIdProduk());
-                        a.putExtra("tipe", listDataProduk.get(position).getIdTipeProduk());
-                        startActivity(a);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                }));
+//        binding.rvPesanan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvPesanan,
+//                new RecyclerItemClickListener.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//                        Intent a = new Intent(PesananWarungku.this, EditWarungku.class);
+//                        a.putExtra("id", listDataProduk.get(position).getIdProduk());
+//                        a.putExtra("tipe", listDataProduk.get(position).getIdTipeProduk());
+//                        startActivity(a);
+//                    }
+//
+//                    @Override
+//                    public void onLongItemClick(View view, int position) {
+//
+//                    }
+//                }));
         //setDataProfil();
     }
 
@@ -419,6 +424,12 @@ public class PesananWarungku extends AppCompatActivity {
         finish();
     }
 
+    public void goToPesan() {
+        Intent a = new Intent(PesananWarungku.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
     public void goToTambahWarungku() {
         Intent a = new Intent(PesananWarungku.this, TambahWarungku.class);
         startActivity(a);
@@ -426,7 +437,7 @@ public class PesananWarungku extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        goToBeranda();
+        goToEtalase();
     }
 
 }
