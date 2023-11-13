@@ -100,7 +100,7 @@ public class ListRencanaTanam extends AppCompatActivity {
 
 
     private void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -108,11 +108,11 @@ public class ListRencanaTanam extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -150,7 +150,8 @@ public class ListRencanaTanam extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.scrollView.setVisibility(View.VISIBLE);
                                 setData();
                             }
                         });
@@ -158,7 +159,8 @@ public class ListRencanaTanam extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -169,7 +171,7 @@ public class ListRencanaTanam extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

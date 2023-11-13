@@ -40,7 +40,6 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.starter.SplashScreen;
@@ -130,7 +129,7 @@ public class BerandaProfile extends AppCompatActivity {
         binding.btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                popUpSignOut();
+                goToKeluar();
             }
         });
 
@@ -438,66 +437,6 @@ public class BerandaProfile extends AppCompatActivity {
         Toast.makeText(BerandaProfile.this, "Berhasil ganti foto", Toast.LENGTH_LONG).show();
     }
 
-    private void popUpSignOut(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.bottombar_pa_popup_keluar, null);
-        builder.setView(dialogView);
-        ImageButton btn_ya = (ImageButton) dialogView.findViewById(R.id.btn_ya);
-        ImageButton btn_tidak = (ImageButton) dialogView.findViewById(R.id.btn_tidak);
-
-        alertDialog =builder.create();
-
-        btn_ya.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkGoogle();
-                //hapusDataAkun();
-            }
-        });
-        btn_tidak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.cancel();
-            }
-        });
-
-        alertDialog.show();
-    }
-
-    public void checkGoogle(){
-        if (!PreferenceUtils.getIDGoogle(getApplicationContext()).equalsIgnoreCase("")){
-            mGoogleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    // Check condition
-                    if(task.isSuccessful())
-                    {
-                        // When task is successful
-                        // Sign out from firebase
-                        firebaseAuth.signOut();
-                        hapusDataAkun();
-                    }
-                }
-            });
-        } else {
-            hapusDataAkun();
-        }
-    }
-
-    public void hapusDataAkun(){
-        PreferenceUtils.saveIdAkun("", getApplicationContext());
-        PreferenceUtils.savePassword("", getApplicationContext());
-        PreferenceUtils.saveToken("", getApplicationContext());
-        PreferenceUtils.saveIdProfil("", getApplicationContext());
-        PreferenceUtils.saveIdAlamat("", getApplicationContext());
-        PreferenceUtils.saveUsername("", getApplicationContext());
-        PreferenceUtils.saveNamaDepan("", getApplicationContext());
-        PreferenceUtils.saveNamaBelakang("", getApplicationContext());
-        PreferenceUtils.saveIDPhoto("", getApplicationContext());
-        PreferenceUtils.saveIDGoogle("", getApplicationContext());
-        gotoSplashScreen();
-    }
 
     public void hubungkanGoogle(){
         if (!PreferenceUtils.getIDGoogle(getApplicationContext()).equalsIgnoreCase("")){
@@ -610,11 +549,6 @@ public class BerandaProfile extends AppCompatActivity {
         });
     }
 
-    public void gotoSplashScreen(){
-        Intent a = new Intent(BerandaProfile.this, SplashScreen.class);
-        startActivity(a);
-        finish();
-    }
 
     public void goToBeranda(){
         Intent a = new Intent(BerandaProfile.this, Home.class);
@@ -642,6 +576,12 @@ public class BerandaProfile extends AppCompatActivity {
 
     public void goToTentang(){
         Intent a = new Intent(BerandaProfile.this, Tentang.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToKeluar(){
+        Intent a = new Intent(BerandaProfile.this, Keluar.class);
         startActivity(a);
         finish();
     }

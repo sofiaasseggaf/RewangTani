@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".bottombar.profilakun.Tentang">
+
+        <FrameLayout
+            android:id="@+id/viewTop"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Keluar"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/viewTop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/viewTop" />
+
+        <FrameLayout
+            android:id="@+id/sectionA"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:background="@drawable/shadowed_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewTop" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Apakah kamu yakin\ningin keluar?"
+                android:textAlignment="center"
+                android:textColor="#5B5B5B"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/btnKembali"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_greenfill_radius">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="KEMBALI"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/btnKeluar"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/rect_input_blank_green_radius">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="KELUAR"
+                        android:textAlignment="center"
+                        android:textColor="#16672E"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

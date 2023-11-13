@@ -168,33 +168,125 @@ public class PreferenceUtils extends AppCompatActivity {
         return prefs.getString(Constants.KEY_TITLE, "");
     }
 
-/*
 
-    public static boolean saveEmail(String email, Context context){
+
+
+    // --------------- DATA PROFIL LAHAN SEMENTARA ---------------
+
+
+//        jsonParams.put("idUser", PreferenceUtils.getIdAkun(getApplicationContext()));
+//        jsonParams.put("idAlamat", idAlamat);
+//        jsonParams.put("latitude", lat2); // gak boleh kosong
+//        jsonParams.put("longitude", longt2); // gak boleh kosong
+//        jsonParams.put("luasGarapan", et_luasgarapan.getText().toString());
+//        jsonParams.put("idSistemIrigasi", idSistemIrigasi);
+//        jsonParams.put("kemiringanTanah", et_kemiringantanah.getText().toString());
+//        jsonParams.put("phTanah", ph);
+//        jsonParams.put("namaProfilTanah", et_namaprofillahan.getText().toString());
+
+    public static boolean savePLidAlamat(String idAlamat, Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(Constants.KEY_EMAIL, email);
+        prefsEditor.putString(Constants.KEY_PL_ID_ALAMAT, idAlamat);
         prefsEditor.apply();
         return true;
     }
-    public static String getEmail(Context context){
+
+    public static String getPLidAlamat(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(Constants.KEY_EMAIL, "");
+        return prefs.getString(Constants.KEY_PL_ID_ALAMAT, "");
     }
-    public static boolean savePhoto(String photo, Context context){
+
+    public static boolean savePLlatitude(String lat, Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(String.valueOf(Constants.KEY_PHOTO), photo);
+        prefsEditor.putString(Constants.KEY_PL_LAT, lat);
         prefsEditor.apply();
         return true;
     }
-    public static String getPhoto(Context context){
+
+    public static String getPLlatitude(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(String.valueOf(Constants.KEY_PHOTO), "");
+        return prefs.getString(Constants.KEY_PL_LAT, "");
     }
 
-*/
+    public static boolean savePLlongitude(String longt, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_LONG, longt);
+        prefsEditor.apply();
+        return true;
+    }
 
+    public static String getPLlongitude(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_LONG, "");
+    }
+
+    public static boolean savePLluasGarapan(String luasGarapan, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_LUAS_GARAPAN, luasGarapan);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLluasGarapan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_LUAS_GARAPAN, "");
+    }
+
+    public static boolean savePLidSistemIrigasi(String idSistemIrigasi, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_ID_SISTEM_IRIGASI, idSistemIrigasi);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLidSistemIrigasi(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_ID_SISTEM_IRIGASI, "");
+    }
+
+    public static boolean savePLkemiringanTanah(String kemiringanTanah, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_KEMIRINGAN_TANAh, kemiringanTanah);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLkemiringanTanah(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_KEMIRINGAN_TANAh, "");
+    }
+
+    public static boolean savePLphTanah(String phTanah, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_PH_TANAH, phTanah);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLphTanah(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_PH_TANAH, "");
+    }
+
+    public static boolean savePLnamaProfilLahan(String namaPL, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_NAMA_PL, namaPL);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLnamaProfilLahan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_NAMA_PL, "");
+    }
 
     // ----------------- IMAGE BITMAP ---------------
 

@@ -184,22 +184,23 @@ public class TambahWarungku extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (idTipeProduk.equalsIgnoreCase("2d5f06cf-358c-4bd4-acde-2626498b391a")) {
-                    // ini produk sewa mesin
-                    simpanProdukSewaMesin();
-                } else if (idTipeProduk.equalsIgnoreCase("6a1b827e-3037-42e6-87aa-b1a9578fd45f")) {
-                    // ini produk tenaga kerja
-                    simpanProdukTenagaKerja();
-                } else if (idTipeProduk.equalsIgnoreCase("49944852-6f8c-4185-aa08-4407d99f3f8c")) {
-                    // ini produk bibit
-                    simpanProdukBibit();
-                } else if (idTipeProduk.equalsIgnoreCase("4f54e40a-04a2-4569-8a82-860f193e321b")) {
-                    // ini produk pupuk
-                    simpanProdukPupuk();
-                } else if (idTipeProduk.equalsIgnoreCase("ad211570-6943-4e4c-88b2-c7837a0a3b28")) {
-                    // ini produk pestisida
-                    simpanProdukPestisida();
-                }
+                Toast.makeText(TambahWarungku.this, "SIMPAN DATA !", Toast.LENGTH_SHORT).show();
+//                if (idTipeProduk.equalsIgnoreCase("2d5f06cf-358c-4bd4-acde-2626498b391a")) {
+//                    // ini produk sewa mesin
+//                    simpanProdukSewaMesin();
+//                } else if (idTipeProduk.equalsIgnoreCase("6a1b827e-3037-42e6-87aa-b1a9578fd45f")) {
+//                    // ini produk tenaga kerja
+//                    simpanProdukTenagaKerja();
+//                } else if (idTipeProduk.equalsIgnoreCase("49944852-6f8c-4185-aa08-4407d99f3f8c")) {
+//                    // ini produk bibit
+//                    simpanProdukBibit();
+//                } else if (idTipeProduk.equalsIgnoreCase("4f54e40a-04a2-4569-8a82-860f193e321b")) {
+//                    // ini produk pupuk
+//                    simpanProdukPupuk();
+//                } else if (idTipeProduk.equalsIgnoreCase("ad211570-6943-4e4c-88b2-c7837a0a3b28")) {
+//                    // ini produk pestisida
+//                    simpanProdukPestisida();
+//                }
             }
         });
 
@@ -2215,12 +2216,16 @@ public class TambahWarungku extends AppCompatActivity {
     public void goToPesanan() {
         Intent a = new Intent(TambahWarungku.this, PesananWarungku.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         finish();
     }
 
     public void goToEtalase() {
         Intent a = new Intent(TambahWarungku.this, EtalaseWarungku.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         finish();
     }
 

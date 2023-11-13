@@ -138,6 +138,9 @@
             android:name=".bottombar.profilakun.EditPassword"
             android:exported="false" />
         <activity
+            android:name=".bottombar.profilakun.Keluar"
+            android:exported="false" />
+        <activity
             android:name=".bottombar.profilelahan.DetailProfilLahan"
             android:exported="false" />
         <activity
@@ -153,9 +156,18 @@
             android:name=".bottombar.profilelahan.ListProfileLahan"
             android:exported="true" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahan"
+            android:name=".bottombar.profilelahan.TambahProfilLahanA"
             android:exported="true"
             android:label="map" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanB"
+            android:exported="true" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanC"
+            android:exported="true" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanD"
+            android:exported="true" />
         <activity
             android:name=".bottombar.profilakun.EditProfil"
             android:exported="true" />

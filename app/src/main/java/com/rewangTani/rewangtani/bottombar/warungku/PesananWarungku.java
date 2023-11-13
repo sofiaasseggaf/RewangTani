@@ -95,24 +95,25 @@ public class PesananWarungku extends AppCompatActivity {
         binding.btnTambahProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkKelengkapan == 1) {
-                    goToTambahWarungku();
-                } else if (checkKelengkapan == 0) {
-                    binding.viewBelumPunya.setVisibility(View.GONE);
-                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PesananWarungku.this);
-                    builder.setView(customLayout);
-                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-                    buttonOk.setOnClickListener(v -> {
-                        goToEditProfil();
-                    });
-                    buttonCancel.setOnClickListener(v -> {
-                        goToPesananWarungku();
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                goToTambahWarungku();
+//                if (checkKelengkapan == 1) {
+//                    goToTambahWarungku();
+//                } else if (checkKelengkapan == 0) {
+//                    binding.viewBelumPunya.setVisibility(View.GONE);
+//                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(PesananWarungku.this);
+//                    builder.setView(customLayout);
+//                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+//                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+//                    buttonOk.setOnClickListener(v -> {
+//                        goToEditProfil();
+//                    });
+//                    buttonCancel.setOnClickListener(v -> {
+//                        goToPesananWarungku();
+//                    });
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }
             }
         });
     }
@@ -415,6 +416,8 @@ public class PesananWarungku extends AppCompatActivity {
     public void goToEtalase() {
         Intent a = new Intent(PesananWarungku.this, EtalaseWarungku.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         finish();
     }
 
@@ -433,6 +436,8 @@ public class PesananWarungku extends AppCompatActivity {
     public void goToTambahWarungku() {
         Intent a = new Intent(PesananWarungku.this, TambahWarungku.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         finish();
     }
 

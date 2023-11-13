@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/btn_tambah_profil_lahan"
+            app:layout_constraintBottom_toTopOf="@id/btnTambah"
             android:visibility="gone">
 
             <LinearLayout
@@ -59,7 +59,7 @@
         </ScrollView>
 
         <RelativeLayout
-            android:id="@+id/btn_tambah_profil_lahan"
+            android:id="@+id/btnTambah"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="20dp"
@@ -80,7 +80,49 @@
         </RelativeLayout>
 
         <FrameLayout
-            android:id="@+id/view_loading"
+            android:id="@+id/frameDataNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollview"
+            app:layout_constraintEnd_toEndOf="@+id/scrollview"
+            app:layout_constraintStart_toStartOf="@+id/scrollview"
+            app:layout_constraintTop_toTopOf="@+id/scrollview">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/data_not_found" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Belum punya profil lahan"
+                    android:textColor="#777777"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Tambah profil lahan anda agar punya garapan"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_loading"
@@ -91,7 +133,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -102,39 +144,9 @@
                     android:textSize="22sp" />
 
             </RelativeLayout>
+
         </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/view_belum_punya"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_belum_punya_lahan"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_semibold"
-                android:text="Belum punya profil lahan"
-                android:textColor="@color/font_grey"
-                android:textSize="20sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_semibold"
-                android:text="Tambah profil lahan anda agar punya garapan"
-                android:textColor="@color/font_light_grey"
-                android:textSize="10sp"/>
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

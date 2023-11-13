@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.upperbar.sudahtanam;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListSudahTanam;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.UpperbarStListSudahTanamBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
@@ -42,6 +44,7 @@ import retrofit2.Response;
 
 public class ListSudahTanam extends AppCompatActivity {
 
+    UpperbarStListSudahTanamBinding binding;
     AdapterListSudahTanam itemList;
     ModelSudahTanam modelSudahTanam;
     List<DatumSudahTanam> listSudahTanam = new ArrayList<>();
@@ -51,26 +54,15 @@ public class ListSudahTanam extends AppCompatActivity {
     ModelRencanaTanam modelRencanaTanam;
     List<DatumRencanaTanam> listRencanaTanam = new ArrayList<>();
     List<DatumRencanaTanam> listNewRencanaTanam = new ArrayList<>();
-    TextView txtload;
-    ImageButton btn_tambah, btn_rt, btn_st, btn_panen, btn_rab;
-    RecyclerView rvSudahTanam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_st_list_sudah_tanam);
-
-        btn_tambah = findViewById(R.id.btn_tambah);
-        rvSudahTanam = findViewById(R.id.rvSudahTanam);
-        txtload = findViewById(R.id.textloading);
-        btn_rt = findViewById(R.id.btn_rt);
-        btn_st = findViewById(R.id.btn_st);
-        btn_panen = findViewById(R.id.btn_panen);
-        btn_rab = findViewById(R.id.btn_rab);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_list_sudah_tanam);
 
         getData();
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToInputSudahTanam();
@@ -78,14 +70,14 @@ public class ListSudahTanam extends AppCompatActivity {
         });
 
 
-        btn_rt.setOnClickListener(new View.OnClickListener() {
+        binding.btnRt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRT();
             }
         });
 
-        btn_st.setOnClickListener(new View.OnClickListener() {
+        binding.btnSt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListSudahTanam.this);
@@ -104,19 +96,19 @@ public class ListSudahTanam extends AppCompatActivity {
                                 goToKP();
                             }
                         });
-                AlertDialog alertDialog =builder.create();
+                AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
         });
 
-        btn_panen.setOnClickListener(new View.OnClickListener() {
+        binding.btnPanen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPanen();
             }
         });
 
-        btn_rab.setOnClickListener(new View.OnClickListener() {
+        binding.btnRab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRAB();
@@ -126,20 +118,22 @@ public class ListSudahTanam extends AppCompatActivity {
 
     }
 
-    public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    public void getData() {
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -162,7 +156,7 @@ public class ListSudahTanam extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                 modelRencanaTanam = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
 
                     for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
                         try {
@@ -170,26 +164,28 @@ public class ListSudahTanam extends AppCompatActivity {
                                     .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
                                 listRencanaTanam.add(modelRencanaTanam.getData().get(i));
                             }
-                        } catch (Exception e){ }
+                        } catch (Exception e) {
+                        }
                     }
-                    if (listRencanaTanam.size()>0){
+                    if (listRencanaTanam.size() > 0) {
                         getSudahTanam();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                             }
                         });
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelRencanaTanam> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -206,57 +202,59 @@ public class ListSudahTanam extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelSudahTanam> call, Response<ModelSudahTanam> response) {
                 modelSudahTanam = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
                     for (int i = 0; i < modelSudahTanam.getTotalData(); i++) {
-                        for (int j = 0; j < listRencanaTanam.size(); j++){
+                        for (int j = 0; j < listRencanaTanam.size(); j++) {
                             try {
                                 if (modelSudahTanam.getData().get(i).getIdRencanaTanam()
-                                        .equalsIgnoreCase(listRencanaTanam.get(j).getIdRencanaTanam()))
-                                 {
+                                        .equalsIgnoreCase(listRencanaTanam.get(j).getIdRencanaTanam())) {
                                     listSudahTanam.add(modelSudahTanam.getData().get(i));
                                 }
-                            } catch (Exception e){ }
+                            } catch (Exception e) {
+                            }
                         }
                     }
 
-                    if (listSudahTanam.size()>0){
+                    if (listSudahTanam.size() > 0) {
 
                         idST.clear();
                         newidST.clear();
 
-                        for(int i=0; i<listSudahTanam.size(); i++){
+                        for (int i = 0; i < listSudahTanam.size(); i++) {
                             idST.add(listSudahTanam.get(i).getIdRencanaTanam());
                         }
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                // gaada sudah tanam blas dari id akun ini
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
                     }
 
-                    if(idST.size()>0){
+                    if (idST.size() > 0) {
                         newidST = idST.stream().distinct().collect(Collectors.toList());
                         getNewSudahTanam();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
                     }
 
                 }
             }
+
             @Override
             public void onFailure(Call<ModelSudahTanam> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -267,45 +265,48 @@ public class ListSudahTanam extends AppCompatActivity {
 
     public void getNewSudahTanam() {
         for (int i = 0; i < newidST.size(); i++) {
-            for (int j = 0; j < listSudahTanam.size(); j++){
+            for (int j = 0; j < listSudahTanam.size(); j++) {
                 try {
                     if (newidST.get(i).equalsIgnoreCase(listSudahTanam.get(j).getIdRencanaTanam())) {
                         listNewSudahTanam.add(listSudahTanam.get(j));
                         i++;
                     }
-                } catch (Exception e){ }
+                } catch (Exception e) {
+                }
             }
         }
-        if (listNewSudahTanam.size()>0){
+        if (listNewSudahTanam.size() > 0) {
             getNewRencanaTanam();
         } else {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                 }
             });
         }
     }
 
     public void getNewRencanaTanam() {
-        for (int i=0; i < listRencanaTanam.size(); i++){
-            for (int j=0; j<listNewSudahTanam.size(); j++){
+        for (int i = 0; i < listRencanaTanam.size(); i++) {
+            for (int j = 0; j < listNewSudahTanam.size(); j++) {
                 try {
                     if (listRencanaTanam.get(i).getIdRencanaTanam()
                             .equalsIgnoreCase(listNewSudahTanam.get(j).getIdRencanaTanam())) {
                         listNewRencanaTanam.add(listRencanaTanam.get(i));
                     }
-                } catch (Exception e){ }
+                } catch (Exception e) {
+                }
             }
         }
 
 
-        if (listNewRencanaTanam.size()>0){
+        if (listNewRencanaTanam.size() > 0) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
+                    binding.scrollView.setVisibility(View.VISIBLE);
                     setData();
                 }
             });
@@ -313,18 +314,18 @@ public class ListSudahTanam extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                 }
             });
         }
 
     }
 
-    public void setData(){
+    public void setData() {
         itemList = new AdapterListSudahTanam(listNewSudahTanam, listNewRencanaTanam);
-        rvSudahTanam.setLayoutManager(new LinearLayoutManager(ListSudahTanam.this));
-        rvSudahTanam.setAdapter(itemList);
-        rvSudahTanam.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvSudahTanam,
+        binding.rvSudahTanam.setLayoutManager(new LinearLayoutManager(ListSudahTanam.this));
+        binding.rvSudahTanam.setAdapter(itemList);
+        binding.rvSudahTanam.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvSudahTanam,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -332,19 +333,20 @@ public class ListSudahTanam extends AppCompatActivity {
                         a.putExtra("id", listNewRencanaTanam.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
+
                     @Override
                     public void onLongItemClick(View view, int position) {
                     }
                 }));
     }
 
-    public void goToInputSudahTanam(){
+    public void goToInputSudahTanam() {
         Intent a = new Intent(ListSudahTanam.this, InputSudahTanam.class);
         startActivity(a);
         finish();
     }
 
-    public void goToRT(){
+    public void goToRT() {
         Intent a = new Intent(ListSudahTanam.this, ListRencanaTanam.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
@@ -352,13 +354,13 @@ public class ListSudahTanam extends AppCompatActivity {
         finish();
     }
 
-    public void goToST(){
+    public void goToST() {
         Intent a = new Intent(ListSudahTanam.this, ListSudahTanam.class);
         startActivity(a);
         finish();
     }
 
-    public void goToKP(){
+    public void goToKP() {
         Intent a = new Intent(ListSudahTanam.this, ListKendalaPertumbuhan.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_right,
@@ -366,7 +368,7 @@ public class ListSudahTanam extends AppCompatActivity {
         finish();
     }
 
-    public void goToPanen(){
+    public void goToPanen() {
         Intent a = new Intent(ListSudahTanam.this, ListPanen.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_right,
@@ -374,7 +376,7 @@ public class ListSudahTanam extends AppCompatActivity {
         finish();
     }
 
-    public void goToRAB(){
+    public void goToRAB() {
         Intent a = new Intent(ListSudahTanam.this, ListRancanganAnggaranBiaya.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_right,
@@ -382,7 +384,7 @@ public class ListSudahTanam extends AppCompatActivity {
         finish();
     }
 
-    public void goToBeranda(){
+    public void goToBeranda() {
         Intent a = new Intent(ListSudahTanam.this, Home.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,

@@ -3,39 +3,58 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".bottombar.pesan.InboxPesan">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout"
+            android:id="@+id/relativeLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#327036"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="20dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/bg_grey_radius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <EditText
+                android:id="@+id/searchChat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="15dp"
+                android:layout_toLeftOf="@id/btn_password"
+                android:background="#00E1E1E1"
+                android:fontFamily="@font/inter_regular"
+                android:hint="Cari Pesan"
+                android:textColor="@color/black"
+                android:textColorHint="#80000000"
+                android:textSize="10sp" />
+
+            <ImageButton
+                android:id="@+id/btn_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_medium"
-                android:text="INBOX"
-                android:textColor="#ADABAB"
-                android:textSize="14sp" />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_search" />
         </RelativeLayout>
 
         <ScrollView
-            android:id="@+id/scrollview"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_margin="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -56,8 +75,144 @@
 
         </ScrollView>
 
+        <LinearLayout
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_white_radius_top"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:weightSum="5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/btnHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_home_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Beranda"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnLahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_lahan_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Lahan"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnWarungku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_warungku_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Warungku"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnPesan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_pesan_on" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Pesan"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGreen"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnAkun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_akun_off" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Akun"
+                    android:textAlignment="center"
+                    android:textColor="@color/chatGrey"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <FrameLayout
-            android:id="@+id/framelayout"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_loading"
@@ -72,7 +227,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

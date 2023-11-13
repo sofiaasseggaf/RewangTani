@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.rab;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRAB;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRencanaTanam;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.UpperbarRabListRabBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
@@ -43,35 +45,26 @@ import retrofit2.Response;
 
 public class ListRancanganAnggaranBiaya extends AppCompatActivity {
 
+    UpperbarRabListRabBinding binding;
     AdapterListRAB itemList;
-    RecyclerView rvRab;
-    ImageButton btn_rt, btn_st, btn_panen, btn_rab;
     ModelRencanaTanam modelRencanaTanam;
     List<DatumRencanaTanam> listRencanaTanam = new ArrayList<>();
-    TextView txtload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rab_list_rab);
-
-        rvRab = findViewById(R.id.rvRab);
-        txtload = findViewById(R.id.textloading);
-        btn_rt = findViewById(R.id.btn_rt);
-        btn_st = findViewById(R.id.btn_st);
-        btn_panen = findViewById(R.id.btn_panen);
-        btn_rab = findViewById(R.id.btn_rab);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rab_list_rab);
 
         getData();
 
-        btn_rt.setOnClickListener(new View.OnClickListener() {
+        binding.btnRt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRT();
             }
         });
 
-        btn_st.setOnClickListener(new View.OnClickListener() {
+        binding.btnSt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListRancanganAnggaranBiaya.this);
@@ -90,12 +83,12 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                                 goToKP();
                             }
                         });
-                AlertDialog alertDialog =builder.create();
+                AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
         });
 
-        btn_panen.setOnClickListener(new View.OnClickListener() {
+        binding.btnPanen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPanen();
@@ -105,20 +98,22 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
 
     }
 
-    public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    public void getData() {
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya .."); }
-                else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ..");
+                } else if (count == 2) {
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -134,14 +129,14 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         }).start();
     }
 
-    public void getRencanaTanam(){
+    public void getRencanaTanam() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanam();
         dataRT.enqueue(new Callback<ModelRencanaTanam>() {
             @Override
             public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                 modelRencanaTanam = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
 
                     for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
                         try {
@@ -149,13 +144,15 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                                     .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
                                 listRencanaTanam.add(modelRencanaTanam.getData().get(i));
                             }
-                        } catch (Exception e){ }
+                        } catch (Exception e) {
+                        }
                     }
-                    if (listRencanaTanam.size()>0){
+                    if (listRencanaTanam.size() > 0) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.scrollView.setVisibility(View.VISIBLE);
                                 setData();
                             }
                         });
@@ -163,18 +160,20 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelRencanaTanam> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListRancanganAnggaranBiaya.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -207,7 +206,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             }
                         });
                     }
@@ -218,7 +217,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(ListRancanganAnggaranBiaya.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -238,11 +237,11 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         }
     }*/
 
-    public void setData(){
+    public void setData() {
         itemList = new AdapterListRAB(listRencanaTanam);
-        rvRab.setLayoutManager(new LinearLayoutManager(ListRancanganAnggaranBiaya.this));
-        rvRab.setAdapter(itemList);
-        rvRab.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvRab,
+        binding.rvRab.setLayoutManager(new LinearLayoutManager(ListRancanganAnggaranBiaya.this));
+        binding.rvRab.setAdapter(itemList);
+        binding.rvRab.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvRab,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -250,6 +249,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                         a.putExtra("id", listRencanaTanam.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
+
                     @Override
                     public void onLongItemClick(View view, int position) {
 
@@ -257,7 +257,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                 }));
     }
 
-    public void goToBeranda(){
+    public void goToBeranda() {
         Intent a = new Intent(ListRancanganAnggaranBiaya.this, Home.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
@@ -265,7 +265,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         finish();
     }
 
-    public void goToRT(){
+    public void goToRT() {
         Intent a = new Intent(ListRancanganAnggaranBiaya.this, ListRencanaTanam.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
@@ -273,7 +273,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         finish();
     }
 
-    public void goToST(){
+    public void goToST() {
         Intent a = new Intent(ListRancanganAnggaranBiaya.this, ListSudahTanam.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
@@ -281,7 +281,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         finish();
     }
 
-    public void goToKP(){
+    public void goToKP() {
         Intent a = new Intent(ListRancanganAnggaranBiaya.this, ListKendalaPertumbuhan.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
@@ -289,7 +289,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         finish();
     }
 
-    public void goToPanen(){
+    public void goToPanen() {
         Intent a = new Intent(ListRancanganAnggaranBiaya.this, ListPanen.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
@@ -297,7 +297,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         finish();
     }
 
-    public void goToRAB(){
+    public void goToRAB() {
         Intent a = new Intent(ListRancanganAnggaranBiaya.this, ListRancanganAnggaranBiaya.class);
         startActivity(a);
         finish();

@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.upperbar.panen;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListPanen;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRAB;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRencanaTanam;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.UpperbarPListPanenBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.DatumPanen;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.ModelPanen;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
@@ -46,10 +48,8 @@ import retrofit2.Response;
 
 public class ListPanen extends AppCompatActivity {
 
+    UpperbarPListPanenBinding binding;
     AdapterListPanen itemList;
-    ImageButton btn_tambah, btn_rt, btn_st, btn_panen, btn_rab;
-    RecyclerView rvPanen;
-    TextView txtload;
     ModelPanen modelPanen;
     List<DatumPanen> listPanen = new ArrayList<>();
     List<DatumPanen> listNewPanen = new ArrayList<>();
@@ -62,33 +62,25 @@ public class ListPanen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_p_list_panen);
-
-        btn_tambah = findViewById(R.id.btn_tambah);
-        rvPanen = findViewById(R.id.rvPanen);
-        txtload = findViewById(R.id.textloading);
-        btn_rt = findViewById(R.id.btn_rt);
-        btn_st = findViewById(R.id.btn_st);
-        btn_panen = findViewById(R.id.btn_panen);
-        btn_rab = findViewById(R.id.btn_rab);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_list_panen);
 
         getData();
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToInputPanen();
             }
         });
 
-        btn_rt.setOnClickListener(new View.OnClickListener() {
+        binding.btnRt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRT();
             }
         });
 
-        btn_st.setOnClickListener(new View.OnClickListener() {
+        binding.btnSt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListPanen.this);
@@ -112,7 +104,7 @@ public class ListPanen extends AppCompatActivity {
             }
         });
 
-        btn_rab.setOnClickListener(new View.OnClickListener() {
+        binding.btnRab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRAB();
@@ -122,7 +114,7 @@ public class ListPanen extends AppCompatActivity {
     }
 
     private void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -130,11 +122,11 @@ public class ListPanen extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -173,7 +165,7 @@ public class ListPanen extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                             }
                         });
                     }
@@ -184,7 +176,7 @@ public class ListPanen extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListPanen.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -221,7 +213,9 @@ public class ListPanen extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
+                                binding.scrollView.setVisibility(View.GONE);
                             }
                         });
                     }
@@ -233,7 +227,7 @@ public class ListPanen extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                             }
                         });
                     }
@@ -244,7 +238,7 @@ public class ListPanen extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListPanen.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -277,7 +271,7 @@ public class ListPanen extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                             }
                         });
                     }
@@ -288,7 +282,7 @@ public class ListPanen extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListPanen.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -312,8 +306,17 @@ public class ListPanen extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
+                    binding.scrollView.setVisibility(View.VISIBLE);
                     setData();
+                }
+            });
+        } else {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    binding.viewLoading.setVisibility(View.GONE);
+                    binding.frameDataNotFound.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -321,9 +324,9 @@ public class ListPanen extends AppCompatActivity {
 
     public void setData(){
         itemList = new AdapterListPanen(listNewPanen, listNewRencanaTanam);
-        rvPanen.setLayoutManager(new LinearLayoutManager(ListPanen.this));
-        rvPanen.setAdapter(itemList);
-        rvPanen.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvPanen,
+        binding.rvHasilPanen.setLayoutManager(new LinearLayoutManager(ListPanen.this));
+        binding.rvHasilPanen.setAdapter(itemList);
+        binding.rvHasilPanen.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvHasilPanen,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

@@ -1,6 +1,7 @@
 package com.rewangTani.rewangtani.bottombar.profilelahan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.BottombarPlDetailProfilLahanBinding;
+import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.DetailWarungTenagaKerja;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelprofillahan.DataProfilLahanById;
@@ -35,36 +38,24 @@ import retrofit2.Response;
 
 public class DetailProfilLahan extends AppCompatActivity {
 
+    BottombarPlDetailProfilLahanBinding binding;
     String id, namaSistemIrigasi;
-    TextView txt_koordinatlahan, txt_luasgarapan, txt_kemiringantanah, txt_phtanah, txt_sistemirigasi;
-    EditText txt_nama_profil_lahan;
     ModelProfilLahan modelProfilLahan;
     DatumProfilLahan dataProfilLahan;
     ModelSistemIrigasi modelSistemIrigasi;
-    TextView txtload;
-    ImageButton btn_simpan;
     DataProfilLahanById dataProfilLahanById;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pl_detail_profil_lahan);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_detail_profil_lahan);
 
-        Intent intent = getIntent();
-        id = intent.getStringExtra("id");
+        //Intent intent = getIntent();
+        //id = intent.getStringExtra("id");
 
-        txt_koordinatlahan = findViewById(R.id.txt_koordinat_lahan);
-        txt_luasgarapan = findViewById(R.id.txt_luas_garapan);
-        txt_kemiringantanah = findViewById(R.id.txt_kemiringantanah);
-        txt_phtanah = findViewById(R.id.txt_pHtanah);
-        txt_sistemirigasi = findViewById(R.id.txt_sistemirigasi);
-        txt_nama_profil_lahan = findViewById(R.id.txt_nama_profil_lahan);
-        btn_simpan = findViewById(R.id.btn_simpan);
-        txtload = findViewById(R.id.textloading);
+        //getData();
 
-        getData();
-
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
+        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateProfilLahan();
@@ -74,7 +65,7 @@ public class DetailProfilLahan extends AppCompatActivity {
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -82,11 +73,11 @@ public class DetailProfilLahan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -128,7 +119,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        //binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailProfilLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -161,7 +152,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -170,7 +161,7 @@ public class DetailProfilLahan extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ModelSistemIrigasi> call, Throwable t) {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                binding.viewLoading.setVisibility(View.GONE);
                 Toast.makeText(DetailProfilLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
@@ -178,21 +169,21 @@ public class DetailProfilLahan extends AppCompatActivity {
     }
 
     public void setData(){
-        txt_nama_profil_lahan.setText(dataProfilLahan.getNamaProfilTanah());
-        txt_koordinatlahan.setText(dataProfilLahan.getLatitude()+", "+dataProfilLahan.getLongitude());
-        txt_luasgarapan.setText(dataProfilLahan.getLuasGarapan().toString() + " m2");
-        txt_kemiringantanah.setText(dataProfilLahan.getKemiringanTanah().toString());
+        binding.namaProfilLahan.setText(dataProfilLahan.getNamaProfilTanah());
+        binding.koordinatLahan.setText(dataProfilLahan.getLatitude()+", "+dataProfilLahan.getLongitude());
+        binding.luasGarapan.setText(dataProfilLahan.getLuasGarapan().toString() + " m2");
+        binding.kemiringanTanah.setText(dataProfilLahan.getKemiringanTanah().toString());
 
         //String ph2 = String.valueOf(ph);
         String ph2 = dataProfilLahan.getPhTanah().toString();
         double ph = Double.valueOf(ph2.substring(0, ph2.length() - 2))/10;
-        txt_phtanah.setText(String.valueOf(ph));
+        binding.phTanah.setText(String.valueOf(ph));
         // get data sistem irigasi
-        txt_sistemirigasi.setText(namaSistemIrigasi);
+        binding.sistemIrigasi.setText(namaSistemIrigasi);
     }
 
     public void updateProfilLahan(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -200,11 +191,11 @@ public class DetailProfilLahan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -224,7 +215,7 @@ public class DetailProfilLahan extends AppCompatActivity {
         Map<String, Object> jsonParams = new ArrayMap<>();
 
         jsonParams.put("idProfileTanah", dataProfilLahan.getIdProfileTanah());
-        jsonParams.put("namaProfilTanah", txt_nama_profil_lahan.getText().toString());
+        jsonParams.put("namaProfilTanah", binding.namaProfilLahan.getText().toString());
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -240,7 +231,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(DetailProfilLahan.this, "Gagal ubah nama profil lahan", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -254,7 +245,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailProfilLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -274,9 +265,9 @@ public class DetailProfilLahan extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                             Toast.makeText(DetailProfilLahan.this, "Berhasil ubah nama profil lahan", Toast.LENGTH_SHORT).show();
-                            txt_nama_profil_lahan.setText(dataProfilLahanById.getData().getNamaProfilTanah());
+                            binding.namaProfilLahan.setText(dataProfilLahanById.getData().getNamaProfilTanah());
                         }
                     });
                 }
@@ -286,7 +277,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailProfilLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

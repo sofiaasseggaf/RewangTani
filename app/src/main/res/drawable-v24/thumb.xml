@@ -8,7 +8,7 @@
         android:startColor="@color/dark_green" />
 
     <size
-        android:height="20dp"
-        android:width="20dp" />
+        android:height="15dp"
+        android:width="15dp" />
 
 </shape>

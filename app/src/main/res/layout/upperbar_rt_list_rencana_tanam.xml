@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
         <ScrollView
-            android:id="@+id/scrollview"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
@@ -87,10 +87,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/scrollview"
-            app:layout_constraintEnd_toEndOf="@+id/scrollview"
-            app:layout_constraintStart_toStartOf="@+id/scrollview"
-            app:layout_constraintTop_toTopOf="@+id/scrollview">
+            app:layout_constraintBottom_toBottomOf="@+id/scrollView"
+            app:layout_constraintEnd_toEndOf="@+id/scrollView"
+            app:layout_constraintStart_toStartOf="@+id/scrollView"
+            app:layout_constraintTop_toTopOf="@+id/scrollView">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -237,7 +237,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/framelayout"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_loading"
@@ -248,7 +248,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

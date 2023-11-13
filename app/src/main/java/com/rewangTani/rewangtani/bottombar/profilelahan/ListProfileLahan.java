@@ -4,16 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
@@ -21,7 +17,6 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListProfilLahan;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
@@ -51,36 +46,37 @@ public class ListProfileLahan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_list_profile_lahan);
 
-        getData();
+        //getData();
 
-        binding.btnTambahProfilLahan.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkKelengkapan==1){
-                    goToTambahPL();
-                } else if (checkKelengkapan==0){
-                    binding.viewBelumPunya.setVisibility(View.GONE);
-                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ListProfileLahan.this);
-                    builder.setView(customLayout);
-                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-                    buttonOk.setOnClickListener(v->{
-                        goToEditProfil();
-                            });
-                    buttonCancel.setOnClickListener(v->{
-                        goToBeranda();
-                            });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                goToTambahPL();
+//                if (checkKelengkapan==1){
+//                    goToTambahPL();
+//                } else if (checkKelengkapan==0){
+//                    binding.frameDataNotFound.setVisibility(View.GONE);
+//                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(ListProfileLahan.this);
+//                    builder.setView(customLayout);
+//                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+//                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+//                    buttonOk.setOnClickListener(v->{
+//                        goToEditProfil();
+//                            });
+//                    buttonCancel.setOnClickListener(v->{
+//                        goToBeranda();
+//                            });
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }
             }
         });
 
     }
 
     public void getData(){
-        findViewById(R.id.view_loading).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -88,11 +84,11 @@ public class ListProfileLahan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -133,7 +129,7 @@ public class ListProfileLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.view_loading).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -162,7 +158,8 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.view_loading).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.scrollview.setVisibility(View.VISIBLE);
                                 setData();
                             }
                         });
@@ -170,9 +167,8 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.view_loading).setVisibility(View.GONE);
-                                binding.viewBelumPunya.setVisibility(View.VISIBLE);
-                                binding.scrollview.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -180,9 +176,8 @@ public class ListProfileLahan extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.view_loading).setVisibility(View.GONE);
-                            binding.viewBelumPunya.setVisibility(View.VISIBLE);
-                            binding.scrollview.setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
+                            binding.frameDataNotFound.setVisibility(View.VISIBLE);
                         }
                     });
                 }
@@ -192,7 +187,7 @@ public class ListProfileLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        //binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -202,7 +197,6 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void setData(){
-        binding.scrollview.setVisibility(View.VISIBLE);
         itemList = new AdapterListProfilLahan(listProfilLahan);
         binding.rvProfilLahan.setLayoutManager(new LinearLayoutManager(ListProfileLahan.this));
         binding.rvProfilLahan.setAdapter(itemList);
@@ -222,7 +216,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void goToTambahPL(){
-        Intent a = new Intent(ListProfileLahan.this, TambahProfilLahan.class);
+        Intent a = new Intent(ListProfileLahan.this, TambahProfilLahanA.class);
         startActivity(a);
         finish();
     }

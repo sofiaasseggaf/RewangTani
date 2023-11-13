@@ -31,208 +31,215 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
-        <LinearLayout
-            android:id="@+id/frameData"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="30dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/btn_simpan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-            android:visibility="gone">
+            android:scrollbars="none">
 
             <LinearLayout
+                android:id="@+id/frameData"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp"
                 android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Nama Profil Lahan"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/txt_nama_profil_lahan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext"
-                    android:fontFamily="@font/roboto_regular"
-                    android:lines="1"
-                    android:paddingLeft="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="#ADABAB"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Koordinat Lahan"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_koordinat_lahan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:textColor="#4C4C4C"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Nama Profil Lahan"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/namaProfilLahan"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rect_input_blank_green_radius"
+                        android:fontFamily="@font/inter_regular"
+                        android:lines="1"
+                        android:paddingLeft="15dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#ADABAB"
                         android:textSize="12sp" />
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Luas Garapan"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_luas_garapan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:textColor="#4C4C4C"
-                        android:textSize="12sp" />
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Koordinat Lahan"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_greyfill_greenradius"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/koordinatLahan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_regular"
+                            android:textColor="#4C4C4C"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Sistem Irigasi"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_sistemirigasi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:textColor="#4C4C4C"
-                        android:textSize="12sp" />
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Luas Garapan"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_greyfill_greenradius"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/luasGarapan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_regular"
+                            android:textColor="#4C4C4C"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Kemiringan Tanah"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_kemiringantanah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:textColor="#4C4C4C"
-                        android:textSize="12sp" />
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Sistem Irigasi"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_greyfill_greenradius"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/sistemIrigasi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_regular"
+                            android:textColor="#4C4C4C"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="pH Tanah"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txt_pHtanah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:textColor="#4C4C4C"
-                        android:textSize="12sp" />
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Kemiringan Tanah"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_greyfill_greenradius"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/kemiringanTanah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_regular"
+                            android:textColor="#4C4C4C"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="pH Tanah"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rect_input_blank_green_radius"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/phTanah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_regular"
+                            android:textColor="#4C4C4C"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
+
 
         <RelativeLayout
             android:id="@+id/btn_simpan"
@@ -256,7 +263,7 @@
         </RelativeLayout>
 
         <FrameLayout
-            android:id="@+id/view_loading"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_loading"
@@ -278,7 +285,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="100dp"
                     android:fontFamily="@font/inter_bold"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="22sp" />
 
             </RelativeLayout>

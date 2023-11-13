@@ -14,7 +14,10 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterchatdaninbox.AdapterInbox;
+import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.ActivityInboxBinding;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
@@ -48,10 +51,36 @@ public class InboxPesan extends AppCompatActivity {
 
         getData();
 
+        binding.btnHome.setOnClickListener(v->{
+            goToBeranda();
+        });
+
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilLahan();
+            }
+        });
+
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilAkun();
+            }
+        });
+
     }
 
     private void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -59,11 +88,11 @@ public class InboxPesan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -102,7 +131,7 @@ public class InboxPesan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InboxPesan.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -114,7 +143,7 @@ public class InboxPesan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -144,7 +173,7 @@ public class InboxPesan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -152,7 +181,7 @@ public class InboxPesan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InboxPesan.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -164,7 +193,7 @@ public class InboxPesan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -220,10 +249,33 @@ public class InboxPesan extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
+    public void goToBeranda(){
+        Intent a = new Intent(InboxPesan.this, Home.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToWarungku(){
+        Intent a = new Intent(InboxPesan.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+
+    public void goToProfilLahan(){
+        Intent a = new Intent(InboxPesan.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun(){
         Intent a = new Intent(InboxPesan.this, BerandaProfile.class);
         startActivity(a);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        goToBeranda();
     }
 }
