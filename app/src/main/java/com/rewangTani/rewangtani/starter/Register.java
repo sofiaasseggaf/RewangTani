@@ -21,12 +21,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -470,7 +468,7 @@ public class Register extends AppCompatActivity {
 
             // inflate the layout of the popup window
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            popupView = inflater.inflate(R.layout.starter_register_popup_kp, null);
+            popupView = inflater.inflate(R.layout.a_belum_starter_register_popup_kp, null);
             // create the popup window
             int width = LinearLayout.LayoutParams.WRAP_CONTENT;
             int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -582,7 +580,7 @@ public class Register extends AppCompatActivity {
                     if (containsBoth) {
                         // inflate the layout of the popup window
                         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                        popupView = inflater.inflate(R.layout.starter_register_popup_kp, null);
+                        popupView = inflater.inflate(R.layout.a_belum_starter_register_popup_kp, null);
                         // create the popup window
                         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                         int height = LinearLayout.LayoutParams.WRAP_CONTENT;

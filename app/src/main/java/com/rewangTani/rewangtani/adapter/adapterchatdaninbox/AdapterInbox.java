@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.DetailWarungBibitdanPupuk;
-import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
-import com.rewangTani.rewangtani.model.modelinfo.DatumInfo;
 
 import java.util.List;
 
@@ -42,7 +38,7 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.z_list_inbox, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.a_belum_z_list_inbox, parent, false);
         Penampung penampung = new Penampung(view);
         return penampung;
     }
