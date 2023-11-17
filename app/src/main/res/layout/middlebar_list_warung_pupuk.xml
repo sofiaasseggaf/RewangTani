@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:background="@drawable/bg_greenfill_radius"
+                        android:background="@drawable/bg_green_fill_radius"
                         android:paddingVertical="10dp"
                         android:paddingHorizontal="20dp">
                         <TextView

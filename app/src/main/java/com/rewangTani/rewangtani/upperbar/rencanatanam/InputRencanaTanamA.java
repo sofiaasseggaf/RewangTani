@@ -57,7 +57,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InputRencanaTanam extends AppCompatActivity {
+public class InputRencanaTanamA extends AppCompatActivity {
 
     EditText et_nama_rt;
     EditText txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
@@ -91,7 +91,7 @@ public class InputRencanaTanam extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rt_input_rencana_tanam);
+        setContentView(R.layout.upperbar_rt_input_rencana_tanam_a);
 
         et_nama_rt = findViewById(R.id.et_nama_rt);
         sp_profil_lahan = findViewById(R.id.sp_profil_lahan);
@@ -187,7 +187,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                 }
                 Collections.sort(listVarietas);
                 if (listVarietas!=null){
-                    adapterVarietas = new ArrayAdapter<String>(InputRencanaTanam.this, R.layout.z_spinner_list, listVarietas);
+                    adapterVarietas = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listVarietas);
                     sp_varietas.setThreshold(1);
                     sp_varietas.setAdapter(adapterVarietas);
                 }
@@ -278,7 +278,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanam.this, "Isi semua field terlebih dahulu", Toast.LENGTH_LONG).show();
+                                Toast.makeText(InputRencanaTanamA.this, "Isi semua field terlebih dahulu", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -323,7 +323,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanam.this, "Isi semua field terlebih dahulu", Toast.LENGTH_LONG).show();
+                                Toast.makeText(InputRencanaTanamA.this, "Isi semua field terlebih dahulu", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -332,7 +332,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                         @Override
                         public void run() {
                             findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(InputRencanaTanam.this, "Pilih profil lahan terlebih dahulu !", Toast.LENGTH_LONG).show();
+                            Toast.makeText(InputRencanaTanamA.this, "Pilih profil lahan terlebih dahulu !", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -395,7 +395,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                AlertDialog.Builder builder = new AlertDialog.Builder(InputRencanaTanam.this);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(InputRencanaTanamA.this);
                                 builder.setMessage("Buat profil lahan terlebih dahulu")
                                         .setPositiveButton("Buat Profil Lahan", new DialogInterface.OnClickListener() {
                                             @Override
@@ -420,7 +420,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                         @Override
                         public void run() {
                             findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(InputRencanaTanam.this, "Data profil lahan tidak ditemukan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InputRencanaTanamA.this, "Data profil lahan tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -434,7 +434,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                                Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
                         });
@@ -465,7 +465,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                         @Override
                         public void run() {
                             findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(InputRencanaTanam.this, "Data komoditas tidak ditemukan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InputRencanaTanamA.this, "Data komoditas tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -476,7 +476,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -498,7 +498,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                         @Override
                         public void run() {
                             findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(InputRencanaTanam.this, "Data varietas tidak ditemukan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(InputRencanaTanamA.this, "Data varietas tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -509,7 +509,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -519,23 +519,23 @@ public class InputRencanaTanam extends AppCompatActivity {
 
     public void getLoc(){
 
-        if(ActivityCompat.checkSelfPermission(InputRencanaTanam.this, Manifest.permission.ACCESS_FINE_LOCATION)!=
+        if(ActivityCompat.checkSelfPermission(InputRencanaTanamA.this, Manifest.permission.ACCESS_FINE_LOCATION)!=
                 PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(InputRencanaTanam.this, Manifest.permission.ACCESS_COARSE_LOCATION)!=
+                ActivityCompat.checkSelfPermission(InputRencanaTanamA.this, Manifest.permission.ACCESS_COARSE_LOCATION)!=
                         PackageManager.PERMISSION_GRANTED)
         {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     findViewById(R.id.framelayout).setVisibility(View.GONE);
-                    ActivityCompat.requestPermissions(InputRencanaTanam.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
+                    ActivityCompat.requestPermissions(InputRencanaTanamA.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
                 }
             });
         }
 
-        if(ActivityCompat.checkSelfPermission(InputRencanaTanam.this,Manifest.permission.ACCESS_FINE_LOCATION)==
+        if(ActivityCompat.checkSelfPermission(InputRencanaTanamA.this,Manifest.permission.ACCESS_FINE_LOCATION)==
                 PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(InputRencanaTanam.this, Manifest.permission.ACCESS_COARSE_LOCATION)==
+                ActivityCompat.checkSelfPermission(InputRencanaTanamA.this, Manifest.permission.ACCESS_COARSE_LOCATION)==
                         PackageManager.PERMISSION_GRANTED)
         {
             getRekomendasiVarietas();
@@ -544,7 +544,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                 @Override
                 public void run() {
                     findViewById(R.id.framelayout).setVisibility(View.GONE);
-                    Toast.makeText(InputRencanaTanam.this, "GPS bermasalah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(InputRencanaTanamA.this, "GPS bermasalah", Toast.LENGTH_SHORT).show();
                     txt_rek_varietas.setTextColor(getResources().getColor(R.color.red));
                     txt_rek_varietas.setText("Rekomendasi varietas = GPS bermasalah");
                     setDataSpinner();
@@ -608,11 +608,11 @@ public class InputRencanaTanam extends AppCompatActivity {
         // tadah hujan
         tipeSIc = "570ca522-6cca-4c9a-9b83-adc7d3cc0389";
 
-        adapterProfilLahan = new ArrayAdapter<String>(InputRencanaTanam.this, R.layout.z_spinner_list, listProfilLahan);
+        adapterProfilLahan = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listProfilLahan);
         adapterProfilLahan.setDropDownViewResource(R.layout.z_spinner_list);
         sp_profil_lahan.setAdapter(adapterProfilLahan);
 
-        adapterKomoditas = new ArrayAdapter<String>(InputRencanaTanam.this, R.layout.z_spinner_list, listKomoditas);
+        adapterKomoditas = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listKomoditas);
         adapterKomoditas.setDropDownViewResource(R.layout.z_spinner_list);
         sp_komoditas.setAdapter(adapterKomoditas);
     }
@@ -755,7 +755,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                        Toast.makeText(InputRencanaTanam.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(InputRencanaTanamA.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -765,7 +765,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                               findViewById(R.id.framelayout).setVisibility(View.GONE);
-                              Toast.makeText(InputRencanaTanam.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
+                              Toast.makeText(InputRencanaTanamA.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -779,7 +779,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -812,7 +812,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanam.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
+                                Toast.makeText(InputRencanaTanamA.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -826,7 +826,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -863,7 +863,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                    Toast.makeText(InputRencanaTanam.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(InputRencanaTanamA.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -876,7 +876,7 @@ public class InputRencanaTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -885,18 +885,18 @@ public class InputRencanaTanam extends AppCompatActivity {
     }
 
     public void cekRT(){
-        Intent a = new Intent(InputRencanaTanam.this, DetailRencanaTanamRAB.class);
+        Intent a = new Intent(InputRencanaTanamA.this, DetailRencanaTanamRAB.class);
         startActivity(a);
     }
 
     public void goToListRT(){
-        Intent a = new Intent(InputRencanaTanam.this, ListRencanaTanam.class);
+        Intent a = new Intent(InputRencanaTanamA.this, ListRencanaTanam.class);
         startActivity(a);
         finish();
     }
 
     public void goToProfilLahan(){
-        Intent a = new Intent(InputRencanaTanam.this, ListProfileLahan.class);
+        Intent a = new Intent(InputRencanaTanamA.this, ListProfileLahan.class);
         startActivity(a);
         finish();
     }

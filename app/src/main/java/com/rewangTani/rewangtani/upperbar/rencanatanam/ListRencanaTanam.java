@@ -4,15 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
@@ -20,7 +17,6 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRencanaTanam;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.databinding.UpperbarRtListRencanaTanamBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
@@ -200,7 +196,7 @@ public class ListRencanaTanam extends AppCompatActivity {
     }
 
     public void goToInputRencanaTanam(){
-        Intent a = new Intent(ListRencanaTanam.this, InputRencanaTanam.class);
+        Intent a = new Intent(ListRencanaTanam.this, InputRencanaTanamA.class);
         startActivity(a);
         finish();
     }

@@ -443,7 +443,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
     }
 
     public  void goToInputRT(){
-        Intent a = new Intent(DetailRencanaTanamRAB.this, InputRencanaTanam.class);
+        Intent a = new Intent(DetailRencanaTanamRAB.this, InputRencanaTanamA.class);
         startActivity(a);
     }
 

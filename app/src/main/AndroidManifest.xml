@@ -93,7 +93,19 @@
             android:name=".upperbar.sudahtanam.InputSudahTanam"
             android:exported="false" />
         <activity
-            android:name=".upperbar.rencanatanam.InputRencanaTanam"
+            android:name=".upperbar.rencanatanam.InputRencanaTanamA"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.InputRencanaTanamB"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.InputRencanaTanamC"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.InputRencanaTanamD"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rencanatanam.InputRencanaTanamE"
             android:exported="false" />
         <activity
             android:name=".upperbar.rencanatanam.DetailRencanaTanamNonEditable"
@@ -121,10 +133,7 @@
             android:exported="false" />
         <activity
             android:name=".upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca"
-            android:exported="false" />
-
-        <!-- BottomBar -->
-
+            android:exported="false" /> <!-- BottomBar -->
         <activity
             android:name=".bottombar.warungku.EtalaseWarungku"
             android:exported="false" />
@@ -232,9 +241,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-<!--        <service-->
-<!--            android:name=".myNavigationService"-->
-<!--            android:foregroundServiceType="location" />-->
     </application>
 
 </manifest>

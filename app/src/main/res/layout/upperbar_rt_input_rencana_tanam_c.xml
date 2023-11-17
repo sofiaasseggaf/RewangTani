@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".upperbar.rencanatanam.InputRencanaTanamC">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Rencana Tanam"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingHorizontal="20dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnNama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_circle_ok" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Nama"
+                        android:textColor="#303030" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnOngkosBuruh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_circle_ok" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Ongkos Buruh"
+                        android:textColor="#A0A0A0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnSewaMesin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_circle_on" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Sewa Mesin"
+                        android:textColor="#A0A0A0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnHargaBibit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_circle_off" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Harga Bibit"
+                        android:textColor="#A0A0A0" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnHargaPupuk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="30dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_circle_off" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:fontFamily="@font/inter_medium"
+                        android:text="Harga Pupuk"
+                        android:textColor="#A0A0A0" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalScrollView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Sewa Mesin"
+                    android:textColor="@color/dark_green2"
+                    android:textSize="30sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Mesin Bajak"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rect_input_blank_green_radius"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Rp. "
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                        <EditText
+                            android:id="@+id/mesinBajak"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Biaya Sewa Mesin Bajak"
+                            android:lines="1"
+                            android:backgroundTint="@android:color/transparent"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#A0A0A0"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtMesinBajak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Ket : Masukkan Biaya Sewa Mesin per Hektar"
+                        android:textColor="@color/dark_green"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Mesin Tanam"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rect_input_blank_green_radius"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Rp. "
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                        <EditText
+                            android:id="@+id/mesinTanam"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Biaya Sewa Mesin Tanam"
+                            android:lines="1"
+                            android:backgroundTint="@android:color/transparent"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#A0A0A0"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtMesinTanam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Ket : Masukkan Biaya Sewa Mesin per Hektar"
+                        android:textColor="@color/dark_green"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Mesin Panen"
+                        android:textColor="@color/dark_green2"
+                        android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rect_input_blank_green_radius"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Rp. "
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                        <EditText
+                            android:id="@+id/mesinPanem"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Biaya Sewa Mesin Panen"
+                            android:lines="1"
+                            android:backgroundTint="@android:color/transparent"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#A0A0A0"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtMesinPanen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_regular"
+                        android:text="Ket : Masukkan Biaya Sewa Mesin per Hektar"
+                        android:textColor="@color/dark_green"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewMesinPompa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Mesin Popma"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Rp. "
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                            <EditText
+                                android:id="@+id/mesinPompa"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:hint="Masukkan Biaya Sewa Mesin Pompa"
+                                android:lines="1"
+                                android:backgroundTint="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="15dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="#A0A0A0"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtMesinPompa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Ket : Masukkan Biaya Sewa Mesin per Hektar"
+                            android:textColor="@color/dark_green"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="BBM Mesin Popma"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Rp. "
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                            <EditText
+                                android:id="@+id/bbmMesinPompa"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:hint="Masukkan Biaya BBM Mesin Pompa"
+                                android:lines="1"
+                                android:backgroundTint="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="15dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="#A0A0A0"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/txtBbmMesinPompa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Ket : Masukkan Biaya BBM Mesin per Hektar"
+                            android:textColor="@color/dark_green"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Durasi Mesin Popma"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp">
+                            <EditText
+                                android:id="@+id/durasiMesinPompa"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="50dp"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:hint="Masukkan Durasi Mesin Pompa"
+                                android:lines="1"
+                                android:backgroundTint="@android:color/transparent"
+                                android:inputType="number"
+                                android:paddingLeft="15dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="#A0A0A0"
+                                android:textSize="14sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/inter_regular"
+                                android:text="Jam"
+                                android:layout_marginRight="15dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+                        <TextView
+                            android:id="@+id/txtDurasiMesinPompa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Ket : Masukkan Biaya Durasi Mesin per Hektar"
+                            android:textColor="@color/dark_green"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/btnSelanjutnya"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="25dp"
+                    android:background="@drawable/frame_button_white_dark_green_double_radius">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="SELANJUTNYA"
+                        android:textColor="#327036"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <!--
+
+
+
+
+
+
+
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="20dp"
+                                        android:fontFamily="@font/comfortaa_regular"
+                                        android:text="Harga Bibit"
+                                        android:textColor="@color/black"
+                                        android:textSize="24sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Bibit Local (HET)"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/rect_edittext"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:text="Rp. "
+                                                android:textColor="@color/black"
+                                                android:textSize="12sp" />
+
+                                            <EditText
+                                                android:id="@+id/txt_bibit_local"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:inputType="number"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Bibit per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Bibit Subsidi"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/rect_edittext"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:text="Rp. "
+                                                android:textColor="@color/black"
+                                                android:textSize="12sp" />
+
+                                            <EditText
+                                                android:id="@+id/txt_bibit_subsidi"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:inputType="number"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Bibit per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="20dp"
+                                        android:fontFamily="@font/comfortaa_regular"
+                                        android:text="Harga Pupuk"
+                                        android:textColor="@color/black"
+                                        android:textSize="24sp" />
+
+                                    &lt;!&ndash;<LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Pupuk Kimia - Local (HET)"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/rect_edittext"
+                                            android:layout_marginTop="10dp"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textColor="@color/black"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:layout_gravity="center"
+                                                android:textSize="12sp"
+                                                android:text="Rp. "/>
+                                            <EditText
+                                                android:id="@+id/txt_pupuk_kimia_local"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:layout_gravity="center"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:inputType="number"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Pupuk per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>&ndash;&gt;
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Pupuk Kimia Phonska"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/rect_edittext"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:text="Rp. "
+                                                android:textColor="@color/black"
+                                                android:textSize="12sp" />
+
+                                            <EditText
+                                                android:id="@+id/txt_pupuk_kimia_phonska"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:inputType="number"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Pupuk per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Pupuk Kimia Urea"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/rect_edittext"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:text="Rp. "
+                                                android:textColor="@color/black"
+                                                android:textSize="12sp" />
+
+                                            <EditText
+                                                android:id="@+id/txt_pupuk_kimia_urea"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:inputType="number"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Pupuk per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Pupuk Kimia Fosfat"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/rect_edittext"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:text="Rp. "
+                                                android:textColor="@color/black"
+                                                android:textSize="12sp" />
+
+                                            <EditText
+                                                android:id="@+id/txt_pupuk_kimia_fosfat"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:inputType="number"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Pupuk per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Pupuk Organik"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/rect_edittext"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:text="Rp. "
+                                                android:textColor="@color/black"
+                                                android:textSize="12sp" />
+
+                                            <EditText
+                                                android:id="@+id/txt_pupuk_organik"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:inputType="number"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Ket : Masukkan Biaya Pupuk per Hektar"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    &lt;!&ndash; <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="20dp"
+                                        android:fontFamily="@font/comfortaa_regular"
+                                        android:text="Harga Obat"
+                                        android:textColor="@color/black"
+                                        android:textSize="24sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Obat Kimia - Local (HET)"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <Spinner
+                                            android:id="@+id/sp_obat_kimia_local"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/bg_spinner"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:paddingLeft="15dp"
+                                            android:textColor="@color/black"
+                                            android:textColorHint="#ADABAB"
+                                            android:textSize="12sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/rect_edittext"
+                                            android:layout_marginTop="5dp"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textColor="@color/black"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:layout_gravity="center"
+                                                android:textSize="12sp"
+                                                android:text="Rp. "/>
+                                            <EditText
+                                                android:id="@+id/txt_obat_kimia_local"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:hint="Masukkan Ongkos Obat Kimia - Local (HET)"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:layout_gravity="center"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:inputType="number"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Biaya Sebelumnya Rp 120.000/hari"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Obat Kimia - Subsidi"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <Spinner
+                                            android:id="@+id/sp_obat_kimia_subsidi"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/bg_spinner"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:paddingLeft="15dp"
+                                            android:textColor="@color/black"
+                                            android:textColorHint="#ADABAB"
+                                            android:textSize="12sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/rect_edittext"
+                                            android:layout_marginTop="5dp"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textColor="@color/black"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:layout_gravity="center"
+                                                android:textSize="12sp"
+                                                android:text="Rp. "/>
+                                            <EditText
+                                                android:id="@+id/txt_obat_kimia_subsidi"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:hint="Masukkan Ongkos Obat Kimia - Subsidi"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:layout_gravity="center"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:inputType="number"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Biaya Sebelumnya Rp 120.000/hari"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="15dp"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/montserrat_bold"
+                                            android:text="Obat Organik"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="14sp" />
+
+                                        <Spinner
+                                            android:id="@+id/sp_obat_subsidi"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="10dp"
+                                            android:background="@drawable/bg_spinner"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:paddingLeft="15dp"
+                                            android:textColor="@color/black"
+                                            android:textColorHint="#ADABAB"
+                                            android:textSize="12sp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/rect_edittext"
+                                            android:layout_marginTop="5dp"
+                                            android:orientation="horizontal"
+                                            android:paddingLeft="15dp">
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:textColor="@color/black"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:layout_gravity="center"
+                                                android:textSize="12sp"
+                                                android:text="Rp. "/>
+                                            <EditText
+                                                android:id="@+id/txt_obat_organik"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="@font/roboto_regular"
+                                                android:hint="Masukkan Ongkos Obat Organik"
+                                                android:backgroundTint="@android:color/transparent"
+                                                android:layout_gravity="center"
+                                                android:paddingLeft="15dp"
+                                                android:textColor="@color/black"
+                                                android:textColorHint="#ADABAB"
+                                                android:inputType="number"
+                                                android:textSize="12sp" />
+                                        </LinearLayout>
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="5dp"
+                                            android:fontFamily="@font/roboto_regular"
+                                            android:text="Biaya Sebelumnya Rp 120.000/hari"
+                                            android:textColor="@color/dark_green"
+                                            android:textSize="10sp" />
+                                    </LinearLayout>&ndash;&gt;
+
+                                    -->
+
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/viewLoading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_loading"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="100dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/dark_green"
+                    android:textSize="22sp" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

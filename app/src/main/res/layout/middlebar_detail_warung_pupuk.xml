@@ -270,7 +270,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:layout_height="50dp"
                     android:gravity="center"
-                    android:background="@drawable/bg_greenfill_radius"
+                    android:background="@drawable/bg_green_fill_radius"
                     android:paddingHorizontal="20dp">
                     <TextView
                         android:layout_width="wrap_content"

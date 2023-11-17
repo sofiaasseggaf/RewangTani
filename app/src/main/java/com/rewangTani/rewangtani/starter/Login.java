@@ -6,7 +6,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +15,6 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -37,13 +33,10 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.bottombar.profilakun.EditPassword;
-import com.rewangTani.rewangtani.databinding.StarterLoginBinding;
 import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;

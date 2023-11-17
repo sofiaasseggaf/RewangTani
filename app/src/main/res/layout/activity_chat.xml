@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/bg_greenfill_radius">
+                android:background="@drawable/bg_green_fill_radius">
 
                 <ImageView
                     android:layout_width="wrap_content"

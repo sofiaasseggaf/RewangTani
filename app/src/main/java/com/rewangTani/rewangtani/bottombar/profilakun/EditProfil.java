@@ -18,27 +18,17 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.BottombarPaEditprofilBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.statuspekerja.ModelStatusPekerja;
-import com.rewangTani.rewangtani.starter.SplashScreen;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
