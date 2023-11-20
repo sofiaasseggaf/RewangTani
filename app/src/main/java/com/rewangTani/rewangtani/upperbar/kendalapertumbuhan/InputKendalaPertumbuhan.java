@@ -22,10 +22,8 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
-import com.rewangTani.rewangtani.upperbar.sudahtanam.InputSudahTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;

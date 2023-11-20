@@ -43,7 +43,7 @@ public class Chat extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_chat);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pesan_chat);
 
         Intent intent = getIntent();
         idInbox = intent.getStringExtra("id");

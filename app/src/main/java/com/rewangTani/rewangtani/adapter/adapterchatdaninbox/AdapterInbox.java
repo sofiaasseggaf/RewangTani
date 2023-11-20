@@ -38,7 +38,7 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.a_belum_z_list_inbox, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.z_list_inbox, parent, false);
         Penampung penampung = new Penampung(view);
         return penampung;
     }

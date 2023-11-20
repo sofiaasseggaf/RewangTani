@@ -47,7 +47,7 @@ public class InboxPesan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_inbox);
+        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pesan_inbox);
 
         getData();
 

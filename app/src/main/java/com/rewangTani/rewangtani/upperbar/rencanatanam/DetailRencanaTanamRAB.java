@@ -57,7 +57,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rt_detail_rencana_tanam_rab);
+        setContentView(R.layout.upperbar_rt_input_rencana_tanam_f);
 
         txt_nama = findViewById(R.id.txt_nama);
         txt_profil_lahan = findViewById(R.id.txt_profil_lahan);

@@ -3,15 +3,25 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:paddingTop="10dp"
     android:background="#0DFFFFFF">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/elips_profil" />
 
     <LinearLayout
         android:id="@+id/llInbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="5dp"
+        android:layout_toRightOf="@id/imageProfile"
         android:layout_toLeftOf="@id/icon"
         android:orientation="vertical">
 
@@ -19,8 +29,9 @@
             android:id="@+id/sender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/inter_bold"
             android:maxLines="1"
+            android:text="sender"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -28,11 +39,11 @@
             android:id="@+id/lastText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/roboto_regular"
+            android:fontFamily="@font/inter_regular"
             android:maxLines="1"
+            android:text="last text"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -42,15 +53,29 @@
         android:layout_height="20dp"
         android:layout_alignBottom="@id/llInbox"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/ic_circle_green"
         android:visibility="visible" />
 
+    <TextView
+        android:id="@+id/jamText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/icon"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/inter_regular"
+        android:maxLines="1"
+        android:text="15:06"
+        android:textColor="@color/black"
+        android:textSize="10sp" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#808080"
+        android:layout_height="1dp"
+        android:background="#EAEAEA"
         android:layout_below="@id/llInbox"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>
