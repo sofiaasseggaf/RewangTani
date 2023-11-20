@@ -126,7 +126,10 @@
             android:name=".upperbar.rencanatanam.DetailRencanaTanamNonEditable"
             android:exported="false" />
         <activity
-            android:name=".upperbar.rab.DetailRancanganAnggaranBiaya"
+            android:name=".upperbar.rab.DetailRancanganAnggaranBiayaA"
+            android:exported="false" />
+        <activity
+            android:name=".upperbar.rab.DetailRancanganAnggaranBiayaB"
             android:exported="false" />
         <activity
             android:name=".upperbar.rencanatanam.DetailRencanaTanamRAB"

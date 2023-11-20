@@ -235,7 +235,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent a = new Intent(ListRancanganAnggaranBiaya.this, DetailRancanganAnggaranBiaya.class);
+                        Intent a = new Intent(ListRancanganAnggaranBiaya.this, DetailRancanganAnggaranBiayaA.class);
                         a.putExtra("id", listRencanaTanam.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
