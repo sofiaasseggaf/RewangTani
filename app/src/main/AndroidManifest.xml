@@ -84,7 +84,7 @@
             android:name=".upperbar.sudahtanam.UpdateSudahTanam"
             android:exported="false" />
         <activity
-            android:name=".upperbar.panen.DetailPanenNonEditable"
+            android:name=".upperbar.panen.DetailPanen"
             android:exported="false" /> <!-- UpperBar -->
         <activity
             android:name=".upperbar.panen.InputPanen"

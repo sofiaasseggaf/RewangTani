@@ -322,7 +322,7 @@ public class ListPanen extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent a = new Intent(ListPanen.this, DetailPanenNonEditable.class);
+                        Intent a = new Intent(ListPanen.this, DetailPanen.class);
                         a.putExtra("id", listPanen.get(position).getIdPanen());
                         startActivity(a);
                     }

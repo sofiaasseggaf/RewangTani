@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailPanenNonEditable extends AppCompatActivity {
+public class DetailPanen extends AppCompatActivity {
 
     TextView txt_tujuan_jual, txt_jenis_hasil_panen, txt_jumlah_hasil_panen, txt_harga_jual, txtload;
     ImageButton btn_simpan, btn_batal;
@@ -39,7 +39,7 @@ public class DetailPanenNonEditable extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_p_detail_panen_non_editable);
+        setContentView(R.layout.upperbar_p_detail_panen);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -124,7 +124,7 @@ public class DetailPanenNonEditable extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(DetailPanenNonEditable.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailPanen.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -154,7 +154,7 @@ public class DetailPanenNonEditable extends AppCompatActivity {
     }
 
     public void goToListPanen(){
-        Intent a = new Intent(DetailPanenNonEditable.this, ListPanen.class);
+        Intent a = new Intent(DetailPanen.this, ListPanen.class);
         startActivity(a);
         finish();
     }

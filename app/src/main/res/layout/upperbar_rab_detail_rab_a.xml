@@ -704,7 +704,7 @@
                             android:textColor="#327036"
                             android:textAlignment="center"/>
                         <TextView
-                            android:id="@+id/tglEstimasiAwal"
+                            android:id="@+id/totalBiaya"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
