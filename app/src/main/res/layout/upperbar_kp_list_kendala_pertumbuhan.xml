@@ -77,7 +77,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="TAMBAH SUDAH TANAM"
+                android:text="TAMBAH KENDALA PERTUMBUHAN"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </RelativeLayout>

@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
-    tools:context=".upperbar.kendalapertumbuhan.DetailKendalaPertumbuhan">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/rect_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rect_top">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/comfortaa_regular"
-            android:text="Kendala Pertumbuhan"
-            android:textColor="@color/black"
-            android:textSize="28sp" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/scrollview"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rect_top"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp">
+        android:background="@color/white"
+        tools:context=".upperbar.kendalapertumbuhan.DetailKendalaPertumbuhan">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Kendala\nPertumbuhan"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,29 +46,28 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Rencana Tanam"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="45dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
+                    android:background="@drawable/rect_input_gray_fill_green_radius"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp">
 
                     <TextView
-                        android:id="@+id/txt_rencana_tanam"
+                        android:id="@+id/txtNamaRencanaTanam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat_regular"
                         android:text=".  .  ."
-                        android:textColor="#4C4C4C"
+                        android:textColor="#A0A0A0"
                         android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -83,63 +79,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Profil Lahan"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp">
-
-                    <TextView
-                        android:id="@+id/txt_profil_lahan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_regular"
-                        android:text=".  .  ."
-                        android:textColor="#4C4C4C"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Kendala Hama"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
+                    android:background="@drawable/rect_input_gray_fill_green_radius"
                     android:gravity="center_vertical"
-                    android:padding="10dp">
+                    android:paddingLeft="10dp">
 
                     <TextView
-                        android:id="@+id/txt_hama"
+                        android:id="@+id/txtKendalaHama"
                         android:layout_width="wrap_content"
-                        android:layout_height="75dp"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/montserrat_regular"
                         android:text=".  .  ."
-                        android:textColor="#4C4C4C"
+                        android:textAlignment="center"
+                        android:lines="5"
+                        android:textColor="#A0A0A0"
                         android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -151,29 +114,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Kendala Bencana"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
+                    android:background="@drawable/rect_input_gray_fill_green_radius"
                     android:gravity="center_vertical"
-                    android:padding="10dp">
+                    android:paddingLeft="10dp">
 
                     <TextView
-                        android:id="@+id/txt_bencana"
+                        android:id="@+id/txtKendalaBencana"
                         android:layout_width="wrap_content"
-                        android:layout_height="75dp"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/montserrat_regular"
                         android:text=".  .  ."
-                        android:textColor="#4C4C4C"
+                        android:textAlignment="center"
+                        android:lines="5"
+                        android:textColor="#A0A0A0"
                         android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -185,57 +149,59 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Kendala Lainnya"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="75dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext_off"
+                    android:background="@drawable/rect_input_gray_fill_green_radius"
                     android:gravity="center_vertical"
-                    android:padding="10dp">
+                    android:paddingLeft="10dp">
 
                     <TextView
-                        android:id="@+id/txt_lainnya"
+                        android:id="@+id/txtKendalaLainnya"
                         android:layout_width="wrap_content"
-                        android:layout_height="75dp"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/montserrat_regular"
                         android:text=".  .  ."
-                        android:textColor="#4C4C4C"
+                        android:textAlignment="center"
+                        android:lines="5"
+                        android:textColor="#A0A0A0"
                         android:textSize="12sp" />
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 
-
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/bg_loading">
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/textloading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="100dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="22sp"
-                android:textColor="@color/dark_green"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_loading"
+            android:visibility="gone">
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/textLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="100dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/dark_green"
+                    android:textSize="22sp" />
 
-</RelativeLayout>
+            </RelativeLayout>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

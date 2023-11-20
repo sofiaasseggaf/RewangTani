@@ -1,134 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
-    tools:context=".upperbar.kendalapertumbuhan.InputKendalaPertumbuhan">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/rect_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rect_top">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/comfortaa_regular"
-            android:text="Kendala Pertumbuhan"
-            android:textColor="@color/black"
-            android:textSize="28sp" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/scrollview"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/llbottom"
-        android:layout_below="@id/rect_top"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp">
+        android:background="@color/white"
+        tools:context=".upperbar.kendalapertumbuhan.InputKendalaPertumbuhan">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Kendala\nPertumbuhan"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Nama Rencana Tanam"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
-                <Spinner
-                    android:id="@+id/sp_rt"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/bg_spinner"
-                    android:fontFamily="@font/roboto_regular"
-                    android:paddingLeft="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="#ADABAB"
-                    android:textSize="12sp" />
+                    android:background="@drawable/rect_input_blank_green_radius">
+
+                    <Spinner
+                        android:id="@+id/spRencanaTanam"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/transparant"
+                        android:fontFamily="@font/inter_regular"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="50dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#A0A0A0"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/triangle_upside_down_green" />
+                </RelativeLayout>
+
             </LinearLayout>
 
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="Pilih Kendala Pertumbuhan"
-                    android:textColor="@color/dark_green"
-                    android:textSize="14sp" />
-
-                <Spinner
-                    android:id="@+id/sp_kp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/bg_spinner"
-                    android:fontFamily="@font/roboto_regular"
-                    android:paddingLeft="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="#ADABAB"
-                    android:textSize="12sp" />
-            </LinearLayout>-->
-
             <LinearLayout
-                android:id="@+id/ll_hama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Kendala Hama"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/txt_hama"
+                    android:id="@+id/kendalaHama"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rect_edittext"
-                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rect_input_blank_green_radius"
+                    android:fontFamily="@font/inter_regular"
+                    android:hint="Masukkan Kendala Hama"
                     android:lines="5"
                     android:paddingLeft="15dp"
                     android:textColor="@color/black"
-                    android:textColorHint="#ADABAB"
-                    android:textSize="12sp" />
-
+                    android:textColorHint="#A0A0A0"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_bencana"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -137,29 +121,27 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Kendala Bencana"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/txt_bencana"
+                    android:id="@+id/kendalaBencana"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rect_edittext"
-                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rect_input_blank_green_radius"
+                    android:fontFamily="@font/inter_regular"
+                    android:hint="Masukkan Kendala Bencana"
                     android:lines="5"
                     android:paddingLeft="15dp"
                     android:textColor="@color/black"
-                    android:textColorHint="#ADABAB"
-                    android:textSize="12sp" />
-
+                    android:textColorHint="#A0A0A0"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_lainnya"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -168,85 +150,71 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Kendala Lainnya"
-                    android:textColor="@color/dark_green"
+                    android:textColor="@color/dark_green2"
                     android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/txt_lainnya"
+                    android:id="@+id/kendalaLainnya"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rect_edittext"
-                    android:fontFamily="@font/roboto_regular"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rect_input_blank_green_radius"
+                    android:fontFamily="@font/inter_regular"
+                    android:hint="Masukkan Kendala Lainnya"
                     android:lines="5"
                     android:paddingLeft="15dp"
                     android:textColor="@color/black"
-                    android:textColorHint="#ADABAB"
-                    android:textSize="12sp" />
-
+                    android:textColorHint="#A0A0A0"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/btnSimpan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/frame_button_white_dark_green_double_radius">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="SIMPAN"
+                    android:textColor="#327036"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/viewLoading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_loading"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="100dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/dark_green"
+                    android:textSize="22sp" />
 
             </RelativeLayout>
 
+        </FrameLayout>
 
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/llbottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_marginBottom="40dp">
-        <ImageButton
-            android:id="@+id/btn_simpan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_simpan"
-            android:layout_marginRight="50dp"/>
-
-        <ImageButton
-            android:id="@+id/btn_batal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/btn_batal" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/framelayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/bg_loading">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/textloading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="100dp"
-                android:fontFamily="@font/inter_bold"
-                android:textSize="22sp"
-                android:textColor="@color/dark_green"/>
-
-        </RelativeLayout>
-
-    </FrameLayout>
-
-</RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
