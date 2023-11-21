@@ -34,8 +34,6 @@ import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
-import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
-import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
@@ -57,7 +55,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UpdateSudahTanam extends AppCompatActivity {
+public class UpdateSudahTanamA extends AppCompatActivity {
 
     EditText txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
     EditText txt_mesin_bajak, txt_mesin_tanam, txt_mesin_panen, txt_mesin_pompa, txt_mesin_pompa_bbm, txt_durasi_mesin_pompa_bbm;
@@ -99,7 +97,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_st_update_sudah_tanam);
+        setContentView(R.layout.upperbar_st_update_sudah_tanam_a);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -231,7 +229,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             txt_pompabbm = String.valueOf(totalbbm);
                             simpan();
                         } else {
-                            Toast.makeText(UpdateSudahTanam.this, "Masukan durasi sewa mesin pompa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateSudahTanamA.this, "Masukan durasi sewa mesin pompa", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         txt_pompabbm = "";
@@ -302,7 +300,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                    Toast.makeText(UpdateSudahTanam.this, "Data rencana tanam tidak ada", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(UpdateSudahTanamA.this, "Data rencana tanam tidak ada", Toast.LENGTH_LONG).show();
                                     call.cancel();
                                 }
                             });
@@ -316,7 +314,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -356,7 +354,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Data profil lahan tidak ada", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Data profil lahan tidak ada", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
                         });
@@ -372,7 +370,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
                         });
@@ -403,7 +401,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Data token tidak ditemukan", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Data token tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 setFieldSistemIrigasi();
 
                             }
@@ -413,7 +411,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ModelAkun> call, Throwable t) {
-                Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
@@ -495,7 +493,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -538,7 +536,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Data komoditas tidak ada", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Data komoditas tidak ada", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
                         });
@@ -551,7 +549,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -580,7 +578,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Data varietas tidak ada", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Data varietas tidak ada", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
                         });
@@ -593,7 +591,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -638,7 +636,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -649,7 +647,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
     public void setDataSpinnerObat(){
         if (listObatKimiaLocal.size()>0){
             Collections.sort(listObatKimiaLocal);
-            adapterObatKimia = new ArrayAdapter<String>(UpdateSudahTanam.this, R.layout.z_spinner_list, listObatKimiaLocal);
+            adapterObatKimia = new ArrayAdapter<String>(UpdateSudahTanamA.this, R.layout.z_spinner_list, listObatKimiaLocal);
             adapterObatKimia.setDropDownViewResource(R.layout.z_spinner_list);
             sp_obat_kimia.setAdapter(adapterObatKimia);
         }
@@ -780,7 +778,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal input obat kimia", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal input obat kimia", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -794,7 +792,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -830,7 +828,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal input kendala pertumbuhan kimia", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal input kendala pertumbuhan kimia", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -844,7 +842,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -891,7 +889,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal buat info obat kimia", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal buat info obat kimia", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -905,7 +903,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -986,7 +984,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal input obat organik", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal input obat organik", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -1000,7 +998,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -1030,7 +1028,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal input obat organik", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal input obat organik", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -1044,7 +1042,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -1080,7 +1078,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal input kendala pertumbuhan organik", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal input kendala pertumbuhan organik", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -1094,7 +1092,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -1139,7 +1137,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal buat info obat organik", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal buat info obat organik", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -1153,7 +1151,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -1263,7 +1261,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanam.this, "Gagal update sudah tanam", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UpdateSudahTanamA.this, "Gagal update sudah tanam", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -1277,7 +1275,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
                 call.cancel();
@@ -1295,7 +1293,7 @@ public class UpdateSudahTanam extends AppCompatActivity {
     }
 
     public  void goToListST(){
-        Intent a = new Intent(UpdateSudahTanam.this, ListSudahTanam.class);
+        Intent a = new Intent(UpdateSudahTanamA.this, ListSudahTanam.class);
         startActivity(a);
         finish();
     }

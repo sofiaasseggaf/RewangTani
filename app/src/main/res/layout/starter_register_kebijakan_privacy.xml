@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Kebijakan Privasi"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kebijakan Privasi ini mengatur mengenai kebijakan dan prosedur dalam mengumpulkan, menggunakan, dan menjaga data yang diperoleh dari pelanggan (selanjutnya disebut “Anda” atau “Pengguna”) sehubungan dengan penggunaan layanan yang disediakan aplikasi REWANG TANI (“Aplikasi”) dan situs domain https://rewangtani.com/ beserta seluruh situs sub-domain tersebut (“Situs”). Pada Kebijakan Privasi ini, kecuali secara tegas disebutkan berbeda, berlaku untuk Aplikasi, Situs dan semua produk dan layanan yang disediakan oleh Aplikasi dan Situs."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="DATA PRIBADI PENGGUNA"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kami mengumpulkan data pribadi dari Pengguna kami melalui berbagai cara, termasuk namun tidak terbatas pada, ketika Pengguna mengunjungi Aplikasi, Situs dan menggunakan layanan, mendaftar sebagai Pengguna, menggunakan layanan tertentu, mengisi dan melengkapi formulir, dan yang berkaitan dengan kegiatan, layanan, fitur, atau konten yang kami sediakan dalam Aplikasi dan Situs. Pengguna dapat diminta memberikan data, termasuk namun tidak terbatas pada nama, alamat e-mail, alamat rumah/kantor, foto, Nomor Induk Kependudukan, dan nomor telepon. Kami mengumpulkan data pribadi dari Pengguna, yang secara sukarela diberikan kepada kami. Pengguna dapat setiap saat menolak memberikan data pribadi, kecuali jika hal tersebut dapat membatasi mereka untuk mengakses bagian tertentu dalam Aplikasi dan Situs."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="DATA NON-PRIBADI PENGGUNA"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kami dapat mengumpulkan data non-pribadi Pengguna ketika berinteraksi dengan Aplikasi dan Situs. Data non-pribadi termasuk nama browser, tipe komputer, perangkat telepon, data lokasi dan informasi lainnya berkaitan dengan cara Pengguna terhubung dengan Aplikasi dan Situs kami, termasuk, namun tidak terbatas seperti internet protocol (IP), model perangkat, sistem operasi, layanan internet, sosial media, dan pengaturan aplikasi saat menggunakan Layanan, waktu, dan tanggal penggunaan layanan, dan statistik lain."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="COOKIES"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Situs kami tidak menggunakan cookies secara eksplisit. Namun, Aplikasi mungkin menggunakan kode dan library pihak ketiga yang menggunakan cookies untuk mengumpulkan informasi dan memperbaiki layanan mereka. Pengguna dapat menginstruksikan browser mereka, dengan mengubah pilihan, untuk berhenti menerima cookies atau untuk meminta Pengguna sebelum menerima cookies dari situs-situs yang dikunjungi. Jika Pengguna tidak menerima cookies, maka Pengguna mungkin tidak dapat menggunakan semua bagian dari Aplikasi dan Situs atau semua fungsi dari layanan kami."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="BAGAIMANA KAMI MENGGUNAKAN DATA PRIBADI DAN DATA NON-PRIBADI PENGGUNA"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Data pribadi dan data non-pribadi Pengguna hanya digunakan seperti yang dijelaskan dalam Kebijakan Privasi ini, kecuali Pengguna telah menyetujui hal lain berkaitan dengan penggunaan data pribadi. Kami menggunakan data pribadi dan data non-pribadi Pengguna untuk tujuan berikut:"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="1.	Menyediakan dan memperbaiki Aplikasi dan Situs kami, layanan, fitur dan konten;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="2.	Memenuhi permintaan Pengguna;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="3.	Mempersonalisasi pengalaman Pengguna;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="4.	Menyebarluaskan informasi;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="5.	Membantu pemerintah dalam membuat keputusan;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="6.	Mendukung kegiatan pemerintah dalam memberikan pelayanan lainnya;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="7.	Melaksanakan tujuan lainnya yang mengacu pada peraturan perundang-undangan; dan"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="8.	Mengungkapkan data pribadi dan data non-pribadi Pengguna jika diminta untuk melakukannya oleh penegak hukum, atau jika diperlukan untuk menyelidiki penipuan, pelanggaran terhadap Kebijakan Privasi atau sehubungan dengan bahaya apa pun yang disebabkan kepada pihak ketiga atau hak-hak mereka."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="PERLINDUNGAN DATA PRIBADI PENGGUNA"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kami berkomitmen untuk menjaga dan melindungi data pribadi Anda. Kami menerapkan langkah-langkah wajar yang dirancang untuk melindungi data pribadi Anda dari akses yang tidak sah."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="BERBAGI DATA PRIBADI DAN DATA NON-PRIBADI PENGGUNA DENGAN PIHAK KETIGA"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kami sewaktu-waktu bekerja sama dengan badan usaha, yayasan atau individu pihak ketiga demi melaksanakan tujuan-tujuan berikut:"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="1.	Untuk memfasilitasi layanan kami;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="2.	Untuk menyediakan layanan atas nama kami;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="3.	Untuk melaksanakan layanan yang berhubungan dengan layanan kami;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="4.	Untuk mendampingi kami dalam menganalisis bagaimana layanan kami digunakan;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa_regular"
+                android:text="5.	Untuk membantu melaksanakan layanan lainnya; dan"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="6.	Untuk mendukung tujuan lain sebagaimana tercantum pada Kebijakan Privasi ini."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="Dengan ini kami memberitahu Pengguna bahwa pihak ketiga ini memiliki akses kepada informasi data pribadi dan data non-pribadi Pengguna demi melaksanakan tujuan-tujuan di atas. Pihak ketiga tersebut berkewajiban untuk menjaga kerahasiaan dan tidak menggunakan informasi tersebut untuk keperluan lain."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="PERUBAHAN KEBIJAKAN PRIVASI"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kami memiliki hak, diskresi, untuk mengubah, memodifikasi, menambah, atau menghapus bagian dari Kebijakan Privasi ini setiap saat. Namun, jika sewaktu-waktu di masa depan kami merencanakan untuk menggunakan informasi pribadi dengan cara yang secara material berbeda dari kebijakan ini, kami akan memberitahu perubahan tersebut dan memberikan Anda kesempatan untuk memilih penggunaan yang berbeda tersebut. Jika Anda tetap menggunakan Aplikasi dan Situs setelah adanya pengumuman setiap perubahan Kebijakan Privasi ini berarti Anda menerima perubahan tersebut."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="MENGUBAH ATAU MENGHAPUS DATA ANDA"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Semua Pengguna terdaftar dapat meninjau, memperbarui atau memperbaiki informasi pribadi yang diberikan saat pendaftaran dengan mengubah halaman profil akun atau permintaan ke tim customer service kami. Jika Pengguna memilih untuk keluar sepenuhnya, maka akun Pengguna mungkin menjadi dinonaktifkan. Namun, kami tidak dapat menghapus data pribadi dari catatan dari pihak ketiga yang telah disediakan dengan informasi Pengguna sesuai dengan kebijakan ini."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="PERANGKAT LUNAK DAN EKSTENSI YANG DILARANG"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Kami berkomitmen untuk menjaga seluruh data pribadi Anda. Untuk melindungi seluruh data pada Aplikasi dan Situs, kami tidak mengizinkan Pengguna menggunakan perangkat lunak pihak ketiga, termasuk perayap (crawler), bot, plug-in browser, atau ekstensi browser (juga disebut “add-on”), yang mengambil data, mengubah tampilan, atau mengotomatisasi aktivitas di Aplikasi dan Situs namun tidak terbatas pada kegiatan yang dilarang sebagai berikut:"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="1.	Mengembangkan, mendukung, atau menggunakan perangkat lunak, perangkat, skrip, robot, atau cara dan proses lainnya (termasuk perayap, plug-in dan add-on browser, atau teknologi lainnya) untuk mengambil secara melawan hukum sebagian atau seluruh data yang terdapat dalam Aplikasi dan Situs;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="2.	Mengganti atau mengubah tampilan di Aplikasi dan Situs;"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="3.	Melakukan deep-link pada seluruh produk dan layanan kami untuk tujuan apa pun, tanpa persetujuan kami."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_regular"
+                android:text="Pengguna yang menggunakan alat untuk tujuan di atas berarti melanggar Kebijakan Privasi Aplikasi dan Situs. Kami berhak untuk membatasi atau menutup akun serta melakukan blokir alamat IP Pengguna yang melanggar Kebijakan Privasi Aplikasi dan Situs tanpa pemberitahuan sebelumnya. Untuk menjaga keamanan seluruh data kami, kami selalu meningkatkan sistem keamanan secara teratur untuk mencegah penggunaan alat pengambil data, otomatisasi, dan alat lain yang menyalahgunakan penggunaan Situs."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="PERSETUJUAN"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Dengan menggunakan Aplikasi dan Situs kami, Pengguna dengan ini menyetujui Kebijakan Privasi dengan ketentuan-ketentuannya. Kebijakan Privasi ini dapat diperbaharui atau diubah, dan perubahan tersebut akan dimuat di halaman ini."
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="Diperbaharui per tanggal: 7 Maret 2022"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Saya telah membaca dan menyetujui kebijakan privasi"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnDaftarPopup"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/frame_button_dark_green_radius">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="DAFTAR"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

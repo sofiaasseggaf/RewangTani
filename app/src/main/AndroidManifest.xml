@@ -81,7 +81,7 @@
             android:name=".utility.DeleteAll"
             android:exported="false" />
         <activity
-            android:name=".upperbar.sudahtanam.UpdateSudahTanam"
+            android:name=".upperbar.sudahtanam.UpdateSudahTanamA"
             android:exported="false" />
         <activity
             android:name=".upperbar.panen.DetailPanen"

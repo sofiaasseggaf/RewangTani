@@ -2,52 +2,71 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    android:padding="7dp"
+    android:layout_width="150dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="20dp"
-    android:background="@drawable/rect_warung">
+    android:background="@drawable/rect_white_shadow">
 
     <ImageView
-        android:id="@+id/img_warung"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/imgWarung"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_height="125dp"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop" />
 
     <LinearLayout
+        android:id="@+id/viewKeterangan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/img_warung">
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/imgWarung">
         <TextView
-            android:id="@+id/nama_warung"
+            android:id="@+id/namaWarung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Traktor"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-        <TextView
-            android:id="@+id/biaya_warung"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="250.000 / Hari"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:textSize="10sp" />
         <TextView
+            android:id="@+id/biayaWarung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="250.000 / Hari"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="#327036"
+            android:textSize="10sp" />
+
+        <!--<TextView
             android:id="@+id/lokasi_warung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jakarta Timur"
-            android:fontFamily="@font/montserrat_regular"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/black"
             android:layout_marginTop="2dp"
-            android:textSize="10sp" />
+            android:textSize="10sp" />-->
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/terjualWarung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6 Terjual"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@id/viewKeterangan"
+        android:layout_alignBottom="@id/viewKeterangan"
+        android:layout_marginRight="10dp"
+        android:textSize="6sp" />
 
 
     </RelativeLayout>

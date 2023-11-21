@@ -72,7 +72,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_belum_upperbar_info_berandainfo);
+        setContentView(R.layout.upperbar_info_berandainfo);
 
         txt_temp = findViewById(R.id.txt_temp);
         txt_condition = findViewById(R.id.txt_condition);

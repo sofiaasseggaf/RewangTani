@@ -151,7 +151,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/btn_daftar"
+                    android:id="@+id/btnDaftar"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginHorizontal="20dp"

@@ -17,11 +17,7 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.DatumKendalaPertumbuhan;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.ModelKendalaPertumbuhan;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
-import com.rewangTani.rewangtani.upperbar.sudahtanam.UpdateSudahTanam;
-
-import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;

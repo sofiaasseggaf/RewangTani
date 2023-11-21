@@ -53,7 +53,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_belum_upperbar_info_tambahinfo);
+        setContentView(R.layout.upperbar_info_tambahinfo);
 
         txt_judul = findViewById(R.id.txt_judul);
         txt_ket = findViewById(R.id.txt_ket);

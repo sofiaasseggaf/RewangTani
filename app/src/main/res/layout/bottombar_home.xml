@@ -51,7 +51,7 @@
             app:layout_constraintTop_toTopOf="@+id/btnCart" />
 
         <RelativeLayout
-            android:id="@+id/btn_info"
+            android:id="@+id/btnInfo"
             android:layout_width="match_parent"
             android:layout_height="85dp"
             android:layout_marginStart="32dp"
@@ -158,7 +158,7 @@
             android:weightSum="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_info">
+            app:layout_constraintTop_toBottomOf="@+id/btnInfo">
 
             <LinearLayout
                 android:id="@+id/btnRencanaTanam"

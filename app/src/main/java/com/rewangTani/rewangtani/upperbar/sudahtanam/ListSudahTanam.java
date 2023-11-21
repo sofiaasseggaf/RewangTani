@@ -19,7 +19,6 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListSudahTanam;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.databinding.UpperbarStListSudahTanamBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
@@ -326,7 +325,7 @@ public class ListSudahTanam extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent a = new Intent(ListSudahTanam.this, UpdateSudahTanam.class);
+                        Intent a = new Intent(ListSudahTanam.this, UpdateSudahTanamA.class);
                         a.putExtra("id", listNewRencanaTanam.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
