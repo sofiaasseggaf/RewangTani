@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamFBinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
@@ -35,17 +37,8 @@ import retrofit2.Response;
 
 public class DetailRencanaTanamRAB extends AppCompatActivity {
 
-    TextView txt_nama, txt_profil_lahan, txt_komoditas, txt_varietas, txt_estimasi_hasil;
-    TextView txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
-    TextView txt_mesin_bajak, txt_mesin_tanam, txt_mesin_panen, txt_mesin_pompa, txt_mesin_pompa_bbm;
-    TextView txt_bibit_local, txt_bibit_subsidi;
-    TextView  txt_pupuk_kimia_phonska, txt_pupuk_kimia_urea, txt_pupuk_kimia_fosfat, txt_pupuk_organik;
-    EditText txt_estimasi_rab;
-    //TextView txt_obat_kimia_local, txt_obat_kimia_subsidi, txt_obat_organik;
-    ImageButton btn_simpan, btn_batal;
-    TextView txtload;
+    UpperbarRtInputRencanaTanamFBinding binding;
     String namaPL,namaKomoditas, namaVarietas, est_biaya, est_hasil;
-
     ModelRencanaTanam modelRencanaTanam;
     DatumRencanaTanam dataRencanaTanam;
     ModelProfilLahan modelProfilLahan;
@@ -57,39 +50,9 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rt_input_rencana_tanam_f);
-
-        txt_nama = findViewById(R.id.txt_nama);
-        txt_profil_lahan = findViewById(R.id.txt_profil_lahan);
-        txt_komoditas = findViewById(R.id.txt_komoditas);
-        txt_varietas = findViewById(R.id.txt_varietas);
-        txt_estimasi_rab = findViewById(R.id.txt_estimasi_rab);
-        txt_estimasi_hasil = findViewById(R.id.txt_estimasi_hasil);
-        txt_buruh_tanam = findViewById(R.id.txt_buruh_tanam);
-        txt_buruh_bajak = findViewById(R.id.txt_buruh_bajak);
-        txt_buruh_semprot = findViewById(R.id.txt_buruh_semprot);
-        txt_buruh_menyiangi = findViewById(R.id.txt_buruh_menyiangi);
-        txt_buruh_galengan = findViewById(R.id.txt_buruh_galengan);
-        txt_buruh_pupuk = findViewById(R.id.txt_buruh_pupuk);
-        txt_buruh_panen = findViewById(R.id.txt_buruh_panen);
-        txt_mesin_bajak = findViewById(R.id.txt_mesin_bajak);
-        txt_mesin_panen = findViewById(R.id.txt_mesin_panen);
-        txt_mesin_tanam = findViewById(R.id.txt_mesin_tanam);
-        txt_mesin_pompa = findViewById(R.id.txt_mesin_pompa);
-        txt_mesin_pompa_bbm = findViewById(R.id.txt_mesin_pompa_bbm);
-        txt_bibit_local = findViewById(R.id.txt_bibit_local);
-        txt_bibit_subsidi = findViewById(R.id.txt_bibit_subsidi);
-        //txt_pupuk_kimia_local = findViewById(R.id.txt_pupuk_kimia_local);
-        txt_pupuk_kimia_phonska = findViewById(R.id.txt_pupuk_kimia_phonska);
-        txt_pupuk_kimia_urea = findViewById(R.id.txt_pupuk_kimia_urea);
-        txt_pupuk_kimia_fosfat = findViewById(R.id.txt_pupuk_kimia_fosfat);
-        txt_pupuk_organik = findViewById(R.id.txt_pupuk_organik);
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_batal = findViewById(R.id.btn_batal);
-        txtload = findViewById(R.id.textloading);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_f);
 
         getData();
-
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -97,24 +60,17 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
         symbols.setDecimalSeparator('.');
         formatter = new DecimalFormat("###,###.##", symbols);
 
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                simpan();
-            }
-        });
-
-        btn_batal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+//        btn_simpan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                simpan();
+//            }
+//        });
 
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -122,11 +78,11 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -168,7 +124,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -201,7 +157,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -234,7 +190,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -267,7 +223,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -297,7 +253,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -309,7 +265,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -328,61 +284,67 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
     }
 
     public void setData(){
-        txt_nama.setText(dataRencanaTanam.getNamaRencanaTanam());
-        txt_profil_lahan.setText(namaPL);
-        txt_komoditas.setText(namaKomoditas);
-        txt_varietas.setText(namaVarietas);
+        //txt_nama.setText(dataRencanaTanam.getNamaRencanaTanam());
+        //txt_profil_lahan.setText(namaPL);
+        //txt_komoditas.setText(namaKomoditas);
+        //txt_varietas.setText(namaVarietas);
         String a = checkDesimal(dataRencanaTanam.getIdBiayaBuruhTanam());
-        txt_buruh_tanam.setText(a);
+        binding.buruhTanam.setText(a);
         String b = checkDesimal(dataRencanaTanam.getIdBiayaBuruhBajak());
-        txt_buruh_bajak.setText(b);
+        binding.buruhBajak.setText(b);
         String c = checkDesimal(dataRencanaTanam.getIdBiayaBuruhSemprot());
-        txt_buruh_semprot.setText(c);
+        binding.buruhSemprot.setText(c);
         String d = checkDesimal(dataRencanaTanam.getIdBiayaBuruhMenyiangirumput());
-        txt_buruh_menyiangi.setText(d);
+        binding.buruhMenyiangiRumput.setText(d);
         String e = checkDesimal(dataRencanaTanam.getIdBiayaBuruhGalangan());
-        txt_buruh_galengan.setText(e);
+        binding.buruhGalengan.setText(e);
         String f = checkDesimal(dataRencanaTanam.getIdBiayaBuruhPupuk());
-        txt_buruh_pupuk.setText(f);
+        binding.buruhPupuk.setText(f);
         String g = checkDesimal(dataRencanaTanam.getIdBiayaBuruhPanen());
-        txt_buruh_panen.setText(g);
+        binding.buruhPanen.setText(g);
         String h = checkDesimal(dataRencanaTanam.getIdSewaMesinBajak());
-        txt_mesin_bajak.setText(h);
+        binding.mesinBajak.setText(h);
         String i = checkDesimal(dataRencanaTanam.getIdSewaMesinPanen());
-        txt_mesin_panen.setText(i);
+        binding.mesinPanen.setText(i);
         String j = checkDesimal(dataRencanaTanam.getIdSewaMesinTanam());
-        txt_mesin_tanam.setText(j);
-        if (!dataRencanaTanam.getIdSewamesinPompa().equalsIgnoreCase("0")){
-            String k = checkDesimal(dataRencanaTanam.getIdSewamesinPompa());
-            txt_mesin_pompa.setText(k);
-        } else {
-            txt_mesin_pompa.setText("-");
-        }
-        if (!dataRencanaTanam.getIdSewamesinPompaBbm().equalsIgnoreCase("0")){
-            String l = checkDesimal(dataRencanaTanam.getIdSewamesinPompaBbm());
-            txt_mesin_pompa_bbm.setText(l);
-        } else {
-            txt_mesin_pompa_bbm.setText("-");
-        }
+        binding.mesinTanam.setText(j);
+
+        // INI TAMBAHIN OY !
+
+//        if (!dataRencanaTanam.getIdSewamesinPompa().equalsIgnoreCase("0")){
+//            String k = checkDesimal(dataRencanaTanam.getIdSewamesinPompa());
+//            txt_mesin_pompa.setText(k);
+//        } else {
+//            txt_mesin_pompa.setText("-");
+//        }
+//        if (!dataRencanaTanam.getIdSewamesinPompaBbm().equalsIgnoreCase("0")){
+//            String l = checkDesimal(dataRencanaTanam.getIdSewamesinPompaBbm());
+//            txt_mesin_pompa_bbm.setText(l);
+//        } else {
+//            txt_mesin_pompa_bbm.setText("-");
+//        }
 
         String m = checkDesimal(dataRencanaTanam.getIdBiayabibitLocalHet());
-        txt_bibit_local.setText(m);
+        binding.bibitLokal.setText(m);
         String n = checkDesimal(dataRencanaTanam.getIdBiayabibitSubsidi());
-        txt_bibit_subsidi.setText(n);
+        binding.bibitSubsidi.setText(n);
         //String o = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaLocalHet());
         //txt_pupuk_kimia_local.setText(o);
         String p = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaPhonska());
-        txt_pupuk_kimia_phonska.setText(p);
-        String q = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaUrea());
-        txt_pupuk_kimia_urea.setText(q);
-        String r = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaFosfat());
-        txt_pupuk_kimia_fosfat.setText(r);
-        String s = checkDesimal(dataRencanaTanam.getIdBiayapupukOrganik());
-        txt_pupuk_organik.setText(s);
+
+
+        // INI TAMBAHIN OY !
+//        txt_pupuk_kimia_phonska.setText(p);
+//        String q = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaUrea());
+//        txt_pupuk_kimia_urea.setText(q);
+//        String r = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaFosfat());
+//        txt_pupuk_kimia_fosfat.setText(r);
+//        String s = checkDesimal(dataRencanaTanam.getIdBiayapupukOrganik());
+//        txt_pupuk_organik.setText(s);
 
         est_biaya = formatter.format(Double.valueOf(est_biaya).longValue());
-        txt_estimasi_rab.setText(est_biaya);
-        txt_estimasi_hasil.setText(est_hasil+" Kg");
+        binding.estimasiBiayaProduksi.setText(est_biaya);
+        binding.estimasiHasilTanam.setText(est_hasil+" Kg");
     }
 
     public void deleteRencanaTanam(){
@@ -402,7 +364,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -428,7 +390,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamRAB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

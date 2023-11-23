@@ -18,7 +18,7 @@ import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
-import com.rewangTani.rewangtani.databinding.ActivityInboxBinding;
+import com.rewangTani.rewangtani.databinding.BottombarPesanInboxBinding;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 public class InboxPesan extends AppCompatActivity {
 
-    ActivityInboxBinding binding;
+    BottombarPesanInboxBinding binding;
     ModelInboxParticipant modelInboxParticipant;
     List<DatumInboxParticipant> listInboxParticipant = new ArrayList<>();
     ModelInbox modelInbox;

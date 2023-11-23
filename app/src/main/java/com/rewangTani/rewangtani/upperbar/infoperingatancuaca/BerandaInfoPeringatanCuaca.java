@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.upperbar.infoperingatancuaca;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +19,7 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.AdapterListInfo;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
+import com.rewangTani.rewangtani.databinding.UpperbarInfoBerandainfoBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelinfo.DatumInfo;
 import com.rewangTani.rewangtani.model.modelinfo.ModelInfo;
@@ -52,10 +54,7 @@ import retrofit2.Callback;
 
 public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
 
-    TextView txt_temp, txt_condition, txtload;
-    ImageView img_temp;
-    ImageButton btn_tambah;
-    RecyclerView rv_info;
+    UpperbarInfoBerandainfoBinding binding;
     LocationManager locationManager;
     int PERMISSION_CODE = 1;
     Double lat,longt;
@@ -72,16 +71,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_info_berandainfo);
-
-        txt_temp = findViewById(R.id.txt_temp);
-        txt_condition = findViewById(R.id.txt_condition);
-        img_temp = findViewById(R.id.img_temp);
-        btn_tambah = findViewById(R.id.btn_tambah);
-        rv_info = findViewById(R.id.rv_info);
-        txtload = findViewById(R.id.textloading);
-
-        //tokentxt = findViewById(R.id.tokentxt);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_info_berandainfo);
 
         dataInfo = this;
 
@@ -99,7 +89,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
 
         //tokentxt.setText(PreferenceUtils.getToken(getApplicationContext()));
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkKelengkapan==1){
@@ -127,7 +117,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -135,11 +125,11 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -180,7 +170,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(BerandaInfoPeringatanCuaca.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -208,7 +198,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setDataInfo();
                             }
                         });
@@ -216,7 +206,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 getDataWeather(lat,longt);
                             }
                         });
@@ -247,7 +237,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     setDataInfo();
                                 }
                             });
@@ -256,7 +246,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 getDataWeather(lat,longt);
                                 Toast.makeText(BerandaInfoPeringatanCuaca.this, "Data info belum ada", Toast.LENGTH_SHORT).show();
                             }
@@ -274,7 +264,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(BerandaInfoPeringatanCuaca.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -285,8 +275,8 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
 
     private void setDataInfo(){
         itemList = new AdapterListInfo(listInfoSorted);
-        rv_info.setLayoutManager(new LinearLayoutManager(BerandaInfoPeringatanCuaca.this));
-        rv_info.setAdapter(itemList);
+        binding.rvInfo.setLayoutManager(new LinearLayoutManager(BerandaInfoPeringatanCuaca.this));
+        binding.rvInfo.setAdapter(itemList);
         getDataWeather(lat, longt);
     }
 
@@ -299,11 +289,11 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     String temp = response.getJSONObject("current").getString("temp_c");
-                    txt_temp.setText(temp + " C");
+                    binding.txtTemp.setText(temp + " C");
                     String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
-                    txt_condition.setText(cond);
+                    binding.txtCondition.setText(cond);
                     String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
-                    Picasso.get().load("http:".concat(icon)).into(img_temp);
+                    Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

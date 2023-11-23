@@ -62,7 +62,6 @@ import retrofit2.Response;
 public class Register extends AppCompatActivity {
 
     StarterRegisterBinding binding;
-
     ModelAkun modelAkun, modelAkunAwal;
     DatumAkun dataAkun;
     ModelProfilAkun modelProfilAkun;
@@ -478,7 +477,7 @@ public class Register extends AppCompatActivity {
             // which view you pass in doesn't matter, it is only used for the window tolken
             popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
             CheckBox checkBox = popupView.findViewById(R.id.checkBox);
-            ImageButton btn_daftar2 = popupView.findViewById(R.id.btn_daftar2);
+            ImageButton btn_daftar2 = popupView.findViewById(R.id.btnDaftarPopup);
             // dismiss the popup window when touched
             popupView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -590,7 +589,7 @@ public class Register extends AppCompatActivity {
                         // which view you pass in doesn't matter, it is only used for the window tolken
                         popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
                         CheckBox checkBox = popupView.findViewById(R.id.checkBox);
-                        RelativeLayout btn_daftar2 = popupView.findViewById(R.id.btn_daftar2);
+                        RelativeLayout btn_daftar2 = popupView.findViewById(R.id.btnDaftarPopup);
                         // dismiss the popup window when touched
                         popupView.setOnTouchListener(new View.OnTouchListener() {
                             @Override

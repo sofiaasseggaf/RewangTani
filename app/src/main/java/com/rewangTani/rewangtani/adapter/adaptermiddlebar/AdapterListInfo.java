@@ -49,10 +49,10 @@ public class AdapterListInfo extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView judul_info, ket_info, sumber_info, tgl_info;
         public Penampung(View itemView) {
             super(itemView);
-            judul_info = itemView.findViewById(R.id.judul_info);
-            ket_info = itemView.findViewById(R.id.ket_info);
-            sumber_info = itemView.findViewById(R.id.sumber_info);
-            tgl_info = itemView.findViewById(R.id.tgl_info);
+            judul_info = itemView.findViewById(R.id.judulInfo);
+            ket_info = itemView.findViewById(R.id.ketInfo);
+            sumber_info = itemView.findViewById(R.id.sumberInfo);
+            tgl_info = itemView.findViewById(R.id.tglInfo);
         }
         @Override
         public void onClick(View v) {

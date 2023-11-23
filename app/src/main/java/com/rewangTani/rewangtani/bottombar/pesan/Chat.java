@@ -15,7 +15,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterchatdaninbox.AdapterChat;
-import com.rewangTani.rewangtani.databinding.ActivityChatBinding;
+import com.rewangTani.rewangtani.databinding.BottombarPesanChatBinding;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.DatumChat;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.ModelChat;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -34,7 +34,7 @@ import retrofit2.Response;
 
 public class Chat extends AppCompatActivity {
 
-    ActivityChatBinding binding;
+    BottombarPesanChatBinding binding;
     String idInbox;
     ModelChat modelChat;
     List<DatumChat> listChat = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Chat extends AppCompatActivity {
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = binding.text.getText().toString();
+                String text = binding.txtChat.getText().toString();
                 if (!text.equalsIgnoreCase("")){
                     sendChat(text);
                 }
@@ -167,7 +167,7 @@ public class Chat extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
-                        binding.text.setText("");
+                        binding.txtChat.setText("");
                         binding.rvChat.setAdapter(null);
                         listChat.clear();
                         String text2;

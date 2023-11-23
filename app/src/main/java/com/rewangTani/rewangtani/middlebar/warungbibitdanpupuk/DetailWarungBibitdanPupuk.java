@@ -1,6 +1,7 @@
 package com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.AdapterListWarungBibitdanPupukGaris;
 import com.rewangTani.rewangtani.bottombar.warungku.TambahWarungku;
+import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.DetailWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.DetailWarungTenagaKerja;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
@@ -46,54 +48,43 @@ import retrofit2.Response;
 
 public class DetailWarungBibitdanPupuk extends AppCompatActivity {
 
-    ImageView img_warung;
-    TextView nama_warung, biaya_warung, berat_warung, lokasi_warung, terjual_warung, txt_ket;
-    TextView txtload;
+    MiddlebarDetailWarungPupukBinding binding;
     String id;
     String noTelepon = "";
     ModelPupukPestisida modelBibitdanPupuk;
     DatumPupukPestisida dataBibitdanPupuk;
-    ImageButton btn_whatsapp;
     DataProfilById dataProfilById;
     DecimalFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.middlebar_detail_warung_pupuk);
+        binding = DataBindingUtil.setContentView(this, R.layout.middlebar_detail_warung_pupuk);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
 
-        img_warung = findViewById(R.id.img_warung);
-        nama_warung = findViewById(R.id.nama_warung);
-        biaya_warung = findViewById(R.id.biaya_warung);
-        berat_warung = findViewById(R.id.berat_warung);
-        lokasi_warung = findViewById(R.id.lokasi_warung);
-        terjual_warung = findViewById(R.id.terjual_warung);
-        txt_ket = findViewById(R.id.txt_ket);
-        txtload = findViewById(R.id.textloading);
-        btn_whatsapp = findViewById(R.id.btn_whatsapp);
 
         getData();
 
-        btn_whatsapp.setOnClickListener(new View.OnClickListener() {
+        binding.btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!dataBibitdanPupuk.getIdProfil().equalsIgnoreCase("")) {
-                    if (!noTelepon.equalsIgnoreCase("")){
-                        updateProduk();
-                    } else {
-                        Toast.makeText(DetailWarungBibitdanPupuk.this, "No telepon belum ada", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                Toast.makeText(DetailWarungBibitdanPupuk.this, "CHAT !", Toast.LENGTH_SHORT).show();
+//                if (!dataBibitdanPupuk.getIdProfil().equalsIgnoreCase("")) {
+//                    if (!noTelepon.equalsIgnoreCase("")){
+//                        updateProduk();
+//                    } else {
+//                        Toast.makeText(DetailWarungBibitdanPupuk.this, "No telepon belum ada", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
 
             }
         });
     }
 
     public void updateProduk(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -101,11 +92,11 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -145,7 +136,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(DetailWarungBibitdanPupuk.this, "Gagal membeli produk ini", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -159,7 +150,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailWarungBibitdanPupuk.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -189,7 +180,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 try {
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     String message = "Saya ingin membeli produk anda : *" + dataBibitdanPupuk.getNamaProduk() + "*";
@@ -204,7 +195,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(DetailWarungBibitdanPupuk.this, "Gagal membeli produk ini", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -218,7 +209,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailWarungBibitdanPupuk.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -228,7 +219,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -236,11 +227,11 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -283,7 +274,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailWarungBibitdanPupuk.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -306,7 +297,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             setData();
                         }
                     });
@@ -317,7 +308,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailWarungBibitdanPupuk.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -327,18 +318,18 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
     }
 
     public void setData(){
-        nama_warung.setText(dataBibitdanPupuk.getNamaProduk());
+        binding.namaWarung.setText(dataBibitdanPupuk.getNamaProduk());
         String a = checkDesimal(dataBibitdanPupuk.getHargaProduk().toString());
-        biaya_warung.setText("Rp " + a);
-        berat_warung.setText("Berat : " + dataBibitdanPupuk.getBeratProduk().toString()+" Kg");
-        lokasi_warung.setText("Kota : " + dataBibitdanPupuk.getKota());
-        terjual_warung.setText("Terjual : " + dataBibitdanPupuk.getJmlTerjual().toString() + " kali");
-        txt_ket.setText(dataBibitdanPupuk.getDeskProduk());
+        binding.biayaWarung.setText("Rp " + a);
+        binding.beratWarung.setText("Berat : " + dataBibitdanPupuk.getBeratProduk().toString()+" Kg");
+        binding.lokasiWarung.setText("Kota : " + dataBibitdanPupuk.getKota());
+        binding.terjualWarung.setText("Terjual : " + dataBibitdanPupuk.getJmlTerjual().toString() + " kali");
+        binding.txtKet.setText(dataBibitdanPupuk.getDeskProduk());
         if (!dataBibitdanPupuk.getIdFoto().equalsIgnoreCase("")){
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+dataBibitdanPupuk.getIdFoto();
             Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(img_warung);
+                    .into(binding.imgWarung);
         }
     }
 

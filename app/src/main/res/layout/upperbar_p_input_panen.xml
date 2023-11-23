@@ -48,6 +48,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
+                    android:text="Rencana Tanam"
+                    android:textColor="@color/dark_green2"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rect_input_blank_green_radius">
+
+                    <Spinner
+                        android:id="@+id/spRencanaTanam"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@color/transparant"
+                        android:fontFamily="@font/inter_regular"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="50dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="#A0A0A0"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="12dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/triangle_upside_down_green" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
                     android:text="Tujuan Jual"
                     android:textColor="@color/dark_green2"
                     android:textSize="14sp" />

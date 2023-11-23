@@ -75,23 +75,6 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.middlebar_list_warung_pupuk);
 
-        sp_urutkan = findViewById(R.id.sp_urutkan);
-        sp_tampilan = findViewById(R.id.sp_tampilan);
-        rv_warung_pupuk = findViewById(R.id.rv_warung_pupuk);
-        rv_warung_pupuk_terbaru = findViewById(R.id.rv_warung_pupuk_terbaru);
-        rv_warung_pupuk_terlama = findViewById(R.id.rv_warung_pupuk_terlama);
-        rv_warung_pupuk_az = findViewById(R.id.rv_warung_pupuk_az);
-        rv_warung_pupuk_za = findViewById(R.id.rv_warung_pupuk_za);
-        rv_warung_pupuk_terdekat = findViewById(R.id.rv_warung_pupuk_terdekat);
-        rv_warung_pupuk_harga_terendah = findViewById(R.id.rv_warung_pupuk_harga_terendah);
-        rv_warung_pupuk_harga_tertinggi = findViewById(R.id.rv_warung_pupuk_harga_tertinggi);
-        btn_tenaga_kerja = findViewById(R.id.btn_tenaga_kerja);
-        btn_sewa_mesin = findViewById(R.id.btn_sewa_mesin);
-        btn_bibit = findViewById(R.id.btn_bibit);
-        btn_pestisida = findViewById(R.id.btn_pestisida);
-        btn_back = findViewById(R.id.btn_back);
-        txtload = findViewById(R.id.textloading);
-
         getData();
 
         sp_urutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

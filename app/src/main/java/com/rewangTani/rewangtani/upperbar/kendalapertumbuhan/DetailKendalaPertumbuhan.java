@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.kendalapertumbuhan;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarKpDetailKendalaPertumbuhanBinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.DatumKendalaPertumbuhan;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.ModelKendalaPertumbuhan;
@@ -25,7 +27,7 @@ import retrofit2.Response;
 
 public class DetailKendalaPertumbuhan extends AppCompatActivity {
 
-    TextView txtload, txt_rencana_tanam, txt_profil_lahan, txt_hama, txt_bencana, txt_lainnya;
+    UpperbarKpDetailKendalaPertumbuhanBinding binding;
     String id, idRT, idPL, namaRT, namaPL;
     ModelRencanaTanam modelRencanaTanam;
     ModelKendalaPertumbuhan modelKendalaPertumbuhan;
@@ -35,24 +37,17 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_kp_detail_kendala_pertumbuhan);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_detail_kendala_pertumbuhan);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-
-        txt_rencana_tanam = findViewById(R.id.txt_rencana_tanam);
-        txt_profil_lahan = findViewById(R.id.txt_profil_lahan);
-        txt_hama = findViewById(R.id.txt_hama);
-        txt_bencana = findViewById(R.id.txt_bencana);
-        txt_lainnya = findViewById(R.id.txt_lainnya);
-        txtload = findViewById(R.id.textloading);
 
         getData();
 
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -60,11 +55,11 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -104,7 +99,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     Toast.makeText(DetailKendalaPertumbuhan.this, "Data kendala pertumbuhan tidak ditemukan", Toast.LENGTH_LONG).show();
                                     call.cancel();
                                 }
@@ -116,7 +111,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DetailKendalaPertumbuhan.this, "Data kendala pertumbuhan tidak ditemukan", Toast.LENGTH_LONG).show();
                             call.cancel();
                         }
@@ -128,7 +123,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailKendalaPertumbuhan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -158,7 +153,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     Toast.makeText(DetailKendalaPertumbuhan.this, "Data kendala pertumbuhan tidak ditemukan", Toast.LENGTH_LONG).show();
                                     call.cancel();
                                 }
@@ -172,7 +167,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailKendalaPertumbuhan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -200,7 +195,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -208,7 +203,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(DetailKendalaPertumbuhan.this, "Data kendala pertumbuhan tidak ditemukan", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
@@ -236,11 +231,11 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
     }
 
     public void setData(){
-        txt_rencana_tanam.setText(namaRT);
-        txt_profil_lahan.setText(namaPL);
-        txt_hama.setText(dataKendalaPertumbuhan.getKendalaHama());
-        txt_bencana.setText(dataKendalaPertumbuhan.getKendalaBencana());
-        txt_lainnya.setText(dataKendalaPertumbuhan.getKendalaLainnya());
+        binding.txtNamaRencanaTanam.setText(namaRT);
+        binding.txtProfilLahan.setText(namaPL);
+        binding.txtKendalaHama.setText(dataKendalaPertumbuhan.getKendalaHama());
+        binding.txtKendalaBencana.setText(dataKendalaPertumbuhan.getKendalaBencana());
+        binding.txtKendalaLainnya.setText(dataKendalaPertumbuhan.getKendalaLainnya());
     }
 
     public void goToListKendalaPertumbuhan(){

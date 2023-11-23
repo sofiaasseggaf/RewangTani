@@ -1,6 +1,7 @@
 package com.rewangTani.rewangtani.upperbar.panen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarPDetailPanenBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.DatumPanen;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.ModelPanen;
 
@@ -28,8 +30,7 @@ import retrofit2.Response;
 
 public class DetailPanen extends AppCompatActivity {
 
-    TextView txt_tujuan_jual, txt_jenis_hasil_panen, txt_jumlah_hasil_panen, txt_harga_jual, txtload;
-    ImageButton btn_simpan, btn_batal;
+    UpperbarPDetailPanenBinding binding;
     String id;
     ModelPanen modelPanen;
     DatumPanen dataPanen;
@@ -39,18 +40,10 @@ public class DetailPanen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_p_detail_panen);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_detail_panen);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-
-        txt_tujuan_jual = findViewById(R.id.txt_tujuan_jual);
-        txt_jenis_hasil_panen = findViewById(R.id.txt_jenis_hasil_panen);
-        txt_jumlah_hasil_panen = findViewById(R.id.txt_jumlah_hasil_panen);
-        txt_harga_jual = findViewById(R.id.txt_harga_jual);
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_batal = findViewById(R.id.btn_batal);
-        txtload = findViewById(R.id.textloading);
 
         getData();
 
@@ -63,7 +56,7 @@ public class DetailPanen extends AppCompatActivity {
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -71,11 +64,11 @@ public class DetailPanen extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -108,7 +101,7 @@ public class DetailPanen extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                             setData();
                                         }
                                     });
@@ -123,7 +116,7 @@ public class DetailPanen extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DetailPanen.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -133,15 +126,15 @@ public class DetailPanen extends AppCompatActivity {
     }
 
     public void setData(){
-        txt_tujuan_jual.setText(dataPanen.getTujuanJual());
-        txt_jenis_hasil_panen.setText(dataPanen.getJenisHasilPanen());
+        binding.tujuanJual.setText(dataPanen.getTujuanJual());
+        binding.jenisHasilPanen.setText(dataPanen.getJenisHasilPanen());
 //        String delim = ".";   // or "-" or "?" or ...
 //        String[] st = dataPanen.getHasilPanen().toString().split(java.util.regex.Pattern.quote(delim));
 //        String b = checkDesimal(st[0]);
 //        txt_jumlah_hasil_panen.setText(b+st[1]+" Kg");
-        txt_jumlah_hasil_panen.setText(dataPanen.getHasilPanen().toString()+" Kg");
+        binding.jumlahHasilPanen.setText(dataPanen.getHasilPanen().toString()+" Kg");
         String a = checkDesimal(dataPanen.getHargaAktual().toString());
-        txt_harga_jual.setText("Rp. "+a);
+        binding.hargaJual.setText("Rp. "+a);
     }
 
     private String checkDesimal(String a){

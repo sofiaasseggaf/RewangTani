@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.kendalapertumbuhan;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarKpInputKendalaPertumbuhanBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -40,38 +42,26 @@ import retrofit2.Response;
 
 public class InputKendalaPertumbuhan extends AppCompatActivity {
 
-    Spinner sp_rt, sp_kp;
-    EditText txt_hama, txt_bencana, txt_lainnya;
+    UpperbarKpInputKendalaPertumbuhanBinding binding;
     ModelRencanaTanam modelRencanaTanam;
-    LinearLayout ll_hama, ll_bencana, ll_lainnya;
     List<String> listRT = new ArrayList<String>();
     String namaRT, idRT, idPL;
-    ImageButton btn_simpan, btn_batal;
-    TextView txtload;
     ArrayAdapter<String> adapterRT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_kp_input_kendala_pertumbuhan);
-
-        sp_rt = findViewById(R.id.sp_rt);
-        txt_hama = findViewById(R.id.txt_hama);
-        txt_bencana = findViewById(R.id.txt_bencana);
-        txt_lainnya = findViewById(R.id.txt_lainnya);
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_batal = findViewById(R.id.btn_batal);
-        txtload = findViewById(R.id.textloading);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_input_kendala_pertumbuhan);
 
         getData();
 
         idRT = "";
 
-        sp_rt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spRencanaTanam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                namaRT = sp_rt.getSelectedItem().toString();
+                namaRT = binding.spRencanaTanam.getSelectedItem().toString();
                 for (int a=0; a<modelRencanaTanam.getTotalData(); a++){
                     try {
                         if (modelRencanaTanam.getData().get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)){
@@ -85,7 +75,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
+        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!idRT.equalsIgnoreCase("")){
@@ -96,17 +86,17 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
             }
         });
 
-        btn_batal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+//        btn_batal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onBackPressed();
+//            }
+//        });
 
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -114,11 +104,11 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -154,7 +144,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setDataSpinner();
                             }
                         });
@@ -162,7 +152,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InputKendalaPertumbuhan.this);
                                 builder.setMessage("Buat rencana tanam terlebih dahulu")
                                         .setPositiveButton("Buat Rencana Tanam", new DialogInterface.OnClickListener() {
@@ -189,7 +179,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputKendalaPertumbuhan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -201,11 +191,11 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
     public void setDataSpinner(){
         adapterRT = new ArrayAdapter<String>(InputKendalaPertumbuhan.this, R.layout.z_spinner_list, listRT);
         adapterRT.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_rt.setAdapter(adapterRT);
+        binding.spRencanaTanam.setAdapter(adapterRT);
     }
 
     public void sendData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -213,11 +203,11 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -239,9 +229,9 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
 
         jsonParams.put("idSudahTanam", idRT );
         jsonParams.put("idProfilTanah", idPL);
-        jsonParams.put("kendalaHama", txt_hama.getText().toString());
-        jsonParams.put("kendalaBencana", txt_bencana.getText().toString());
-        jsonParams.put("kendalaLainnya", txt_lainnya.getText().toString());
+        jsonParams.put("kendalaHama", binding.kendalaHama.getText().toString());
+        jsonParams.put("kendalaBencana", binding.kendalaBencana.getText().toString());
+        jsonParams.put("kendalaLainnya", binding.kendalaLainnya.getText().toString());
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -256,7 +246,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 goToListKendalaPertumbuhan();
                             }
                         });
@@ -264,7 +254,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InputKendalaPertumbuhan.this, "Gagal input kendala pertumbuhan", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -278,7 +268,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputKendalaPertumbuhan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });

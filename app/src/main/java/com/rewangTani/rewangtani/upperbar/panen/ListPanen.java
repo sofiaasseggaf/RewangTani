@@ -11,6 +11,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListPanen;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.UpperbarPListPanenBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.DatumPanen;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.ModelPanen;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;

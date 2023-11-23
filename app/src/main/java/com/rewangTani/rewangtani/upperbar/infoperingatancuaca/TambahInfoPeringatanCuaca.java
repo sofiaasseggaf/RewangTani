@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.infoperingatancuaca;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.APIService.ApiClientNotification;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarInfoTambahinfoBinding;
 import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
@@ -41,9 +43,7 @@ import retrofit2.Response;
 
 public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
-    EditText txt_judul, txt_ket;
-    ImageButton btn_tambahkan;
-    TextView txtload;
+    UpperbarInfoTambahinfoBinding binding;
     List<String> listToken = new ArrayList<String>();
     List<DatumAkun> listAkunwithToken = new ArrayList<>();
     ModelAkun modelAkun;
@@ -53,22 +53,17 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_info_tambahinfo);
-
-        txt_judul = findViewById(R.id.txt_judul);
-        txt_ket = findViewById(R.id.txt_ket);
-        btn_tambahkan = findViewById(R.id.btn_tambahkan);
-        txtload = findViewById(R.id.textloading);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_info_tambahinfo);
 
         start();
 
         //listToken.add("fsj3WpP_RO6pvtqLeV5ph8:APA91bGHNCcogHYYlA6Oi8NL1jIOSe9yEgK8loNR_6Uu9PfGwPnKlsU_goxGIgpNRhI1p99rhtrOo4xusOKDo-Z3UWXTPUKzhoVsn-YM5gKXfNtWfejT_XBqAxofyfobOuxotdVI_biT");
         //listToken.add("cMMac1hvSI-xC6pKpvdOKL:APA91bHZOY8HHqneDhxcFGAnN2kgeKdX3fvgTkuQySH5X72kSrLOtQnCQ0FP1DOtlowIdfQ0ICagjBqs_aVsWu40fG-9mfQa_duJqlscCMGK70GYbYI989v3JrIYGP3HqivqUTRD0Sjt");
 
-        btn_tambahkan.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!txt_judul.getText().toString().equalsIgnoreCase("") && !txt_ket.getText().toString().equalsIgnoreCase("")) {
+                if (!binding.txtJudul.getText().toString().equalsIgnoreCase("") && !binding.txtKeterangan.getText().toString().equalsIgnoreCase("")) {
                     if (listToken.size()>0){
                         send();
                     } else {
@@ -83,7 +78,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
     }
 
     private void start(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -91,11 +86,11 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu Sebentar Ya ."); }
+                    binding.textloading.setText("Tunggu Sebentar Ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu Sebentar Ya . ."); }
+                    binding.textloading.setText("Tunggu Sebentar Ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu Sebentar Ya . . ."); }
+                    binding.textloading.setText("Tunggu Sebentar Ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -130,7 +125,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(TambahInfoPeringatanCuaca.this, "Data Token Tidak Ditemukan", Toast.LENGTH_SHORT).show();
 
                             }
@@ -140,7 +135,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(TambahInfoPeringatanCuaca.this, "Data Token Tidak Ditemukan", Toast.LENGTH_SHORT).show();
 
                         }
@@ -196,7 +191,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             }
                         });
 
@@ -205,7 +200,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             //Toast.makeText(TambahInfoPeringatanCuaca.this, "Data Profil Tidak Ditemukan", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -216,7 +211,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(TambahInfoPeringatanCuaca.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -228,7 +223,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
     private void send(){
 
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -236,11 +231,11 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu Sebentar Ya ."); }
+                    binding.textloading.setText("Tunggu Sebentar Ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu Sebentar Ya . ."); }
+                    binding.textloading.setText("Tunggu Sebentar Ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu Sebentar Ya . . ."); }
+                    binding.textloading.setText("Tunggu Sebentar Ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -266,8 +261,8 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
         jsonParams.put("idAkun", PreferenceUtils.getIdAkun(getApplicationContext()));
         jsonParams.put("namaSumber", nama);
-        jsonParams.put("judulInfo", txt_judul.getText().toString());
-        jsonParams.put("ketInfo", txt_ket.getText().toString());
+        jsonParams.put("judulInfo", binding.txtJudul.getText().toString());
+        jsonParams.put("ketInfo", binding.txtKeterangan.getText().toString());
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -282,7 +277,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 //BerandaInfoPeringatanCuaca.dataInfo.getInfo();
                                 // set notifikasi ke yg daerah sekitarnya
                                 try {
@@ -299,7 +294,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(TambahInfoPeringatanCuaca.this, "Gagal Buat Info", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -313,7 +308,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(TambahInfoPeringatanCuaca.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -330,8 +325,8 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
         jsonParams.put("idAkun", PreferenceUtils.getIdAkun(getApplicationContext()));
         jsonParams.put("namaSumber", nama);
-        jsonParams.put("judulInfo", txt_judul.getText().toString());
-        jsonParams.put("ketInfo", txt_ket.getText().toString());
+        jsonParams.put("judulInfo", binding.txtJudul.getText().toString());
+        jsonParams.put("ketInfo", binding.txtKeterangan.getText().toString());
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -346,7 +341,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 //BerandaInfoPeringatanCuaca.dataInfo.getInfo();
                                 // set notifikasi ke yg daerah sekitarnya
                                 goToBerandaInfo();
@@ -356,7 +351,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(TambahInfoPeringatanCuaca.this, "Gagal Buat Info", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -370,7 +365,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(TambahInfoPeringatanCuaca.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -382,7 +377,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
     private void sendNotification(String a) throws JSONException {
         final APIInterfacesRest apiInterface = ApiClientNotification.getClient().create(APIInterfacesRest.class);
 
-        PreferenceUtils.saveTitle(txt_judul.getText().toString(), getApplicationContext());
+        PreferenceUtils.saveTitle(binding.txtJudul.getText().toString(), getApplicationContext());
 
         //String token = PreferenceUtils.getToken(getApplicationContext());
 
@@ -395,8 +390,8 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         regis.put("to", a);
 
         JSONObject notif = new JSONObject();
-        notif.put("title", txt_judul.getText().toString());
-        notif.put("body", txt_ket.getText().toString());
+        notif.put("title", binding.txtJudul.getText().toString());
+        notif.put("body", binding.txtKeterangan.getText().toString());
 
         regis.put("notification", notif);
 
@@ -430,8 +425,8 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
     public void startService(){
         Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, Services.class);
-        serviceIntent.putExtra("judul", txt_judul.getText().toString());
-        serviceIntent.putExtra("ket", txt_ket.getText().toString());
+        serviceIntent.putExtra("judul", binding.txtJudul.getText().toString());
+        serviceIntent.putExtra("ket", binding.txtKeterangan.getText().toString());
         startService(serviceIntent);
     }
 

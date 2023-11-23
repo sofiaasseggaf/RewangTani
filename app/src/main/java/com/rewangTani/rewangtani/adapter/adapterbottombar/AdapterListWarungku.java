@@ -58,7 +58,7 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
                         String a = checkDesimal(sewaMesinList.get(j).getHargaProduk().toString());
                         ((Penampung)holder).biaya_warung.setText("Rp. " + a);
                        // ((Penampung) holder).biaya_warung.setText(sewaMesinList.get(j).getHargaProduk().toString());
-                        ((Penampung) holder).lokasi_warung.setText(sewaMesinList.get(j).getKota());
+                        //((Penampung) holder).lokasi_warung.setText(sewaMesinList.get(j).getKota());
                         if(sewaMesinList.get(j).getJmlTerjual()!=null){
                             ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : "+sewaMesinList.get(j).getJmlTerjual().toString());
                         } else {
@@ -86,7 +86,7 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
                         String a = checkDesimal(tenagaKerjaList.get(j).getBiaya().toString());
                         ((Penampung)holder).biaya_warung.setText("Rp. " + a + " / Hari");
                         //((Penampung)holder).biaya_warung.setText(tenagaKerjaList.get(j).getBiaya().toString());
-                        ((Penampung)holder).lokasi_warung.setText(tenagaKerjaList.get(j).getKota());
+                        //((Penampung)holder).lokasi_warung.setText(tenagaKerjaList.get(j).getKota());
                         ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : "+tenagaKerjaList.get(j).getJmlTerjual().toString());
                         if (!tenagaKerjaList.get(j).getIdFoto().equalsIgnoreCase("")){
                             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+tenagaKerjaList.get(j).getIdFoto();
@@ -105,7 +105,7 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
                         String a = checkDesimal(pupukPestisidaList.get(j).getHargaProduk().toString());
                         ((Penampung)holder).biaya_warung.setText("Rp. " + a);
                         //((Penampung)holder).biaya_warung.setText(pupukPestisidaList.get(j).getHargaProduk().toString());
-                        ((Penampung)holder).lokasi_warung.setText(pupukPestisidaList.get(j).getKota());
+                        //((Penampung)holder).lokasi_warung.setText(pupukPestisidaList.get(j).getKota());
                         ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : "+pupukPestisidaList.get(j).getJmlTerjual().toString());
                         if (!pupukPestisidaList.get(j).getIdFoto().equalsIgnoreCase("")){
                             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+pupukPestisidaList.get(j).getIdFoto();
@@ -133,15 +133,16 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     static class Penampung extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView nama_warung, biaya_warung, lokasi_warung, jml_terjual;
+        public TextView nama_warung, biaya_warung, jml_terjual;
+        //public TextView lokasi_warung;
         public ImageView img_warung;
         public Penampung(View itemView) {
             super(itemView);
-            nama_warung = itemView.findViewById(R.id.nama_warung);
-            biaya_warung = itemView.findViewById(R.id.biaya_warung);
-            lokasi_warung = itemView.findViewById(R.id.lokasi_warung);
-            jml_terjual = itemView.findViewById(R.id.jml_terjual);
-            img_warung = itemView.findViewById(R.id.img_warung);
+            nama_warung = itemView.findViewById(R.id.namaWarung);
+            biaya_warung = itemView.findViewById(R.id.biayaWarung);
+            //lokasi_warung = itemView.findViewById(R.id.lokasiWarung);
+            jml_terjual = itemView.findViewById(R.id.jmlTerjual);
+            img_warung = itemView.findViewById(R.id.imgWarung);
         }
         @Override
         public void onClick(View v) {

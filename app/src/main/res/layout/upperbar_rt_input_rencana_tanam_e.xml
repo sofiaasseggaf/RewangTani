@@ -327,7 +327,7 @@
                             android:textColor="@color/black"
                             android:textSize="14sp" />
                         <EditText
-                            android:id="@+id/pupukKimiaSubsidi"
+                            android:id="@+id/pupukOrganik"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_gravity="center"
