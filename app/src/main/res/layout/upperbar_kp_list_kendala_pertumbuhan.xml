@@ -51,7 +51,7 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSudahTanam"
+                    android:id="@+id/rvKendalaPertumbuhan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 

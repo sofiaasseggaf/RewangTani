@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.upperbar.sudahtanam;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.APIService.ApiClientNotification;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamABinding;
 import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
@@ -58,25 +60,13 @@ import retrofit2.Response;
 
 public class InputSudahTanamA extends AppCompatActivity {
 
-    EditText txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
-    EditText txt_mesin_bajak, txt_mesin_tanam, txt_mesin_panen, txt_mesin_pompa, txt_mesin_pompa_bbm, txt_durasi_mesin_pompa_bbm;
-    EditText txt_bibit_local, txt_bibit_subsidi;
-    EditText txt_pupuk_kimia_phonska, txt_pupuk_kimia_urea, txt_pupuk_kimia_fosfat, txt_pupuk_organik;
-    EditText txt_obat_kimia, txt_obat_organik, txt_nama_obat_organik;
-    TextView txt_buruh_tanam2, txt_buruh_bajak2, txt_buruh_semprot2, txt_buruh_menyiangi2, txt_buruh_galengan2, txt_buruh_pupuk2, txt_buruh_panen2;
-    TextView txt_mesin_bajak2, txt_mesin_tanam2, txt_mesin_panen2, txt_mesin_pompa2, txt_mesin_pompa_bbm2;
-    TextView txt_bibit_local2, txt_bibit_subsidi2;
-    TextView txt_pupuk_kimia_phonska2, txt_pupuk_kimia_urea2, txt_pupuk_kimia_fosfat2, txt_pupuk_organik2;
-    TextView txt_profil_lahan, txt_komoditas, txt_varietas, txt_estimasi_rab, txt_estimasi_hasil;
-    Spinner sp_rt, sp_obat_kimia;
-    ImageButton btn_simpan, btn_batal;
+    UpperbarStInputSudahTanamABinding binding;
     ModelRencanaTanam modelRencanaTanam;
     ModelProfilLahan modelProfilLahan;
     ModelKomoditas modelKomoditas;
     ModelVarietas modelVarietas;
     ModelObat modelObat;
     DatumRencanaTanam datumRencanaTanam;
-    LinearLayout ll_pompa;
     ModelAkun modelAkun;
     List<String> listToken = new ArrayList<String>();
     List<DatumAkun> listAkunwithToken = new ArrayList<>();
@@ -91,7 +81,6 @@ public class InputSudahTanamA extends AppCompatActivity {
     String idObatKimia=null;
     String idObatOrganik=null;
     String tipeSIa, tipeSIb, tipeSIc, idSistemIrigasi, txt_pompa, txt_pompabbm;
-    TextView txtload;
     Integer sewa, hargaBBM;
     DecimalFormat formatter;
     String namaobatKimia;
@@ -99,85 +88,9 @@ public class InputSudahTanamA extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_st_input_sudah_tanam_a);
-
-        sp_rt = findViewById(R.id.sp_rt);
-        txt_profil_lahan = findViewById(R.id.txt_profil_lahan);
-        txt_komoditas = findViewById(R.id.txt_komoditas);
-        txt_varietas = findViewById(R.id.txt_varietas);
-        txt_estimasi_rab = findViewById(R.id.txt_estimasi_rab);
-        txt_estimasi_hasil = findViewById(R.id.txt_estimasi_hasil);
-        txt_buruh_tanam = findViewById(R.id.txt_buruh_tanam);
-        txt_buruh_bajak = findViewById(R.id.txt_buruh_bajak);
-        txt_buruh_semprot = findViewById(R.id.txt_buruh_semprot);
-        txt_buruh_menyiangi = findViewById(R.id.txt_buruh_menyiangi);
-        txt_buruh_galengan = findViewById(R.id.txt_buruh_galengan);
-        txt_buruh_pupuk = findViewById(R.id.txt_buruh_pupuk);
-        txt_buruh_panen = findViewById(R.id.txt_buruh_panen);
-        txt_mesin_bajak = findViewById(R.id.txt_mesin_bajak);
-        txt_mesin_panen = findViewById(R.id.txt_mesin_panen);
-        txt_mesin_tanam = findViewById(R.id.txt_mesin_tanam);
-        txt_mesin_pompa = findViewById(R.id.txt_mesin_pompa);
-        txt_mesin_pompa_bbm = findViewById(R.id.txt_mesin_pompa_bbm);
-        txt_durasi_mesin_pompa_bbm = findViewById(R.id.txt_durasi_mesin_pompa_bbm);
-        txt_bibit_local = findViewById(R.id.txt_bibit_local);
-        txt_bibit_subsidi = findViewById(R.id.txt_bibit_subsidi);
-        txt_pupuk_kimia_phonska = findViewById(R.id.txt_pupuk_kimia_phonska);
-        txt_pupuk_kimia_urea = findViewById(R.id.txt_pupuk_kimia_urea);
-        txt_pupuk_kimia_fosfat = findViewById(R.id.txt_pupuk_kimia_fosfat);
-        txt_pupuk_organik = findViewById(R.id.txt_pupuk_organik);
-        sp_obat_kimia = findViewById(R.id.sp_obat_kimia);
-        txt_obat_kimia = findViewById(R.id.txt_obat_kimia);
-        txt_obat_organik = findViewById(R.id.txt_obat_organik);
-        txt_nama_obat_organik = findViewById(R.id.txt_nama_obat_organik);
-
-        txt_buruh_tanam2 = findViewById(R.id.txt_buruh_tanam2);
-        txt_buruh_bajak2 = findViewById(R.id.txt_buruh_bajak2);
-        txt_buruh_semprot2 = findViewById(R.id.txt_buruh_semprot2);
-        txt_buruh_menyiangi2 = findViewById(R.id.txt_buruh_menyiangi2);
-        txt_buruh_galengan2 = findViewById(R.id.txt_buruh_galengan2);
-        txt_buruh_pupuk2 = findViewById(R.id.txt_buruh_pupuk2);
-        txt_buruh_panen2 = findViewById(R.id.txt_buruh_panen2);
-        txt_mesin_bajak2 = findViewById(R.id.txt_mesin_bajak2);
-        txt_mesin_panen2 = findViewById(R.id.txt_mesin_panen2);
-        txt_mesin_tanam2 = findViewById(R.id.txt_mesin_tanam2);
-        txt_mesin_pompa2 = findViewById(R.id.txt_mesin_pompa2);
-        txt_mesin_pompa_bbm2 = findViewById(R.id.txt_mesin_pompa_bbm2);
-        txt_bibit_local2 = findViewById(R.id.txt_bibit_local2);
-        txt_bibit_subsidi2 = findViewById(R.id.txt_bibit_subsidi2);
-        //txt_pupuk_kimia_local2 = findViewById(R.id.txt_pupuk_kimia_local2);
-        txt_pupuk_kimia_phonska2 = findViewById(R.id.txt_pupuk_kimia_phonska2);
-        txt_pupuk_kimia_urea2 = findViewById(R.id.txt_pupuk_kimia_urea2);
-        txt_pupuk_kimia_fosfat2 = findViewById(R.id.txt_pupuk_kimia_fosfat2);
-        txt_pupuk_organik2 = findViewById(R.id.txt_pupuk_organik2);
-
-        btn_simpan = findViewById(R.id.btn_simpan);
-        btn_batal = findViewById(R.id.btn_batal);
-        txtload = findViewById(R.id.textloading);
-        ll_pompa = findViewById(R.id.ll_pompa);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_input_sudah_tanam_a);
 
         getData();
-
-        txt_buruh_tanam.addTextChangedListener(new NumberTextWatcher(txt_buruh_tanam));
-        txt_buruh_bajak.addTextChangedListener(new NumberTextWatcher(txt_buruh_bajak));
-        txt_buruh_semprot.addTextChangedListener(new NumberTextWatcher(txt_buruh_semprot));
-        txt_buruh_menyiangi.addTextChangedListener(new NumberTextWatcher(txt_buruh_menyiangi));
-        txt_buruh_galengan.addTextChangedListener(new NumberTextWatcher(txt_buruh_galengan));
-        txt_buruh_pupuk.addTextChangedListener(new NumberTextWatcher(txt_buruh_pupuk));
-        txt_buruh_panen.addTextChangedListener(new NumberTextWatcher(txt_buruh_panen));
-        txt_mesin_bajak.addTextChangedListener(new NumberTextWatcher(txt_mesin_bajak));
-        txt_mesin_tanam.addTextChangedListener(new NumberTextWatcher(txt_mesin_tanam));
-        txt_mesin_panen.addTextChangedListener(new NumberTextWatcher(txt_mesin_panen));
-        txt_mesin_pompa.addTextChangedListener(new NumberTextWatcher(txt_mesin_pompa));
-        txt_mesin_pompa_bbm.addTextChangedListener(new NumberTextWatcher(txt_mesin_pompa_bbm));
-        txt_bibit_local.addTextChangedListener(new NumberTextWatcher(txt_bibit_local));
-        txt_bibit_subsidi.addTextChangedListener(new NumberTextWatcher(txt_bibit_subsidi));
-        txt_pupuk_kimia_phonska.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_phonska));
-        txt_pupuk_kimia_urea.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_urea));
-        txt_pupuk_kimia_fosfat.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_fosfat));
-        txt_pupuk_organik.addTextChangedListener(new NumberTextWatcher(txt_pupuk_organik));
-        txt_obat_kimia.addTextChangedListener(new NumberTextWatcher(txt_obat_kimia));
-        txt_obat_organik.addTextChangedListener(new NumberTextWatcher(txt_obat_organik));
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -185,11 +98,11 @@ public class InputSudahTanamA extends AppCompatActivity {
         symbols.setDecimalSeparator('.');
         formatter = new DecimalFormat("###,###.##", symbols);
 
-        sp_rt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spRencanaTanam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                namaRT = sp_rt.getSelectedItem().toString();
+                namaRT = binding.spRencanaTanam.getSelectedItem().toString();
                 for (int a=0; a<modelRencanaTanam.getTotalData(); a++){
                     try {
                         if (modelRencanaTanam.getData().get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)){
@@ -207,70 +120,20 @@ public class InputSudahTanamA extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        sp_obat_kimia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                namaobatKimia = sp_obat_kimia.getSelectedItem().toString();
-                for (int a=0; a<modelObat.getTotalData(); a++){
-                    try {
-                        if (modelObat.getData().get(a).getNamaObat().equalsIgnoreCase(namaobatKimia)){
-                            idObatKimia = modelObat.getData().get(a).getIdObat();
-                        }
-                    } catch (Exception e){}
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        btn_simpan.setOnClickListener(new View.OnClickListener() {
+        binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sewa==1){
-                    txt_pompa = "";
-                    txt_pompabbm = "";
-                    simpan();
-                } else if(sewa==2){
 
-                    if(!txt_mesin_pompa.getText().toString().equalsIgnoreCase("")){
-                        txt_pompa = txt_mesin_pompa.getText().toString().replaceAll("[^0-9]", "");
-                    } else {
-                        txt_pompa = "";
-                    }
+                // cek dulu baru ke B !
+                simpan();
 
-                    if(!txt_mesin_pompa_bbm.getText().toString().equalsIgnoreCase("")){
-                        if(!txt_durasi_mesin_pompa_bbm.getText().toString().equalsIgnoreCase("")){
-                            int bbm = Integer.valueOf(txt_mesin_pompa_bbm.getText().toString().replaceAll("[^0-9]", ""));
-                            int durasi = Integer.valueOf(txt_durasi_mesin_pompa_bbm.getText().toString().replaceAll("[^0-9]", ""))*2;
-                            int totalbbm = bbm*durasi;
-                            txt_pompabbm = String.valueOf(totalbbm);
-                            simpan();
-                        } else {
-                            Toast.makeText(InputSudahTanamA.this, "Masukan durasi sewa mesin pompa", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        txt_pompabbm = "";
-                        simpan();
-                    }
-
-                }
-            }
-        });
-
-        btn_batal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
             }
         });
 
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -278,11 +141,11 @@ public class InputSudahTanamA extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -322,7 +185,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InputSudahTanamA.this);
                                 builder.setMessage("Buat rencana tanam terlebih dahulu")
                                         .setPositiveButton("Buat Rencana Tanam", new DialogInterface.OnClickListener() {
@@ -350,7 +213,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -378,7 +241,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
@@ -405,7 +268,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -422,7 +285,7 @@ public class InputSudahTanamA extends AppCompatActivity {
             public void onResponse(Call<ModelVarietas> call, Response<ModelVarietas> response) {
                 modelVarietas = response.body();
                 if (response.body()!=null){
-                    getDataObat();
+                    getDataAkun();
                 }
             }
             @Override
@@ -430,46 +293,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
-            }
-        });
-    }
-
-    public void getDataObat() {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelObat> dataO = apiInterface.getDataObat();
-        dataO.enqueue(new Callback<ModelObat>() {
-            @Override
-            public void onResponse(Call<ModelObat> call, Response<ModelObat> response) {
-                modelObat = response.body();
-                // 4b81bee1-6988-43c8-8c44-350539054f21 = obat kimia local
-                // 21bd7381-07ab-4097-94dc-7670cd6f6971 = obat organik
-                if (response.body()!=null){
-                    for (int i = 0; i < modelObat.getTotalData(); i++) {
-                        listObatSemua.add(modelObat.getData().get(i).getNamaObat());
-                        try {
-                            if (modelObat.getData().get(i).getIdSubkategori().equalsIgnoreCase("4b81bee1-6988-43c8-8c44-350539054f21")) {
-                                listObatKimiaLocal.add(modelObat.getData().get(i).getNamaObat());
-                            } else if(modelObat.getData().get(i).getIdSubkategori().equalsIgnoreCase("21bd7381-07ab-4097-94dc-7670cd6f6971")){
-                                listObatKimiaOrganik.add(modelObat.getData().get(i).getNamaObat());
-                            }
-                        } catch (Exception e){ }
-                    }
-                    if (listObatSemua.size()>0){
-                        getDataAkun();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelObat> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -498,7 +322,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InputSudahTanamA.this, "Data token tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 setDataSpinnerRT();
 
@@ -557,7 +381,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         setDataSpinnerRT();
                                     }
                                 });
@@ -566,7 +390,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     setDataSpinnerRT();
                                     //Toast.makeText(InputSudahTanam.this, "Data Token Tidak Ditemukan", Toast.LENGTH_SHORT).show();
                                 }
@@ -578,7 +402,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             //Toast.makeText(TambahInfoPeringatanCuaca.this, "Data Profil Tidak Ditemukan", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -589,7 +413,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -610,37 +434,8 @@ public class InputSudahTanamA extends AppCompatActivity {
 
         adapterRT = new ArrayAdapter<String>(InputSudahTanamA.this, R.layout.z_spinner_list, listRT);
         adapterRT.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_rt.setAdapter(adapterRT);
+        binding.spRencanaTanam.setAdapter(adapterRT);
 
-        setDataSpinnerObat();
-    }
-
-    public void setDataSpinnerObat(){
-        if (listObatKimiaLocal.size()>0){
-            Collections.sort(listObatKimiaLocal);
-            adapterObatKimia = new ArrayAdapter<String>(InputSudahTanamA.this, R.layout.z_spinner_list, listObatKimiaLocal);
-            adapterObatKimia.setDropDownViewResource(R.layout.z_spinner_list);
-            sp_obat_kimia.setAdapter(adapterObatKimia);
-        }
-        /*if (listObatKimiaOrganik.size()>0){
-            //Collections.sort(listObatKimiaOrganik);
-            adapterObatOrganik = new ArrayAdapter<String>(InputSudahTanam.this, R.layout.z_spinner_list, listObatKimiaOrganik);
-            adapterObatOrganik.setDropDownViewResource(R.layout.z_spinner_list);
-            sp_obat_organik.setAdapter(adapterObatOrganik);
-        }*/
-    }
-
-    public void setFieldSistemIrigasi(){
-
-        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
-            ll_pompa.setVisibility(View.GONE);
-            sewa = 1;
-            setDataK();
-        } else {
-            ll_pompa.setVisibility(View.VISIBLE);
-            sewa = 2;
-            setDataK();
-        }
     }
 
     private void setDataPL(){
@@ -648,8 +443,8 @@ public class InputSudahTanamA extends AppCompatActivity {
             if(modelProfilLahan.getData().get(a).getIdProfileTanah().equalsIgnoreCase(idPL)){
                 namaPL = modelProfilLahan.getData().get(a).getNamaProfilTanah();
                 idSistemIrigasi = modelProfilLahan.getData().get(a).getIdSistemIrigasi().toString();
-                txt_profil_lahan.setText(namaPL);
-                setFieldSistemIrigasi();
+                binding.txtProfilLahan.setText(namaPL);
+                setDataK();
             }
         }
     }
@@ -658,7 +453,7 @@ public class InputSudahTanamA extends AppCompatActivity {
         for (int a=0; a<=modelKomoditas.getTotalData(); a++){
             if(modelKomoditas.getData().get(a).getIdKomoditas().equalsIgnoreCase(idK)){
                 namaK = modelKomoditas.getData().get(a).getNamaKomoditas();
-                txt_komoditas.setText(namaK);
+                binding.txtKomoditas.setText(namaK);
                setDataV();
             }
         }
@@ -668,12 +463,12 @@ public class InputSudahTanamA extends AppCompatActivity {
         for (int a=0; a<=modelVarietas.getTotalData(); a++){
             if(modelVarietas.getData().get(a).getIdVarietas().equalsIgnoreCase(idV)){
                 namaV = modelVarietas.getData().get(a).getNamaVarietas().toString();
-                txt_varietas.setText(namaV);
-                setHargaSebelumnya();
+                binding.txtVarietas.setText(namaV);
             }
         }
     }
 
+    /*
     public void setHargaSebelumnya(){
 
         String a = checkDesimal(datumRencanaTanam.getIdBiayaBuruhTanam());
@@ -727,9 +522,10 @@ public class InputSudahTanamA extends AppCompatActivity {
         txt_pupuk_organik2.setText("Biaya Sebelumnya : Rp. "+s);
 
     }
+    */
 
     public void simpan(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -737,11 +533,11 @@ public class InputSudahTanamA extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -751,552 +547,25 @@ public class InputSudahTanamA extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                checkObatKimia();
-                //sendDataSudahTanam();
+               check();
             }
         }).start();
     }
 
-    private void checkObatKimia(){
-        if (idObatKimia!=null){
-            sendDataObatKimia();
-        } else {
-            checkObatOrganik();
-        }
-    }
-
-    private void sendDataObatKimia(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-
-        jsonParams.put("idObat", idObatKimia );
-        jsonParams.put("hargaObat", txt_obat_kimia.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idProfilTanah", idPL);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-        Call<ResponseBody> response = apiInterface.sendHargaObat(body);
-        response.enqueue(new Callback<ResponseBody>() {
+    private void check(){
+        runOnUiThread(new Runnable() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                try {
-                    Log.d("tag", rawResponse.body().string());
-                    if (rawResponse.body() != null) {
-                        //sendNotificationObatKimia();
-                       sendKendalaPertumbuhanKimia();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal input obat kimia", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
+            public void run() {
+                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                moveToB();
             }
         });
     }
 
-    public void sendKendalaPertumbuhanKimia(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-        //String kendala = "Penggunaan Obat "+namaobatKimia;
-
-        jsonParams.put("idSudahTanam", idRT );
-        jsonParams.put("idProfilTanah", idPL);
-        jsonParams.put("kendalaHama", namaobatKimia);
-        jsonParams.put("kendalaBencana", "-");
-        jsonParams.put("kendalaLainnya", "Penggunaan Obat Kimia");
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-
-        Call<ResponseBody> response = apiInterface.sendKendalaPertumbuhan(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                if (rawResponse.body() != null) {
-                    sendNotificationObatKimia();
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(InputSudahTanamA.this, "Gagal input kendala pertumbuhan kimia", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    private void sendNotificationObatKimia(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-        String nama = PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext());
-
-        jsonParams.put("idAkun", PreferenceUtils.getIdAkun(getApplicationContext()));
-        jsonParams.put("namaSumber", nama);
-        jsonParams.put("judulInfo", "HAMA DI DAERAH SEKITAR");
-        jsonParams.put("ketInfo", "PEMAKAIAN OBAT "+ namaobatKimia);
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-
-        Call<ResponseBody> response = apiInterface.sendInfo(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                try {
-                    Log.d("tag", rawResponse.body().string());
-                    if (rawResponse.body() != null) {
-                        if (listToken.size()>0){
-                            try {
-                                for (int i=0; i<listToken.size(); i++){
-                                    sendNotifObatKimia(listToken.get(i));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            checkObatOrganik();
-                        } else {
-                            checkObatOrganik();
-                        }
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal buat info obat kimia", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    private void sendNotifObatKimia(String a) throws JSONException {
-        final APIInterfacesRest apiInterface = ApiClientNotification.getClient().create(APIInterfacesRest.class);
-        String title = "HAMA DI DAERAH SEKITAR";
-
-        JSONObject regis = new JSONObject();
-        regis.put("to", a);
-        JSONObject notif = new JSONObject();
-        notif.put("title", title);
-        notif.put("body", "PEMAKAIAN OBAT "+ namaobatKimia);
-        regis.put("notification", notif);
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(String.valueOf(regis))).toString());
-
-        Call<ModelResultNotification> response = apiInterface.sendNotification(body);
-        response.enqueue(new Callback<ModelResultNotification>() {
-            @Override
-            public void onResponse(Call<ModelResultNotification> call, retrofit2.Response<ModelResultNotification> rawResponse) {
-                try {
-                    if (rawResponse.body() != null) {
-                        if (rawResponse.body().getSuccess()==1){
-                            // do nothing soalnya masih loop
-                        } else {
-                            // do nothing soalnya masih loop
-
-                            /*runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                    Toast.makeText(InputSudahTanam.this, "Terjadi Gangguan Koneksi Kirim Notifikasi", Toast.LENGTH_LONG).show();
-                                }
-                            });*/
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelResultNotification> call, Throwable throwable) {
-                //Toast.makeText(InputSudahTanam.this, "Terjadi Gangguan Koneksi Kirim Notifikasi", Toast.LENGTH_LONG).show();
-                call.cancel();
-            }
-        });
-    }
-
-    private void checkObatOrganik(){
-        if (!txt_nama_obat_organik.getText().toString().equalsIgnoreCase("")){
-            sendDataObatOrganik();
-        } else {
-            sendDataSudahTanam();
-        }
-    }
-
-    private void sendDataObatOrganik(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-
-        jsonParams.put("idSubkategori", "21bd7381-07ab-4097-94dc-7670cd6f6971" );
-        jsonParams.put("namaObat", txt_nama_obat_organik.getText().toString() );
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-        Call<ResponseSendObat> response = apiInterface.sendObat(body);
-        response.enqueue(new Callback<ResponseSendObat>() {
-            @Override
-            public void onResponse(Call<ResponseSendObat> call, retrofit2.Response<ResponseSendObat> rawResponse) {
-                try {
-                    if (rawResponse.body().getData().getIdObat() != null) {
-                        idObatOrganik = rawResponse.body().getData().getIdObat();
-                        sendDataHargaObatOrganik();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal input obat organik", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseSendObat> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    private void sendDataHargaObatOrganik(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-
-        jsonParams.put("idObat", idObatOrganik );
-        jsonParams.put("hargaObat", txt_obat_organik.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idProfilTanah", idPL);
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-        Call<ResponseBody> response = apiInterface.sendHargaObat(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                try {
-                    Log.d("tag", rawResponse.body().string());
-                    if (rawResponse.body() != null) {
-                        //sendNotificationObatOrganik();
-                        sendKendalaPertumbuhanOrganik();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal input obat organik", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    public void sendKendalaPertumbuhanOrganik(){
-
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-
-        // MAXIMAL ISIAN FIELD 25 KARAKTER!
-        jsonParams.put("idSudahTanam", idRT );
-        jsonParams.put("idProfilTanah", idPL);
-        jsonParams.put("kendalaHama", txt_nama_obat_organik.getText().toString());
-        jsonParams.put("kendalaBencana", "-");
-        jsonParams.put("kendalaLainnya", "Penggunaan Obat Organik");
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-
-        Call<ResponseBody> response = apiInterface.sendKendalaPertumbuhan(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                try {
-                    Log.d("tag", rawResponse.body().string());
-                    if (rawResponse.body() != null) {
-                        sendNotificationObatOrganik();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal input kendala pertumbuhan organik", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    private void sendNotificationObatOrganik(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-        String nama = PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext());
-
-        jsonParams.put("idAkun", PreferenceUtils.getIdAkun(getApplicationContext()));
-        jsonParams.put("namaSumber", nama);
-        jsonParams.put("judulInfo", "HAMA DI DAERAH SEKITAR");
-        jsonParams.put("ketInfo", "PEMAKAIAN OBAT "+ txt_nama_obat_organik.getText().toString());
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-
-        Call<ResponseBody> response = apiInterface.sendInfo(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                try {
-                    Log.d("tag", rawResponse.body().string());
-                    if (rawResponse.body() != null) {
-                        if (listToken.size()>0){
-                            try {
-                                for (int i=0; i<listToken.size(); i++){
-                                    sendNotifObatOrganik(listToken.get(i));
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            sendDataSudahTanam();
-                        } else {
-                            sendDataSudahTanam();
-                        }
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal buat info obat organik", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    private void sendNotifObatOrganik(String a) throws JSONException {
-        final APIInterfacesRest apiInterface = ApiClientNotification.getClient().create(APIInterfacesRest.class);
-        String title = "HAMA DI DAERAH SEKITAR";
-
-        JSONObject regis = new JSONObject();
-        regis.put("to", a);
-        JSONObject notif = new JSONObject();
-        notif.put("title", title);
-        notif.put("body", "PEMAKAIAN OBAT "+ txt_nama_obat_organik.getText().toString());
-        regis.put("notification", notif);
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(String.valueOf(regis))).toString());
-
-        Call<ModelResultNotification> response = apiInterface.sendNotification(body);
-        response.enqueue(new Callback<ModelResultNotification>() {
-            @Override
-            public void onResponse(Call<ModelResultNotification> call, retrofit2.Response<ModelResultNotification> rawResponse) {
-                try {
-                    if (rawResponse.body() != null) {
-                        if (rawResponse.body().getSuccess()==1){
-                            // do nothing soalnya masih loop
-                        } else {
-                            // do nothing soalnya masih loop
-/*                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                    Toast.makeText(InputSudahTanam.this, "Terjadi Gangguan Koneksi Kirim Notifikasi", Toast.LENGTH_LONG).show();
-                                }
-                            });*/
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelResultNotification> call, Throwable throwable) {
-                //Toast.makeText(InputSudahTanam.this, "Terjadi Gangguan Koneksi Kirim Notifikasi", Toast.LENGTH_LONG).show();
-                call.cancel();
-            }
-        });
-    }
-
-    private void sendDataSudahTanam(){
-        //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-        //String now = formatter.format(new Date());
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-
-
-        jsonParams.put("idRencanaTanam", idRT );
-        jsonParams.put("idPertumbuhanNormal", "");
-        jsonParams.put("idKendalaPertumbuhan", "");
-        jsonParams.put("idBiayaburuhTanam", txt_buruh_tanam.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaburuhBajak", txt_buruh_bajak.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaburuhSemprot", txt_buruh_semprot.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaburuhMenyiangirumput", txt_buruh_menyiangi.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaburuhGalangan", txt_buruh_galengan.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaburuhPupuk", txt_buruh_pupuk.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaburuhPanen", txt_buruh_panen.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idSewamesinBajak", txt_mesin_bajak.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idSewamesinTanam", txt_mesin_tanam.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idSewamesinPanen", txt_mesin_panen.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idSewamesinPompa", txt_pompa);
-        jsonParams.put("idSewamesinPompaBbm", txt_pompabbm);
-        jsonParams.put("idBiayabibitLocalHet", txt_bibit_local.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayabibitSubsidi", txt_bibit_subsidi.getText().toString().replaceAll("[^0-9]", ""));
-        //jsonParams.put("idBiayapupukKimiaLocalHet", txt_pupuk_kimia_local.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayapupukKimiaLocalHet", "");
-        jsonParams.put("idBiayapupukKimiaPhonska", txt_pupuk_kimia_phonska.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayapupukKimiaUrea", txt_pupuk_kimia_urea.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayapupukKimiaFosfat", txt_pupuk_kimia_fosfat.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayapupukOrganik", txt_pupuk_organik.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idObatKimiaLocal", idObatKimia);
-        jsonParams.put("idObatKimiaSubsidi", null);
-        jsonParams.put("idObatOrganik", idObatOrganik);
-        jsonParams.put("idBiayaobatKimiaLocalHet", txt_obat_kimia.getText().toString().replaceAll("[^0-9]", ""));
-        jsonParams.put("idBiayaobatKimiaSubsidi", "");
-        jsonParams.put("idBiayaobatOrganik", txt_obat_organik.getText().toString().replaceAll("[^0-9]", ""));
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-
-        Call<ResponseBody> response = apiInterface.sendDataSudahTanam(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
-                try {
-                    Log.d("tag", rawResponse.body().string());
-                    if (rawResponse.body() != null) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                goToListST();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputSudahTanamA.this, "Gagal input sudah tanam", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable throwable) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(InputSudahTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                    }
-                });
-                call.cancel();
-            }
-        });
-    }
-
-    private String checkDesimal(String a){
-        if(a!=null || !a.equalsIgnoreCase("")){
-            if(a.length()>3){
-                a = formatter.format(Double.valueOf(a));
-            }
-        }
-        return a;
+    public void moveToB(){
+        Intent a = new Intent(InputSudahTanamA.this, InputSudahTanamB.class);
+        startActivity(a);
+        finish();
     }
 
     public  void goToListST(){

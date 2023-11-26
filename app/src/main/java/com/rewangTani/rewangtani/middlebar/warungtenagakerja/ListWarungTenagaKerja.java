@@ -1,6 +1,7 @@
 package com.rewangTani.rewangtani.middlebar.warungtenagakerja;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.Adapt
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungTenagaKerja;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungTenagaKerjaMonitor;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.MiddlebarListWarungTenagaKerjaBinding;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
@@ -44,20 +46,16 @@ import retrofit2.Response;
 
 public class ListWarungTenagaKerja extends AppCompatActivity {
 
+    MiddlebarListWarungTenagaKerjaBinding binding;
     AdapterListWarungTenagaKerja itemList;
     AdapterListWarungTenagaKerjaGaris itemListGaris;
     AdapterListWarungTenagaKerjaMonitor itemListMonitor;
-    Spinner sp_urutkan, sp_tampilan;
-    ImageButton btn_filter, btn_urutkan, btn_tenaga_kerja, btn_sewa_mesin, btn_bibit, btn_pestisida, btn_back;
-    RecyclerView rv_warung_tenaga_kerja, rv_warung_tenaga_kerja_terbaru, rv_warung_tenaga_kerja_terlama, rv_warung_tenaga_kerja_az, rv_warung_tenaga_kerja_za;
-    RecyclerView rv_warung_tenaga_kerja_terdekat,rv_warung_tenaga_kerja_harga_terendah,rv_warung_tenaga_kerja_harga_tertinggi;
     ModelTenagaKerja modelTenagaKerja;
     List<DatumTenagaKerja> listTenagaKerja = new ArrayList<>();
     List<DatumTenagaKerja> listTenagaKerjaSorted = new ArrayList<>();
     List<DatumTenagaKerja> listTenagaKerjaSorted2 = new ArrayList<>();
     List<DatumTenagaKerja> listTenagaKerjaSortedHargaTerendah = new ArrayList<>();
     List<DatumTenagaKerja> listTenagaKerjaSortedHargaTertinggi = new ArrayList<>();
-    TextView txtload;
     String namaUrutan;
     String[] urutan;
     List<String> urutanTanggal = new ArrayList<>();
@@ -72,32 +70,15 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.middlebar_list_warung_tenaga_kerja);
-
-        sp_urutkan = findViewById(R.id.sp_urutkan);
-        sp_tampilan = findViewById(R.id.sp_tampilan);
-        rv_warung_tenaga_kerja = findViewById(R.id.rv_warung_tenaga_kerja);
-        rv_warung_tenaga_kerja_terbaru = findViewById(R.id.rv_warung_tenaga_kerja_terbaru);
-        rv_warung_tenaga_kerja_terlama = findViewById(R.id.rv_warung_tenaga_kerja_terlama);
-        rv_warung_tenaga_kerja_az = findViewById(R.id.rv_warung_tenaga_kerja_az);
-        rv_warung_tenaga_kerja_za = findViewById(R.id.rv_warung_tenaga_kerja_za);
-        rv_warung_tenaga_kerja_terdekat = findViewById(R.id.rv_warung_tenaga_kerja_terdekat);
-        rv_warung_tenaga_kerja_harga_terendah = findViewById(R.id.rv_warung_tenaga_kerja_harga_terendah);
-        rv_warung_tenaga_kerja_harga_tertinggi = findViewById(R.id.rv_warung_tenaga_kerja_harga_tertinggi);
-        btn_tenaga_kerja = findViewById(R.id.btn_tenaga_kerja);
-        btn_sewa_mesin = findViewById(R.id.btn_sewa_mesin);
-        btn_bibit = findViewById(R.id.btn_bibit);
-        btn_pestisida = findViewById(R.id.btn_pestisida);
-        btn_back = findViewById(R.id.btn_back);
-        txtload = findViewById(R.id.textloading);
+        binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_tenaga_kerja);
 
         getData();
 
-        sp_urutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                namaUrutan = sp_urutkan.getSelectedItem().toString();
+                namaUrutan = binding.spUrutkan.getSelectedItem().toString();
                 if (namaUrutan.equalsIgnoreCase("Tanggal Terbaru")){
                     urutkan = "Tanggal Terbaru";
                     sortTanggalTerbaru();
@@ -128,7 +109,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        sp_tampilan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spTampilan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long arg3) {
@@ -152,38 +133,31 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        btn_bibit.setOnClickListener(new View.OnClickListener() {
+        binding.btnPupuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToBibit();
             }
         });
 
-        btn_sewa_mesin.setOnClickListener(new View.OnClickListener() {
+        binding.btnSewaMesin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToSewaMesin();
             }
         });
 
-        btn_pestisida.setOnClickListener(new View.OnClickListener() {
+        binding.btnPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPestisida();
             }
         });
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToBeranda();
-            }
-        });
-
 
     }
 
     private void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -191,11 +165,11 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textloading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -227,7 +201,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setSpinnerUrutan();
                             }
                         });
@@ -235,7 +209,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             }
                         });
                     }
@@ -246,7 +220,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(ListWarungTenagaKerja.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -259,7 +233,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
         urutan = getResources().getStringArray(R.array.urutan);
         ArrayAdapter<String> adapterUrutan = new ArrayAdapter<String>(ListWarungTenagaKerja.this, R.layout.z_spinner_list_urutan, urutan);
         adapterUrutan.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_urutkan.setAdapter(adapterUrutan);
+        binding.spUrutkan.setAdapter(adapterUrutan);
 
         if (listTenagaKerja.size()>0){
             setDataTenagaKerja();
@@ -268,7 +242,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
         }
 
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),images,tampilan);
-        sp_tampilan.setAdapter(customAdapter);
+        binding.spTampilan.setAdapter(customAdapter);
     }
 
     public void checkTampilan(){
@@ -295,20 +269,20 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
         urutkan = "Normal";
 
-        rv_warung_tenaga_kerja.setVisibility(View.VISIBLE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungTenagakerja.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
         if (mode.equalsIgnoreCase("Kotak")){
             itemList = new AdapterListWarungTenagaKerja(listTenagaKerja);
-            rv_warung_tenaga_kerja.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-            rv_warung_tenaga_kerja.setAdapter(itemList);
-            rv_warung_tenaga_kerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja,
+            binding.rvWarungTenagakerja.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+            binding.rvWarungTenagakerja.setAdapter(itemList);
+            binding.rvWarungTenagakerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerja,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -323,9 +297,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                     }));
         } else if (mode.equalsIgnoreCase("Garis")){
             itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerja);
-            rv_warung_tenaga_kerja.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-            rv_warung_tenaga_kerja.setAdapter(itemListGaris);
-            rv_warung_tenaga_kerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja,
+            binding.rvWarungTenagakerja.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+            binding.rvWarungTenagakerja.setAdapter(itemListGaris);
+            binding.rvWarungTenagakerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerja,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -340,9 +314,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                     }));
         } else if (mode.equalsIgnoreCase("Monitor")){
             itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerja);
-            rv_warung_tenaga_kerja.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-            rv_warung_tenaga_kerja.setAdapter(itemListMonitor);
-            rv_warung_tenaga_kerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja,
+            binding.rvWarungTenagakerja.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+            binding.rvWarungTenagakerja.setAdapter(itemListMonitor);
+            binding.rvWarungTenagakerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerja,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -357,9 +331,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                     }));
         } else {
             itemList = new AdapterListWarungTenagaKerja(listTenagaKerja);
-            rv_warung_tenaga_kerja.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-            rv_warung_tenaga_kerja.setAdapter(itemList);
-            rv_warung_tenaga_kerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja,
+            binding.rvWarungTenagakerja.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+            binding.rvWarungTenagakerja.setAdapter(itemList);
+            binding.rvWarungTenagakerja.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerja,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -417,14 +391,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     public void sortTanggalTerbaru(){
         clearData();
 
-        rv_warung_tenaga_kerja.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.VISIBLE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungTenagakerja.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
         urutanTanggal.clear();
         if (listTenagaKerja.size()>0){
@@ -447,9 +421,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terbaru.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_terbaru.setAdapter(itemList);
-                rv_warung_tenaga_kerja_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terbaru,
+                binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaTerbaru.setAdapter(itemList);
+                binding.rvWarungTenagakerjaTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -464,9 +438,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terbaru.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_terbaru.setAdapter(itemListGaris);
-                rv_warung_tenaga_kerja_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terbaru,
+                binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaTerbaru.setAdapter(itemListGaris);
+                binding.rvWarungTenagakerjaTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -481,9 +455,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terbaru.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_terbaru.setAdapter(itemListMonitor);
-                rv_warung_tenaga_kerja_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terbaru,
+                binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaTerbaru.setAdapter(itemListMonitor);
+                binding.rvWarungTenagakerjaTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -498,9 +472,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terbaru.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_terbaru.setAdapter(itemList);
-                rv_warung_tenaga_kerja_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terbaru,
+                binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaTerbaru.setAdapter(itemList);
+                binding.rvWarungTenagakerjaTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -525,14 +499,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     public void sortTanggalTerlama(){
         clearData();
 
-        rv_warung_tenaga_kerja.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.VISIBLE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungTenagakerja.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
         urutanTanggal.clear();
         if (listTenagaKerja.size()>0){
@@ -555,9 +529,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terlama.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_terlama.setAdapter(itemList);
-                rv_warung_tenaga_kerja_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terlama,
+                binding.rvWarungTenagakerjaTerlama.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaTerlama.setAdapter(itemList);
+                binding.rvWarungTenagakerjaTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -572,9 +546,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terlama.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_terlama.setAdapter(itemListGaris);
-                rv_warung_tenaga_kerja_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terlama,
+                binding.rvWarungTenagakerjaTerlama.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaTerlama.setAdapter(itemListGaris);
+                binding.rvWarungTenagakerjaTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -589,9 +563,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terlama.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_terlama.setAdapter(itemListMonitor);
-                rv_warung_tenaga_kerja_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terlama,
+                binding.rvWarungTenagakerjaTerlama.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaTerlama.setAdapter(itemListMonitor);
+                binding.rvWarungTenagakerjaTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -606,9 +580,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_terlama.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_terlama.setAdapter(itemList);
-                rv_warung_tenaga_kerja_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_terlama,
+                binding.rvWarungTenagakerjaTerlama.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaTerlama.setAdapter(itemList);
+                binding.rvWarungTenagakerjaTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -633,14 +607,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     public void sortNamaAZ(){
         clearData();
 
-        rv_warung_tenaga_kerja.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.VISIBLE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungTenagakerja.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
         urutanNama.clear();
         if (listTenagaKerja.size()>0){
@@ -661,9 +635,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_az.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_az.setAdapter(itemList);
-                rv_warung_tenaga_kerja_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_az,
+                binding.rvWarungTenagakerjaAz.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaAz.setAdapter(itemList);
+                binding.rvWarungTenagakerjaAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -678,9 +652,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_az.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_az.setAdapter(itemListGaris);
-                rv_warung_tenaga_kerja_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_az,
+                binding.rvWarungTenagakerjaAz.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaAz.setAdapter(itemListGaris);
+                binding.rvWarungTenagakerjaAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -695,9 +669,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_az.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_az.setAdapter(itemListMonitor);
-                rv_warung_tenaga_kerja_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_az,
+                binding.rvWarungTenagakerjaAz.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaAz.setAdapter(itemListMonitor);
+                binding.rvWarungTenagakerjaAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -712,9 +686,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
-                rv_warung_tenaga_kerja_az.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_az.setAdapter(itemList);
-                rv_warung_tenaga_kerja_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_az,
+                binding.rvWarungTenagakerjaAz.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaAz.setAdapter(itemList);
+                binding.rvWarungTenagakerjaAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -738,14 +712,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     public void sortNamaZA(){
         clearData();
 
-        rv_warung_tenaga_kerja.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.VISIBLE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungTenagakerja.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
         urutanNama.clear();
         if (listTenagaKerja.size()>0){
@@ -770,9 +744,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted2);
-                rv_warung_tenaga_kerja_za.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_za.setAdapter(itemList);
-                rv_warung_tenaga_kerja_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_za,
+                binding.rvWarungTenagakerjaZa.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaZa.setAdapter(itemList);
+                binding.rvWarungTenagakerjaZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -787,9 +761,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted2);
-                rv_warung_tenaga_kerja_za.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_za.setAdapter(itemListGaris);
-                rv_warung_tenaga_kerja_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_za,
+                binding.rvWarungTenagakerjaZa.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaZa.setAdapter(itemListGaris);
+                binding.rvWarungTenagakerjaZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -804,9 +778,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted2);
-                rv_warung_tenaga_kerja_za.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_za.setAdapter(itemListMonitor);
-                rv_warung_tenaga_kerja_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_za,
+                binding.rvWarungTenagakerjaZa.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaZa.setAdapter(itemListMonitor);
+                binding.rvWarungTenagakerjaZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -821,9 +795,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted2);
-                rv_warung_tenaga_kerja_za.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_za.setAdapter(itemList);
-                rv_warung_tenaga_kerja_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_za,
+                binding.rvWarungTenagakerjaZa.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaZa.setAdapter(itemList);
+                binding.rvWarungTenagakerjaZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -848,14 +822,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     public void sortHargaTerendah(){
         clearData();
 
-        rv_warung_tenaga_kerja.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.VISIBLE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungTenagakerja.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
         urutanHarga.clear();
         if (listTenagaKerja.size()>0){
@@ -877,9 +851,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSortedHargaTerendah);
-                rv_warung_tenaga_kerja_harga_terendah.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_harga_terendah.setAdapter(itemList);
-                rv_warung_tenaga_kerja_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_terendah,
+                binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemList);
+                binding.rvWarungTenagakerjaHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -894,9 +868,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSortedHargaTerendah);
-                rv_warung_tenaga_kerja_harga_terendah.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_harga_terendah.setAdapter(itemListGaris);
-                rv_warung_tenaga_kerja_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_terendah,
+                binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemListGaris);
+                binding.rvWarungTenagakerjaHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -911,9 +885,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSortedHargaTerendah);
-                rv_warung_tenaga_kerja_harga_terendah.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_harga_terendah.setAdapter(itemListMonitor);
-                rv_warung_tenaga_kerja_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_terendah,
+                binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemListMonitor);
+                binding.rvWarungTenagakerjaHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -928,9 +902,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSortedHargaTerendah);
-                rv_warung_tenaga_kerja_harga_terendah.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_harga_terendah.setAdapter(itemList);
-                rv_warung_tenaga_kerja_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_terendah,
+                binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemList);
+                binding.rvWarungTenagakerjaHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -957,14 +931,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     public void sortHargaTertinggi(){
         clearData();
 
-        rv_warung_tenaga_kerja.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terbaru.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terlama.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_az.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_za.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_terdekat.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_terendah.setVisibility(View.GONE);
-        rv_warung_tenaga_kerja_harga_tertinggi.setVisibility(View.VISIBLE);
+        binding.rvWarungTenagakerja.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerbaru.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerlama.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaAz.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaZa.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaTerdekat.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.VISIBLE);
 
         urutanHarga.clear();
         if (listTenagaKerja.size()>0){
@@ -987,9 +961,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSortedHargaTertinggi);
-                rv_warung_tenaga_kerja_harga_tertinggi.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_harga_tertinggi.setAdapter(itemList);
-                rv_warung_tenaga_kerja_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_tertinggi,
+                binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemList);
+                binding.rvWarungTenagakerjaHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -1004,9 +978,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSortedHargaTertinggi);
-                rv_warung_tenaga_kerja_harga_tertinggi.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_harga_tertinggi.setAdapter(itemListGaris);
-                rv_warung_tenaga_kerja_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_tertinggi,
+                binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemListGaris);
+                binding.rvWarungTenagakerjaHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -1021,9 +995,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else if (mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSortedHargaTertinggi);
-                rv_warung_tenaga_kerja_harga_tertinggi.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
-                rv_warung_tenaga_kerja_harga_tertinggi.setAdapter(itemListMonitor);
-                rv_warung_tenaga_kerja_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_tertinggi,
+                binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
+                binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemListMonitor);
+                binding.rvWarungTenagakerjaHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -1038,9 +1012,9 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSortedHargaTertinggi);
-                rv_warung_tenaga_kerja_harga_tertinggi.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
-                rv_warung_tenaga_kerja_harga_tertinggi.setAdapter(itemList);
-                rv_warung_tenaga_kerja_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_tenaga_kerja_harga_tertinggi,
+                binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
+                binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemList);
+                binding.rvWarungTenagakerjaHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungTenagakerjaHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {

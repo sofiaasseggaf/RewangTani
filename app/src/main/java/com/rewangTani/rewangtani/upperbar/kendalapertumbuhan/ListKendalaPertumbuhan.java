@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.upperbar.kendalapertumbuhan;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.databinding.UpperbarKpListKendalaPertumbuhanBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.DatumKendalaPertumbuhan;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.ModelKendalaPertumbuhan;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
@@ -44,6 +46,7 @@ import retrofit2.Response;
 
 public class ListKendalaPertumbuhan extends AppCompatActivity {
 
+    UpperbarKpListKendalaPertumbuhanBinding binding;
     AdapterListKendalaPertumbuhan itemList;
     ModelKendalaPertumbuhan modelKendalaPertumbuhan;
     List<DatumKendalaPertumbuhan> listKendalaPertumbuhan = new ArrayList<>();
@@ -55,40 +58,29 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
     ModelRencanaTanam modelRencanaTanam;
     List<DatumRencanaTanam> listRencanaTanam = new ArrayList<>();
     List<DatumRencanaTanam> listNewRencanaTanam = new ArrayList<>();
-    TextView txtload;
-    ImageButton btn_tambah, btn_rt, btn_st, btn_panen, btn_rab;
-    RecyclerView rvKendalaPertumbuhan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_kp_list_kendala_pertumbuhan);
-
-        btn_tambah = findViewById(R.id.btn_tambah);
-        rvKendalaPertumbuhan = findViewById(R.id.rvKendalaPertumbuhan);
-        txtload = findViewById(R.id.textloading);
-        btn_rt = findViewById(R.id.btn_rt);
-        btn_st = findViewById(R.id.btn_st);
-        btn_panen = findViewById(R.id.btn_panen);
-        btn_rab = findViewById(R.id.btn_rab);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_list_kendala_pertumbuhan);
 
         getData();
 
-        btn_tambah.setOnClickListener(new View.OnClickListener() {
+        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToInputKendalaPertumbuhan();
             }
         });
 
-        btn_rt.setOnClickListener(new View.OnClickListener() {
+        binding.btnRt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRT();
             }
         });
 
-        btn_st.setOnClickListener(new View.OnClickListener() {
+        binding.btnSt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListKendalaPertumbuhan.this);
@@ -112,14 +104,14 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
             }
         });
 
-        btn_panen.setOnClickListener(new View.OnClickListener() {
+        binding.btnPanen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPanen();
             }
         });
 
-        btn_rab.setOnClickListener(new View.OnClickListener() {
+        binding.btnRab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRAB();
@@ -129,7 +121,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
     }
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -137,11 +129,11 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -180,7 +172,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             }
                         });
                     }
@@ -191,7 +183,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(ListKendalaPertumbuhan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -228,7 +220,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                         /*runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 setData();
                             }
                         });*/
@@ -237,7 +229,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 // gaada kendala pertumbuhan dari id akun ini
                             }
                         });
@@ -253,7 +245,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 // gaada kendala pertumbuhan dari id akun ini
                             }
                         });
@@ -266,7 +258,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             }
                         });
                     }*/
@@ -278,7 +270,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(ListKendalaPertumbuhan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -314,7 +306,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
 
                 }
             });
@@ -348,7 +340,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     setData();
                 }
             });
@@ -360,9 +352,9 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
     public void setData(){
         itemList = new AdapterListKendalaPertumbuhan(listKendalaPertumbuhanSorted, listRencanaTanam);
         //itemList = new AdapterListKendalaPertumbuhan(listNewKendalaPertumbuhan, listNewRencanaTanam);
-        rvKendalaPertumbuhan.setLayoutManager(new LinearLayoutManager(ListKendalaPertumbuhan.this));
-        rvKendalaPertumbuhan.setAdapter(itemList);
-        rvKendalaPertumbuhan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rvKendalaPertumbuhan,
+        binding.rvKendalaPertumbuhan.setLayoutManager(new LinearLayoutManager(ListKendalaPertumbuhan.this));
+        binding.rvKendalaPertumbuhan.setAdapter(itemList);
+        binding.rvKendalaPertumbuhan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvKendalaPertumbuhan,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

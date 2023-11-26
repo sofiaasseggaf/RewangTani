@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -34,6 +35,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamABinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
@@ -59,19 +61,7 @@ import retrofit2.Response;
 
 public class InputRencanaTanamA extends AppCompatActivity {
 
-    EditText et_nama_rt;
-    EditText txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
-    EditText txt_mesin_bajak, txt_mesin_tanam, txt_mesin_panen, txt_mesin_pompa, txt_mesin_pompa_bbm, txt_durasi_mesin_pompa_bbm;
-    EditText txt_bibit_local, txt_bibit_subsidi;
-    EditText txt_pupuk_kimia_phonska, txt_pupuk_kimia_urea, txt_pupuk_kimia_fosfat, txt_pupuk_organik;
-    Spinner sp_profil_lahan, sp_komoditas;
-    AutoCompleteTextView sp_varietas;
-    LinearLayout ll_pompa;
-    ImageButton btn_cek;
-    ResponseRencanaTanam modelRencanaTanam;
-    ModelOutputRencanaTanam modelOutputRencanaTanam;
-    DatumRencanaTanam dataRencanaTanam;
-    DatumOutputRencanaTanam dataOutputRT;
+    UpperbarRtInputRencanaTanamABinding binding;
     ModelProfilLahan modelProfilLahan;
     ModelKomoditas modelKomoditas;
     ModelVarietas modelVarietas;
@@ -82,83 +72,28 @@ public class InputRencanaTanamA extends AppCompatActivity {
     ArrayAdapter<String> adapterProfilLahan, adapterKomoditas, adapterVarietas;
     String namaKomoditas, idKomoditas, namaVarietas, idVarietas, potensiHasilVarietas, namaProfilLahan, idProfilLahan, idSistemIrigasi, luasLahan;
     String tipeSIa, tipeSIb, tipeSIc;
-    TextView txtload, txt_luas_lahan, txt_rek_varietas, txt_mdpl;
-    int pompa, hargaBBM;
-    double total, hasil, pendapatan, mdpl;
-    String numberOnly, txt_pompa, txt_pompabbm;
+    double mdpl;
     int PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rt_input_rencana_tanam_a);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_a);
 
-        et_nama_rt = findViewById(R.id.et_nama_rt);
-        sp_profil_lahan = findViewById(R.id.sp_profil_lahan);
-        sp_komoditas = findViewById(R.id.sp_komoditas);
-        sp_varietas = findViewById(R.id.sp_varietas);
-        btn_cek = findViewById(R.id.btn_cek);
-        txt_rek_varietas = findViewById(R.id.txt_rek_varietas);
-        txt_buruh_tanam = findViewById(R.id.txt_buruh_tanam);
-        txt_buruh_bajak = findViewById(R.id.txt_buruh_bajak);
-        txt_buruh_semprot = findViewById(R.id.txt_buruh_semprot);
-        txt_buruh_menyiangi = findViewById(R.id.txt_buruh_menyiangi);
-        txt_buruh_galengan = findViewById(R.id.txt_buruh_galengan);
-        txt_buruh_pupuk = findViewById(R.id.txt_buruh_pupuk);
-        txt_buruh_panen = findViewById(R.id.txt_buruh_panen);
-        txt_mesin_bajak = findViewById(R.id.txt_mesin_bajak);
-        txt_mesin_panen = findViewById(R.id.txt_mesin_panen);
-        txt_mesin_tanam = findViewById(R.id.txt_mesin_tanam);
-        txt_mesin_pompa = findViewById(R.id.txt_mesin_pompa);
-        txt_mesin_pompa_bbm = findViewById(R.id.txt_mesin_pompa_bbm);
-        txt_durasi_mesin_pompa_bbm = findViewById(R.id.txt_durasi_mesin_pompa_bbm);
-        txt_bibit_local = findViewById(R.id.txt_bibit_local);
-        txt_bibit_subsidi = findViewById(R.id.txt_bibit_subsidi);
-        //txt_pupuk_kimia_local = findViewById(R.id.txt_pupuk_kimia_local);
-        txt_pupuk_kimia_phonska = findViewById(R.id.txt_pupuk_kimia_phonska);
-        txt_pupuk_kimia_urea = findViewById(R.id.txt_pupuk_kimia_urea);
-        txt_pupuk_kimia_fosfat = findViewById(R.id.txt_pupuk_kimia_fosfat);
-        txt_pupuk_organik = findViewById(R.id.txt_pupuk_organik);
-        ll_pompa = findViewById(R.id.ll_pompa);
-        txtload = findViewById(R.id.textloading);
-        txt_luas_lahan = findViewById(R.id.txt_luas_lahan);
-        txt_mdpl = findViewById(R.id.txt_mdpl);
+        //getandsetData();
 
-        getandsetData();
-
-        txt_buruh_tanam.addTextChangedListener(new NumberTextWatcher(txt_buruh_tanam));
-        txt_buruh_bajak.addTextChangedListener(new NumberTextWatcher(txt_buruh_bajak));
-        txt_buruh_semprot.addTextChangedListener(new NumberTextWatcher(txt_buruh_semprot));
-        txt_buruh_menyiangi.addTextChangedListener(new NumberTextWatcher(txt_buruh_menyiangi));
-        txt_buruh_galengan.addTextChangedListener(new NumberTextWatcher(txt_buruh_galengan));
-        txt_buruh_pupuk.addTextChangedListener(new NumberTextWatcher(txt_buruh_pupuk));
-        txt_buruh_panen.addTextChangedListener(new NumberTextWatcher(txt_buruh_panen));
-        txt_mesin_bajak.addTextChangedListener(new NumberTextWatcher(txt_mesin_bajak));
-        txt_mesin_tanam.addTextChangedListener(new NumberTextWatcher(txt_mesin_tanam));
-        txt_mesin_panen.addTextChangedListener(new NumberTextWatcher(txt_mesin_panen));
-        txt_mesin_pompa.addTextChangedListener(new NumberTextWatcher(txt_mesin_pompa));
-        txt_mesin_pompa_bbm.addTextChangedListener(new NumberTextWatcher(txt_mesin_pompa_bbm));
-        txt_bibit_local.addTextChangedListener(new NumberTextWatcher(txt_bibit_local));
-        txt_bibit_subsidi.addTextChangedListener(new NumberTextWatcher(txt_bibit_subsidi));
-        //txt_pupuk_kimia_local.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_local));
-        txt_pupuk_kimia_phonska.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_phonska));
-        txt_pupuk_kimia_urea.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_urea));
-        txt_pupuk_kimia_fosfat.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_fosfat));
-        txt_pupuk_organik.addTextChangedListener(new NumberTextWatcher(txt_pupuk_organik));
-
-
-        sp_profil_lahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spProfilLahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                namaProfilLahan = sp_profil_lahan.getSelectedItem().toString();
+                namaProfilLahan = binding.spProfilLahan.getSelectedItem().toString();
                 for (int a=0; a<modelProfilLahan.getTotalData(); a++){
                     try {
                         if (modelProfilLahan.getData().get(a).getNamaProfilTanah().equalsIgnoreCase(namaProfilLahan)){
                             idProfilLahan = modelProfilLahan.getData().get(a).getIdProfileTanah();
                             idSistemIrigasi = modelProfilLahan.getData().get(a).getIdSistemIrigasi().toString();
                             luasLahan = modelProfilLahan.getData().get(a).getLuasGarapan().toString();
-                            setFieldSistemIrigasi();
+                            binding.txtLuasLahan.setText("Luas lahan : "+luasLahan+" m2");
                         }
                     } catch (Exception e){}
                 }
@@ -167,11 +102,11 @@ public class InputRencanaTanamA extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        sp_komoditas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spKomoditas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                namaKomoditas = sp_komoditas.getSelectedItem().toString();
+                namaKomoditas = binding.spKomoditas.getSelectedItem().toString();
                 listVarietas.clear();
                 for (int i=0; i<modelKomoditas.getTotalData(); i++){
                     if (modelKomoditas.getData().get(i).getNamaKomoditas().equalsIgnoreCase(namaKomoditas)){
@@ -188,22 +123,22 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 Collections.sort(listVarietas);
                 if (listVarietas!=null){
                     adapterVarietas = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listVarietas);
-                    sp_varietas.setThreshold(1);
-                    sp_varietas.setAdapter(adapterVarietas);
+                    binding.spVarietas.setThreshold(1);
+                    binding.spVarietas.setAdapter(adapterVarietas);
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        sp_varietas.setOnClickListener(new View.OnClickListener() {
+        binding.spVarietas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp_varietas.showDropDown();
+                binding.spVarietas.showDropDown();
             }
         });
 
-        sp_varietas.addTextChangedListener(new TextWatcher() {
+        binding.spVarietas.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try{
@@ -221,7 +156,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                namaVarietas = sp_varietas.getText().toString();
+                namaVarietas = binding.spVarietas.getText().toString();
                 for (int a=0; a<modelVarietas.getTotalData(); a++){
                     try{
                         if (modelVarietas.getData().get(a).getNamaVarietas().equalsIgnoreCase(namaVarietas)){
@@ -235,108 +170,12 @@ public class InputRencanaTanamA extends AppCompatActivity {
 
 
 
-        btn_cek.setOnClickListener(new View.OnClickListener() {
+        binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(pompa==1){
-                    if(!txt_buruh_tanam.getText().toString().equalsIgnoreCase("")&&!txt_buruh_bajak.getText().toString().equalsIgnoreCase("")&&
-                            !txt_buruh_semprot.getText().toString().equalsIgnoreCase("")&&!txt_buruh_menyiangi.getText().toString().equalsIgnoreCase("")&&
-                            !txt_buruh_galengan.getText().toString().equalsIgnoreCase("")&&!txt_buruh_pupuk.getText().toString().equalsIgnoreCase("")&&
-                            !txt_buruh_panen.getText().toString().equalsIgnoreCase("")&&!txt_mesin_bajak.getText().toString().equalsIgnoreCase("")&&
-                            !txt_mesin_tanam.getText().toString().equalsIgnoreCase("")&&!txt_mesin_panen.getText().toString().equalsIgnoreCase("")&&
-                            !txt_bibit_local.getText().toString().equalsIgnoreCase("")&&!txt_bibit_subsidi.getText().toString().equalsIgnoreCase("")&&
-                            !txt_pupuk_kimia_phonska.getText().toString().equalsIgnoreCase("")&& !txt_pupuk_kimia_urea.getText().toString().equalsIgnoreCase("")&&
-                            !txt_pupuk_kimia_fosfat.getText().toString().equalsIgnoreCase("")&& !txt_pupuk_organik.getText().toString().equalsIgnoreCase("")) {
-                        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
-                        final Handler handler = new Handler();
-                        Runnable runnable = new Runnable() {
-                            int count = 0;
-                            @Override
-                            public void run() {
-                                count++;
-                                if (count == 1) {
-                                    txtload.setText("Tunggu sebentar ya ."); }
-                                else if (count == 2) {
-                                    txtload.setText("Tunggu sebentar ya . ."); }
-                                else if (count == 3) {
-                                    txtload.setText("Tunggu sebentar ya . . ."); }
-                                if (count == 3)
-                                    count = 0;
-                                handler.postDelayed(this, 1500);
-                            }
-                        };
-                        handler.postDelayed(runnable, 1 * 1000);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                hitungTanpaPompa();
-                            }
-                        }).start();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanamA.this, "Isi semua field terlebih dahulu", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } else if(pompa==2){
-                    if(!txt_buruh_tanam.getText().toString().equalsIgnoreCase("")&&!txt_buruh_bajak.getText().toString().equalsIgnoreCase("")&&
-                            !txt_buruh_semprot.getText().toString().equalsIgnoreCase("")&&!txt_buruh_menyiangi.getText().toString().equalsIgnoreCase("")&&
-                            !txt_buruh_galengan.getText().toString().equalsIgnoreCase("")&&!txt_buruh_pupuk.getText().toString().equalsIgnoreCase("")&&
-                            !txt_buruh_panen.getText().toString().equalsIgnoreCase("")&&!txt_mesin_bajak.getText().toString().equalsIgnoreCase("")&&
-                            !txt_mesin_tanam.getText().toString().equalsIgnoreCase("")&&!txt_mesin_panen.getText().toString().equalsIgnoreCase("")&&
-                            !txt_mesin_pompa.getText().toString().equalsIgnoreCase("")&&!txt_mesin_pompa_bbm.getText().toString().equalsIgnoreCase("")&&
-                            !txt_bibit_local.getText().toString().equalsIgnoreCase("")&&!txt_bibit_subsidi.getText().toString().equalsIgnoreCase("")&&
-                            !txt_pupuk_kimia_phonska.getText().toString().equalsIgnoreCase("")&&!txt_pupuk_kimia_urea.getText().toString().equalsIgnoreCase("")&&
-                            !txt_pupuk_kimia_fosfat.getText().toString().equalsIgnoreCase("")&&!txt_pupuk_organik.getText().toString().equalsIgnoreCase("")&&
-                            !et_nama_rt.getText().toString().equalsIgnoreCase("")&&!txt_durasi_mesin_pompa_bbm.getText().toString().equalsIgnoreCase("")){
-                        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
-                        final Handler handler = new Handler();
-                        Runnable runnable = new Runnable() {
-                            int count = 0;
-                            @Override
-                            public void run() {
-                                count++;
-                                if (count == 1) {
-                                    txtload.setText("Tunggu sebentar ya ."); }
-                                else if (count == 2) {
-                                    txtload.setText("Tunggu sebentar ya . ."); }
-                                else if (count == 3) {
-                                    txtload.setText("Tunggu sebentar ya . . ."); }
-                                if (count == 3)
-                                    count = 0;
-                                handler.postDelayed(this, 1500);
-                            }
-                        };
-                        handler.postDelayed(runnable, 1 * 1000);
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                hitung();
-                            }
-                        }).start();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanamA.this, "Isi semua field terlebih dahulu", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    }
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
-                            Toast.makeText(InputRencanaTanamA.this, "Pilih profil lahan terlebih dahulu !", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-
+                // check dulu baru move ke B !
+                moveToB();
 
             }
         });
@@ -344,7 +183,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
     }
 
     public void getandsetData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -352,11 +191,11 @@ public class InputRencanaTanamA extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -394,7 +233,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InputRencanaTanamA.this);
                                 builder.setMessage("Buat profil lahan terlebih dahulu")
                                         .setPositiveButton("Buat Profil Lahan", new DialogInterface.OnClickListener() {
@@ -419,7 +258,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(InputRencanaTanamA.this, "Data profil lahan tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -433,7 +272,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
@@ -464,7 +303,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(InputRencanaTanamA.this, "Data komoditas tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -475,7 +314,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -497,7 +336,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(InputRencanaTanamA.this, "Data varietas tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -508,7 +347,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -527,7 +366,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     ActivityCompat.requestPermissions(InputRencanaTanamA.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
                 }
             });
@@ -543,10 +382,10 @@ public class InputRencanaTanamA extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     Toast.makeText(InputRencanaTanamA.this, "GPS bermasalah", Toast.LENGTH_SHORT).show();
-                    txt_rek_varietas.setTextColor(getResources().getColor(R.color.red));
-                    txt_rek_varietas.setText("Rekomendasi varietas = GPS bermasalah");
+                    binding.txtRekVarietas.setTextColor(getResources().getColor(R.color.red));
+                    binding.txtRekVarietas.setText("Rekomendasi varietas = GPS bermasalah");
                     setDataSpinner();
                 }
             });
@@ -567,7 +406,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     @SuppressLint("MissingPermission")
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -577,25 +416,13 @@ public class InputRencanaTanamA extends AppCompatActivity {
                             mdpl = mdpl*10;
                             //String a = String.valueOf(mdpl).substring(0,5);
                             String a = String.valueOf(mdpl);
-                            txt_mdpl.setText("Ketinggian lahan : "+a+" mdpl");
+                            binding.txtMdpl.setText("Ketinggian lahan : "+a+" mdpl");
                         }
                     }
-                    txt_rek_varietas.setText("Rekomendasi varietas = " + listRekomendasiVarietas.get(0) + ", " + listRekomendasiVarietas.get(1) + ", " + listRekomendasiVarietas.get(2) + ", ");
+                    binding.txtRekVarietas.setText("Rekomendasi varietas = " + listRekomendasiVarietas.get(0) + ", " + listRekomendasiVarietas.get(1) + ", " + listRekomendasiVarietas.get(2) + ", ");
                     setDataSpinner();
                 }
             });
-        }
-    }
-
-    public void setFieldSistemIrigasi(){
-
-        txt_luas_lahan.setText("Luas lahan : "+luasLahan+" m2");
-        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
-            ll_pompa.setVisibility(View.GONE);
-            pompa = 1;
-        } else {
-            ll_pompa.setVisibility(View.VISIBLE);
-            pompa = 2;
         }
     }
 
@@ -610,95 +437,14 @@ public class InputRencanaTanamA extends AppCompatActivity {
 
         adapterProfilLahan = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listProfilLahan);
         adapterProfilLahan.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_profil_lahan.setAdapter(adapterProfilLahan);
+        binding.spProfilLahan.setAdapter(adapterProfilLahan);
 
         adapterKomoditas = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listKomoditas);
         adapterKomoditas.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_komoditas.setAdapter(adapterKomoditas);
+        binding.spKomoditas.setAdapter(adapterKomoditas);
     }
 
-    public void hitungTanpaPompa(){
-
-        int a = Integer.valueOf(txt_buruh_tanam.getText().toString().replaceAll("[^0-9]", ""));
-        int b = Integer.valueOf(txt_buruh_bajak.getText().toString().replaceAll("[^0-9]", ""));
-        int c = Integer.valueOf(txt_buruh_semprot.getText().toString().replaceAll("[^0-9]", ""));
-        int d = Integer.valueOf(txt_buruh_menyiangi.getText().toString().replaceAll("[^0-9]", ""));
-        int e = Integer.valueOf(txt_buruh_galengan.getText().toString().replaceAll("[^0-9]", ""));
-        int f = Integer.valueOf(txt_buruh_pupuk.getText().toString().replaceAll("[^0-9]", ""));
-        int g = Integer.valueOf(txt_buruh_panen.getText().toString().replaceAll("[^0-9]", ""));
-
-        int h = Integer.valueOf(txt_mesin_bajak.getText().toString().replaceAll("[^0-9]", ""));
-        int i = Integer.valueOf(txt_mesin_tanam.getText().toString().replaceAll("[^0-9]", ""));
-        int j = Integer.valueOf(txt_mesin_panen.getText().toString().replaceAll("[^0-9]", ""));
-        //int k = Integer.valueOf(txt_mesin_pompa.getText().toString());
-        //int l = Integer.valueOf(txt_mesin_pompa_bbm.getText().toString());
-
-        int m = Integer.valueOf(txt_bibit_local.getText().toString().replaceAll("[^0-9]", ""));
-        int n = Integer.valueOf(txt_bibit_subsidi.getText().toString().replaceAll("[^0-9]", ""));
-
-        //int o = Integer.valueOf(txt_pupuk_kimia_local.getText().toString().replaceAll("[^0-9]", ""));
-        int p = Integer.valueOf(txt_pupuk_kimia_phonska.getText().toString().replaceAll("[^0-9]", ""));
-        int q = Integer.valueOf(txt_pupuk_kimia_urea.getText().toString().replaceAll("[^0-9]", ""));
-        int r = Integer.valueOf(txt_pupuk_kimia_fosfat.getText().toString().replaceAll("[^0-9]", ""));
-        int s = Integer.valueOf(txt_pupuk_organik.getText().toString().replaceAll("[^0-9]", ""));
-
-        int obat = 1000000;
-        int luaslahan = Integer.valueOf(luasLahan.replaceAll("[^0-9]", ""));
-        //double hektar = luaslahan/10000;
-
-        total = a+b+c+d+e+f+g+h+i+j+m+n+p+q+r+s+obat;
-        Double estimasihasil = Double.valueOf(potensiHasilVarietas);
-        hasil = estimasihasil*luaslahan/10;
-        pendapatan = 10000*hasil;
-
-        txt_pompa = "0";
-        txt_pompabbm = "0";
-
-        sendDataRencanaTanam();
-    }
-
-    public void hitung(){
-
-        int a = Integer.valueOf(txt_buruh_tanam.getText().toString().replaceAll("[^0-9]", ""));
-        int b = Integer.valueOf(txt_buruh_bajak.getText().toString().replaceAll("[^0-9]", ""));
-        int c = Integer.valueOf(txt_buruh_semprot.getText().toString().replaceAll("[^0-9]", ""));
-        int d = Integer.valueOf(txt_buruh_menyiangi.getText().toString().replaceAll("[^0-9]", ""));
-        int e = Integer.valueOf(txt_buruh_galengan.getText().toString().replaceAll("[^0-9]", ""));
-        int f = Integer.valueOf(txt_buruh_pupuk.getText().toString().replaceAll("[^0-9]", ""));
-        int g = Integer.valueOf(txt_buruh_panen.getText().toString().replaceAll("[^0-9]", ""));
-
-        int h = Integer.valueOf(txt_mesin_bajak.getText().toString().replaceAll("[^0-9]", ""));
-        int i = Integer.valueOf(txt_mesin_tanam.getText().toString().replaceAll("[^0-9]", ""));
-        int j = Integer.valueOf(txt_mesin_panen.getText().toString().replaceAll("[^0-9]", ""));
-        int k = Integer.valueOf(txt_mesin_pompa.getText().toString().replaceAll("[^0-9]", ""));
-        int l = Integer.valueOf(txt_mesin_pompa_bbm.getText().toString().replaceAll("[^0-9]", ""));
-
-        int m = Integer.valueOf(txt_bibit_local.getText().toString().replaceAll("[^0-9]", ""));
-        int n = Integer.valueOf(txt_bibit_subsidi.getText().toString().replaceAll("[^0-9]", ""));
-
-        //int o = Integer.valueOf(txt_pupuk_kimia_local.getText().toString().replaceAll("[^0-9]", ""));
-        int p = Integer.valueOf(txt_pupuk_kimia_phonska.getText().toString().replaceAll("[^0-9]", ""));
-        int q = Integer.valueOf(txt_pupuk_kimia_urea.getText().toString().replaceAll("[^0-9]", ""));
-        int r = Integer.valueOf(txt_pupuk_kimia_fosfat.getText().toString().replaceAll("[^0-9]", ""));
-        int s = Integer.valueOf(txt_pupuk_organik.getText().toString().replaceAll("[^0-9]", ""));
-
-        int obat = 1000000;
-        int luaslahan = Integer.valueOf(luasLahan.replaceAll("[^0-9]", ""));
-        double hektar = Double.valueOf(luasLahan)/10000;
-
-        Double estimasihasil = Double.valueOf(potensiHasilVarietas);
-        hasil = estimasihasil*luaslahan/10;
-        pendapatan = 10000*hasil;
-
-        int durasi = Integer.valueOf(txt_durasi_mesin_pompa_bbm.getText().toString().replaceAll("[^0-9]", ""))*2;
-        double bbm = l*durasi*hektar;
-        txt_pompa = txt_mesin_pompa.getText().toString().replaceAll("[^0-9]", "");
-        txt_pompabbm = String.valueOf(bbm);
-        total = a+b+c+d+e+f+g+h+i+j+k+bbm+m+n+p+q+r+s+obat;
-
-        sendDataRencanaTanam();
-    }
-
+    /*
     private void sendDataRencanaTanam(){
         //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
         //String now = formatter.format(new Date());
@@ -754,7 +500,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                         Toast.makeText(InputRencanaTanamA.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -764,7 +510,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                              findViewById(R.id.framelayout).setVisibility(View.GONE);
+                              findViewById(R.id.viewLoading).setVisibility(View.GONE);
                               Toast.makeText(InputRencanaTanamA.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -778,7 +524,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                       findViewById(R.id.framelayout).setVisibility(View.GONE);
+                       findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -786,7 +532,9 @@ public class InputRencanaTanamA extends AppCompatActivity {
             }
         });
     }
+    */
 
+    /*
     private void sendOutput(){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
@@ -811,7 +559,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(InputRencanaTanamA.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -825,7 +573,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -833,7 +581,9 @@ public class InputRencanaTanamA extends AppCompatActivity {
             }
         });
     }
+    */
 
+    /*
     public void getOutput() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelOutputRencanaTanam> dataRT = apiInterface.getDataOutputRT();
@@ -854,7 +604,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     cekRT();
                                 }
                             });
@@ -862,7 +612,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                     Toast.makeText(InputRencanaTanamA.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -875,7 +625,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -883,10 +633,14 @@ public class InputRencanaTanamA extends AppCompatActivity {
             }
         });
     }
+    */
 
-    public void cekRT(){
-        Intent a = new Intent(InputRencanaTanamA.this, DetailRencanaTanamRAB.class);
+    public void moveToB(){
+        Intent a = new Intent(InputRencanaTanamA.this, InputRencanaTanamB.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
+        finish();
     }
 
     public void goToListRT(){

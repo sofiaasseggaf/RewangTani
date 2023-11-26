@@ -207,7 +207,7 @@
                         android:paddingLeft="15dp"
                         android:textColor="@color/black"
                         android:textColorHint="#A0A0A0"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"

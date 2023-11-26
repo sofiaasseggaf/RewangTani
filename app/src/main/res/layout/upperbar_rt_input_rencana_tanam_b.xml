@@ -231,7 +231,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhTanam"
@@ -285,7 +285,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhBajak"
@@ -339,7 +339,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhSemprot"
@@ -393,7 +393,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhMenyaingiRumput"
@@ -447,7 +447,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhGalengan"
@@ -501,7 +501,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhPupuk"
@@ -555,7 +555,7 @@
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
                             android:textColorHint="#A0A0A0"
-                            android:textSize="14sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/txtBuruhPanen"

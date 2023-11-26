@@ -210,11 +210,6 @@ public class ListRencanaTanam extends AppCompatActivity {
         finish();
     }
 
-    public void goToRT(){
-        Intent a = new Intent(ListRencanaTanam.this, ListRencanaTanam.class);
-        startActivity(a);
-        finish();
-    }
 
     public void goToST(){
         Intent a = new Intent(ListRencanaTanam.this, ListSudahTanam.class);

@@ -52,7 +52,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_f);
 
-        getData();
+        //getData();
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -399,10 +399,6 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
         });
     }
 
-    public void simpan(){
-        Toast.makeText(DetailRencanaTanamRAB.this, "Berhasil buat rencana tanam", Toast.LENGTH_LONG).show();
-        goToListRT();
-    }
 
     public  void goToInputRT(){
         Intent a = new Intent(DetailRencanaTanamRAB.this, InputRencanaTanamA.class);
@@ -417,23 +413,24 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Edit kembali rencana tanam ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        deleteRencanaTanam();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog=builder.create();
-        alertDialog.show();
+        goToListRT();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setMessage("Edit kembali rencana tanam ?")
+//                .setCancelable(false)
+//                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int i) {
+//                        deleteRencanaTanam();
+//                    }
+//                })
+//
+//                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int i) {
+//                        dialog.cancel();
+//                    }
+//                });
+//        AlertDialog alertDialog=builder.create();
+//        alertDialog.show();
     }
 }
