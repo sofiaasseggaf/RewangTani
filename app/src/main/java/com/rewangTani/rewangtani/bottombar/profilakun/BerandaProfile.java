@@ -40,6 +40,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.profilakun.pesanan.PesananDiproses;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.starter.SplashScreen;
@@ -90,6 +91,10 @@ public class BerandaProfile extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         setData();
+
+        binding.btnPesanan.setOnClickListener(v->{
+            goToPesanan();
+        });
 
         binding.btnUbahProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -552,6 +557,12 @@ public class BerandaProfile extends AppCompatActivity {
 
     public void goToBeranda(){
         Intent a = new Intent(BerandaProfile.this, Home.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesanan(){
+        Intent a = new Intent(BerandaProfile.this, PesananDiproses.class);
         startActivity(a);
         finish();
     }

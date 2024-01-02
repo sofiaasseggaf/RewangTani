@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.rewangTani.rewangtani" >
+    package="com.rewangTani.rewangtani">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -42,17 +42,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:ignore="HardcodedDebugMode" >
+        tools:ignore="HardcodedDebugMode">
+        <activity
+            android:name=".bottombar.profilakun.pesanan.PesananDibatalkan"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilakun.pesanan.PesananSelesai"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilakun.pesanan.PesananDiproses"
+            android:exported="false" />
+        <activity
+            android:name=".middlebar.Blog"
+            android:exported="false" />
         <activity
             android:name=".bottombar.pesan.InboxPesan"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".bottombar.pesan.Chat"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -71,7 +83,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
@@ -230,7 +242,7 @@
             android:exported="false" /> <!-- Starter -->
         <activity
             android:name=".starter.SplashScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -254,7 +266,7 @@
         <service android:name=".utility.Services" />
         <service
             android:name=".utility.MyFirebaseMessagingService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

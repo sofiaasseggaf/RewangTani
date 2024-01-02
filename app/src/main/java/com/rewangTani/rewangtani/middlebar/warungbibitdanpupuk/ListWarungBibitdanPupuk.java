@@ -1,6 +1,7 @@
 package com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,11 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.Adapt
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungBibitdanPupukMonitor;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
+import com.rewangTani.rewangtani.databinding.MiddlebarListWarungPupukBinding;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
@@ -45,20 +51,16 @@ import retrofit2.Response;
 
 public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
+    MiddlebarListWarungPupukBinding binding;
     AdapterListWarungBibitdanPupuk itemList;
     AdapterListWarungBibitdanPupukGaris itemListGaris;
     AdapterListWarungBibitdanPupukMonitor itemListMonitor;
-    Spinner sp_urutkan, sp_tampilan;
-    ImageButton btn_tenaga_kerja, btn_sewa_mesin, btn_bibit, btn_pestisida, btn_back;
-    RecyclerView rv_warung_pupuk, rv_warung_pupuk_terbaru, rv_warung_pupuk_terlama, rv_warung_pupuk_az, rv_warung_pupuk_za;
-    RecyclerView rv_warung_pupuk_terdekat, rv_warung_pupuk_harga_terendah, rv_warung_pupuk_harga_tertinggi;
     ModelPupukPestisida modelPupukPestisida;
     List<DatumPupukPestisida> listBibitdanPupuk = new ArrayList<>();
     List<DatumPupukPestisida> listBibitdanPupukSorted = new ArrayList<>();
     List<DatumPupukPestisida> listBibitdanPupukSorted2 = new ArrayList<>();
     List<DatumPupukPestisida> listBibitdanPupukSortedHargaTerendah = new ArrayList<>();
     List<DatumPupukPestisida> listBibitdanPupukSortedHargaTertinggi = new ArrayList<>();
-    TextView txtload;
     String namaUrutan;
     String[] urutan;
     List<String> urutanTanggal = new ArrayList<>();
@@ -73,15 +75,15 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.middlebar_list_warung_pupuk);
+        binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_pupuk);
 
-        getData();
+        //getData();
 
-        sp_urutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                namaUrutan = sp_urutkan.getSelectedItem().toString();
+                namaUrutan = binding.spUrutkan.getSelectedItem().toString();
                 if (namaUrutan.equalsIgnoreCase("Tanggal Terbaru")){
                     urutkan = "Tanggal Terbaru";
                     sortTanggalTerbaru();
@@ -112,7 +114,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        sp_tampilan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.spTampilan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long arg3) {
@@ -136,38 +138,56 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> arg0) { }
         });
 
-        btn_tenaga_kerja.setOnClickListener(new View.OnClickListener() {
+        binding.btnTenagaKerja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToTenagaKerja();
             }
         });
 
-        btn_sewa_mesin.setOnClickListener(new View.OnClickListener() {
+        binding.btnSewaMesin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToSewaMesin();
             }
         });
 
-        btn_pestisida.setOnClickListener(new View.OnClickListener() {
+        binding.btnPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPestisida();
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                goToBeranda();
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilLahan();
+            }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilAkun();
             }
         });
 
     }
 
     private void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -175,11 +195,11 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -214,7 +234,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             setSpinnerUrutan();
                         }
                     });
@@ -222,7 +242,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         }
                     });
                 }
@@ -232,7 +252,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(ListWarungBibitdanPupuk.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -245,7 +265,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
         urutan = getResources().getStringArray(R.array.urutan);
         ArrayAdapter<String> adapterUrutan = new ArrayAdapter<String>(ListWarungBibitdanPupuk.this, R.layout.z_spinner_list_urutan, urutan);
         adapterUrutan.setDropDownViewResource(R.layout.z_spinner_list);
-        sp_urutkan.setAdapter(adapterUrutan);
+        binding.spUrutkan.setAdapter(adapterUrutan);
 
         if (listBibitdanPupuk.size()>0){
             setDataBibitdanPupuk();
@@ -254,27 +274,27 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
         }
 
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),images,tampilan);
-        sp_tampilan.setAdapter(customAdapter);
+        binding.spTampilan.setAdapter(customAdapter);
     }
 
     public void setDataBibitdanPupuk(){
 
         urutkan = "Normal";
 
-        rv_warung_pupuk.setVisibility(View.VISIBLE);
-        rv_warung_pupuk_terbaru.setVisibility(View.GONE);
-        rv_warung_pupuk_terlama.setVisibility(View.GONE);
-        rv_warung_pupuk_az.setVisibility(View.GONE);
-        rv_warung_pupuk_za.setVisibility(View.GONE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungPupuk.setVisibility(View.VISIBLE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.GONE);
+        binding.rvWarungPupukTerlama.setVisibility(View.GONE);
+        binding.rvWarungPupukAz.setVisibility(View.GONE);
+        binding.rvWarungPupukZa.setVisibility(View.GONE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
         if (mode.equalsIgnoreCase("Kotak")){
             itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupuk);
-            rv_warung_pupuk.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-            rv_warung_pupuk.setAdapter(itemList);
-            rv_warung_pupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk,
+            binding.rvWarungPupuk.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+            binding.rvWarungPupuk.setAdapter(itemList);
+            binding.rvWarungPupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupuk,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -289,9 +309,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                     }));
         } else if(mode.equalsIgnoreCase("Garis")){
             itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupuk);
-            rv_warung_pupuk.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-            rv_warung_pupuk.setAdapter(itemListGaris);
-            rv_warung_pupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk,
+            binding.rvWarungPupuk.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+            binding.rvWarungPupuk.setAdapter(itemListGaris);
+            binding.rvWarungPupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupuk,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -306,9 +326,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                     }));
         } else if(mode.equalsIgnoreCase("Monitor")){
             itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupuk);
-            rv_warung_pupuk.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-            rv_warung_pupuk.setAdapter(itemListMonitor);
-            rv_warung_pupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk,
+            binding.rvWarungPupuk.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+            binding.rvWarungPupuk.setAdapter(itemListMonitor);
+            binding.rvWarungPupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupuk,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -323,9 +343,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                     }));
         } else {
             itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupuk);
-            rv_warung_pupuk.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-            rv_warung_pupuk.setAdapter(itemList);
-            rv_warung_pupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk,
+            binding.rvWarungPupuk.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+            binding.rvWarungPupuk.setAdapter(itemList);
+            binding.rvWarungPupuk.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupuk,
                     new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
@@ -383,14 +403,14 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     public void sortTanggalTerbaru(){
         clearData();
 
-        rv_warung_pupuk.setVisibility(View.GONE);
-        rv_warung_pupuk_terbaru.setVisibility(View.VISIBLE);
-        rv_warung_pupuk_terlama.setVisibility(View.GONE);
-        rv_warung_pupuk_az.setVisibility(View.GONE);
-        rv_warung_pupuk_za.setVisibility(View.GONE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungPupuk.setVisibility(View.GONE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.VISIBLE);
+        binding.rvWarungPupukTerlama.setVisibility(View.GONE);
+        binding.rvWarungPupukAz.setVisibility(View.GONE);
+        binding.rvWarungPupukZa.setVisibility(View.GONE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
         urutanTanggal.clear();
         if (listBibitdanPupuk.size()>0){
@@ -413,9 +433,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
-                rv_warung_pupuk_terbaru.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_terbaru.setAdapter(itemList);
-                rv_warung_pupuk_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terbaru,
+                binding.rvWarungPupukTerbaru.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukTerbaru.setAdapter(itemList);
+                binding.rvWarungPupukTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -430,9 +450,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted);
-                rv_warung_pupuk_terbaru.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_terbaru.setAdapter(itemListGaris);
-                rv_warung_pupuk_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terbaru,
+                binding.rvWarungPupukTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukTerbaru.setAdapter(itemListGaris);
+                binding.rvWarungPupukTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -447,9 +467,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted);
-                rv_warung_pupuk_terbaru.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_terbaru.setAdapter(itemListMonitor);
-                rv_warung_pupuk_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terbaru,
+                binding.rvWarungPupukTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukTerbaru.setAdapter(itemListMonitor);
+                binding.rvWarungPupukTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -464,9 +484,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
-                rv_warung_pupuk_terbaru.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_terbaru.setAdapter(itemList);
-                rv_warung_pupuk_terbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terbaru,
+                binding.rvWarungPupukTerbaru.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukTerbaru.setAdapter(itemList);
+                binding.rvWarungPupukTerbaru.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerbaru,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -492,14 +512,14 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
         clearData();
 
-        rv_warung_pupuk.setVisibility(View.GONE);
-        rv_warung_pupuk_terbaru.setVisibility(View.GONE);
-        rv_warung_pupuk_terlama.setVisibility(View.VISIBLE);
-        rv_warung_pupuk_az.setVisibility(View.GONE);
-        rv_warung_pupuk_za.setVisibility(View.GONE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungPupuk.setVisibility(View.GONE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.GONE);
+        binding.rvWarungPupukTerlama.setVisibility(View.VISIBLE);
+        binding.rvWarungPupukAz.setVisibility(View.GONE);
+        binding.rvWarungPupukZa.setVisibility(View.GONE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
         urutanTanggal.clear();
         if (listBibitdanPupuk.size()>0){
@@ -522,9 +542,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
-                rv_warung_pupuk_terlama.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_terlama.setAdapter(itemList);
-                rv_warung_pupuk_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terlama,
+                binding.rvWarungPupukTerlama.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukTerlama.setAdapter(itemList);
+                binding.rvWarungPupukTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -539,9 +559,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted);
-                rv_warung_pupuk_terlama.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_terlama.setAdapter(itemListGaris);
-                rv_warung_pupuk_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terlama,
+                binding.rvWarungPupukTerlama.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukTerlama.setAdapter(itemListGaris);
+                binding.rvWarungPupukTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -556,9 +576,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted);
-                rv_warung_pupuk_terlama.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_terlama.setAdapter(itemListMonitor);
-                rv_warung_pupuk_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terlama,
+                binding.rvWarungPupukTerlama.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukTerlama.setAdapter(itemListMonitor);
+                binding.rvWarungPupukTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -573,9 +593,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
-                rv_warung_pupuk_terlama.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_terlama.setAdapter(itemList);
-                rv_warung_pupuk_terlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_terlama,
+                binding.rvWarungPupukTerlama.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukTerlama.setAdapter(itemList);
+                binding.rvWarungPupukTerlama.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukTerlama,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -602,14 +622,14 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     public void sortNamaAZ(){
         clearData();
 
-        rv_warung_pupuk.setVisibility(View.GONE);
-        rv_warung_pupuk_terbaru.setVisibility(View.GONE);
-        rv_warung_pupuk_terlama.setVisibility(View.GONE);
-        rv_warung_pupuk_az.setVisibility(View.VISIBLE);
-        rv_warung_pupuk_za.setVisibility(View.GONE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungPupuk.setVisibility(View.GONE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.GONE);
+        binding.rvWarungPupukTerlama.setVisibility(View.GONE);
+        binding.rvWarungPupukAz.setVisibility(View.VISIBLE);
+        binding.rvWarungPupukZa.setVisibility(View.GONE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
         urutanNama.clear();
         if (listBibitdanPupuk.size()>0){
@@ -630,9 +650,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
-                rv_warung_pupuk_az.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_az.setAdapter(itemList);
-                rv_warung_pupuk_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_az,
+                binding.rvWarungPupukAz.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukAz.setAdapter(itemList);
+                binding.rvWarungPupukAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -647,9 +667,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted);
-                rv_warung_pupuk_az.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_az.setAdapter(itemListGaris);
-                rv_warung_pupuk_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_az,
+                binding.rvWarungPupukAz.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukAz.setAdapter(itemListGaris);
+                binding.rvWarungPupukAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -664,9 +684,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted);
-                rv_warung_pupuk_az.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_az.setAdapter(itemListMonitor);
-                rv_warung_pupuk_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_az,
+                binding.rvWarungPupukAz.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukAz.setAdapter(itemListMonitor);
+                binding.rvWarungPupukAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -681,9 +701,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
-                rv_warung_pupuk_az.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_az.setAdapter(itemList);
-                rv_warung_pupuk_az.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_az,
+                binding.rvWarungPupukAz.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukAz.setAdapter(itemList);
+                binding.rvWarungPupukAz.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukAz,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -707,14 +727,14 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     public void sortNamaZA(){
         clearData();
 
-        rv_warung_pupuk.setVisibility(View.GONE);
-        rv_warung_pupuk_terbaru.setVisibility(View.GONE);
-        rv_warung_pupuk_terlama.setVisibility(View.GONE);
-        rv_warung_pupuk_az.setVisibility(View.GONE);
-        rv_warung_pupuk_za.setVisibility(View.VISIBLE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungPupuk.setVisibility(View.GONE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.GONE);
+        binding.rvWarungPupukTerlama.setVisibility(View.GONE);
+        binding.rvWarungPupukAz.setVisibility(View.GONE);
+        binding.rvWarungPupukZa.setVisibility(View.VISIBLE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
         urutanNama.clear();
         if (listBibitdanPupuk.size()>0){
@@ -739,9 +759,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             if(mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted2);
-                rv_warung_pupuk_za.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_za.setAdapter(itemList);
-                rv_warung_pupuk_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_za,
+                binding.rvWarungPupukZa.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukZa.setAdapter(itemList);
+                binding.rvWarungPupukZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -756,9 +776,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted2);
-                rv_warung_pupuk_za.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_za.setAdapter(itemListGaris);
-                rv_warung_pupuk_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_za,
+                binding.rvWarungPupukZa.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukZa.setAdapter(itemListGaris);
+                binding.rvWarungPupukZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -773,9 +793,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted2);
-                rv_warung_pupuk_za.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_za.setAdapter(itemListMonitor);
-                rv_warung_pupuk_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_za,
+                binding.rvWarungPupukZa.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukZa.setAdapter(itemListMonitor);
+                binding.rvWarungPupukZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -790,9 +810,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted2);
-                rv_warung_pupuk_za.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_za.setAdapter(itemList);
-                rv_warung_pupuk_za.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_za,
+                binding.rvWarungPupukZa.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukZa.setAdapter(itemList);
+                binding.rvWarungPupukZa.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukZa,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -819,14 +839,14 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     public void sortHargaTerendah(){
         clearData();
 
-        rv_warung_pupuk.setVisibility(View.GONE);
-        rv_warung_pupuk_terbaru.setVisibility(View.GONE);
-        rv_warung_pupuk_terlama.setVisibility(View.GONE);
-        rv_warung_pupuk_az.setVisibility(View.GONE);
-        rv_warung_pupuk_za.setVisibility(View.GONE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.VISIBLE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.GONE);
+        binding.rvWarungPupuk.setVisibility(View.GONE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.GONE);
+        binding.rvWarungPupukTerlama.setVisibility(View.GONE);
+        binding.rvWarungPupukAz.setVisibility(View.GONE);
+        binding.rvWarungPupukZa.setVisibility(View.GONE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.VISIBLE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
         urutanHarga.clear();
         if (listBibitdanPupuk.size()>0){
@@ -847,9 +867,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSortedHargaTerendah);
-                rv_warung_pupuk_harga_terendah.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_harga_terendah.setAdapter(itemList);
-                rv_warung_pupuk_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_terendah,
+                binding.rvWarungPupukHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukHargaTerendah.setAdapter(itemList);
+                binding.rvWarungPupukHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -865,9 +885,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             } else if(mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSortedHargaTerendah);
-                rv_warung_pupuk_harga_terendah.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_harga_terendah.setAdapter(itemListGaris);
-                rv_warung_pupuk_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_terendah,
+                binding.rvWarungPupukHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukHargaTerendah.setAdapter(itemListGaris);
+                binding.rvWarungPupukHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -883,9 +903,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             } else if(mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSortedHargaTerendah);
-                rv_warung_pupuk_harga_terendah.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_harga_terendah.setAdapter(itemListMonitor);
-                rv_warung_pupuk_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_terendah,
+                binding.rvWarungPupukHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukHargaTerendah.setAdapter(itemListMonitor);
+                binding.rvWarungPupukHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -901,9 +921,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             } else {
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSortedHargaTerendah);
-                rv_warung_pupuk_harga_terendah.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_harga_terendah.setAdapter(itemList);
-                rv_warung_pupuk_harga_terendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_terendah,
+                binding.rvWarungPupukHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukHargaTerendah.setAdapter(itemList);
+                binding.rvWarungPupukHargaTerendah.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTerendah,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -930,14 +950,14 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     public void sortHargaTertinggi(){
         clearData();
 
-        rv_warung_pupuk.setVisibility(View.GONE);
-        rv_warung_pupuk_terbaru.setVisibility(View.GONE);
-        rv_warung_pupuk_terlama.setVisibility(View.GONE);
-        rv_warung_pupuk_az.setVisibility(View.GONE);
-        rv_warung_pupuk_za.setVisibility(View.GONE);
-        rv_warung_pupuk_terdekat.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_terendah.setVisibility(View.GONE);
-        rv_warung_pupuk_harga_tertinggi.setVisibility(View.VISIBLE);
+        binding.rvWarungPupuk.setVisibility(View.GONE);
+        binding.rvWarungPupukTerbaru.setVisibility(View.GONE);
+        binding.rvWarungPupukTerlama.setVisibility(View.GONE);
+        binding.rvWarungPupukAz.setVisibility(View.GONE);
+        binding.rvWarungPupukZa.setVisibility(View.GONE);
+        binding.rvWarungPupukTerdekat.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
+        binding.rvWarungPupukHargaTertinggi.setVisibility(View.VISIBLE);
 
         urutanHarga.clear();
         if (listBibitdanPupuk.size()>0){
@@ -960,9 +980,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
             if (mode.equalsIgnoreCase("Kotak")){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSortedHargaTertinggi);
-                rv_warung_pupuk_harga_tertinggi.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_harga_tertinggi.setAdapter(itemList);
-                rv_warung_pupuk_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_tertinggi,
+                binding.rvWarungPupukHargaTertinggi.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukHargaTertinggi.setAdapter(itemList);
+                binding.rvWarungPupukHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -977,9 +997,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Garis")){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSortedHargaTertinggi);
-                rv_warung_pupuk_harga_tertinggi.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_harga_tertinggi.setAdapter(itemListGaris);
-                rv_warung_pupuk_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_tertinggi,
+                binding.rvWarungPupukHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukHargaTertinggi.setAdapter(itemListGaris);
+                binding.rvWarungPupukHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -994,9 +1014,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else if(mode.equalsIgnoreCase("Monitor")){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSortedHargaTertinggi);
-                rv_warung_pupuk_harga_tertinggi.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
-                rv_warung_pupuk_harga_tertinggi.setAdapter(itemListMonitor);
-                rv_warung_pupuk_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_tertinggi,
+                binding.rvWarungPupukHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
+                binding.rvWarungPupukHargaTertinggi.setAdapter(itemListMonitor);
+                binding.rvWarungPupukHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -1011,9 +1031,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                         }));
             } else {
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSortedHargaTertinggi);
-                rv_warung_pupuk_harga_tertinggi.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
-                rv_warung_pupuk_harga_tertinggi.setAdapter(itemList);
-                rv_warung_pupuk_harga_tertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), rv_warung_pupuk_harga_tertinggi,
+                binding.rvWarungPupukHargaTertinggi.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
+                binding.rvWarungPupukHargaTertinggi.setAdapter(itemList);
+                binding.rvWarungPupukHargaTertinggi.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvWarungPupukHargaTertinggi,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int po) {
@@ -1060,8 +1080,8 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     public void goToTenagaKerja(){
         Intent a = new Intent(ListWarungBibitdanPupuk.this, ListWarungTenagaKerja.class);
         startActivity(a);
-        overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         finish();
     }
 
@@ -1086,6 +1106,30 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
+        finish();
+    }
+
+    public void goToWarungku(){
+        Intent a = new Intent(ListWarungBibitdanPupuk.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(ListWarungBibitdanPupuk.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilLahan(){
+        Intent a = new Intent(ListWarungBibitdanPupuk.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun(){
+        Intent a = new Intent(ListWarungBibitdanPupuk.this, BerandaProfile.class);
+        startActivity(a);
         finish();
     }
 

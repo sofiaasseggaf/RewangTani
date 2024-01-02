@@ -34,6 +34,7 @@ import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarHomeBinding;
+import com.rewangTani.rewangtani.middlebar.Blog;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
@@ -194,6 +195,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 addDotsIndicator(position);
+                goToBlog();
             }
 
             @Override
@@ -433,6 +435,12 @@ public class Home extends AppCompatActivity {
 
     public void goToProfilAkun(){
         Intent a = new Intent(Home.this, BerandaProfile.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToBlog(){
+        Intent a = new Intent(Home.this, Blog.class);
         startActivity(a);
         finish();
     }

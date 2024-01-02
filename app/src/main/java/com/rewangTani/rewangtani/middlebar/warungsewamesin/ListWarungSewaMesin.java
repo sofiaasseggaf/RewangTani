@@ -166,11 +166,11 @@ public class ListWarungSewaMesin extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -1074,8 +1074,8 @@ public class ListWarungSewaMesin extends AppCompatActivity {
     public void goToPestisida(){
         Intent a = new Intent(ListWarungSewaMesin.this, ListWarungPestisida.class);
         startActivity(a);
-        overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         finish();
     }
 

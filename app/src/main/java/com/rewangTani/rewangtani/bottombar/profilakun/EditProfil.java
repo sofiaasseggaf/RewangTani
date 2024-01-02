@@ -78,7 +78,7 @@ public class EditProfil extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_editprofil);
 
         myCalendar = Calendar.getInstance();
-        getData();
+        //  getData();
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override

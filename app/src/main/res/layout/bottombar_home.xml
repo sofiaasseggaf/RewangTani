@@ -275,56 +275,6 @@
                 android:weightSum="5">
 
                 <LinearLayout
-                    android:id="@+id/btnWarungPestisida"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_warung_pestisida" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:text="Warung\nPestisida"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="8sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnWarungTenagaKerja"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_warung_tenaga_kerja" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:text="Warung\nTenaga Kerja"
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
-                        android:textSize="8sp" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/btnWarungPupuk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -369,6 +319,56 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/inter_semibold"
                         android:text="Warung\nBibit"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="8sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnWarungPestisida"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_warung_pestisida" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="Warung\nPestisida"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="8sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnWarungTenagaKerja"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_warung_tenaga_kerja" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="Warung\nTenaga Kerja"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="8sp" />

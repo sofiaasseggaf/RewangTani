@@ -367,7 +367,7 @@
         </RelativeLayout>
 
         <FrameLayout
-            android:id="@+id/framelayout"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_loading"
@@ -378,7 +378,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

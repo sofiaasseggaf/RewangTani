@@ -169,7 +169,6 @@
                     android:layout_marginLeft="5dp"
                     android:lines="1"
                     android:gravity="center_vertical"
-                    android:textSize="10sp"
                     android:fontFamily="@font/inter_medium"
                     android:text="Nama Lahan"
                     android:textColor="#303030" />
@@ -209,7 +208,6 @@
                     android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:lines="1"
-                    android:textSize="10sp"
                     android:fontFamily="@font/inter_medium"
                     android:text="Lokasi"
                     android:textColor="#A0A0A0" />
@@ -234,7 +232,6 @@
                     android:layout_marginLeft="5dp"
                     android:lines="1"
                     android:gravity="center_vertical"
-                    android:textSize="10sp"
                     android:fontFamily="@font/inter_medium"
                     android:text="Ukuran Lahan"
                     android:textColor="#A0A0A0" />
