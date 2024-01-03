@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        first();
+        //first();
 
         binding.btnDaftar.setOnClickListener(new View.OnClickListener() {
             @Override

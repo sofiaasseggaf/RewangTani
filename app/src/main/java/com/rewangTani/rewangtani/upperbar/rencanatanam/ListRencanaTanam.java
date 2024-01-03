@@ -46,7 +46,7 @@ public class ListRencanaTanam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
 
-        getData();
+        //getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override

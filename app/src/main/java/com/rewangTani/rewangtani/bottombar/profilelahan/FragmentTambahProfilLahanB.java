@@ -1,63 +1,39 @@
 package com.rewangTani.rewangtani.bottombar.profilelahan;
 
-import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.ArrayMap;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanABinding;
-import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanBBinding;
+import com.rewangTani.rewangtani.databinding.BottombarPlFragmentTambahProfilLahanBBinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
-import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
-import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahProfilLahanB extends FragmentActivity {
+public class FragmentTambahProfilLahanB extends Fragment {
 
-    BottombarPlTambahProfilLahanBBinding binding;
+    BottombarPlFragmentTambahProfilLahanBBinding binding;
     String idAlamat;
     ModelAlamat modelAlamat;
     List<DatumAlamat> listAlamat = new ArrayList<>();
@@ -69,11 +45,20 @@ public class TambahProfilLahanB extends FragmentActivity {
     String provinsi, kabkota, kecamatan, kelurahan;
     ArrayAdapter<String> adapterProvinsi, adapterKabKota, adapterKec, adapterKel, adapterKodepos;
 
+    public FragmentTambahProfilLahanB() {
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater , ViewGroup container ,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.bottombar_pl_fragment_tambah_profil_lahan_b , container , false);
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bottombar_pl_tambah_profil_lahan_a);
-        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_tambah_profil_lahan_b);
+        binding = DataBindingUtil.setContentView(getActivity(), R.layout.bottombar_pl_fragment_tambah_profil_lahan_b);
 
         //getData();
 
@@ -144,8 +129,7 @@ public class TambahProfilLahanB extends FragmentActivity {
 
                     binding.rlKabKota.setBackgroundResource(R.drawable.rect_input_blank_green_radius);
                     binding.spKabKota.setEnabled(true);
-                    adapterKabKota = new ArrayAdapter<String>(
-                            TambahProfilLahanB.this, R.layout.z_spinner_list, listKabKota);
+                    adapterKabKota = new ArrayAdapter<String>(getContext(), R.layout.z_spinner_list, listKabKota);
                     binding.spKabKota.setThreshold(1);
                     binding.spKabKota.setAdapter(adapterKabKota);
                 }
@@ -212,8 +196,7 @@ public class TambahProfilLahanB extends FragmentActivity {
 
                     binding.rlKecamatan.setBackgroundResource(R.drawable.rect_input_blank_green_radius);
                     binding.spKecamatan.setEnabled(true);
-                    adapterKec = new ArrayAdapter<String>(
-                            TambahProfilLahanB.this, R.layout.z_spinner_list, listKec);
+                    adapterKec = new ArrayAdapter<String>(getContext(), R.layout.z_spinner_list, listKec);
                     binding.spKecamatan.setThreshold(1);
                     binding.spKecamatan.setAdapter(adapterKec);
 
@@ -277,8 +260,7 @@ public class TambahProfilLahanB extends FragmentActivity {
 
                     binding.rlKelurahan.setBackgroundResource(R.drawable.rect_input_blank_green_radius);
                     binding.spKelurahan.setEnabled(true);
-                    adapterKel = new ArrayAdapter<String>(
-                            TambahProfilLahanB.this, R.layout.z_spinner_list, listKel);
+                    adapterKel = new ArrayAdapter<String>(getContext(), R.layout.z_spinner_list, listKel);
                     binding.spKelurahan.setThreshold(1);
                     binding.spKelurahan.setAdapter(adapterKel);
 
@@ -343,8 +325,7 @@ public class TambahProfilLahanB extends FragmentActivity {
 
                     binding.rlKodePos.setBackgroundResource(R.drawable.rect_input_blank_green_radius);
                     binding.spKodePos.setEnabled(true);
-                    adapterKodepos = new ArrayAdapter<String>(
-                            TambahProfilLahanB.this, R.layout.z_spinner_list, listkodepos);
+                    adapterKodepos = new ArrayAdapter<String>(getContext(), R.layout.z_spinner_list, listkodepos);
                     binding.spKodePos.setThreshold(1);
                     binding.spKodePos.setAdapter(adapterKodepos);
                 }
@@ -356,7 +337,7 @@ public class TambahProfilLahanB extends FragmentActivity {
             public void onClick(View view) {
                 binding.spKodePos.showDropDown();
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
@@ -366,7 +347,7 @@ public class TambahProfilLahanB extends FragmentActivity {
         binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToTambahProfilLahanC();
+                ((TambahProfilLahanActivity)getActivity()).setCurrentItem(2,true);
 //                if (!idAlamat.equalsIgnoreCase("")){
 //                    tambahDataProfilLahan();
 //                } else {
@@ -378,8 +359,8 @@ public class TambahProfilLahanB extends FragmentActivity {
     }
 
     private void tambahDataProfilLahan() {
-        PreferenceUtils.savePLidAlamat(idAlamat, getApplicationContext());
-        goToTambahProfilLahanC();
+        PreferenceUtils.savePLidAlamat(idAlamat, getContext());
+        ((TambahProfilLahanActivity)getActivity()).setCurrentItem(2,true);
     }
 
     public void getData(){
@@ -432,7 +413,7 @@ public class TambahProfilLahanB extends FragmentActivity {
                                 }
                             }
                         }
-                        runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 binding.viewLoading.setVisibility(View.GONE);
@@ -445,35 +426,16 @@ public class TambahProfilLahanB extends FragmentActivity {
             @Override
             public void onFailure(Call<ModelAlamat> call, Throwable t) {
                 binding.viewLoading.setVisibility(View.GONE);
-                Toast.makeText(TambahProfilLahanB.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
         });
     }
 
     public void setData(){
-        adapterProvinsi = new ArrayAdapter<String>(TambahProfilLahanB.this, R.layout.z_spinner_list, listProvinsi);
+        adapterProvinsi = new ArrayAdapter<String>(getContext(), R.layout.z_spinner_list, listProvinsi);
         binding.spProvinsi.setThreshold(1);
         binding.spProvinsi.setAdapter(adapterProvinsi);
-    }
-
-    public void goToTambahProfilLahanC() {
-        Intent a = new Intent(TambahProfilLahanB.this, TambahProfilLahanC.class);
-        startActivity(a);
-        overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
-    }
-
-    public void goToTambahProfilLahanA() {
-        Intent a = new Intent(TambahProfilLahanB.this, TambahProfilLahanA.class);
-        startActivity(a);
-        overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_right);
-    }
-
-    @Override
-    public void onBackPressed() {
-        goToTambahProfilLahanA();
     }
 
 }

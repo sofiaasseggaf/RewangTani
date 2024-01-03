@@ -1,6 +1,5 @@
 package com.rewangTani.rewangtani.bottombar.profilelahan;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
@@ -216,7 +214,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void goToTambahPL(){
-        Intent a = new Intent(ListProfileLahan.this, TambahProfilLahanA.class);
+        Intent a = new Intent(ListProfileLahan.this, TambahProfilLahanActivity.class);
         startActivity(a);
         finish();
     }

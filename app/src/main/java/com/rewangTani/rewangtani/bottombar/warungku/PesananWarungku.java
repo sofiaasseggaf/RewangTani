@@ -58,7 +58,7 @@ public class PesananWarungku extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_pesananwarungku);
 
-        start();
+        //start();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override

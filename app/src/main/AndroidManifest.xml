@@ -44,6 +44,9 @@
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode">
         <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanActivity"
+            android:exported="false" />
+        <activity
             android:name=".bottombar.profilakun.pesanan.PesananDibatalkan"
             android:exported="false" />
         <activity
@@ -195,17 +198,17 @@
             android:name=".bottombar.profilelahan.ListProfileLahan"
             android:exported="true" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanA"
+            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanA"
             android:exported="true"
             android:label="map" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanB"
+            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanB"
             android:exported="true" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanC"
+            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanC"
             android:exported="true" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanD"
+            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanD"
             android:exported="true" />
         <activity
             android:name=".bottombar.profilakun.EditProfil"

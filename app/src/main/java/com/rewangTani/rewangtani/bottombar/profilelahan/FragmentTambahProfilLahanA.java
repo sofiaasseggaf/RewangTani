@@ -1,72 +1,47 @@
 package com.rewangTani.rewangtani.bottombar.profilelahan;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.ArrayMap;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanABinding;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
-import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
+import com.rewangTani.rewangtani.databinding.BottombarPlFragmentTambahProfilLahanABinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
-import org.json.JSONObject;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCallback {
+public class FragmentTambahProfilLahanA extends Fragment implements OnMapReadyCallback {
 
-    BottombarPlTambahProfilLahanABinding binding;
+    BottombarPlFragmentTambahProfilLahanABinding binding;
     private GoogleMap mMap;
     ModelProfilLahan modelProfilLahan;
     List<String> listProfilLahan = new ArrayList<>();
@@ -76,14 +51,29 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
     Double lat, longt;
     String lat2, longt2;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_tambah_profil_lahan_a);
+    public FragmentTambahProfilLahanA() {
+    }
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(TambahProfilLahanA.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(TambahProfilLahanA.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(TambahProfilLahanA.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
+    @Override
+    public View onCreateView(LayoutInflater inflater , ViewGroup container ,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.bottombar_pl_fragment_tambah_profil_lahan_a , container , false);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(getActivity(), R.layout.bottombar_pl_fragment_tambah_profil_lahan_a);
+
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
         }
 
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -157,17 +147,17 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
                 if (response.body() != null) {
                     for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
                         try {
-                            if (PreferenceUtils.getIdAkun(getApplicationContext())
+                            if (PreferenceUtils.getIdAkun(getContext())
                                     .equalsIgnoreCase(modelProfilLahan.getData().get(i).getIdUser())) {
                                 listProfilLahan.add(modelProfilLahan.getData().get(i).getNamaProfilTanah().toString());
                             }
                         } catch (Exception e) {
                         }
                     }
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                             binding.koordinatLahan.setText(lat + ", " + longt);
                         }
                     });
@@ -176,14 +166,14 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
 
             @Override
             public void onFailure(Call<ModelProfilLahan> call, Throwable t) {
-                runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(TambahProfilLahanA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                                binding.viewLoading.setVisibility(View.GONE);
+                                Toast.makeText(getContext(), "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
                         });
@@ -208,7 +198,7 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
 
         // Enabling MyLocation Layer of Google Map
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -257,7 +247,7 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
             } else if (listProfilLahan.size() > 0) {
                 for (int i = 0; i < listProfilLahan.size(); i++) {
                     if (binding.namaProfilLahan.getText().toString().equalsIgnoreCase(listProfilLahan.get(i))) {
-                        Toast.makeText(this, "Nama profil lahan sudah dipakai", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Nama profil lahan sudah dipakai", Toast.LENGTH_SHORT).show();
                         checkNama = 1;
                         break;
                     }
@@ -270,7 +260,7 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
                 }
             }
         } else  {
-            Toast.makeText(this, "Isi nama profil lahan terlebih dahulu !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Isi nama profil lahan terlebih dahulu !", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -280,7 +270,7 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
             for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
                 if (modelProfilLahan.getData().get(i).getLatitude().equalsIgnoreCase(lat2) &&
                         modelProfilLahan.getData().get(i).getLongitude().equalsIgnoreCase(longt2)) {
-                    Toast.makeText(this, "Lokasi lahan sudah terpakai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Lokasi lahan sudah terpakai", Toast.LENGTH_SHORT).show();
                     checkLatLong = 1;
                     break;
                 }
@@ -295,49 +285,23 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
     }
 
     private void tambahDataProfilLahan() {
-        PreferenceUtils.savePLnamaProfilLahan(binding.namaProfilLahan.getText().toString(), getApplicationContext());
-        PreferenceUtils.savePLlatitude(lat2, getApplicationContext());
-        PreferenceUtils.savePLlongitude(longt2, getApplicationContext());
+        PreferenceUtils.savePLnamaProfilLahan(binding.namaProfilLahan.getText().toString(), getContext());
+        PreferenceUtils.savePLlatitude(lat2, getContext());
+        PreferenceUtils.savePLlongitude(longt2, getContext());
         goToTambahProfilLahanB();
     }
 
     public void goToTambahProfilLahanB() {
-        Intent a = new Intent(TambahProfilLahanA.this, TambahProfilLahanB.class);
+        Intent a = new Intent(getActivity(), FragmentTambahProfilLahanB.class);
         startActivity(a);
-        overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
+//        getActivity().overridePendingTransition(R.anim.slide_in_right,
+//                R.anim.slide_out_left);
     }
 
-    public void goToListProfilLahan() {
-        Intent a = new Intent(TambahProfilLahanA.this, ListProfileLahan.class);
-        startActivity(a);
-        finish();
-    }
 
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal Tambah Profil Lahan ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToListProfilLahan();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    @Override
+/*    @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
-    }
+    }*/
+
 }

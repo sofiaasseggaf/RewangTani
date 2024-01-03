@@ -49,7 +49,7 @@ public class InboxPesan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pesan_inbox);
 
-        getData();
+        //getData();
 
         binding.btnHome.setOnClickListener(v->{
             goToBeranda();
