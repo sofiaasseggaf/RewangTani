@@ -26,6 +26,10 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.Adapt
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungPestisida;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungPestisidaMonitor;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.MiddlebarListWarungPestisidaBinding;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
@@ -70,6 +74,13 @@ public class ListWarungPestisida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_pestisida);
+
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnPupuk.getLeft(), binding.btnPupuk.getTop());
+            }
+        });
 
         //getData();
 
@@ -154,6 +165,31 @@ public class ListWarungPestisida extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToBibit();
+            }
+        });
+
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilLahan();
+            }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilAkun();
             }
         });
 
@@ -1103,6 +1139,29 @@ public class ListWarungPestisida extends AppCompatActivity {
         finish();
     }
 
+    public void goToWarungku(){
+        Intent a = new Intent(ListWarungPestisida.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(ListWarungPestisida.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilLahan(){
+        Intent a = new Intent(ListWarungPestisida.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun(){
+        Intent a = new Intent(ListWarungPestisida.this, BerandaProfile.class);
+        startActivity(a);
+        finish();
+    }
 
     public void goToBeranda() {
         Intent a = new Intent(ListWarungPestisida.this, Home.class);

@@ -57,7 +57,7 @@ public class ListSudahTanam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_list_sudah_tanam);
 
-        getData();
+        //getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override

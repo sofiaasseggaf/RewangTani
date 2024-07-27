@@ -34,17 +34,29 @@
         android:name=".utility.App"
         android:allowBackup="true"
         android:debuggable="false"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/new_logo"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:protectionLevel="signature"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@drawable/new_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="HardcodedDebugMode">
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanActivity"
+            android:name=".bottombar.Keranjang"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanA"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanB"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanC"
+            android:exported="false" />
+        <activity
+            android:name=".bottombar.profilelahan.TambahProfilLahanD"
             android:exported="false" />
         <activity
             android:name=".bottombar.profilakun.pesanan.PesananDibatalkan"
@@ -196,19 +208,6 @@
             android:exported="true" />
         <activity
             android:name=".bottombar.profilelahan.ListProfileLahan"
-            android:exported="true" />
-        <activity
-            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanA"
-            android:exported="true"
-            android:label="map" />
-        <activity
-            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanB"
-            android:exported="true" />
-        <activity
-            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanC"
-            android:exported="true" />
-        <activity
-            android:name=".bottombar.profilelahan.FragmentTambahProfilLahanD"
             android:exported="true" />
         <activity
             android:name=".bottombar.profilakun.EditProfil"

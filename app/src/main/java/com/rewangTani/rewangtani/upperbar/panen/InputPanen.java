@@ -54,7 +54,7 @@ public class InputPanen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_input_panen);
 
-        getData();
+        //getData();
 
         binding.hargaJual.addTextChangedListener(new NumberTextWatcher(binding.hargaJual));
         //et_jumlah_hasil_panen.addTextChangedListener(new NumberTextWatcher(et_jumlah_hasil_panen));
@@ -79,11 +79,13 @@ public class InputPanen extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!binding.jumlahHasilPanen.getText().toString().equalsIgnoreCase("") && !binding.hargaJual.getText().toString().equalsIgnoreCase("")){
-                    getIDRT();
-                } else {
-                    Toast.makeText(InputPanen.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(InputPanen.this, "Simpan !", Toast.LENGTH_SHORT).show();
+                goToListPanen();
+//                if(!binding.jumlahHasilPanen.getText().toString().equalsIgnoreCase("") && !binding.hargaJual.getText().toString().equalsIgnoreCase("")){
+//                    getIDRT();
+//                } else {
+//                    Toast.makeText(InputPanen.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

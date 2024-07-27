@@ -41,7 +41,7 @@ public class DatumTenagaKerja implements Parcelable
     private String namaTipeKerja;
     @SerializedName("biaya")
     @Expose
-    private Integer biaya;
+    private Integer biaya;              
     @SerializedName("deskripsi")
     @Expose
     private String deskripsi;

@@ -51,6 +51,10 @@ public class InboxPesan extends AppCompatActivity {
 
         //getData();
 
+        binding.inboxOne.setOnClickListener(v->{
+            goToChat();
+        });
+
         binding.btnHome.setOnClickListener(v->{
             goToBeranda();
         });
@@ -247,6 +251,12 @@ public class InboxPesan extends AppCompatActivity {
                 call.cancel();
             }
         });
+    }
+
+    public void goToChat(){
+        Intent a = new Intent(InboxPesan.this, Chat.class);
+        startActivity(a);
+        finish();
     }
 
     public void goToBeranda(){

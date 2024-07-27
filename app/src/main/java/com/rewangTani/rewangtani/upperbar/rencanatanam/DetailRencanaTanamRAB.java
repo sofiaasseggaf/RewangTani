@@ -54,6 +54,56 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
 
         //getData();
 
+        binding.btnOngkosBuruh.setOnClickListener(v->{
+            if (binding.viewOngkosBuruh.getVisibility()==View.GONE){
+                binding.btnOngkosBuruh.setBackground(getResources().getDrawable(R.drawable.triangle_upside_down_green));
+                binding.viewOngkosBuruh.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnOngkosBuruh.setBackground(getResources().getDrawable(R.drawable.triangle_point_to_right_green));
+                binding.viewOngkosBuruh.setVisibility(View.GONE);
+            }
+        });
+
+        binding.btnSewaMesin.setOnClickListener(v->{
+            if (binding.viewSewaMesin.getVisibility()==View.GONE){
+                binding.btnSewaMesin.setBackground(getResources().getDrawable(R.drawable.triangle_upside_down_green));
+                binding.viewSewaMesin.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnSewaMesin.setBackground(getResources().getDrawable(R.drawable.triangle_point_to_right_green));
+                binding.viewSewaMesin.setVisibility(View.GONE);
+            }
+        });
+
+        binding.btnHargaBibit.setOnClickListener(v->{
+            if (binding.viewHargaBibit.getVisibility()==View.GONE){
+                binding.btnHargaBibit.setBackground(getResources().getDrawable(R.drawable.triangle_upside_down_green));
+                binding.viewHargaBibit.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnHargaBibit.setBackground(getResources().getDrawable(R.drawable.triangle_point_to_right_green));
+                binding.viewHargaBibit.setVisibility(View.GONE);
+            }
+        });
+
+        binding.btnHargaPupuk.setOnClickListener(v->{
+            if (binding.viewHargaPupuk.getVisibility()==View.GONE){
+                binding.btnHargaPupuk.setBackground(getResources().getDrawable(R.drawable.triangle_upside_down_green));
+                binding.viewHargaPupuk.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnHargaPupuk.setBackground(getResources().getDrawable(R.drawable.triangle_point_to_right_green));
+                binding.viewHargaPupuk.setVisibility(View.GONE);
+            }
+        });
+
+        binding.btnHargaObat.setOnClickListener(v->{
+            if (binding.viewHargaObat.getVisibility()==View.GONE){
+                binding.btnHargaObat.setBackground(getResources().getDrawable(R.drawable.triangle_upside_down_green));
+                binding.viewHargaObat.setVisibility(View.VISIBLE);
+            } else {
+                binding.btnHargaObat.setBackground(getResources().getDrawable(R.drawable.triangle_point_to_right_green));
+                binding.viewHargaObat.setVisibility(View.GONE);
+            }
+        });
+
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
         symbols.setGroupingSeparator('.');

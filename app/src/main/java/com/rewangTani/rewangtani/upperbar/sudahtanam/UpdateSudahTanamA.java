@@ -92,7 +92,7 @@ public class UpdateSudahTanamA extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
 
-        getData();
+        //getData();
 
 //        txt_buruh_tanam.addTextChangedListener(new NumberTextWatcher(txt_buruh_tanam));
 //        txt_buruh_bajak.addTextChangedListener(new NumberTextWatcher(txt_buruh_bajak));

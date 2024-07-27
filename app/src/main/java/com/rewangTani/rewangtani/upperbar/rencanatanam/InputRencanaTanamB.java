@@ -81,6 +81,12 @@ public class InputRencanaTanamB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_b);
 
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnNama.getLeft(), binding.btnNama.getTop());
+            }
+        });
 
         //getandsetData();
 
@@ -833,19 +839,19 @@ public class InputRencanaTanamB extends AppCompatActivity {
         });
     }*/
 
-    public void moveToC(){
-        Intent a = new Intent(InputRencanaTanamB.this, InputRencanaTanamC.class);
-        startActivity(a);
-        overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
-        finish();
-    }
-
     public void moveToA(){
         Intent a = new Intent(InputRencanaTanamB.this, InputRencanaTanamA.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
+        finish();
+    }
+
+    public void moveToC(){
+        Intent a = new Intent(InputRencanaTanamB.this, InputRencanaTanamC.class);
+        startActivity(a);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         finish();
     }
 

@@ -73,6 +73,9 @@ public class Home extends AppCompatActivity {
         homeImageCarouselAdapter = new HomeImageCarouselAdapter(this, imageIds);
         binding.viewPager.setAdapter(homeImageCarouselAdapter);
         addDotsIndicator(0);
+        binding.viewPager.setOnClickListener(v->{
+            goToBlog();
+        });
 
         start();
 
@@ -156,6 +159,10 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        binding.btnWarungBibit.setOnClickListener(v->{
+            goToWarungPupuk();
+        });
+
         binding.btnWarungPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,11 +202,15 @@ public class Home extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 addDotsIndicator(position);
-                goToBlog();
+                //goToBlog();
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {}
+        });
+
+        binding.btnCart.setOnClickListener(v->{
+            goToKeranjang();
         });
 
     }
@@ -441,6 +452,12 @@ public class Home extends AppCompatActivity {
 
     public void goToBlog(){
         Intent a = new Intent(Home.this, Blog.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToKeranjang(){
+        Intent a = new Intent(Home.this, Keranjang.class);
         startActivity(a);
         finish();
     }

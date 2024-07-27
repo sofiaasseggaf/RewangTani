@@ -85,33 +85,34 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
         lat = location.getLatitude();
         longt = location.getLongitude();
 
-        getData();
+        //getData();
 
         //tokentxt.setText(PreferenceUtils.getToken(getApplicationContext()));
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkKelengkapan==1){
-                    goToTambahInfo();
-                } else if (checkKelengkapan==0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(BerandaInfoPeringatanCuaca.this);
-                    builder.setMessage("Lengkapi data profil terlebih dahulu")
-                            .setPositiveButton("Lengkapi Data Profil", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int i) {
-                                    goToProfilLahan();
-                                }
-                            })
-                            .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    goToBerandaInfo();
-                                }
-                            })
-                            .create()
-                            .show();
-                }
+//                if (checkKelengkapan==1){
+//                    goToTambahInfo();
+//                } else if (checkKelengkapan==0){
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(BerandaInfoPeringatanCuaca.this);
+//                    builder.setMessage("Lengkapi data profil terlebih dahulu")
+//                            .setPositiveButton("Lengkapi Data Profil", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int i) {
+//                                    goToProfilLahan();
+//                                }
+//                            })
+//                            .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    goToBerandaInfo();
+//                                }
+//                            })
+//                            .create()
+//                            .show();
+//                }
+                goToTambahInfo();
             }
         });
     }

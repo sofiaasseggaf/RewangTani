@@ -45,7 +45,7 @@ public class DetailPanen extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
 
-        getData();
+        //getData();
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();

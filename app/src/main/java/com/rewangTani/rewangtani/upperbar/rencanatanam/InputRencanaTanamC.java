@@ -19,6 +19,13 @@ public class InputRencanaTanamC extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_c);
 
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnOngkosBuruh.getLeft(), binding.btnOngkosBuruh.getTop());
+            }
+        });
+
         binding.mesinBajak.addTextChangedListener(new NumberTextWatcher(binding.mesinBajak));
         binding.mesinTanam.addTextChangedListener(new NumberTextWatcher(binding.mesinTanam));
         binding.mesinPanen.addTextChangedListener(new NumberTextWatcher(binding.mesinPanen));

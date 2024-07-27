@@ -15,7 +15,10 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListProfilLahan;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
@@ -46,6 +49,13 @@ public class ListProfileLahan extends AppCompatActivity {
 
         //getData();
 
+        binding.btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToBeranda();
+            }
+        });
+
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +78,24 @@ public class ListProfileLahan extends AppCompatActivity {
 //                    AlertDialog dialog = builder.create();
 //                    dialog.show();
 //                }
+            }
+        });
+
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilAkun();
             }
         });
 
@@ -214,7 +242,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void goToTambahPL(){
-        Intent a = new Intent(ListProfileLahan.this, TambahProfilLahanActivity.class);
+        Intent a = new Intent(ListProfileLahan.this, TambahProfilLahanA.class);
         startActivity(a);
         finish();
     }
@@ -227,6 +255,24 @@ public class ListProfileLahan extends AppCompatActivity {
 
     public void goToBeranda(){
         Intent a = new Intent(ListProfileLahan.this, Home.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToWarungku(){
+        Intent a = new Intent(ListProfileLahan.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(ListProfileLahan.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun(){
+        Intent a = new Intent(ListProfileLahan.this, BerandaProfile.class);
         startActivity(a);
         finish();
     }

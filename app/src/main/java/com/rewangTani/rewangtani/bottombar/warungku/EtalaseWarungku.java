@@ -61,7 +61,7 @@ public class EtalaseWarungku extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_etalase_warungku);
 
-        start();
+        //start();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override

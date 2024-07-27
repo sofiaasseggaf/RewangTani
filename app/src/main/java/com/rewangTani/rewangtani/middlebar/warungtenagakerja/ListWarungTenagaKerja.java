@@ -14,6 +14,10 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.Adapt
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungTenagaKerja;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungTenagaKerjaMonitor;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.MiddlebarListWarungTenagaKerjaBinding;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
@@ -72,7 +76,14 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_tenaga_kerja);
 
-        getData();
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnPestisida.getLeft(), binding.btnPestisida.getTop());
+            }
+        });
+
+        //getData();
 
         binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -151,6 +162,31 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToPestisida();
+            }
+        });
+
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilLahan();
+            }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilAkun();
             }
         });
 
@@ -1060,6 +1096,29 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
         finish();
     }
 
+    public void goToWarungku(){
+        Intent a = new Intent(ListWarungTenagaKerja.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(ListWarungTenagaKerja.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilLahan(){
+        Intent a = new Intent(ListWarungTenagaKerja.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun(){
+        Intent a = new Intent(ListWarungTenagaKerja.this, BerandaProfile.class);
+        startActivity(a);
+        finish();
+    }
 
     public void goToBeranda(){
         Intent a = new Intent(ListWarungTenagaKerja.this, Home.class);

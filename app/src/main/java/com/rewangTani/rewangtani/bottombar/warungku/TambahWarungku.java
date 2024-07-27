@@ -94,7 +94,7 @@ public class TambahWarungku extends AppCompatActivity {
         cameraPhoto = new CameraPhoto(getApplicationContext());
         galleryPhoto = new GalleryPhoto(getApplicationContext());
 
-        start();
+        //start();
 
         binding.hargaProduk1.addTextChangedListener(new NumberTextWatcher(binding.hargaProduk1));
         binding.hargaProduk2.addTextChangedListener(new NumberTextWatcher(binding.hargaProduk2));

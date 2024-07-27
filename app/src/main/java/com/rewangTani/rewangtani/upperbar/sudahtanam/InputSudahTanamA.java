@@ -36,6 +36,8 @@ import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamA;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamB;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -90,7 +92,7 @@ public class InputSudahTanamA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_input_sudah_tanam_a);
 
-        getData();
+        //getData();
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -125,7 +127,9 @@ public class InputSudahTanamA extends AppCompatActivity {
             public void onClick(View view) {
 
                 // cek dulu baru ke B !
-                simpan();
+                // simpan();
+
+                moveToB();
 
             }
         });
@@ -565,6 +569,8 @@ public class InputSudahTanamA extends AppCompatActivity {
     public void moveToB(){
         Intent a = new Intent(InputSudahTanamA.this, InputSudahTanamB.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         finish();
     }
 

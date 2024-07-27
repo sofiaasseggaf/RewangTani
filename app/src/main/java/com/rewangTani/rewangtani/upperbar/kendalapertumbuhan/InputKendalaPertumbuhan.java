@@ -53,7 +53,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_input_kendala_pertumbuhan);
 
-        getData();
+        //getData();
 
         idRT = "";
 
@@ -78,11 +78,13 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!idRT.equalsIgnoreCase("")){
-                    sendData();
-                } else {
-                    Toast.makeText(InputKendalaPertumbuhan.this, "Pilih rencana tanam terlebih dahulu", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(InputKendalaPertumbuhan.this, "Simpan ", Toast.LENGTH_SHORT).show();
+                goToListKendalaPertumbuhan();
+//                if (!idRT.equalsIgnoreCase("")){
+//                    sendData();
+//                } else {
+//                    Toast.makeText(InputKendalaPertumbuhan.this, "Pilih rencana tanam terlebih dahulu", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

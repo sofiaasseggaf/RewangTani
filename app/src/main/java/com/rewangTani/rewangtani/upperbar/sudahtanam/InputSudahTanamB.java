@@ -37,6 +37,9 @@ import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamA;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamB;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamC;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -91,7 +94,14 @@ public class InputSudahTanamB extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_input_sudah_tanam_b);
 
-        getData();
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnNama.getLeft(), binding.btnNama.getTop());
+            }
+        });
+
+        //getData();
 
         binding.buruhTanam.addTextChangedListener(new NumberTextWatcher(binding.buruhTanam));
         binding.buruhBajak.addTextChangedListener(new NumberTextWatcher(binding.buruhBajak));
@@ -167,8 +177,8 @@ public class InputSudahTanamB extends AppCompatActivity {
 
                 // check trus ke C !
 
-                simpan();
-
+                //simpan();
+                moveToC();
                 /*if(sewa==1){
                     txt_pompa = "";
                     txt_pompabbm = "";
@@ -1263,6 +1273,16 @@ public class InputSudahTanamB extends AppCompatActivity {
     public void moveToC(){
         Intent a = new Intent(InputSudahTanamB.this, InputSudahTanamC.class);
         startActivity(a);
+        overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
+        finish();
+    }
+
+    public void moveToA(){
+        Intent a = new Intent(InputSudahTanamB.this, InputSudahTanamA.class);
+        startActivity(a);
+        overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         finish();
     }
 
@@ -1274,24 +1294,7 @@ public class InputSudahTanamB extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal input sudah tanam ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToListST();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog =builder.create();
-        alertDialog.show();
+        moveToA();
     }
 
 }

@@ -57,7 +57,7 @@ public class ListPanen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_list_panen);
 
-        getData();
+        //getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override

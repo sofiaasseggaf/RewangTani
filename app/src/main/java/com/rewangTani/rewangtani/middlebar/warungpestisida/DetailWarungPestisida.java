@@ -60,7 +60,7 @@ public class DetailWarungPestisida extends AppCompatActivity {
         id = intent.getStringExtra("id");
 
 
-        getData();
+        //getData();
 
         binding.btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override

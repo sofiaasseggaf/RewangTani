@@ -437,33 +437,9 @@ public class EditProfil extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
-                final Handler handler = new Handler();
-                Runnable runnable = new Runnable() {
-                    int count = 0;
-
-                    @Override
-                    public void run() {
-                        count++;
-                        if (count == 1) {
-                            binding.textLoading.setText("Tunggu sebentar ya .");
-                        } else if (count == 2) {
-                            binding.textLoading.setText("Tunggu sebentar ya . .");
-                        } else if (count == 3) {
-                            binding.textLoading.setText("Tunggu sebentar ya . . .");
-                        }
-                        if (count == 3)
-                            count = 0;
-                        handler.postDelayed(this, 1500);
-                    }
-                };
-                handler.postDelayed(runnable, 1 * 1000);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        checkNoTelp();
-                    }
-                }).start();
+//                f
+                Toast.makeText(EditProfil.this, "Simpan !", Toast.LENGTH_SHORT).show();
+                goToBerandaProfil();
             }
         });
 

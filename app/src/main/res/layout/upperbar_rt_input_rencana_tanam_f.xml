@@ -26,7 +26,7 @@
             android:fontFamily="@font/inter_bold"
             android:text="Info RAB"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/frameLayout" />
@@ -58,9 +58,10 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/btnOngkosBuruh"
                         android:layout_width="12dp"
                         android:layout_height="10dp"
-                        android:background="@drawable/triangle_upside_down_green" />
+                        android:background="@drawable/triangle_point_to_right_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -77,7 +78,8 @@
                     android:id="@+id/viewOngkosBuruh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -263,9 +265,10 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/btnSewaMesin"
                         android:layout_width="12dp"
                         android:layout_height="10dp"
-                        android:background="@drawable/triangle_upside_down_green" />
+                        android:background="@drawable/triangle_point_to_right_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -282,7 +285,8 @@
                     android:id="@+id/viewSewaMesin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -368,9 +372,10 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/btnHargaBibit"
                         android:layout_width="12dp"
                         android:layout_height="10dp"
-                        android:background="@drawable/triangle_upside_down_green" />
+                        android:background="@drawable/triangle_point_to_right_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -387,7 +392,8 @@
                     android:id="@+id/viewHargaBibit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -448,9 +454,10 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/btnHargaPupuk"
                         android:layout_width="12dp"
                         android:layout_height="10dp"
-                        android:background="@drawable/triangle_upside_down_green" />
+                        android:background="@drawable/triangle_point_to_right_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -467,7 +474,8 @@
                     android:id="@+id/viewHargaPupuk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -553,9 +561,10 @@
                     android:orientation="horizontal">
 
                     <ImageButton
+                        android:id="@+id/btnHargaObat"
                         android:layout_width="12dp"
                         android:layout_height="10dp"
-                        android:background="@drawable/triangle_upside_down_green" />
+                        android:background="@drawable/triangle_point_to_right_green" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -572,7 +581,8 @@
                     android:id="@+id/viewHargaObat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -24,9 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Kendala Pertumbuhan"
+            android:text="Kendala\nPertumbuhan"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/frameLayout" />

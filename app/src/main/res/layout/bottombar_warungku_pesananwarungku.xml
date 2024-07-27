@@ -147,6 +147,19 @@
                 android:visibility="gone"/>
         </LinearLayout>
 
+        <include
+            android:id="@+id/listPesanan"
+            layout="@layout/z_list_pesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/frameLayout"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout"
+            app:layout_constraintTop_toBottomOf="@+id/lines"/>
+
         <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
@@ -159,7 +172,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomBar"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
-            app:layout_constraintTop_toBottomOf="@+id/lines">
+            app:layout_constraintTop_toBottomOf="@+id/listPesanan">
 
             <RelativeLayout
                 android:layout_width="match_parent"

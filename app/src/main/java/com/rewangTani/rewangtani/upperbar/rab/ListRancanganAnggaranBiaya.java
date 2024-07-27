@@ -46,7 +46,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rab_list_rab);
 
-        getData();
+        //getData();
 
         binding.btnRt.setOnClickListener(new View.OnClickListener() {
             @Override

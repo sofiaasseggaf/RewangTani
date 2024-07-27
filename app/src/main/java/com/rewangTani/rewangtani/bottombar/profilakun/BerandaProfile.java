@@ -40,7 +40,10 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.bottombar.profilakun.pesanan.PesananDiproses;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.starter.SplashScreen;
@@ -136,6 +139,33 @@ public class BerandaProfile extends AppCompatActivity {
             public void onClick(View view) {
                 goToKeluar();
             }
+        });
+
+        binding.btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToBeranda();
+            }
+        });
+
+
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilLahan();
+            }
+        });
+
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
         });
 
         binding.btnCamera.setOnClickListener(new View.OnClickListener() {
@@ -593,6 +623,24 @@ public class BerandaProfile extends AppCompatActivity {
 
     public void goToKeluar(){
         Intent a = new Intent(BerandaProfile.this, Keluar.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToWarungku(){
+        Intent a = new Intent(BerandaProfile.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(BerandaProfile.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilLahan(){
+        Intent a = new Intent(BerandaProfile.this, ListProfileLahan.class);
         startActivity(a);
         finish();
     }

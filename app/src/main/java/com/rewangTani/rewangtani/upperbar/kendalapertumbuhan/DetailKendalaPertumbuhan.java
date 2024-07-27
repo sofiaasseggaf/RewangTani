@@ -42,7 +42,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
 
-        getData();
+        //getData();
 
     }
 

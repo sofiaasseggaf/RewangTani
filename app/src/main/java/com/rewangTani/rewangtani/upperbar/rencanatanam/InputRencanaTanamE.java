@@ -21,6 +21,13 @@ public class InputRencanaTanamE extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_e);
 
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnHargaBibit.getLeft(), binding.btnHargaBibit.getTop());
+            }
+        });
+
         binding.pupukKimiaLokal.addTextChangedListener(new NumberTextWatcher(binding.pupukOrganik));
         //txt_pupuk_kimia_phonska.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_phonska));
         //txt_pupuk_kimia_urea.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_urea));

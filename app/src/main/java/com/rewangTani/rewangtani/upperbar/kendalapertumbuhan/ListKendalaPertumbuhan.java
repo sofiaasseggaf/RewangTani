@@ -64,7 +64,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_list_kendala_pertumbuhan);
 
-        getData();
+        //getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -26,6 +26,10 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.Adapt
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungMesin;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungMesinMonitor;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
+import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.MiddlebarListWarungMesinBinding;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
@@ -63,7 +67,6 @@ public class ListWarungSewaMesin extends AppCompatActivity {
     List<Integer> urutanHarga = new ArrayList<>();
     String mode = "Kotak";
     String urutkan;
-
     String[] tampilan = {"Kotak","Garis","Monitor"};
     int images[] = {R.drawable.mode_kotak,R.drawable.mode_garis, R.drawable.mode_monitor };
 
@@ -72,7 +75,14 @@ public class ListWarungSewaMesin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_mesin);
 
-        getData();
+        binding.horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                binding.horizontalScrollView.scrollTo(binding.btnTenagaKerja.getLeft(), binding.btnTenagaKerja.getTop());
+            }
+        });
+
+        //getData();
 
         binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -151,6 +161,31 @@ public class ListWarungSewaMesin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToPestisida();
+            }
+        });
+
+        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToWarungku();
+            }
+        });
+
+        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilLahan();
+            }
+        });
+
+        binding.btnPesan.setOnClickListener(v->{
+            goToPesan();
+        });
+
+        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToProfilAkun();
             }
         });
 
@@ -1079,6 +1114,29 @@ public class ListWarungSewaMesin extends AppCompatActivity {
         finish();
     }
 
+    public void goToWarungku(){
+        Intent a = new Intent(ListWarungSewaMesin.this, PesananWarungku.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToPesan(){
+        Intent a = new Intent(ListWarungSewaMesin.this, InboxPesan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilLahan(){
+        Intent a = new Intent(ListWarungSewaMesin.this, ListProfileLahan.class);
+        startActivity(a);
+        finish();
+    }
+
+    public void goToProfilAkun(){
+        Intent a = new Intent(ListWarungSewaMesin.this, BerandaProfile.class);
+        startActivity(a);
+        finish();
+    }
 
     public void goToBeranda(){
         Intent a = new Intent(ListWarungSewaMesin.this, Home.class);

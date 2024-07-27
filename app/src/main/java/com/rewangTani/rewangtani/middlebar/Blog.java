@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
@@ -73,5 +74,16 @@ public class Blog extends AppCompatActivity {
         Intent a = new Intent(Blog.this, BerandaProfile.class);
         startActivity(a);
         finish();
+    }
+
+    public void goToHome(){
+        Intent a = new Intent(Blog.this, Home.class);
+        startActivity(a);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        goToHome();
     }
 }

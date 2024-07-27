@@ -55,7 +55,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_info_tambahinfo);
 
-        start();
+        //start();
 
         //listToken.add("fsj3WpP_RO6pvtqLeV5ph8:APA91bGHNCcogHYYlA6Oi8NL1jIOSe9yEgK8loNR_6Uu9PfGwPnKlsU_goxGIgpNRhI1p99rhtrOo4xusOKDo-Z3UWXTPUKzhoVsn-YM5gKXfNtWfejT_XBqAxofyfobOuxotdVI_biT");
         //listToken.add("cMMac1hvSI-xC6pKpvdOKL:APA91bHZOY8HHqneDhxcFGAnN2kgeKdX3fvgTkuQySH5X72kSrLOtQnCQ0FP1DOtlowIdfQ0ICagjBqs_aVsWu40fG-9mfQa_duJqlscCMGK70GYbYI989v3JrIYGP3HqivqUTRD0Sjt");
@@ -63,16 +63,18 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!binding.txtJudul.getText().toString().equalsIgnoreCase("") && !binding.txtKeterangan.getText().toString().equalsIgnoreCase("")) {
-                    if (listToken.size()>0){
-                        send();
-                    } else {
-                        sendDataInfotanpaNotification();
-                    }
-                    //startService();
-                } else {
-                    Toast.makeText(TambahInfoPeringatanCuaca.this, "Lengkapi Field Terlebih Dahulu", Toast.LENGTH_SHORT).show();
-                }
+//                if (!binding.txtJudul.getText().toString().equalsIgnoreCase("") && !binding.txtKeterangan.getText().toString().equalsIgnoreCase("")) {
+//                    if (listToken.size()>0){
+//                        send();
+//                    } else {
+//                        sendDataInfotanpaNotification();
+//                    }
+//                    //startService();
+//                } else {
+//                    Toast.makeText(TambahInfoPeringatanCuaca.this, "Lengkapi Field Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+//                }
+                Toast.makeText(TambahInfoPeringatanCuaca.this, "Tambah !", Toast.LENGTH_SHORT).show();
+                goToBerandaInfo();
             }
         });
     }

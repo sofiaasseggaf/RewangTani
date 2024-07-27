@@ -80,6 +80,7 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
     // my cuaca
     implementation 'com.github.androdocs:Simple-HTTP-Request:v1.0'

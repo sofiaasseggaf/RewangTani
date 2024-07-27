@@ -45,12 +45,12 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pesan_chat);
 
-        Intent intent = getIntent();
-        idInbox = intent.getStringExtra("id");
-
-        if (!idInbox.equalsIgnoreCase("") || idInbox!=null){
-            getData();
-        }
+//        Intent intent = getIntent();
+//        idInbox = intent.getStringExtra("id");
+//
+//        if (!idInbox.equalsIgnoreCase("") || idInbox!=null){
+//            getData();
+//        }
 
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
