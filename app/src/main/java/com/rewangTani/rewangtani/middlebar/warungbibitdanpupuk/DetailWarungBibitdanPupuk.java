@@ -1,33 +1,23 @@
 package com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.AdapterListWarungBibitdanPupukGaris;
-import com.rewangTani.rewangtani.bottombar.warungku.TambahWarungku;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
-import com.rewangTani.rewangtani.middlebar.warungsewamesin.DetailWarungSewaMesin;
-import com.rewangTani.rewangtani.middlebar.warungtenagakerja.DetailWarungTenagaKerja;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -128,7 +118,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataBibitPestisida(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         updateDataProduk();
@@ -174,7 +164,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProduk(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         runOnUiThread(new Runnable() {

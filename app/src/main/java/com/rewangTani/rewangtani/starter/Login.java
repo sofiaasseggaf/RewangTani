@@ -1,11 +1,5 @@
 package com.rewangTani.rewangtani.starter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +10,12 @@ import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -31,8 +31,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.databinding.StarterLoginBinding;
 import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
@@ -77,58 +77,41 @@ public class Login extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        //first();
+        showLoadingView();
 
-        binding.btnDaftar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToDaftar();
+        binding.btnDaftar.setOnClickListener(v -> {
+            goToDaftar();
+        });
+
+        binding.btnLoginWithGoogle.setOnClickListener(v -> {
+            if (mGoogleSignInClient != null) {
+                signOutGoogle();
+            }
+            // Initialize sign in intent
+            Intent intent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(intent, 100);
+        });
+
+        binding.btnPassword.setOnClickListener(v -> {
+            if (pw == 0) {
+                pw = 1;
+                binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_off));
+                binding.txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            } else if (pw == 1) {
+                pw = 0;
+                binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_on));
+                binding.txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
             }
         });
 
-        binding.btnLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mGoogleSignInClient != null) {
-                    signOutGoogle();
-                }
-                // Initialize sign in intent
-                Intent intent = mGoogleSignInClient.getSignInIntent();
-                // Start activity for result
-                startActivityForResult(intent, 100);
-                //signInWithGoogle();
-                //Toast.makeText(Login.this, "Fitur Belum tersedia", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        binding.btnPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (pw == 0) {
-                    pw = 1;
-                    binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_off));
-                    binding.txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else if (pw == 1) {
-                    pw = 0;
-                    binding.btnPassword.setImageDrawable(getDrawable(R.drawable.icon_password_on));
-                    binding.txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-
-            }
-        });
-
-        binding.btnMasuk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToHome();
-//                login();
-            }
+        binding.btnMasuk.setOnClickListener(v -> {
+            showLoadingViewlogin();
         });
 
     }
 
-    private void first() {
-        binding.framelayout.setVisibility(View.VISIBLE);
+    private void showLoadingView() {
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -169,14 +152,14 @@ public class Login extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.framelayout.setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.framelayout.setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                             Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -188,7 +171,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.framelayout.setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -197,8 +180,8 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void login() {
-        binding.framelayout.setVisibility(View.VISIBLE);
+    public void showLoadingViewlogin() {
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -223,12 +206,12 @@ public class Login extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                check();
+                validateLogin();
             }
         }).start();
     }
 
-    public void check() {
+    public void validateLogin() {
         if (!binding.txtUsername.getText().toString().isEmpty() && !binding.txtPassword.getText().toString().isEmpty()) {
             try {
                 for (int i = 0; i < modelAkun.getTotalData(); i++) {
@@ -244,11 +227,12 @@ public class Login extends AppCompatActivity {
                 }
             } catch (Exception e) {
             }
+
             if (ok != 10) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Akun belum terdaftar", Toast.LENGTH_SHORT).show();
 
                     }
@@ -260,7 +244,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -268,7 +252,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -276,7 +260,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.framelayout).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -302,7 +286,7 @@ public class Login extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            binding.framelayout.setVisibility(View.GONE);
+                                            binding.frameLoading.setVisibility(View.GONE);
                                             Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -319,7 +303,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.framelayout.setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -337,10 +321,9 @@ public class Login extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    binding.framelayout.setVisibility(View.GONE);
+                                    binding.frameLoading.setVisibility(View.GONE);
                                     Toast.makeText(Login.this, "Fetching FCM registration token failed", Toast.LENGTH_SHORT).show();
                                     tokenis = 0;
-                                    return;
                                 }
                             });
                         } else {
@@ -369,16 +352,16 @@ public class Login extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataAkun(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {
-                        saveDataTokenBaru();
+                        saveDataProfileToPreference();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.framelayout.setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 Toast.makeText(Login.this, "Gagal update token", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -393,7 +376,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.framelayout.setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -402,7 +385,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void saveDataTokenBaru() {
+    public void saveDataProfileToPreference() {
         PreferenceUtils.saveIdAkun(dataAkun.getIdAkun(), getApplicationContext());
         PreferenceUtils.saveToken(token, getApplicationContext());
         PreferenceUtils.saveIdProfil(dataProfil.getIdProfile(), getApplicationContext());
@@ -418,75 +401,11 @@ public class Login extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                binding.framelayout.setVisibility(View.GONE);
+                binding.frameLoading.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Berhasil masuk", Toast.LENGTH_SHORT).show();
                 goToHome();
             }
         });
-
-    }
-
-    /*public void saveData(){
-        PreferenceUtils.saveIdAkun(dataAkun.getIdAkun(), getApplicationContext());
-        PreferenceUtils.saveToken(dataAkun.getToken(), getApplicationContext());
-        PreferenceUtils.saveIdProfil(dataProfil.getIdProfile(), getApplicationContext());
-        PreferenceUtils.saveIdAlamat(dataProfil.getIdAlamat(), getApplicationContext());
-        PreferenceUtils.savePassword(dataAkun.getPassword(), getApplicationContext());
-        PreferenceUtils.saveUsername(dataAkun.getUserName(), getApplicationContext());
-        PreferenceUtils.saveNamaDepan(dataProfil.getNamaDepan(), getApplicationContext());
-        PreferenceUtils.saveNamaBelakang(dataProfil.getNamaBelakang(), getApplicationContext());
-        PreferenceUtils.saveIDGoogle(dataAkun.getIdGoogle(), getApplicationContext());
-        if (!dataProfil.getFoto().equalsIgnoreCase("")){
-            PreferenceUtils.saveIDPhoto(dataProfil.getFoto(), getApplicationContext());
-        }
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                findViewById(R.id.framelayout).setVisibility(View.GONE);
-                Toast.makeText(Login.this, "Berhasil Masuk", Toast.LENGTH_SHORT).show();
-                goToHome();
-            }
-        });
-
-    }*/
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        // Check condition
-        if (requestCode == 100) {
-            // When request code is equal to 100
-            // Initialize task
-            binding.framelayout.setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
-                int count = 0;
-
-                @Override
-                public void run() {
-                    count++;
-                    if (count == 1) {
-                        binding.textloading.setText("Tunggu sebentar ya .");
-                    } else if (count == 2) {
-                        binding.textloading.setText("Tunggu sebentar ya . .");
-                    } else if (count == 3) {
-                        binding.textloading.setText("Tunggu sebentar ya . . .");
-                    }
-                    if (count == 3)
-                        count = 0;
-                    handler.postDelayed(this, 1500);
-                }
-            };
-            handler.postDelayed(runnable, 1 * 1000);
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    getGoogle(data);
-                }
-            }).start();
-
-        }
     }
 
     private void getGoogle(Intent data) {
@@ -521,7 +440,7 @@ public class Login extends AppCompatActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                                binding.frameLoading.setVisibility(View.GONE);
                                                 checkUserByGoogle();
                                             }
                                         });
@@ -544,7 +463,6 @@ public class Login extends AppCompatActivity {
         }
     }
 
-
     public void checkUserByGoogle() {
         String a = googleSignInAccount.getId();
         if (!a.equalsIgnoreCase("")) {
@@ -564,7 +482,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setMessage("Akun Google belum pernah register")
                                 .setPositiveButton("Register", new DialogInterface.OnClickListener() {
@@ -592,7 +510,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, s, Toast.LENGTH_SHORT).show();
                         firebaseAuth = FirebaseAuth.getInstance();
                         firebaseAuth.signOut();
@@ -626,8 +544,6 @@ public class Login extends AppCompatActivity {
                 });
     }
 
-    // ---------------------------------------------------------------------------------------------
-
     public void goToHome() {
         Intent a = new Intent(Login.this, Home.class);
         startActivity(a);
@@ -638,6 +554,45 @@ public class Login extends AppCompatActivity {
         Intent a = new Intent(Login.this, Register.class);
         startActivity(a);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Check condition
+        if (requestCode == 100) {
+            // When request code is equal to 100
+            // Initialize task
+            binding.frameLoading.setVisibility(View.VISIBLE);
+            final Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                int count = 0;
+
+                @Override
+                public void run() {
+                    count++;
+                    if (count == 1) {
+                        binding.textloading.setText("Tunggu sebentar ya .");
+                    } else if (count == 2) {
+                        binding.textloading.setText("Tunggu sebentar ya . .");
+                    } else if (count == 3) {
+                        binding.textloading.setText("Tunggu sebentar ya . . .");
+                    }
+                    if (count == 3)
+                        count = 0;
+                    handler.postDelayed(this, 1500);
+                }
+            };
+            handler.postDelayed(runnable, 1 * 1000);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    getGoogle(data);
+                }
+            }).start();
+
+        }
     }
 
     @Override

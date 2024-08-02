@@ -1,15 +1,15 @@
 package com.rewangTani.rewangtani.bottombar.pesan;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
@@ -164,7 +164,7 @@ public class Chat extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.sendChat(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         binding.txtChat.setText("");
@@ -208,7 +208,7 @@ public class Chat extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateInbox(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 if(rawResponse.body()!=null){
                     getData();
                 } else {

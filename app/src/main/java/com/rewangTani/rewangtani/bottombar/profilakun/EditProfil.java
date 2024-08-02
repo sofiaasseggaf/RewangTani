@@ -1,9 +1,5 @@
 package com.rewangTani.rewangtani.bottombar.profilakun;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -20,6 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
@@ -989,7 +989,7 @@ public class EditProfil extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProfilAkun(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     //Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {

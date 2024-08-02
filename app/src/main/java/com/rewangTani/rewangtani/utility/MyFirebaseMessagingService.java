@@ -2,7 +2,6 @@ package com.rewangTani.rewangtani.utility;
 
 import static com.rewangTani.rewangtani.utility.App.CHANNEL_ID;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,9 +10,6 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Looper;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 
@@ -21,8 +17,6 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
-
-import java.util.logging.Handler;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -81,7 +75,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent intent = new Intent(MyFirebaseMessagingService.this, TambahInfoPeringatanCuaca.class);
         intent.addFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getActivity
                     (this, 0, intent, PendingIntent.FLAG_MUTABLE);
         }

@@ -1,5 +1,8 @@
 package com.rewangTani.rewangtani.upperbar.rab;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,24 +11,31 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.DetailRencanaTanamNonEditable;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.DetailRencanaTanamRAB;
+import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
+public class DetailRancanganAnggaranBiaya extends AppCompatActivity {
 
     TextView txt_buruh_tanam1, txt_buruh_bajak1, txt_buruh_semprot1, txt_buruh_menyiangi1, txt_buruh_galengan1, txt_buruh_pupuk1, txt_buruh_panen1;
     TextView txt_buruh_tanam2, txt_buruh_bajak2, txt_buruh_semprot2, txt_buruh_menyiangi2, txt_buruh_galengan2, txt_buruh_pupuk2, txt_buruh_panen2;
@@ -156,7 +166,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                            Toast.makeText(DetailRancanganAnggaranBiayaA.this, "Data rencana tanam tidak ditemukan", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(DetailRancanganAnggaranBiaya.this, "Data rencana tanam tidak ditemukan", Toast.LENGTH_LONG).show();
                                             call.cancel();
                                         }
                                     });
@@ -172,7 +182,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(DetailRancanganAnggaranBiayaA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailRancanganAnggaranBiaya.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -207,7 +217,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(DetailRancanganAnggaranBiayaA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailRancanganAnggaranBiaya.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -266,7 +276,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.framelayout).setVisibility(View.GONE);
-                                Toast.makeText(DetailRancanganAnggaranBiayaA.this, "Data sudah tanam belum ada", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DetailRancanganAnggaranBiaya.this, "Data sudah tanam belum ada", Toast.LENGTH_SHORT).show();
                                 setDataRABonly();
                             }
                         });
@@ -279,7 +289,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.framelayout).setVisibility(View.GONE);
-                        Toast.makeText(DetailRancanganAnggaranBiayaA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailRancanganAnggaranBiaya.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -581,7 +591,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
     }
 
     public void goToListRAB(){
-        Intent a = new Intent(DetailRancanganAnggaranBiayaA.this, ListRancanganAnggaranBiaya.class);
+        Intent a = new Intent(DetailRancanganAnggaranBiaya.this, ListRancanganAnggaranBiaya.class);
         startActivity(a);
         finish();
     }

@@ -1,9 +1,5 @@
 package com.rewangTani.rewangtani.upperbar.infoperingatancuaca;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +7,11 @@ import android.os.Handler;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
@@ -272,7 +269,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.sendInfo(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {
@@ -336,7 +333,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.sendInfo(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {
@@ -404,7 +401,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         Call<ModelResultNotification> response = apiInterface.sendNotification(body);
         response.enqueue(new Callback<ModelResultNotification>() {
             @Override
-            public void onResponse(Call<ModelResultNotification> call, retrofit2.Response<ModelResultNotification> rawResponse) {
+            public void onResponse(Call<ModelResultNotification> call, Response<ModelResultNotification> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         if (rawResponse.body().getSuccess()==1){

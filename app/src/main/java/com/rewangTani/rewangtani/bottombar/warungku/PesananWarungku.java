@@ -1,16 +1,14 @@
 package com.rewangTani.rewangtani.bottombar.warungku;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
@@ -32,7 +30,6 @@ import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSew
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,10 @@
 package com.rewangTani.rewangtani.bottombar.profilakun;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPaTentangBinding;

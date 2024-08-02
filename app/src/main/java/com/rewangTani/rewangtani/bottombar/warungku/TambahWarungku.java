@@ -1,10 +1,5 @@
 package com.rewangTani.rewangtani.bottombar.warungku;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,13 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
@@ -413,7 +407,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.sendPhoto(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {
@@ -532,7 +526,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataProdukById> response = apiInterface.sendProduk(body);
         response.enqueue(new Callback<DataProdukById>() {
             @Override
-            public void onResponse(Call<DataProdukById> call, retrofit2.Response<DataProdukById> rawResponse) {
+            public void onResponse(Call<DataProdukById> call, Response<DataProdukById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataProdukById = rawResponse.body();
@@ -590,7 +584,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataBppById> response = apiInterface.sendBibitPestisida(body);
         response.enqueue(new Callback<DataBppById>() {
             @Override
-            public void onResponse(Call<DataBppById> call, retrofit2.Response<DataBppById> rawResponse) {
+            public void onResponse(Call<DataBppById> call, Response<DataBppById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataBppById = rawResponse.body();
@@ -638,7 +632,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -685,7 +679,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -733,7 +727,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProduk(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         updateDataBibit();
@@ -779,7 +773,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataBibitPestisida(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         delPic();
@@ -869,7 +863,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataProdukById> response = apiInterface.sendProduk(body);
         response.enqueue(new Callback<DataProdukById>() {
             @Override
-            public void onResponse(Call<DataProdukById> call, retrofit2.Response<DataProdukById> rawResponse) {
+            public void onResponse(Call<DataProdukById> call, Response<DataProdukById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataProdukById = rawResponse.body();
@@ -927,7 +921,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataBppById> response = apiInterface.sendBibitPestisida(body);
         response.enqueue(new Callback<DataBppById>() {
             @Override
-            public void onResponse(Call<DataBppById> call, retrofit2.Response<DataBppById> rawResponse) {
+            public void onResponse(Call<DataBppById> call, Response<DataBppById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataBppById = rawResponse.body();
@@ -975,7 +969,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -1022,7 +1016,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -1070,7 +1064,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProduk(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         updateDataPupuk();
@@ -1116,7 +1110,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataBibitPestisida(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         delPic();
@@ -1206,7 +1200,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataProdukById> response = apiInterface.sendProduk(body);
         response.enqueue(new Callback<DataProdukById>() {
             @Override
-            public void onResponse(Call<DataProdukById> call, retrofit2.Response<DataProdukById> rawResponse) {
+            public void onResponse(Call<DataProdukById> call, Response<DataProdukById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataProdukById = rawResponse.body();
@@ -1262,7 +1256,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataBppById> response = apiInterface.sendBibitPestisida(body);
         response.enqueue(new Callback<DataBppById>() {
             @Override
-            public void onResponse(Call<DataBppById> call, retrofit2.Response<DataBppById> rawResponse) {
+            public void onResponse(Call<DataBppById> call, Response<DataBppById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataBppById = rawResponse.body();
@@ -1310,7 +1304,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -1357,7 +1351,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -1405,7 +1399,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProduk(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         updateDataPestisida();
@@ -1451,7 +1445,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataBibitPestisida(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         delPic();
@@ -1541,7 +1535,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataProdukById> response = apiInterface.sendProduk(body);
         response.enqueue(new Callback<DataProdukById>() {
             @Override
-            public void onResponse(Call<DataProdukById> call, retrofit2.Response<DataProdukById> rawResponse) {
+            public void onResponse(Call<DataProdukById> call, Response<DataProdukById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataProdukById = rawResponse.body();
@@ -1596,7 +1590,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataSewaMesinById> response = apiInterface.sendSewaMesin(body);
         response.enqueue(new Callback<DataSewaMesinById>() {
             @Override
-            public void onResponse(Call<DataSewaMesinById> call, retrofit2.Response<DataSewaMesinById> rawResponse) {
+            public void onResponse(Call<DataSewaMesinById> call, Response<DataSewaMesinById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataSewaMesinById = rawResponse.body();
@@ -1643,7 +1637,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -1690,7 +1684,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -1738,7 +1732,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProduk(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         updateDataSewaMesin();
@@ -1784,7 +1778,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataSewaMesin(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         delPic();
@@ -1873,7 +1867,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataProdukById> response = apiInterface.sendProduk(body);
         response.enqueue(new Callback<DataProdukById>() {
             @Override
-            public void onResponse(Call<DataProdukById> call, retrofit2.Response<DataProdukById> rawResponse) {
+            public void onResponse(Call<DataProdukById> call, Response<DataProdukById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataProdukById = rawResponse.body();
@@ -1935,7 +1929,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataTenagaKerjaById> response = apiInterface.sendTenagaKerja(body);
         response.enqueue(new Callback<DataTenagaKerjaById>() {
             @Override
-            public void onResponse(Call<DataTenagaKerjaById> call, retrofit2.Response<DataTenagaKerjaById> rawResponse) {
+            public void onResponse(Call<DataTenagaKerjaById> call, Response<DataTenagaKerjaById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataTenagaKerjaById = rawResponse.body();
@@ -1982,7 +1976,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -2029,7 +2023,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<DataPhotoById> response = apiInterface.sendPhoto2(body);
         response.enqueue(new Callback<DataPhotoById>() {
             @Override
-            public void onResponse(Call<DataPhotoById> call, retrofit2.Response<DataPhotoById> rawResponse) {
+            public void onResponse(Call<DataPhotoById> call, Response<DataPhotoById> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         dataPhotoById = rawResponse.body();
@@ -2077,7 +2071,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProduk(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         updateDataTenagaKerja();
@@ -2123,7 +2117,7 @@ public class TambahWarungku extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataTenagaKerja(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         delPic();

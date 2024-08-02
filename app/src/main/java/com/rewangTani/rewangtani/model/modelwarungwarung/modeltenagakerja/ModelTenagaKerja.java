@@ -1,11 +1,12 @@
 
 package com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja;
 
-import java.util.List;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ModelTenagaKerja implements Parcelable
 {
@@ -37,7 +38,7 @@ public class ModelTenagaKerja implements Parcelable
     ;
 
     protected ModelTenagaKerja(android.os.Parcel in) {
-        in.readList(this.data, (com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja.class.getClassLoader()));
+        in.readList(this.data, (DatumTenagaKerja.class.getClassLoader()));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
         this.totalData = ((Integer) in.readValue((Integer.class.getClassLoader())));
     }

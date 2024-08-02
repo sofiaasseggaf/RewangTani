@@ -1,12 +1,12 @@
 
 package com.rewangTani.rewangtani.model.modelinfo;
 
-import java.util.List;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ModelResultNotification implements Parcelable
 {
@@ -48,7 +48,7 @@ public class ModelResultNotification implements Parcelable
         this.success = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.failure = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.canonicalIds = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        in.readList(this.results, (com.rewangTani.rewangtani.model.modelinfo.Result.class.getClassLoader()));
+        in.readList(this.results, (Result.class.getClassLoader()));
     }
 
     /**

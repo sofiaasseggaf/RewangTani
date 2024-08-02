@@ -1,11 +1,5 @@
 package com.rewangTani.rewangtani.bottombar.profilakun;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,10 +11,14 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.ArrayMap;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -46,16 +44,17 @@ import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
-import com.rewangTani.rewangtani.starter.SplashScreen;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+
 import org.json.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -384,7 +383,7 @@ public class BerandaProfile extends AppCompatActivity {
             Call<ResponseBody> response = apiInterface.sendPhoto(body);
             response.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                     try {
                         Log.d("tag", rawResponse.body().string());
                         if (rawResponse.body() != null) {
@@ -427,7 +426,7 @@ public class BerandaProfile extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProfilAkun(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         runOnUiThread(new Runnable() {
@@ -539,7 +538,7 @@ public class BerandaProfile extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataAkun(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {

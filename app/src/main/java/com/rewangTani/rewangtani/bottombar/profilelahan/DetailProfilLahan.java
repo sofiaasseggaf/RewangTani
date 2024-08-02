@@ -1,30 +1,23 @@
 package com.rewangTani.rewangtani.bottombar.profilelahan;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPlDetailProfilLahanBinding;
-import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
-import com.rewangTani.rewangtani.middlebar.warungtenagakerja.DetailWarungTenagaKerja;
-import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
+import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
 import com.rewangTani.rewangtani.model.modelprofillahan.DataProfilLahanById;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
-import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
 
@@ -223,7 +216,7 @@ public class DetailProfilLahan extends AppCompatActivity {
         Call<ResponseBody> response = apiInterface.updateDataProfilLahan(body);
         response.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> rawResponse) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> rawResponse) {
                 try {
                     if (rawResponse.body() != null) {
                         getProfilLahanTerbaru(dataProfilLahan.getIdProfileTanah());

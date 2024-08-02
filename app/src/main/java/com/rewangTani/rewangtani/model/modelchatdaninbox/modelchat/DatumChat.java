@@ -1,9 +1,10 @@
 
 package com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class DatumChat implements Serializable
 {

@@ -2,12 +2,8 @@ package com.rewangTani.rewangtani.bottombar.profilakun;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -19,7 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPaKeluarBinding;
-import com.rewangTani.rewangtani.databinding.BottombarPaTentangBinding;
 import com.rewangTani.rewangtani.starter.SplashScreen;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 

@@ -1,11 +1,12 @@
 
 package com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida;
 
-import java.util.List;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ModelPupukPestisida implements Parcelable
 {

@@ -2,8 +2,7 @@
 package com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin;
 
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -1,10 +1,17 @@
 package com.rewangTani.rewangtani.middlebar.warungtenagakerja;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
@@ -27,20 +34,7 @@ import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelT
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -657,7 +651,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             for(int a=0; a<listTenagaKerja.size(); a++){
                 urutanNama.add(listTenagaKerja.get(a).getNamaTenagaKerja());
             }
-            java.util.Collections.sort(urutanNama);
+            Collections.sort(urutanNama);
 
             for(int z=0; z<urutanNama.size(); z++){
                 // i=2
@@ -762,7 +756,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             for(int a=0; a<listTenagaKerja.size(); a++){
                 urutanNama.add(listTenagaKerja.get(a).getNamaTenagaKerja());
             }
-            java.util.Collections.sort(urutanNama);
+            Collections.sort(urutanNama);
 
             for(int z=0; z<urutanNama.size(); z++){
                 // i=2

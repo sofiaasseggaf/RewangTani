@@ -1,11 +1,12 @@
 
 package com.rewangTani.rewangtani.model.modelakunprofil;
 
-import java.util.List;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class ModelProfilAkun implements Parcelable
 {
@@ -37,7 +38,7 @@ public class ModelProfilAkun implements Parcelable
     ;
 
     protected ModelProfilAkun(android.os.Parcel in) {
-        in.readList(this.data, (com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil.class.getClassLoader()));
+        in.readList(this.data, (DatumProfil.class.getClassLoader()));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
         this.totalData = ((Integer) in.readValue((Integer.class.getClassLoader())));
     }

@@ -1,16 +1,13 @@
 package com.rewangTani.rewangtani.upperbar.sudahtanam;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamCBinding;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamB;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamC;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.InputRencanaTanamD;
 
 public class InputSudahTanamC extends AppCompatActivity {
 

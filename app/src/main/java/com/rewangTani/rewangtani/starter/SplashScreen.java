@@ -1,22 +1,17 @@
 package com.rewangTani.rewangtani.starter;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.databinding.StarterSplashScreenBinding;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 public class SplashScreen extends AppCompatActivity {
