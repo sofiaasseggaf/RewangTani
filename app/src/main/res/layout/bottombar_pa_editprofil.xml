@@ -380,15 +380,21 @@
         </ScrollView>
 
         <FrameLayout
-            android:id="@+id/viewLoading"
+            android:id="@+id/frameLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_loading"
+            android:background="@color/white"
             android:visibility="gone">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/new_logo"
+                    android:layout_centerInParent="true"/>
 
                 <TextView
                     android:id="@+id/textLoading"
@@ -399,9 +405,10 @@
                     android:layout_marginBottom="100dp"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/dark_green"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"/>
 
             </RelativeLayout>
+
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@ public class ListRencanaTanam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
 
-        //getData();
+        getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +97,7 @@ public class ListRencanaTanam extends AppCompatActivity {
 
 
     private void getData(){
-        binding.viewLoading.setVisibility(View.VISIBLE);
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -128,26 +128,26 @@ public class ListRencanaTanam extends AppCompatActivity {
     public void getRencanaTanam() {
         String idProfil = PreferenceUtils.getIdProfil(getApplicationContext());
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanamByProfilId(idProfil);
+        final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanam();
         dataRT.enqueue(new Callback<ModelRencanaTanam>() {
             @Override
             public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                 modelRencanaTanam = response.body();
                 if (response.body()!=null){
                     for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
-                        listRencanaTanam.add(modelRencanaTanam.getData().get(i));
-//                        try {
-//                            if (PreferenceUtils.getIdAkun(getApplicationContext())
-//                                    .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
-//                                listRencanaTanam.add(modelRencanaTanam.getData().get(i));
-//                            }
-//                        } catch (Exception e){ }
+//                        listRencanaTanam.add(modelRencanaTanam.getData().get(i));
+                        try {
+                            if (PreferenceUtils.getIdAkun(getApplicationContext())
+                                    .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
+                                listRencanaTanam.add(modelRencanaTanam.getData().get(i));
+                            }
+                        } catch (Exception e){ }
                     }
                     if (listRencanaTanam.size()>0){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameLayout.setVisibility(View.GONE);
                                 binding.scrollView.setVisibility(View.VISIBLE);
                                 setData();
                             }
@@ -156,7 +156,7 @@ public class ListRencanaTanam extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
@@ -168,7 +168,7 @@ public class ListRencanaTanam extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.viewLoading.setVisibility(View.GONE);
+                        binding.frameLayout.setVisibility(View.GONE);
                         Toast.makeText(ListRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

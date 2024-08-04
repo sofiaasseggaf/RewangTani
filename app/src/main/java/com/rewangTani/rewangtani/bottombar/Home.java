@@ -218,7 +218,7 @@ public class Home extends AppCompatActivity {
     // ------------------------------------------------------------------------------
 
     public void start() {
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -256,7 +256,7 @@ public class Home extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
                 }
             });
@@ -269,7 +269,7 @@ public class Home extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     @SuppressLint("MissingPermission")
                     Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -280,7 +280,6 @@ public class Home extends AppCompatActivity {
                                 lat = location.getLatitude();
                                 longt = location.getLongitude();
                                 if (lat!=0.0 && longt!=0.0 && lat!=null && longt!=null){
-                                    //homeNama.setText(PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
                                     setData();
                                 } else {
                                     start();
@@ -291,7 +290,6 @@ public class Home extends AppCompatActivity {
                         lat = location.getLatitude();
                         longt = location.getLongitude();
                         if (lat!=0.0 && longt!=0.0 && lat!=null && longt!=null){
-                            //homeNama.setText(PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
                             setData();
                         } else {
                             start();

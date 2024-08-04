@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,7 +49,7 @@ public class ListProfileLahan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_list_profile_lahan);
 
-        //getData();
+        getData();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,25 +61,24 @@ public class ListProfileLahan extends AppCompatActivity {
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToTambahPL();
-//                if (checkKelengkapan==1){
-//                    goToTambahPL();
-//                } else if (checkKelengkapan==0){
-//                    binding.frameDataNotFound.setVisibility(View.GONE);
-//                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(ListProfileLahan.this);
-//                    builder.setView(customLayout);
-//                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-//                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-//                    buttonOk.setOnClickListener(v->{
-//                        goToEditProfil();
-//                            });
-//                    buttonCancel.setOnClickListener(v->{
-//                        goToBeranda();
-//                            });
-//                    AlertDialog dialog = builder.create();
-//                    dialog.show();
-//                }
+                if (checkKelengkapan==1){
+                    goToTambahPL();
+                } else if (checkKelengkapan==0){
+                    binding.frameDataNotFound.setVisibility(View.GONE);
+                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ListProfileLahan.this);
+                    builder.setView(customLayout);
+                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+                    buttonOk.setOnClickListener(v->{
+                        goToEditProfil();
+                            });
+                    buttonCancel.setOnClickListener(v->{
+                        goToBeranda();
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
 
@@ -102,7 +103,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void getData(){
-        binding.viewLoading.setVisibility(View.VISIBLE);
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -138,9 +139,9 @@ public class ListProfileLahan extends AppCompatActivity {
             public void onResponse(Call<DataProfilById> call, Response<DataProfilById> response) {
                 dataProfilById = response.body();
                 if (response.body()!=null){
-                    if (dataProfilById.getData().getTelepon()!=null && dataProfilById.getData().getNik()!=null &&
-                            dataProfilById.getData().getIdAlamat()!=null && dataProfilById.getData().getAlamat()!=null &&
-                    dataProfilById.getData().getGender()!=null && dataProfilById.getData().getTglLahir()!=null){
+                    if (!dataProfilById.getData().getTelepon().equalsIgnoreCase("") && !dataProfilById.getData().getNik().equalsIgnoreCase("") &&
+                            !dataProfilById.getData().getIdAlamat().equalsIgnoreCase("") && !dataProfilById.getData().getAlamat().equalsIgnoreCase("") &&
+                    !dataProfilById.getData().getGender().equalsIgnoreCase("") && !dataProfilById.getData().getTglLahir().equalsIgnoreCase("") ){
                         checkKelengkapan = 1;
                         getProfilLahan();
                     } else {
@@ -155,7 +156,7 @@ public class ListProfileLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.viewLoading.setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -184,7 +185,7 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 binding.scrollview.setVisibility(View.VISIBLE);
                                 setData();
                             }
@@ -193,7 +194,7 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
@@ -202,7 +203,7 @@ public class ListProfileLahan extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.viewLoading.setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                             binding.frameDataNotFound.setVisibility(View.VISIBLE);
                         }
                     });

@@ -78,7 +78,7 @@ public class EditProfil extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_editprofil);
 
         myCalendar = Calendar.getInstance();
-        //  getData();
+        getData();
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -437,9 +437,7 @@ public class EditProfil extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                f
-                Toast.makeText(EditProfil.this, "Simpan !", Toast.LENGTH_SHORT).show();
-                goToBerandaProfil();
+                checkNoTelp();
             }
         });
 
@@ -448,7 +446,7 @@ public class EditProfil extends AppCompatActivity {
     public void getData() {
         binding.scrollView.setVerticalScrollBarEnabled(false);
         binding.scrollView.setHorizontalScrollBarEnabled(false);
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -500,7 +498,7 @@ public class EditProfil extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                             Toast.makeText(EditProfil.this, "Data profil tidak ditemukan", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -512,7 +510,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -540,7 +538,7 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 Toast.makeText(EditProfil.this, "Data status pekerja tidak ditemukan", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -550,7 +548,7 @@ public class EditProfil extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ModelStatusPekerja> call, Throwable t) {
-                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                binding.frameLoading.setVisibility(View.GONE);
                 Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
@@ -593,7 +591,7 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 setData();
                             }
                         });
@@ -601,7 +599,7 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 Toast.makeText(EditProfil.this, "Data alamat tidak ditemukan", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -611,7 +609,7 @@ public class EditProfil extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ModelAlamat> call, Throwable t) {
-                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                binding.frameLoading.setVisibility(View.GONE);
                 Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                 call.cancel();
             }
@@ -619,7 +617,7 @@ public class EditProfil extends AppCompatActivity {
     }
 
     public void setData() {
-        binding.inputNamaBelakang.setText(PreferenceUtils.getNamaDepan(getApplicationContext()));
+        binding.inputNamaDepan.setText(PreferenceUtils.getNamaDepan(getApplicationContext()));
         binding.inputNamaBelakang.setText(PreferenceUtils.getNamaBelakang(getApplicationContext()));
         binding.inputUsername.setText(PreferenceUtils.getUsername(getApplicationContext()));
         binding.inputAlamat.setText(dataProfil.getAlamat());
@@ -682,7 +680,7 @@ public class EditProfil extends AppCompatActivity {
 
     private void setSpinnerProvinsi() {
         adapterProvinsi = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, listProvinsi);
-        binding.spinnerProvinsi.setThreshold(1);
+        binding.spinnerProvinsi.setThreshold(0);
         binding.spinnerProvinsi.setAdapter(adapterProvinsi);
     }
 
@@ -700,7 +698,7 @@ public class EditProfil extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                        binding.frameLoading.setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "No telepon sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -714,7 +712,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi no telepon terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -732,7 +730,7 @@ public class EditProfil extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                        binding.frameLoading.setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "No telepon sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -746,7 +744,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi no telepon terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -762,7 +760,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfil.this);
                         builder.setMessage("NO TELEPON TIDAK BOLEH KURANG DARI 10 DIGIT")
                                 .setCancelable(false)
@@ -780,7 +778,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfil.this);
                         builder.setMessage("NO TELEPON TIDAK BOLEH LEBIH DARI 13 DIGIT")
                                 .setCancelable(false)
@@ -816,7 +814,7 @@ public class EditProfil extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                        binding.frameLoading.setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "NIK sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -830,7 +828,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi NIK terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -848,7 +846,7 @@ public class EditProfil extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                        binding.frameLoading.setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "NIK sudah terpakai", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -862,7 +860,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Isi NIK terlebih dahulu !", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -878,7 +876,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfil.this);
                         builder.setMessage("NIK TIDAK BOLEH KURANG DARI 16")
                                 .setCancelable(false)
@@ -907,7 +905,7 @@ public class EditProfil extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Lengkapi tanggal lahir terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -921,7 +919,7 @@ public class EditProfil extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Pilih jenis kelamin terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -945,7 +943,7 @@ public class EditProfil extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Lengkapi alamat terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -960,13 +958,12 @@ public class EditProfil extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(EditProfil.this, "Lengkapi alamat terlebih dahulu !", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
-
 
     public void updateDataProfile() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
@@ -998,7 +995,7 @@ public class EditProfil extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 Toast.makeText(EditProfil.this, "Gagal ubah profil", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -1013,7 +1010,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -1039,7 +1036,7 @@ public class EditProfil extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                        binding.frameLoading.setVisibility(View.GONE);
                                         Toast.makeText(EditProfil.this, "Berhasil ubah profil", Toast.LENGTH_LONG).show();
                                         goToBerandaProfil();
                                     }
@@ -1056,7 +1053,7 @@ public class EditProfil extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

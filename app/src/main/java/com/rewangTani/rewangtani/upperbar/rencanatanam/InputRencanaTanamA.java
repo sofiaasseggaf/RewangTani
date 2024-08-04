@@ -62,7 +62,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_a);
 
-        //getandsetData();
+        getandsetData();
 
         binding.spProfilLahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -165,7 +165,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
     }
 
     public void getandsetData(){
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+        binding.frameLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -215,7 +215,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 AlertDialog.Builder builder = new AlertDialog.Builder(InputRencanaTanamA.this);
                                 builder.setMessage("Buat profil lahan terlebih dahulu")
                                         .setPositiveButton("Buat Profil Lahan", new DialogInterface.OnClickListener() {
@@ -240,7 +240,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                             Toast.makeText(InputRencanaTanamA.this, "Data profil lahan tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -254,7 +254,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
@@ -285,7 +285,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                             Toast.makeText(InputRencanaTanamA.this, "Data komoditas tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -296,7 +296,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -318,7 +318,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                            binding.frameLoading.setVisibility(View.GONE);
                             Toast.makeText(InputRencanaTanamA.this, "Data varietas tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -329,7 +329,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -348,7 +348,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     ActivityCompat.requestPermissions(InputRencanaTanamA.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},PERMISSION_CODE);
                 }
             });
@@ -364,7 +364,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     Toast.makeText(InputRencanaTanamA.this, "GPS bermasalah", Toast.LENGTH_SHORT).show();
                     binding.txtRekVarietas.setTextColor(getResources().getColor(R.color.red));
                     binding.txtRekVarietas.setText("Rekomendasi varietas = GPS bermasalah");
@@ -388,7 +388,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.frameLoading.setVisibility(View.GONE);
                     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                     @SuppressLint("MissingPermission")
                     Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -482,7 +482,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                        binding.frameLoading.setVisibility(View.GONE);
                                         Toast.makeText(InputRencanaTanamA.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -492,7 +492,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                              findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                              binding.frameLoading.setVisibility(View.GONE);
                               Toast.makeText(InputRencanaTanamA.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -506,7 +506,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                       findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                       binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -541,7 +541,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 Toast.makeText(InputRencanaTanamA.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -555,7 +555,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -586,7 +586,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                    binding.frameLoading.setVisibility(View.GONE);
                                     cekRT();
                                 }
                             });
@@ -594,7 +594,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                    binding.frameLoading.setVisibility(View.GONE);
                                     Toast.makeText(InputRencanaTanamA.this, "Rencana tanam tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }
                             });
@@ -607,7 +607,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.frameLoading.setVisibility(View.GONE);
                         Toast.makeText(InputRencanaTanamA.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
