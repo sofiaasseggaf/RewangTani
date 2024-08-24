@@ -1,30 +1,36 @@
 package com.rewangTani.rewangtani.bottombar.profilelahan;
 
 import android.content.Intent;
-import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.ArrayMap;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.SeekBar;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanCBinding;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
-import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
+import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,32 +38,19 @@ import retrofit2.Response;
 public class TambahProfilLahanC extends FragmentActivity {
 
     BottombarPlTambahProfilLahanCBinding binding;
-    private GoogleMap mMap;
-    String idAlamat, idSistemIrigasi;
     int ph;
-    ModelAlamat modelAlamat;
     ModelSistemIrigasi modelSistemIrigasi;
-    ModelProfilLahan modelProfilLahan;
-    List<String> listProfilLahan = new ArrayList<>();
-    List<DatumAlamat> listAlamat = new ArrayList<>();
-    List<String> listKabKota = new ArrayList<String>();
-    List<String> listKec = new ArrayList<String>();
-    List<String> listKel = new ArrayList<String>();
-    List<String> listkodepos = new ArrayList<String>();
-    List<String> listProvinsi = new ArrayList<String>();
     List<String> listSistemIrigasi = new ArrayList<String>();
-    String provinsi, kabkota, kecamatan, kelurahan;
-    int checkNama, checkLatLong, checkPh;
-    ArrayAdapter<String> adapterProvinsi, adapterKabKota, adapterKec, adapterKel, adapterKodepos, adapterSistemIrigasi;
-    LocationManager locationManager;
-    int PERMISSION_CODE = 1;
-    Double lat,longt;
-    String lat2, longt2;
+    int checkPh;
+    String idSistemIrigasi = "";
+    ArrayAdapter<String> adapterSistemIrigasi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_tambah_profil_lahan_c);
+
+        getData();
 
         binding.horizontalScrollView.post(new Runnable() {
             @Override
@@ -66,24 +59,24 @@ public class TambahProfilLahanC extends FragmentActivity {
             }
         });
 
-       /* if(Build.VERSION.SDK_INT >= 26){
-            sb_phtanah.setClickable(true);
-            sb_phtanah.setVisibility(View.VISIBLE);
-            rl_ph_tanah.setClickable(true);
-            rl_ph_tanah.setVisibility(View.VISIBLE);
+        if(Build.VERSION.SDK_INT >= 26){
+            binding.sbPhtanah.setClickable(true);
+            binding.sbPhtanah.setVisibility(View.VISIBLE);
+            binding.rlPhTanah.setClickable(true);
+            binding.rlPhTanah.setVisibility(View.VISIBLE);
 
-            et_ph_tanah.setVisibility(View.GONE);
-            et_ph_tanah.setClickable(false);
-            rl_ph_tanah_tv.setVisibility(View.GONE);
-            rl_ph_tanah_tv.setClickable(false);
-            panjang_ph_tanah.setVisibility(View.GONE);
-            panjang_ph_tanah.setClickable(false);
+            binding.etPhtanah.setVisibility(View.GONE);
+            binding.rlPhTanah.setClickable(false);
+            binding.rlPhTanahTv.setVisibility(View.GONE);
+            binding.rlPhTanahTv.setClickable(false);
+            binding.panjangPhTanah.setVisibility(View.GONE);
+            binding.panjangPhTanah.setClickable(false);
 
-            sb_phtanah.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            binding.sbPhtanah.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     double value = ((double) progress / 10.0);
-                    et_phtanah.setText(String.valueOf(value));
+                    binding.etPhtanah.setText(String.valueOf(value));
                 }
 
                 @Override
@@ -93,23 +86,24 @@ public class TambahProfilLahanC extends FragmentActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    ph = Integer.valueOf(et_phtanah.getText().toString().replaceAll("[^0-9]", ""));
+                    ph = Integer.valueOf(binding.etPhtanah.getText().toString().replaceAll("[^0-9]", ""));
                 }
             });
         } else {
-            sb_phtanah.setClickable(false);
-            sb_phtanah.setVisibility(View.GONE);
-            rl_ph_tanah.setClickable(false);
-            rl_ph_tanah.setVisibility(View.GONE);
 
-            et_ph_tanah.setVisibility(View.VISIBLE);
-            et_ph_tanah.setClickable(true);
-            rl_ph_tanah_tv.setVisibility(View.VISIBLE);
-            rl_ph_tanah_tv.setClickable(false);
-            panjang_ph_tanah.setVisibility(View.GONE);
-            panjang_ph_tanah.setClickable(false);
+            binding.sbPhtanah.setClickable(false);
+            binding.sbPhtanah.setVisibility(View.GONE);
+            binding.rlPhTanah.setClickable(false);
+            binding.rlPhTanah.setVisibility(View.GONE);
 
-            et_ph_tanah.addTextChangedListener(new TextWatcher() {
+            binding.etPhtanah.setVisibility(View.VISIBLE);
+            binding.etPhtanah.setClickable(true);
+            binding.rlPhTanahTv.setVisibility(View.VISIBLE);
+            binding.rlPhTanahTv.setClickable(false);
+            binding.panjangPhTanah.setVisibility(View.GONE);
+            binding.panjangPhTanah.setClickable(false);
+
+            binding.etPhtanah.addTextChangedListener(new TextWatcher() {
                 int a;
                 double value;
 
@@ -123,7 +117,7 @@ public class TambahProfilLahanC extends FragmentActivity {
                     if (!s.toString().equalsIgnoreCase("")){
                         a = Integer.valueOf(s.toString());
                     } else {
-                        txt_ph_tanah.setText("");
+                        binding.textPhTanah.setText("");
                     }
 
 
@@ -132,41 +126,70 @@ public class TambahProfilLahanC extends FragmentActivity {
                 @Override
                 public void afterTextChanged(Editable s) {
                     value = ((double) a / 10.0);
-                    txt_ph_tanah.setText(String.valueOf(value));
+                    binding.textPhTanah.setText(String.valueOf(value));
                     if (value>14.0){
-                        panjang_ph_tanah.setVisibility(View.VISIBLE);
+                        binding.panjangPhTanah.setVisibility(View.VISIBLE);
                         checkPh = 1;
                     } else {
-                        panjang_ph_tanah.setVisibility(View.GONE);
+                        binding.panjangPhTanah.setVisibility(View.GONE);
                         checkPh = 0;
                     }
-                    ph = Integer.valueOf(txt_ph_tanah.getText().toString().replaceAll("[^0-9]", ""));
+                    ph = Integer.valueOf(binding.textPhTanah.getText().toString().replaceAll("[^0-9]", ""));
                 }
             });
-        }*/
+        }
 
+        binding.spSistemIrigasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.spSistemIrigasi.showDropDown();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+        });
 
-       // getData();
+        binding.spSistemIrigasi.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                try{
+                    if (adapterSistemIrigasi!=null){
+                        adapterSistemIrigasi.getFilter().filter(charSequence);
+                    }
+                }catch (Exception e){}
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String sistemIrigasi = binding.spSistemIrigasi.getText().toString();
+                for (int a=0; a<listSistemIrigasi.size(); a++){
+                    if (modelSistemIrigasi.getData().get(a).getNamaSistemIrigasi().equalsIgnoreCase(sistemIrigasi)){
+                        idSistemIrigasi = modelSistemIrigasi.getData().get(a).getIdSistemIrigasi();
+                        break;
+                    }
+                }
+            }
+        });
 
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //goToTambahProfilLahanD();
-                Toast.makeText(TambahProfilLahanC.this, "SIMPAN DATA !", Toast.LENGTH_SHORT).show();
-                // SIMPAN !!
 
-//                if (checkPh==1){
-//                    Toast.makeText(TambahProfilLahanC.this, "pH tanah tidak boleh lebih dari 14.0", Toast.LENGTH_SHORT).show();
-//                } else if(checkPh==0){
-//                    if(!et_koordinatlahan.getText().toString().equalsIgnoreCase("")&&(!et_phtanah.getText().toString().equalsIgnoreCase(""))&&
-//                            (!et_kemiringantanah.getText().toString().equalsIgnoreCase(""))&&(!et_luasgarapan.getText().toString().equalsIgnoreCase(""))){
-//                        checkNama();
-//                        //tambahProfilTanah();
-//                    } else {
-//                        Toast.makeText(TambahProfilLahanC.this, "Isi semua field terlebih dahulu", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+                if (checkPh==1){
+                    Toast.makeText(TambahProfilLahanC.this, "pH tanah tidak boleh lebih dari 14.0", Toast.LENGTH_SHORT).show();
+                } else if(checkPh==0){
+                    if(!idSistemIrigasi.equalsIgnoreCase("")&&(!binding.etPhtanah.getText().toString().equalsIgnoreCase(""))&&
+                            (!binding.kemiringanTanah.getText().toString().equalsIgnoreCase(""))&&(!binding.luasGarapan.getText().toString().equalsIgnoreCase(""))){
+                        tambahProfilTanah();
+                    } else {
+                        Toast.makeText(TambahProfilLahanC.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
             }
         });
@@ -195,83 +218,9 @@ public class TambahProfilLahanC extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getDataProfilLahan();
+                getDataSistemIrigasi();
             }
         }).start();
-    }
-
-    public void getDataProfilLahan() {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelProfilLahan> dataPL = apiInterface.getDataProfilLahan();
-        dataPL.enqueue(new Callback<ModelProfilLahan>() {
-            @Override
-            public void onResponse(Call<ModelProfilLahan> call, Response<ModelProfilLahan> response) {
-                modelProfilLahan = response.body();
-                if (response.body()!=null){
-                    for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
-                        try {
-                            if (PreferenceUtils.getIdAkun(getApplicationContext())
-                                    .equalsIgnoreCase(modelProfilLahan.getData().get(i).getIdUser())) {
-                                listProfilLahan.add(modelProfilLahan.getData().get(i).getNamaProfilTanah().toString());
-                            }
-                        } catch (Exception e){ }
-                    }
-                    getDataAlamat();
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelProfilLahan> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(TambahProfilLahanC.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                                call.cancel();
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    }
-
-    public void getDataAlamat() {
-        // masih di new thread
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelAlamat> data = apiInterface.getDataAlamat();
-        data.enqueue(new Callback<ModelAlamat>() {
-            @Override
-            public void onResponse(Call<ModelAlamat> call, Response<ModelAlamat> response) {
-                modelAlamat = response.body();
-                if (response.body()!=null){
-                    listAlamat.clear();
-                    for (int i = 0; i < modelAlamat.getTotalData(); i++) {
-                        listAlamat.add(modelAlamat.getData().get(i));
-                        listProvinsi.add(modelAlamat.getData().get(i).getProvinsi());
-                    }
-                    if (listAlamat!=null && listProvinsi!=null){
-                        for (int i = 0; i < listProvinsi.size(); i++) {
-                            for (int j = i + 1; j < listProvinsi.size(); j++) {
-                                if (listProvinsi.get(i).equalsIgnoreCase(listProvinsi.get(j))) {
-                                    listProvinsi.remove(j);
-                                    j--;
-                                }
-                            }
-                        }
-                        getDataSistemIrigasi();
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelAlamat> call, Throwable t) {
-                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                Toast.makeText(TambahProfilLahanC.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                call.cancel();
-            }
-        });
     }
 
     public void getDataSistemIrigasi(){
@@ -311,17 +260,6 @@ public class TambahProfilLahanC extends FragmentActivity {
         binding.spSistemIrigasi.setAdapter(adapterSistemIrigasi);
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-
-
     public void tambahProfilTanah(){
         findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
@@ -345,26 +283,24 @@ public class TambahProfilLahanC extends FragmentActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //sendDataProfilTanah();
+                sendDataProfilTanah();
             }
         }).start();
     }
 
-    /*private void sendDataProfilTanah(){
-        //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-        //String now = formatter.format(new Date());
+    private void sendDataProfilTanah(){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 
         jsonParams.put("idUser", PreferenceUtils.getIdAkun(getApplicationContext()));
-        jsonParams.put("idAlamat", idAlamat);
-        jsonParams.put("latitude", lat2); // gak boleh kosong
-        jsonParams.put("longitude", longt2); // gak boleh kosong
-        jsonParams.put("luasGarapan", et_luasgarapan.getText().toString());
+        jsonParams.put("idAlamat", PreferenceUtils.getPLidAlamat(getApplicationContext()));
+        jsonParams.put("latitude", PreferenceUtils.getPLlatitude(getApplicationContext())); // gak boleh kosong
+        jsonParams.put("longitude", PreferenceUtils.getPLlongitude(getApplicationContext())); // gak boleh kosong
+        jsonParams.put("luasGarapan", binding.luasGarapan.getText().toString());
         jsonParams.put("idSistemIrigasi", idSistemIrigasi);
-        jsonParams.put("kemiringanTanah", et_kemiringantanah.getText().toString());
+        jsonParams.put("kemiringanTanah", binding.kemiringanTanah.getText().toString());
         jsonParams.put("phTanah", ph);
-        jsonParams.put("namaProfilTanah", et_namaprofillahan.getText().toString());
+        jsonParams.put("namaProfilTanah", PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()));
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -380,7 +316,7 @@ public class TambahProfilLahanC extends FragmentActivity {
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 Toast.makeText(TambahProfilLahanC.this, "Berhasil tambah profil lahan", Toast.LENGTH_LONG).show();
-                                goToListProfilLahan();
+                                clearLocalData();
 
                             }
                         });
@@ -409,7 +345,20 @@ public class TambahProfilLahanC extends FragmentActivity {
                 call.cancel();
             }
         });
-    }*/
+    }
+
+    private void clearLocalData(){
+        PreferenceUtils.savePLnamaProfilLahan("", getApplicationContext());
+        PreferenceUtils.savePLlatitude("", getApplicationContext());
+        PreferenceUtils.savePLlongitude("", getApplicationContext());
+        PreferenceUtils.savePLidAlamat("", getApplicationContext());
+        PreferenceUtils.savePLProvinsi("", getApplicationContext());
+        PreferenceUtils.savePLKabupaten("", getApplicationContext());
+        PreferenceUtils.savePLKecamatan("", getApplicationContext());
+        PreferenceUtils.savePLKelurahan("", getApplicationContext());
+        PreferenceUtils.savePLKodepos("", getApplicationContext());
+        goToListProfilLahan();
+    }
 
     public void goToListProfilLahan(){
         Intent a = new Intent(TambahProfilLahanC.this, ListProfileLahan.class);

@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
-
+import android.app.Dialog;
+import android.location.Criteria;
+import android.location.Location;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -21,6 +23,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
@@ -57,34 +62,44 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
             ActivityCompat.requestPermissions(TambahProfilLahanA.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
         }
 
-/*        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        lat = location.getLatitude();
-        longt = location.getLongitude();
-        lat2 = String.valueOf(lat).substring(0, 8);
-        longt2 = String.valueOf(longt).substring(0, 7);*/
+        Criteria criteria = new Criteria();
+        String bestProvider = locationManager.getBestProvider(criteria, false);
+        Location location = locationManager.getLastKnownLocation(bestProvider);
 
-//        int status = GooglePlayServicesUtil
-//                .isGooglePlayServicesAvailable(getBaseContext());
-//
-//        // Showing status
-//        if (status != ConnectionResult.SUCCESS) { // Google Play Services are
-//            // not available
-//            int requestCode = 10;
-//            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this,
-//                    requestCode);
-//            dialog.show();
-//        } else {
-//            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                    .findFragmentById(R.id.map);
-//            mapFragment.getMapAsync(this);
-//        }
+        if (location != null) {
+//        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            lat = location.getLatitude();
+            longt = location.getLongitude();
+            lat2 = String.valueOf(lat).substring(0, 8);
+            longt2 = String.valueOf(longt).substring(0, 7);
+            binding.koordinatLahan.setText(lat2 + ", " + longt2);
+        } else {
+            binding.koordinatLahan.setText("0.00, 0.00");
+        }
 
-        //getData();
+
+        int status = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(getBaseContext());
+
+        // Showing status
+        if (status != ConnectionResult.SUCCESS) { // Google Play Services are
+            // not available
+            int requestCode = 10;
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this,
+                    requestCode);
+            dialog.show();
+        } else {
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
+
+        getData();
 
         binding.btnSelanjutnya.setOnClickListener(v -> {
-            goToTambahProfilLahanB();
-            //checkNama();
+//            goToTambahProfilLahanB();
+            checkNama();
         });
     }
 
@@ -139,7 +154,7 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
                         @Override
                         public void run() {
                             findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                            binding.koordinatLahan.setText(lat + ", " + longt);
+                            checkLocalData();
                         }
                     });
                 }
@@ -221,6 +236,12 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
 
     }
 
+    private void checkLocalData(){
+        if (!PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()).equalsIgnoreCase("")){
+            binding.namaProfilLahan.setText(PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()));
+        }
+    }
+
     private void checkNama() {
         if (!binding.namaProfilLahan.getText().toString().equalsIgnoreCase("")){
             if (listProfilLahan.size() == 0) {
@@ -258,14 +279,14 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
             }
             if (checkLatLong != 1) {
                 checkLatLong = 0;
-                tambahDataProfilLahan();
+                saveLocalData();
             } else {
                 checkLatLong = 0;
             }
         }
     }
 
-    private void tambahDataProfilLahan() {
+    private void saveLocalData() {
         PreferenceUtils.savePLnamaProfilLahan(binding.namaProfilLahan.getText().toString(), getApplicationContext());
         PreferenceUtils.savePLlatitude(lat2, getApplicationContext());
         PreferenceUtils.savePLlongitude(longt2, getApplicationContext());

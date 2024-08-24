@@ -288,6 +288,71 @@ public class PreferenceUtils extends AppCompatActivity {
         return prefs.getString(Constants.KEY_PL_NAMA_PL, "");
     }
 
+    public static boolean savePLProvinsi(String provinsi, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_PROVINSI, provinsi);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLProvinsi(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_PROVINSI, "");
+    }
+
+    public static boolean savePLKabupaten(String kabupaten, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_KABUPATEN, kabupaten);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLKabupaten(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_KABUPATEN, "");
+    }
+
+    public static boolean savePLKecamatan(String kecamatan, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_KECAMATAN, kecamatan);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLKecamatan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_KECAMATAN, "");
+    }
+
+    public static boolean savePLKelurahan(String kelurahan, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_KELURAHAN, kelurahan);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLKelurahan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_KELURAHAN, "");
+    }
+
+    public static boolean savePLKodepos(String kodepos, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_KODEPOS, kodepos);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLKodepos(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_KODEPOS, "");
+    }
+
     // ----------------- IMAGE BITMAP ---------------
 
     /*

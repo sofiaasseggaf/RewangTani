@@ -41,6 +41,7 @@ public class TambahProfilLahanB extends FragmentActivity {
     List<String> listkodepos = new ArrayList<String>();
     List<String> listProvinsi = new ArrayList<String>();
     String provinsi, kabkota, kecamatan, kelurahan;
+    Integer kodepos;
     ArrayAdapter<String> adapterProvinsi, adapterKabKota, adapterKec, adapterKel, adapterKodepos;
 
     @Override
@@ -55,21 +56,22 @@ public class TambahProfilLahanB extends FragmentActivity {
             }
         });
 
-        //getData();
+        setDefaultSpinner();
+        getData();
 
         binding.spProvinsi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.rlKabKota.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKabKota.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKabKota.setEnabled(false);
                 binding.spKabKota.setText("");
-                binding.rlKecamatan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKecamatan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKecamatan.setEnabled(false);
                 binding.spKecamatan.setText("");
-                binding.rlKelurahan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKelurahan.setEnabled(false);
                 binding.spKelurahan.setText("");
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
 
@@ -89,16 +91,16 @@ public class TambahProfilLahanB extends FragmentActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.rlKabKota.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKabKota.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKabKota.setEnabled(false);
                 binding.spKabKota.setText("");
-                binding.rlKecamatan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKecamatan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKecamatan.setEnabled(false);
                 binding.spKecamatan.setText("");
-                binding.rlKelurahan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKelurahan.setEnabled(false);
                 binding.spKelurahan.setText("");
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
             }
@@ -135,13 +137,13 @@ public class TambahProfilLahanB extends FragmentActivity {
         binding.spKabKota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.rlKecamatan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKecamatan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKecamatan.setEnabled(false);
                 binding.spKecamatan.setText("");
-                binding.rlKelurahan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKelurahan.setEnabled(false);
                 binding.spKelurahan.setText("");
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
 
@@ -159,13 +161,13 @@ public class TambahProfilLahanB extends FragmentActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.rlKecamatan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKecamatan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKecamatan.setEnabled(false);
                 binding.spKecamatan.setText("");
-                binding.rlKelurahan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKelurahan.setEnabled(false);
                 binding.spKelurahan.setText("");
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
             }
@@ -204,10 +206,10 @@ public class TambahProfilLahanB extends FragmentActivity {
         binding.spKecamatan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.rlKelurahan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKelurahan.setEnabled(false);
                 binding.spKelurahan.setText("");
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
 
@@ -227,10 +229,10 @@ public class TambahProfilLahanB extends FragmentActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.rlKelurahan.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKelurahan.setEnabled(false);
                 binding.spKelurahan.setText("");
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
             }
@@ -269,7 +271,7 @@ public class TambahProfilLahanB extends FragmentActivity {
         binding.spKelurahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
 
@@ -289,7 +291,7 @@ public class TambahProfilLahanB extends FragmentActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.rlKodePos.setBackgroundResource(R.drawable.bg_spinner_off);
+                binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
                 binding.spKodePos.setEnabled(false);
                 binding.spKodePos.setText("");
             }
@@ -297,13 +299,6 @@ public class TambahProfilLahanB extends FragmentActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 kelurahan = binding.spKelurahan.getText().toString();
-                for (int a=0; a<listAlamat.size(); a++){
-                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)){
-                        idAlamat = listAlamat.get(a).getIdAlamat();
-                        break;
-                    }
-                }
-
                 listkodepos.clear();
                 for (int a=0; a<listAlamat.size(); a++){
                     if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)){
@@ -342,24 +337,37 @@ public class TambahProfilLahanB extends FragmentActivity {
             }
         });
 
+        binding.spKodePos.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!binding.spKodePos.getText().toString().equalsIgnoreCase("")) {
+                    kodepos = Integer.valueOf(binding.spKodePos.getText().toString());
+                    for (int a=0; a<listAlamat.size(); a++){
+                        if (listAlamat.get(a).getKodepos().equals(kodepos)){
+                            idAlamat = listAlamat.get(a).getIdAlamat();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
 
         binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToTambahProfilLahanC();
-//                if (!idAlamat.equalsIgnoreCase("")){
-//                    tambahDataProfilLahan();
-//                } else {
-//                    Toast.makeText(TambahProfilLahanB.this, "Tambah Alamat Terlebih Dahulu !", Toast.LENGTH_SHORT).show();
-//                }
-
+                if (idAlamat != null){
+                    saveLocalData();
+                } else {
+                    Toast.makeText(TambahProfilLahanB.this, "Lengkapi Alamat Terlebih Dahulu !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-    }
-
-    private void tambahDataProfilLahan() {
-        PreferenceUtils.savePLidAlamat(idAlamat, getApplicationContext());
-        goToTambahProfilLahanC();
     }
 
     public void getData(){
@@ -390,6 +398,21 @@ public class TambahProfilLahanB extends FragmentActivity {
         }).start();
     }
 
+    private void setDefaultSpinner(){
+        binding.rlKabKota.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
+        binding.spKabKota.setEnabled(false);
+        binding.spKabKota.setText("");
+        binding.rlKecamatan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
+        binding.spKecamatan.setEnabled(false);
+        binding.spKecamatan.setText("");
+        binding.rlKelurahan.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
+        binding.spKelurahan.setEnabled(false);
+        binding.spKelurahan.setText("");
+        binding.rlKodePos.setBackgroundResource(R.drawable.rect_blank_fill_gray_radius);
+        binding.spKodePos.setEnabled(false);
+        binding.spKodePos.setText("");
+    }
+
     public void getDataAlamat() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelAlamat> data = apiInterface.getDataAlamat();
@@ -416,7 +439,7 @@ public class TambahProfilLahanB extends FragmentActivity {
                             @Override
                             public void run() {
                                 binding.viewLoading.setVisibility(View.GONE);
-                                setData();
+                                checkLocalData();
                             }
                         });
                     }
@@ -435,6 +458,33 @@ public class TambahProfilLahanB extends FragmentActivity {
         adapterProvinsi = new ArrayAdapter<String>(TambahProfilLahanB.this, R.layout.z_spinner_list, listProvinsi);
         binding.spProvinsi.setThreshold(1);
         binding.spProvinsi.setAdapter(adapterProvinsi);
+    }
+
+    private void checkLocalData(){
+        if (!PreferenceUtils.getPLProvinsi(getApplicationContext()).equalsIgnoreCase("")){
+            binding.spProvinsi.setText(PreferenceUtils.getPLProvinsi(getApplicationContext()));
+        } else {
+            setData();
+        }
+        if (!PreferenceUtils.getPLKabupaten(getApplicationContext()).equalsIgnoreCase("")){
+            binding.spKabKota.setText(PreferenceUtils.getPLKabupaten(getApplicationContext()));
+        }
+        if (!PreferenceUtils.getPLKecamatan(getApplicationContext()).equalsIgnoreCase("")){
+            binding.spKecamatan.setText(PreferenceUtils.getPLKecamatan(getApplicationContext()));
+        }
+        if (!PreferenceUtils.getPLKelurahan(getApplicationContext()).equalsIgnoreCase("")){
+            binding.spKelurahan.setText(PreferenceUtils.getPLKelurahan(getApplicationContext()));
+        }
+    }
+
+    private void saveLocalData() {
+        PreferenceUtils.savePLidAlamat(idAlamat, getApplicationContext());
+        PreferenceUtils.savePLProvinsi(provinsi, getApplicationContext());
+        PreferenceUtils.savePLKabupaten(kabkota, getApplicationContext());
+        PreferenceUtils.savePLKecamatan(kecamatan, getApplicationContext());
+        PreferenceUtils.savePLKelurahan(kelurahan, getApplicationContext());
+        PreferenceUtils.savePLKodepos(String.valueOf(kodepos), getApplicationContext());
+        goToTambahProfilLahanC();
     }
 
     public void goToTambahProfilLahanC() {

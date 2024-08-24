@@ -30,5 +30,10 @@ public class Constants {
     public static String KEY_PL_KEMIRINGAN_TANAh = "kemiringantanah";
     public static String KEY_PL_PH_TANAH = "phtanah";
     public static String KEY_PL_NAMA_PL = "namapl";
+    public static String KEY_PL_PROVINSI = "provinsi";
+    public static String KEY_PL_KABUPATEN = "kabupaten";
+    public static String KEY_PL_KECAMATAN = "kecamatan";
+    public static String KEY_PL_KELURAHAN = "kelurahan";
+    public static String KEY_PL_KODEPOS = "kodepos";
 
 }
