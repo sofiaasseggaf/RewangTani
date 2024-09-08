@@ -36,4 +36,38 @@ public class Constants {
     public static String KEY_PL_KELURAHAN = "kelurahan";
     public static String KEY_PL_KODEPOS = "kodepos";
 
+
+
+
+    // --------------- DATA RENCANA TANAM SEMENTARA ---------------
+
+//        jsonParams.put("idSewaMesinBajak", txt_mesin_bajak.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewaMesinTanam", txt_mesin_tanam.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewaMesinPanen", txt_mesin_panen.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayabibitLocalHet", txt_bibit_local.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayabibitSubsidi", txt_bibit_subsidi.getText().toString().replaceAll("[^0-9]", ""));
+//    //jsonParams.put("idBiayapupukKimiaLocalHet", txt_pupuk_kimia_local.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayapupukKimiaLocalHet", "0");
+//        jsonParams.put("idBiayapupukKimiaPhonska", txt_pupuk_kimia_phonska.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayapupukOrganik", txt_pupuk_organik.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("namaRencanaTanam", et_nama_rt.getText().toString());
+//        jsonParams.put("idBiayapupukKimiaUrea", txt_pupuk_kimia_urea.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayapupukKimiaFosfat", txt_pupuk_kimia_fosfat.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewamesinPompa", txt_pompa);
+//    //jsonParams.put("idSewaMesinPompa", txt_mesin_pompa.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewamesinPompaBbm", txt_pompabbm);
+//    //jsonParams.put("idSewaMesinPompaBbm", txt_mesin_pompa_bbm.getText().toString().replaceAll("[^0-9]", ""));
+
+    public static String KEY_RT_ID_PL = "idpl";
+    public static String KEY_PL_NAMA_RT = "namart";
+    public static String KEY_RT_ID_VARIETAS = "idvarietas";
+    public static String KEY_RT_ID_KOMODITAS = "idkomoditas";
+    public static String KEY_RT_ID_BURUH_TANAM = "idburuhtanam";
+    public static String KEY_RT_ID_BURUH_BAJAK = "idburuhbajak";
+    public static String KEY_RT_ID_BURUH_SEMPROT = "idburuhsemprot";
+    public static String KEY_RT_ID_BURUH_MENYIANGI = "idburuhmenyiangi";
+    public static String KEY_RT_ID_BURUH_GALANGAN = "idburuhgalangan";
+    public static String KEY_RT_ID_BURUH_PUPUK = "idburuhpupuk";
+    public static String KEY_RT_ID_BURUH_PANEN = "idburuhpanen";
+
 }

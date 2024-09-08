@@ -85,25 +85,23 @@
                     android:fontFamily="@font/inter_regular"
                     android:text="Sabtu, 17 September 2023"
                     android:textColor="@color/black"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/txtTempDesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
-                    android:text="Cerah"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/txtCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_medium"
-                    android:text="Semarang"
                     android:textColor="@color/black"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -138,9 +136,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
                 android:fontFamily="@font/inter_bold"
-                android:text="32.0 C"
                 android:textColor="@color/black"
-                android:textSize="26sp" />
+                android:textSize="22sp" />
 
         </RelativeLayout>
 

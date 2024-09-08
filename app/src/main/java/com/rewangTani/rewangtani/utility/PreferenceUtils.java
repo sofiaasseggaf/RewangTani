@@ -170,7 +170,6 @@ public class PreferenceUtils extends AppCompatActivity {
 
 
 
-
     // --------------- DATA PROFIL LAHAN SEMENTARA ---------------
 
 
@@ -221,58 +220,6 @@ public class PreferenceUtils extends AppCompatActivity {
     public static String getPLlongitude(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(Constants.KEY_PL_LONG, "");
-    }
-
-    public static boolean savePLluasGarapan(String luasGarapan, Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(Constants.KEY_PL_LUAS_GARAPAN, luasGarapan);
-        prefsEditor.apply();
-        return true;
-    }
-
-    public static String getPLluasGarapan(Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(Constants.KEY_PL_LUAS_GARAPAN, "");
-    }
-
-    public static boolean savePLidSistemIrigasi(String idSistemIrigasi, Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(Constants.KEY_PL_ID_SISTEM_IRIGASI, idSistemIrigasi);
-        prefsEditor.apply();
-        return true;
-    }
-
-    public static String getPLidSistemIrigasi(Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(Constants.KEY_PL_ID_SISTEM_IRIGASI, "");
-    }
-
-    public static boolean savePLkemiringanTanah(String kemiringanTanah, Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(Constants.KEY_PL_KEMIRINGAN_TANAh, kemiringanTanah);
-        prefsEditor.apply();
-        return true;
-    }
-
-    public static String getPLkemiringanTanah(Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(Constants.KEY_PL_KEMIRINGAN_TANAh, "");
-    }
-
-    public static boolean savePLphTanah(String phTanah, Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefsEditor = prefs.edit();
-        prefsEditor.putString(Constants.KEY_PL_PH_TANAH, phTanah);
-        prefsEditor.apply();
-        return true;
-    }
-
-    public static String getPLphTanah(Context context){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(Constants.KEY_PL_PH_TANAH, "");
     }
 
     public static boolean savePLnamaProfilLahan(String namaPL, Context context){
@@ -351,6 +298,100 @@ public class PreferenceUtils extends AppCompatActivity {
     public static String getPLKodepos(Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(Constants.KEY_PL_KODEPOS, "");
+    }
+
+
+
+    // --------------- DATA RENCANA TANAM SEMENTARA ---------------
+
+
+//        jsonParams.put("idBiayaBuruhTanam", txt_buruh_tanam.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayaBuruhBajak", txt_buruh_bajak.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayaBuruhSemprot", txt_buruh_semprot.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayaBuruhMenyiangirumput", txt_buruh_menyiangi.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayaBuruhGalangan", txt_buruh_galengan.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayaBuruhPupuk", txt_buruh_pupuk.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayaBuruhPanen", txt_buruh_panen.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewaMesinBajak", txt_mesin_bajak.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewaMesinTanam", txt_mesin_tanam.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewaMesinPanen", txt_mesin_panen.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayabibitLocalHet", txt_bibit_local.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayabibitSubsidi", txt_bibit_subsidi.getText().toString().replaceAll("[^0-9]", ""));
+//    //jsonParams.put("idBiayapupukKimiaLocalHet", txt_pupuk_kimia_local.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayapupukKimiaLocalHet", "0");
+//        jsonParams.put("idBiayapupukKimiaPhonska", txt_pupuk_kimia_phonska.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayapupukOrganik", txt_pupuk_organik.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("namaRencanaTanam", et_nama_rt.getText().toString());
+//        jsonParams.put("idBiayapupukKimiaUrea", txt_pupuk_kimia_urea.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idBiayapupukKimiaFosfat", txt_pupuk_kimia_fosfat.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewamesinPompa", txt_pompa);
+//    //jsonParams.put("idSewaMesinPompa", txt_mesin_pompa.getText().toString().replaceAll("[^0-9]", ""));
+//        jsonParams.put("idSewamesinPompaBbm", txt_pompabbm);
+//    //jsonParams.put("idSewaMesinPompaBbm", txt_mesin_pompa_bbm.getText().toString().replaceAll("[^0-9]", ""));
+
+    public static boolean saveRTidProfilTanah(String idProfilTanah, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_RT_ID_PL, idProfilTanah);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getRTidProfilTanah(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_RT_ID_PL, "");
+    }
+
+    public static boolean saveRTnamaRT(String namaRT, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_NAMA_RT, namaRT);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getRTnamaRT(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_NAMA_RT, "");
+    }
+
+    public static boolean saveRTidKomoditas(String idKomoditas, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_RT_ID_KOMODITAS, idKomoditas);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getRTidKomoditas(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_RT_ID_KOMODITAS, "");
+    }
+
+    public static boolean saveRTidVarietas(String idVarietas, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_RT_ID_VARIETAS, idVarietas);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getRTidVarietas(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_RT_ID_VARIETAS, "");
+    }
+
+    public static boolean saveRTBuruhTanam(String buruhtanam, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_RT_ID_BURUH_TANAM, buruhtanam);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getRTBuruhTanam(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_RT_ID_BURUH_TANAM, "");
     }
 
     // ----------------- IMAGE BITMAP ---------------

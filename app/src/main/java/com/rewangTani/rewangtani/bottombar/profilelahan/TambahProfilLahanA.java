@@ -13,14 +13,19 @@ import android.widget.Toast;
 import android.app.Dialog;
 import android.location.Criteria;
 import android.location.Location;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.OnMapsSdkInitializedCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -40,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCallback {
+public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCallback, OnMapsSdkInitializedCallback {
 
     BottombarPlTambahProfilLahanABinding binding;
     private GoogleMap mMap;
@@ -56,6 +61,11 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_tambah_profil_lahan_a);
+        MapsInitializer.initialize(getApplicationContext(), MapsInitializer.Renderer.LEGACY, this);
+
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(TambahProfilLahanA.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(TambahProfilLahanA.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -67,7 +77,6 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
         Location location = locationManager.getLastKnownLocation(bestProvider);
 
         if (location != null) {
-//        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             lat = location.getLatitude();
             longt = location.getLongitude();
             lat2 = String.valueOf(lat).substring(0, 8);
@@ -78,9 +87,8 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
         }
 
 
-        int status = GooglePlayServicesUtil
+/*        int status = GooglePlayServicesUtil
                 .isGooglePlayServicesAvailable(getBaseContext());
-
         // Showing status
         if (status != ConnectionResult.SUCCESS) { // Google Play Services are
             // not available
@@ -93,7 +101,7 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
-        }
+        }*/
 
         getData();
 
@@ -191,7 +199,21 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        SupportMapFragment supportMapFragment = (SupportMapFragment) fragmentManager.findFragmentById(R.id.map);
+
+        if (supportMapFragment == null) {
+            supportMapFragment = SupportMapFragment.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.map, supportMapFragment).commit();
+        } else {
+            supportMapFragment.getMapAsync(this);
+            supportMapFragment.setRetainInstance(true);
+        }
+
         mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
 
         // Enabling MyLocation Layer of Google Map
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -233,7 +255,6 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
                 mMap.addMarker(markerOptions);
             }
         });
-
     }
 
     private void checkLocalData(){
@@ -264,7 +285,6 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
         } else  {
             Toast.makeText(this, "Isi nama profil lahan terlebih dahulu !", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void checkLatLong() {
@@ -331,5 +351,15 @@ public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    @Override
+    public void onMapsSdkInitialized(@NonNull MapsInitializer.Renderer renderer) {
+        switch (renderer) {
+            case LATEST:
+                break;
+            case LEGACY:
+                break;
+        }
     }
 }

@@ -19,6 +19,7 @@ import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOut
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,97 +69,15 @@ public class InputRencanaTanamB extends AppCompatActivity {
         binding.buruhPanen.addTextChangedListener(new NumberTextWatcher(binding.buruhPanen));
 
 
-       /* sp_profil_lahan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
-                namaProfilLahan = sp_profil_lahan.getSelectedItem().toString();
-                for (int a=0; a<modelProfilLahan.getTotalData(); a++){
-                    try {
-                        if (modelProfilLahan.getData().get(a).getNamaProfilTanah().equalsIgnoreCase(namaProfilLahan)){
-                            idProfilLahan = modelProfilLahan.getData().get(a).getIdProfileTanah();
-                            idSistemIrigasi = modelProfilLahan.getData().get(a).getIdSistemIrigasi().toString();
-                            luasLahan = modelProfilLahan.getData().get(a).getLuasGarapan().toString();
-                            setFieldSistemIrigasi();
-                        }
-                    } catch (Exception e){}
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
-        });
-
-        sp_komoditas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
-                namaKomoditas = sp_komoditas.getSelectedItem().toString();
-                listVarietas.clear();
-                for (int i=0; i<modelKomoditas.getTotalData(); i++){
-                    if (modelKomoditas.getData().get(i).getNamaKomoditas().equalsIgnoreCase(namaKomoditas)){
-                        idKomoditas = modelKomoditas.getData().get(i).getIdKomoditas();
-                    }
-                }
-                for (int a=0; a<modelVarietas.getTotalData(); a++) {
-                    try {
-                        if (modelVarietas.getData().get(a).getIdKomoditas().toString().equalsIgnoreCase(idKomoditas)) {
-                            listVarietas.add(modelVarietas.getData().get(a).getNamaVarietas());
-                        }
-                    } catch (Exception e){}
-                }
-                Collections.sort(listVarietas);
-                if (listVarietas!=null){
-                    adapterVarietas = new ArrayAdapter<String>(InputRencanaTanamA.this, R.layout.z_spinner_list, listVarietas);
-                    sp_varietas.setThreshold(1);
-                    sp_varietas.setAdapter(adapterVarietas);
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
-        });
-
-        sp_varietas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sp_varietas.showDropDown();
-            }
-        });
-
-        sp_varietas.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try{
-                    if (adapterVarietas!=null){
-                        adapterVarietas.getFilter().filter(charSequence);
-                    }
-                }catch (Exception e){}
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                namaVarietas = sp_varietas.getText().toString();
-                for (int a=0; a<modelVarietas.getTotalData(); a++){
-                    try{
-                        if (modelVarietas.getData().get(a).getNamaVarietas().equalsIgnoreCase(namaVarietas)){
-                            idVarietas = modelVarietas.getData().get(a).getIdVarietas();
-                            potensiHasilVarietas = modelVarietas.getData().get(a).getPotensiHasil().toString();
-                        }
-                    } catch (Exception e){}
-                }
-            }
-        });*/
-
-
         binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(!binding.buruhTanam.getText().toString().equalsIgnoreCase("")&&!binding.buruhBajak.getText().toString().equalsIgnoreCase("")&&
+                        !binding.buruhSemprot.getText().toString().equalsIgnoreCase("")&&!binding.buruhMenyiangiRumput.getText().toString().equalsIgnoreCase("")&&
+                        !binding.buruhGalengan.getText().toString().equalsIgnoreCase("")&&!binding.buruhPupuk.getText().toString().equalsIgnoreCase("")&&
+                        !binding.buruhPanen.getText().toString().equalsIgnoreCase("")) {
+                    saveLocalData();
+                }
                 // check trus ke C !
                 moveToC();
 
@@ -807,6 +726,14 @@ public class InputRencanaTanamB extends AppCompatActivity {
             }
         });
     }*/
+
+    private void saveLocalData() {
+        PreferenceUtils.saveRTBuruhTanam(binding.buruhTanam.getText().toString().replaceAll("[^0-9]", ""), getApplicationContext());
+//        PreferenceUtils.saveRTidProfilTanah(idProfilLahan, getApplicationContext());
+//        PreferenceUtils.saveRTidKomoditas(idKomoditas, getApplicationContext());
+//        PreferenceUtils.saveRTidVarietas(idVarietas, getApplicationContext());
+        moveToC();
+    }
 
     public void moveToA(){
         Intent a = new Intent(InputRencanaTanamB.this, InputRencanaTanamA.class);
