@@ -2,12 +2,14 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamCBinding;
+import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 public class InputRencanaTanamC extends AppCompatActivity {
@@ -26,18 +28,51 @@ public class InputRencanaTanamC extends AppCompatActivity {
             }
         });
 
+        if (ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()) {
+            binding.viewMesinPompa.setVisibility(View.VISIBLE);
+        } else {
+            binding.viewMesinPompa.setVisibility(View.GONE);
+        }
+
         binding.mesinBajak.addTextChangedListener(new NumberTextWatcher(binding.mesinBajak));
         binding.mesinTanam.addTextChangedListener(new NumberTextWatcher(binding.mesinTanam));
         binding.mesinPanen.addTextChangedListener(new NumberTextWatcher(binding.mesinPanen));
         binding.mesinPompa.addTextChangedListener(new NumberTextWatcher(binding.mesinPompa));
         binding.bbmMesinPompa.addTextChangedListener(new NumberTextWatcher(binding.bbmMesinPompa));
 
-        binding.btnSelanjutnya.setOnClickListener(v->{
-
-            //  check trus ke D !
-            moveToD();
+        binding.btnSelanjutnya.setOnClickListener(v-> {
+            if (ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()) {
+                if (!binding.mesinBajak.getText().toString().equalsIgnoreCase("") && !binding.mesinTanam.getText().toString().equalsIgnoreCase("") &&
+                        !binding.mesinPanen.getText().toString().equalsIgnoreCase("") && !binding.mesinPompa.getText().toString().equalsIgnoreCase("") &&
+                        !binding.bbmMesinPompa.getText().toString().equalsIgnoreCase("")) {
+                    saveLocalData();
+                }
+            } else {
+                if (!binding.mesinBajak.getText().toString().equalsIgnoreCase("") && !binding.mesinTanam.getText().toString().equalsIgnoreCase("") &&
+                        !binding.mesinPanen.getText().toString().equalsIgnoreCase("")) {
+                    saveLocalData();
+                }
+            }
 
         });
+    }
+
+    private void saveLocalData() {
+        boolean isWithPompa;
+        String luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
+        String potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
+        if(ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()){
+            isWithPompa = true;
+        } else {
+            isWithPompa = false;
+        }
+
+        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "",
+                "", "", "", binding.mesinBajak.getText().toString().replaceAll("[^0-9]", ""), binding.mesinTanam.getText().toString().replaceAll("[^0-9]", ""),
+                binding.mesinPanen.getText().toString().replaceAll("[^0-9]", ""), binding.mesinPompa.getText().toString().replaceAll("[^0-9]", ""),binding.bbmMesinPompa.getText().toString().replaceAll("[^0-9]", ""),
+                "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        moveToD();
     }
 
     public void moveToD(){

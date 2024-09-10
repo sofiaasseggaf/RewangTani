@@ -60,6 +60,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
     String tipeSIa, tipeSIb, tipeSIc;
     double mdpl;
     int checkNama;
+    boolean isWithPompa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -651,6 +652,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
 
     private void checkNama() {
         if (!binding.namaRencanaTanam.getText().toString().equalsIgnoreCase("")) {
+
             if (listRencanaTanam.size() > 0) {
                 for (int i = 0; i < listRencanaTanam.size(); i++) {
                     if (binding.namaRencanaTanam.getText().toString().equalsIgnoreCase(listRencanaTanam.get(i).getNamaRencanaTanam())) {
@@ -662,6 +664,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
             } else {
                 checkNama = 0;
             }
+
             if (checkNama != 1) {
                 checkNama = 0;
                 if (idProfilLahan != null && idKomoditas != null && idSistemIrigasi != null && idVarietas != null) {
@@ -672,16 +675,24 @@ public class InputRencanaTanamA extends AppCompatActivity {
             } else {
                 checkNama = 0;
             }
+
         } else {
             Toast.makeText(this, "Isi nama rencana tanam terlebih dahulu !", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void saveLocalData() {
-        PreferenceUtils.saveRTnamaRT(binding.namaRencanaTanam.getText().toString(), getApplicationContext());
-        PreferenceUtils.saveRTidProfilTanah(idProfilLahan, getApplicationContext());
-        PreferenceUtils.saveRTidKomoditas(idKomoditas, getApplicationContext());
-        PreferenceUtils.saveRTidVarietas(idVarietas, getApplicationContext());
+
+        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
+            isWithPompa = false;
+        } else {
+            isWithPompa = true;
+        }
+
+        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam(binding.namaRencanaTanam.getText().toString(), idProfilLahan, idKomoditas, idVarietas, "",
+                "", "", "", "", "", "", "", "", "",
+                "","", "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
         moveToB();
     }
 

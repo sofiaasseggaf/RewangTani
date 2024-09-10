@@ -99,6 +99,10 @@ public class DatumRencanaTanam implements Parcelable
     @SerializedName("idSewamesinPompaBbm")
     @Expose
     private String idSewamesinPompaBbm;
+
+    private boolean withPompa;
+    private String luasLahan, potensiHasilVarietas;
+
     public final static Creator<DatumRencanaTanam> CREATOR = new Creator<DatumRencanaTanam>() {
 
 
@@ -113,8 +117,7 @@ public class DatumRencanaTanam implements Parcelable
             return (new DatumRencanaTanam[size]);
         }
 
-    }
-    ;
+    };
 
     protected DatumRencanaTanam(android.os.Parcel in) {
         this.createdBy = ((String) in.readValue((String.class.getClassLoader())));
@@ -147,13 +150,6 @@ public class DatumRencanaTanam implements Parcelable
         this.idBiayapupukKimiaFosfat = ((String) in.readValue((String.class.getClassLoader())));
         this.idSewamesinPompa = ((String) in.readValue((String.class.getClassLoader())));
         this.idSewamesinPompaBbm = ((String) in.readValue((String.class.getClassLoader())));
-    }
-
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public DatumRencanaTanam() {
     }
 
     /**
@@ -222,6 +218,37 @@ public class DatumRencanaTanam implements Parcelable
         this.idSewamesinPompa = idSewamesinPompa;
         this.idSewamesinPompaBbm = idSewamesinPompaBbm;
     }
+
+    public DatumRencanaTanam(String namaRencanaTanam, String idProfilTanah, String idKomoditas, String idVarietas, String idBiayaBuruhTanam, String idBiayaBuruhBajak, String idBiayaBuruhSemprot, String idBiayaBuruhMenyiangirumput, String idBiayaBuruhGalangan, String idBiayaBuruhPupuk, String idBiayaBuruhPanen, String idSewaMesinBajak, String idSewaMesinTanam, String idSewaMesinPanen, String idBiayabibitLocalHet, String idBiayabibitSubsidi, String idBiayapupukKimiaLocalHet, String idBiayapupukKimiaPhonska, String idBiayapupukOrganik, String idBiayapupukKimiaUrea, String idBiayapupukKimiaFosfat, String idSewamesinPompa, String idSewamesinPompaBbm, boolean withPompa, String luasLahan, String potensiHasilVarietas) {
+        this.namaRencanaTanam = namaRencanaTanam;
+        this.idProfilTanah = idProfilTanah;
+        this.idKomoditas = idKomoditas;
+        this.idVarietas = idVarietas;
+        this.idBiayaBuruhTanam = idBiayaBuruhTanam;
+        this.idBiayaBuruhBajak = idBiayaBuruhBajak;
+        this.idBiayaBuruhSemprot = idBiayaBuruhSemprot;
+        this.idBiayaBuruhMenyiangirumput = idBiayaBuruhMenyiangirumput;
+        this.idBiayaBuruhGalangan = idBiayaBuruhGalangan;
+        this.idBiayaBuruhPupuk = idBiayaBuruhPupuk;
+        this.idBiayaBuruhPanen = idBiayaBuruhPanen;
+        this.idSewaMesinBajak = idSewaMesinBajak;
+        this.idSewaMesinTanam = idSewaMesinTanam;
+        this.idSewaMesinPanen = idSewaMesinPanen;
+        this.idBiayabibitLocalHet = idBiayabibitLocalHet;
+        this.idBiayabibitSubsidi = idBiayabibitSubsidi;
+        this.idBiayapupukKimiaLocalHet = idBiayapupukKimiaLocalHet;
+        this.idBiayapupukKimiaPhonska = idBiayapupukKimiaPhonska;
+        this.idBiayapupukOrganik = idBiayapupukOrganik;
+        this.idBiayapupukKimiaUrea = idBiayapupukKimiaUrea;
+        this.idBiayapupukKimiaFosfat = idBiayapupukKimiaFosfat;
+        this.idSewamesinPompa = idSewamesinPompa;
+        this.idSewamesinPompaBbm = idSewamesinPompaBbm;
+        this.withPompa = withPompa;
+        this.luasLahan = luasLahan;
+        this.potensiHasilVarietas = potensiHasilVarietas;
+    }
+
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -461,6 +488,30 @@ public class DatumRencanaTanam implements Parcelable
 
     public void setIdSewamesinPompaBbm(String idSewamesinPompaBbm) {
         this.idSewamesinPompaBbm = idSewamesinPompaBbm;
+    }
+
+    public boolean isWithPompa() {
+        return withPompa;
+    }
+
+    public void setWithPompa(boolean withPompa) {
+        this.withPompa = withPompa;
+    }
+
+    public String getLuasLahan() {
+        return luasLahan;
+    }
+
+    public void setLuasLahan(String luasLahan) {
+        this.luasLahan = luasLahan;
+    }
+
+    public String getPotensiHasilVarietas() {
+        return potensiHasilVarietas;
+    }
+
+    public void setPotensiHasilVarietas(String potensiHasilVarietas) {
+        this.potensiHasilVarietas = potensiHasilVarietas;
     }
 
     @Override

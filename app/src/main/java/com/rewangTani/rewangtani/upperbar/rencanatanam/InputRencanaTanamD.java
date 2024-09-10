@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamDBinding;
+import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 public class InputRencanaTanamD extends AppCompatActivity {
@@ -30,11 +31,28 @@ public class InputRencanaTanamD extends AppCompatActivity {
         binding.bibitSubsidi.addTextChangedListener(new NumberTextWatcher(binding.bibitSubsidi));
 
         binding.btnSelanjutnya.setOnClickListener(v -> {
-
-            //  check trus ke E !
-            moveToE();
-
+            if (!binding.bibitLokal.getText().toString().equalsIgnoreCase("") && !binding.bibitSubsidi.getText().toString().equalsIgnoreCase("")) {
+                saveLocalData();
+            }
         });
+    }
+
+    private void saveLocalData() {
+        boolean isWithPompa;
+        String luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
+        String potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
+        if(ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()){
+            isWithPompa = true;
+        } else {
+            isWithPompa = false;
+        }
+
+        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "",
+                "", "", "", "", "", "", "", "",
+                binding.bibitLokal.getText().toString().replaceAll("[^0-9]", ""), binding.bibitSubsidi.getText().toString().replaceAll("[^0-9]", ""),
+                "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        moveToE();
     }
 
     public void moveToE() {
