@@ -71,7 +71,7 @@ public class InputRencanaTanamC extends AppCompatActivity {
                 "", "", "", binding.mesinBajak.getText().toString().replaceAll("[^0-9]", ""), binding.mesinTanam.getText().toString().replaceAll("[^0-9]", ""),
                 binding.mesinPanen.getText().toString().replaceAll("[^0-9]", ""), binding.mesinPompa.getText().toString().replaceAll("[^0-9]", ""),binding.bbmMesinPompa.getText().toString().replaceAll("[^0-9]", ""),
                 "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
         moveToD();
     }
 

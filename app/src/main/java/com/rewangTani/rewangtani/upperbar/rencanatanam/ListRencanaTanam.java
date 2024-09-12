@@ -1,5 +1,6 @@
 package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,7 +39,9 @@ import retrofit2.Response;
 public class ListRencanaTanam extends AppCompatActivity {
 
     UpperbarRtListRencanaTanamBinding binding;
-    public static WeakReference<ListRencanaTanam> classListRencanaTanam;
+    static ListRencanaTanam classListRencanaTanam = new ListRencanaTanam();
+    Context context;
+//    private static WeakReference<ListRencanaTanam> classListRencanaTanam = new WeakReference<>(null);
     AdapterListRencanaTanam itemList;
     ModelRencanaTanam modelRencanaTanam;
     DatumRencanaTanam datumRencanaTanam;
@@ -49,7 +52,9 @@ public class ListRencanaTanam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
 
+        context = getApplicationContext();
         getData();
+        initializeNewRencanaTanam();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +155,7 @@ public class ListRencanaTanam extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLayout.setVisibility(View.GONE);
+                                binding.frameLoading.setVisibility(View.GONE);
                                 binding.scrollView.setVisibility(View.VISIBLE);
                                 setData();
                             }
@@ -207,13 +212,13 @@ public class ListRencanaTanam extends AppCompatActivity {
         this.datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", false, "", "");
     }
 
-    public void setDetailRencanaTanam(DatumRencanaTanam data){
+    public void setDetailRencanaTanam(Context context, DatumRencanaTanam data){
         if (datumRencanaTanam == null) {
             initializeNewRencanaTanam();
         }
 
-        datumRencanaTanam.setIdUser(PreferenceUtils.getIdAkun(getApplicationContext()));
-        datumRencanaTanam.setIdProfil(PreferenceUtils.getIdProfil(getApplicationContext()));
+        datumRencanaTanam.setIdUser(PreferenceUtils.getIdAkun(context));
+        datumRencanaTanam.setIdProfil(PreferenceUtils.getIdProfil(context));
         if (!data.getNamaRencanaTanam().equalsIgnoreCase("")){ datumRencanaTanam.setNamaRencanaTanam(data.getNamaRencanaTanam()); }
         if (!data.getIdProfilTanah().equalsIgnoreCase("")){ datumRencanaTanam.setIdProfilTanah(data.getIdProfilTanah()); }
         if (!data.getIdKomoditas().equalsIgnoreCase("")){ datumRencanaTanam.setIdKomoditas(data.getIdKomoditas()); }
@@ -227,7 +232,9 @@ public class ListRencanaTanam extends AppCompatActivity {
         if (!data.getIdBiayaBuruhPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPanen(data.getIdBiayaBuruhPanen()); }
         if (!data.getIdSewaMesinBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinBajak(data.getIdSewaMesinBajak()); }
         if (!data.getIdSewaMesinTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinTanam(data.getIdSewaMesinTanam()); }
-        if (!data.getIdSewaMesinTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinTanam(data.getIdSewaMesinTanam()); }
+        if (!data.getIdSewaMesinPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinPanen(data.getIdSewaMesinPanen()); }
+        if (!data.getIdSewamesinPompa().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompa(data.getIdSewamesinPompa()); }
+        if (!data.getIdSewamesinPompaBbm().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompaBbm(data.getIdSewamesinPompaBbm()); }
         if (!data.getIdBiayabibitLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitLocalHet(data.getIdBiayabibitLocalHet()); }
         if (!data.getIdBiayabibitSubsidi().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitSubsidi(data.getIdBiayabibitSubsidi()); }
         if (!data.getIdBiayapupukKimiaLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaLocalHet(data.getIdBiayapupukKimiaLocalHet()); }
@@ -235,15 +242,13 @@ public class ListRencanaTanam extends AppCompatActivity {
         if (!data.getIdBiayapupukOrganik().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukOrganik(data.getIdBiayapupukOrganik()); }
         if (!data.getIdBiayapupukKimiaUrea().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaUrea(data.getIdBiayapupukKimiaUrea()); }
         if (!data.getIdBiayapupukKimiaFosfat().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaFosfat(data.getIdBiayapupukKimiaFosfat()); }
-        if (!data.getIdSewamesinPompa().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompa(data.getIdSewamesinPompa()); }
-        if (!data.getIdSewamesinPompaBbm().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompaBbm(data.getIdBiayaBuruhMenyiangirumput()); }
         datumRencanaTanam.setWithPompa(data.isWithPompa());
         datumRencanaTanam.setLuasLahan(data.getLuasLahan());
         datumRencanaTanam.setPotensiHasilVarietas(data.getPotensiHasilVarietas());
     }
 
     public static ListRencanaTanam getInstance() {
-        return classListRencanaTanam.get();
+        return classListRencanaTanam;
     }
 
     public void goToInputRencanaTanam(){

@@ -692,7 +692,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
         DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam(binding.namaRencanaTanam.getText().toString(), idProfilLahan, idKomoditas, idVarietas, "",
                 "", "", "", "", "", "", "", "", "",
                 "","", "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
         moveToB();
     }
 

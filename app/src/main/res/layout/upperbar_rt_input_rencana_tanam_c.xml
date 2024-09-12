@@ -371,7 +371,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_bold"
-                            android:text="Mesin Popma"
+                            android:text="Mesin Pompa"
                             android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
                         <LinearLayout
@@ -425,7 +425,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_bold"
-                            android:text="BBM Mesin Popma"
+                            android:text="BBM Mesin Pompa"
                             android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
                         <LinearLayout
@@ -479,7 +479,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_bold"
-                            android:text="Durasi Mesin Popma"
+                            android:text="Durasi Mesin Pompa"
                             android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
                         <RelativeLayout

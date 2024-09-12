@@ -51,7 +51,7 @@ public class InputRencanaTanamD extends AppCompatActivity {
                 "", "", "", "", "", "", "", "",
                 binding.bibitLokal.getText().toString().replaceAll("[^0-9]", ""), binding.bibitSubsidi.getText().toString().replaceAll("[^0-9]", ""),
                 "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
         moveToE();
     }
 

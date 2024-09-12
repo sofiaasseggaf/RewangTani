@@ -219,7 +219,7 @@ public class DatumRencanaTanam implements Parcelable
         this.idSewamesinPompaBbm = idSewamesinPompaBbm;
     }
 
-    public DatumRencanaTanam(String namaRencanaTanam, String idProfilTanah, String idKomoditas, String idVarietas, String idBiayaBuruhTanam, String idBiayaBuruhBajak, String idBiayaBuruhSemprot, String idBiayaBuruhMenyiangirumput, String idBiayaBuruhGalangan, String idBiayaBuruhPupuk, String idBiayaBuruhPanen, String idSewaMesinBajak, String idSewaMesinTanam, String idSewaMesinPanen, String idBiayabibitLocalHet, String idBiayabibitSubsidi, String idBiayapupukKimiaLocalHet, String idBiayapupukKimiaPhonska, String idBiayapupukOrganik, String idBiayapupukKimiaUrea, String idBiayapupukKimiaFosfat, String idSewamesinPompa, String idSewamesinPompaBbm, boolean withPompa, String luasLahan, String potensiHasilVarietas) {
+    public DatumRencanaTanam(String namaRencanaTanam, String idProfilTanah, String idKomoditas, String idVarietas, String idBiayaBuruhTanam, String idBiayaBuruhBajak, String idBiayaBuruhSemprot, String idBiayaBuruhMenyiangirumput, String idBiayaBuruhGalangan, String idBiayaBuruhPupuk, String idBiayaBuruhPanen, String idSewaMesinBajak, String idSewaMesinTanam, String idSewaMesinPanen, String idSewamesinPompa, String idSewamesinPompaBbm, String idBiayabibitLocalHet, String idBiayabibitSubsidi, String idBiayapupukKimiaLocalHet, String idBiayapupukKimiaPhonska, String idBiayapupukOrganik, String idBiayapupukKimiaUrea, String idBiayapupukKimiaFosfat, boolean withPompa, String luasLahan, String potensiHasilVarietas) {
         this.namaRencanaTanam = namaRencanaTanam;
         this.idProfilTanah = idProfilTanah;
         this.idKomoditas = idKomoditas;

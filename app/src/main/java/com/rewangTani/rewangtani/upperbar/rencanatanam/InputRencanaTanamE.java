@@ -55,7 +55,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
             }
         });
 
-        binding.pupukKimiaLokal.addTextChangedListener(new NumberTextWatcher(binding.pupukOrganik));
+        binding.pupukKimiaLokal.addTextChangedListener(new NumberTextWatcher(binding.pupukKimiaLokal));
         //txt_pupuk_kimia_phonska.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_phonska));
         //txt_pupuk_kimia_urea.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_urea));
         //txt_pupuk_kimia_fosfat.addTextChangedListener(new NumberTextWatcher(txt_pupuk_kimia_fosfat));
@@ -100,7 +100,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                 "", "", "", "", "", "", "", "",
                 "", "", binding.pupukKimiaLokal.getText().toString().replaceAll("[^0-9]", ""), "", binding.pupukOrganik.getText().toString().replaceAll("[^0-9]",
                 ""), "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
         startCountTotal();
 //        moveToRAB();
     }
@@ -108,7 +108,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
     private void startCountTotal() {
         DatumRencanaTanam datumRencanaTanam = ListRencanaTanam.getInstance().getDatumRencanaTanam();
         if (datumRencanaTanam != null) {
-            findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+            findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 int count = 0;
@@ -157,9 +157,9 @@ public class InputRencanaTanamE extends AppCompatActivity {
         int n = Integer.valueOf(datumRencanaTanam.getIdBiayabibitSubsidi().replaceAll("[^0-9]", ""));
 
         int o = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaLocalHet().replaceAll("[^0-9]", ""));
-        int p = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaPhonska().replaceAll("[^0-9]", ""));
-        int q = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaUrea().replaceAll("[^0-9]", ""));
-        int r = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaFosfat().replaceAll("[^0-9]", ""));
+//        int p = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaPhonska().replaceAll("[^0-9]", ""));
+//        int q = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaUrea().replaceAll("[^0-9]", ""));
+//        int r = Integer.valueOf(datumRencanaTanam.getIdBiayapupukKimiaFosfat().replaceAll("[^0-9]", ""));
         int s = Integer.valueOf(datumRencanaTanam.getIdBiayapupukOrganik().replaceAll("[^0-9]", ""));
 
         int obat = 1000000;
@@ -175,9 +175,9 @@ public class InputRencanaTanamE extends AppCompatActivity {
             double bbm = l * durasi * hektar;
             txtPompa = datumRencanaTanam.getIdSewamesinPompa().replaceAll("[^0-9]", "");
             txtPompaBbm = String.valueOf(bbm);
-            total = a + b + c + d + e + f + g + h + i + j + k + bbm + m + n + o + p + q + r + s + obat;
+            total = a + b + c + d + e + f + g + h + i + j + k + bbm + m + n + o + + s + obat;
         } else {
-            total = a+b+c+d+e+f+g+h+i+j+m+n+p+q+r+s+obat;
+            total = a+b+c+d+e+f+g+h+i+j+m+n+s+obat;
             pendapatan = 10000 * hasil;
             txtPompa = "0";
             txtPompaBbm = "0";

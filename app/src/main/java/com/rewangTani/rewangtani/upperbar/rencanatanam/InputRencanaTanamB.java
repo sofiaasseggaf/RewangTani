@@ -184,7 +184,7 @@ public class InputRencanaTanamB extends AppCompatActivity {
                 binding.buruhBajak.getText().toString().replaceAll("[^0-9]", ""), binding.buruhSemprot.getText().toString().replaceAll("[^0-9]", ""), binding.buruhMenyiangiRumput.getText().toString().replaceAll("[^0-9]", ""),
                 binding.buruhGalengan.getText().toString().replaceAll("[^0-9]", ""), binding.buruhPupuk.getText().toString().replaceAll("[^0-9]", ""), binding.buruhPanen.getText().toString().replaceAll("[^0-9]", ""),
                 "", "", "", "","", "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(datumRencanaTanam);
+        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
         moveToC();
     }
 
