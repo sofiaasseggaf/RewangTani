@@ -37,9 +37,8 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
     TextView txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
     TextView txt_mesin_bajak, txt_mesin_tanam, txt_mesin_panen, txt_mesin_pompa, txt_mesin_pompa_bbm;
     TextView txt_bibit_local, txt_bibit_subsidi;
-    TextView txt_pupuk_kimia_phonska, txt_pupuk_kimia_urea, txt_pupuk_kimia_fosfat, txt_pupuk_organik;
+    TextView txt_pupuk_kimia_local, txt_pupuk_kimia_phonska, txt_pupuk_kimia_urea, txt_pupuk_kimia_fosfat, txt_pupuk_organik;
     EditText txt_estimasi_rab;
-    //TextView txt_obat_kimia_local, txt_obat_kimia_subsidi, txt_obat_organik;
     ModelRencanaTanam modelRencanaTanam;
     DatumRencanaTanam dataRencanaTanam;
     ModelProfilLahan modelProfilLahan;
@@ -78,10 +77,10 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
         txt_mesin_pompa_bbm = findViewById(R.id.txt_mesin_pompa_bbm);
         txt_bibit_local = findViewById(R.id.txt_bibit_local);
         txt_bibit_subsidi = findViewById(R.id.txt_bibit_subsidi);
-        //txt_pupuk_kimia_local = findViewById(R.id.txt_pupuk_kimia_local);
-        txt_pupuk_kimia_phonska = findViewById(R.id.txt_pupuk_kimia_phonska);
-        txt_pupuk_kimia_urea = findViewById(R.id.txt_pupuk_kimia_urea);
-        txt_pupuk_kimia_fosfat = findViewById(R.id.txt_pupuk_kimia_fosfat);
+        txt_pupuk_kimia_local = findViewById(R.id.txt_pupuk_kimia_local_het);
+//        txt_pupuk_kimia_phonska = findViewById(R.id.txt_pupuk_kimia_phonska);
+//        txt_pupuk_kimia_urea = findViewById(R.id.txt_pupuk_kimia_urea);
+//        txt_pupuk_kimia_fosfat = findViewById(R.id.txt_pupuk_kimia_fosfat);
         txt_pupuk_organik = findViewById(R.id.txt_pupuk_organik);
         txtload = findViewById(R.id.textloading);
 
@@ -371,14 +370,14 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
         txt_bibit_local.setText(m);
         String n = checkDesimal(dataRencanaTanam.getIdBiayabibitSubsidi());
         txt_bibit_subsidi.setText(n);
-        //String o = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaLocalHet());
-        //txt_pupuk_kimia_local.setText(o);
-        String p = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaPhonska());
-        txt_pupuk_kimia_phonska.setText(p);
-        String q = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaUrea());
-        txt_pupuk_kimia_urea.setText(q);
-        String r = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaFosfat());
-        txt_pupuk_kimia_fosfat.setText(r);
+        String o = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaLocalHet());
+        txt_pupuk_kimia_local.setText(o);
+//        String p = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaPhonska());
+//        txt_pupuk_kimia_phonska.setText(p);
+//        String q = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaUrea());
+//        txt_pupuk_kimia_urea.setText(q);
+//        String r = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaFosfat());
+//        txt_pupuk_kimia_fosfat.setText(r);
         String s = checkDesimal(dataRencanaTanam.getIdBiayapupukOrganik());
         txt_pupuk_organik.setText(s);
     }

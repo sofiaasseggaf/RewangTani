@@ -40,8 +40,6 @@ public class ListRencanaTanam extends AppCompatActivity {
 
     UpperbarRtListRencanaTanamBinding binding;
     static ListRencanaTanam classListRencanaTanam = new ListRencanaTanam();
-    Context context;
-//    private static WeakReference<ListRencanaTanam> classListRencanaTanam = new WeakReference<>(null);
     AdapterListRencanaTanam itemList;
     ModelRencanaTanam modelRencanaTanam;
     DatumRencanaTanam datumRencanaTanam;
@@ -52,7 +50,6 @@ public class ListRencanaTanam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
 
-        context = getApplicationContext();
         getData();
         initializeNewRencanaTanam();
 

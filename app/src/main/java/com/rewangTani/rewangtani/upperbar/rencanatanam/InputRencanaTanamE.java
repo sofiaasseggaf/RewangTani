@@ -102,7 +102,6 @@ public class InputRencanaTanamE extends AppCompatActivity {
                 ""), "", "", isWithPompa, luasLahan, potensiHasilVarietas);
         ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
         startCountTotal();
-//        moveToRAB();
     }
 
     private void startCountTotal() {

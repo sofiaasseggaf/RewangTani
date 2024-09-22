@@ -2,12 +2,16 @@ package com.rewangTani.rewangtani.upperbar.sudahtanam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamCBinding;
+import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
+import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 public class InputSudahTanamC extends AppCompatActivity {
 
@@ -25,10 +29,38 @@ public class InputSudahTanamC extends AppCompatActivity {
             }
         });
 
+        if (ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa()) {
+            binding.viewMesinPompa.setVisibility(View.VISIBLE);
+        } else {
+            binding.viewMesinPompa.setVisibility(View.GONE);
+        }
+
+        binding.mesinBajak.addTextChangedListener(new NumberTextWatcher(binding.mesinBajak));
+        binding.mesinTanam.addTextChangedListener(new NumberTextWatcher(binding.mesinTanam));
+        binding.mesinPanen.addTextChangedListener(new NumberTextWatcher(binding.mesinPanen));
+        binding.mesinPompa.addTextChangedListener(new NumberTextWatcher(binding.mesinPompa));
+        binding.bbmMesinPompa.addTextChangedListener(new NumberTextWatcher(binding.bbmMesinPompa));
+
         binding.btnSelanjutnya.setOnClickListener(v->{
-            moveToD();
+            saveLocalData();
         });
 
+    }
+
+    private void saveLocalData() {
+        boolean isWithPompa;
+        if(ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa()){
+            isWithPompa = true;
+        } else {
+            isWithPompa = false;
+        }
+
+        DatumSudahTanam datumSudahTanam = new DatumSudahTanam( "", "", "", "", "", "", "", "",
+                "", "", "", binding.mesinBajak.getText().toString().replaceAll("[^0-9]",""), binding.mesinTanam.getText().toString().replaceAll("[^0-9]",""), binding.mesinPanen.getText().toString().replaceAll("[^0-9]",""),
+                binding.mesinPompa.getText().toString().replaceAll("[^0-9]",""),binding.bbmMesinPompa.getText().toString().replaceAll("[^0-9]",""), "", "",
+                "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
+        ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);
+        moveToD();
     }
 
     public void moveToB(){

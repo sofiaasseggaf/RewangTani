@@ -307,7 +307,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Rp. 124.000"
                             android:textColor="#327036"
                             android:textSize="10sp" />
                     </RelativeLayout>
@@ -332,7 +331,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Rp. 124.000"
                             android:textColor="#327036"
                             android:textSize="10sp" />
                     </RelativeLayout>
@@ -357,7 +355,54 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Rp. 124.000"
+                            android:textColor="#327036"
+                            android:textSize="10sp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Mesin Pompa"
+                            android:textColor="#777777"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/mesinPompa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:fontFamily="@font/inter_medium"
+                            android:textColor="#327036"
+                            android:textSize="10sp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="BBM Mesin Pompa"
+                            android:textColor="#777777"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/bbmMesinPompa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:fontFamily="@font/inter_medium"
                             android:textColor="#327036"
                             android:textSize="10sp" />
                     </RelativeLayout>
@@ -475,7 +520,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -496,7 +541,30 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Rp. 124.000"
+                            android:textColor="#327036"
+                            android:textSize="10sp" />
+                    </RelativeLayout>
+       <!--             <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Pupuk Kimia - Phonska"
+                            android:textColor="#777777"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/pupukKimiaPhonska"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:fontFamily="@font/inter_medium"
                             android:textColor="#327036"
                             android:textSize="10sp" />
                     </RelativeLayout>
@@ -511,20 +579,43 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Pupuk Kimia - Subsidi"
+                            android:text="Pupuk Kimia - Fosfat"
                             android:textColor="#777777"
                             android:textSize="10sp" />
 
                         <TextView
-                            android:id="@+id/pupukKimiaSubsidi"
+                            android:id="@+id/pupukKimiaFosfat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Rp. 124.000"
                             android:textColor="#327036"
                             android:textSize="10sp" />
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_medium"
+                            android:text="Pupuk Kimia - Urea"
+                            android:textColor="#777777"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/pupukKimiaUrea"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:fontFamily="@font/inter_medium"
+                            android:textColor="#327036"
+                            android:textSize="10sp" />
+                    </RelativeLayout>-->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -546,7 +637,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:fontFamily="@font/inter_medium"
-                            android:text="Rp. 124.000"
                             android:textColor="#327036"
                             android:textSize="10sp" />
                     </RelativeLayout>

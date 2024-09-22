@@ -108,6 +108,9 @@ public class DatumSudahTanam implements Parcelable
     @SerializedName("idBiayaobatOrganik")
     @Expose
     private String idBiayaobatOrganik;
+    private boolean withPompa;
+    String idProfilLahan, namaObatOrganik;
+
     public final static Creator<DatumSudahTanam> CREATOR = new Creator<DatumSudahTanam>() {
 
 
@@ -239,6 +242,41 @@ public class DatumSudahTanam implements Parcelable
         this.idBiayaobatKimiaLocalHet = idBiayaobatKimiaLocalHet;
         this.idBiayaobatKimiaSubsidi = idBiayaobatKimiaSubsidi;
         this.idBiayaobatOrganik = idBiayaobatOrganik;
+    }
+
+    public DatumSudahTanam(String idRencanaTanam, String idProfilLahan, String idPertumbuhanNormal, String idKendalaPertumbuhan, String idBiayaburuhTanam, String idBiayaburuhBajak, String idBiayaburuhSemprot, String idBiayaburuhMenyiangirumput, String idBiayaburuhGalangan, String idBiayaburuhPupuk, String idBiayaburuhPanen, String idSewamesinBajak, String idSewamesinTanam, String idSewamesinPanen, String idSewamesinPompa, String idSewamesinPompaBbm, String idBiayabibitLocalHet, String idBiayabibitSubsidi, String idBiayapupukKimiaLocalHet, String idBiayapupukKimiaPhonska, String idBiayapupukKimiaUrea, String idBiayapupukKimiaFosfat, String idBiayapupukOrganik, String idObatKimiaLocal, String idObatKimiaSubsidi, String idObatOrganik, String idBiayaobatKimiaLocalHet, String idBiayaobatKimiaSubsidi, String idBiayaobatOrganik, boolean withPompa, String namaObatOrganik) {
+        super();
+        this.idRencanaTanam = idRencanaTanam;
+        this.idProfilLahan = idProfilLahan;
+        this.idPertumbuhanNormal = idPertumbuhanNormal;
+        this.idKendalaPertumbuhan = idKendalaPertumbuhan;
+        this.idBiayaburuhTanam = idBiayaburuhTanam;
+        this.idBiayaburuhBajak = idBiayaburuhBajak;
+        this.idBiayaburuhSemprot = idBiayaburuhSemprot;
+        this.idBiayaburuhMenyiangirumput = idBiayaburuhMenyiangirumput;
+        this.idBiayaburuhGalangan = idBiayaburuhGalangan;
+        this.idBiayaburuhPupuk = idBiayaburuhPupuk;
+        this.idBiayaburuhPanen = idBiayaburuhPanen;
+        this.idSewamesinBajak = idSewamesinBajak;
+        this.idSewamesinTanam = idSewamesinTanam;
+        this.idSewamesinPanen = idSewamesinPanen;
+        this.idSewamesinPompa = idSewamesinPompa;
+        this.idSewamesinPompaBbm = idSewamesinPompaBbm;
+        this.idBiayabibitLocalHet = idBiayabibitLocalHet;
+        this.idBiayabibitSubsidi = idBiayabibitSubsidi;
+        this.idBiayapupukKimiaLocalHet = idBiayapupukKimiaLocalHet;
+        this.idBiayapupukKimiaPhonska = idBiayapupukKimiaPhonska;
+        this.idBiayapupukKimiaUrea = idBiayapupukKimiaUrea;
+        this.idBiayapupukKimiaFosfat = idBiayapupukKimiaFosfat;
+        this.idBiayapupukOrganik = idBiayapupukOrganik;
+        this.idObatKimiaLocal = idObatKimiaLocal;
+        this.idObatKimiaSubsidi = idObatKimiaSubsidi;
+        this.idObatOrganik = idObatOrganik;
+        this.idBiayaobatKimiaLocalHet = idBiayaobatKimiaLocalHet;
+        this.idBiayaobatKimiaSubsidi = idBiayaobatKimiaSubsidi;
+        this.idBiayaobatOrganik = idBiayaobatOrganik;
+        this.withPompa = withPompa;
+        this.namaObatOrganik = namaObatOrganik;
     }
 
     public String getCreatedBy() {
@@ -503,6 +541,30 @@ public class DatumSudahTanam implements Parcelable
 
     public void setIdBiayaobatOrganik(String idBiayaobatOrganik) {
         this.idBiayaobatOrganik = idBiayaobatOrganik;
+    }
+
+    public boolean isWithPompa() {
+        return withPompa;
+    }
+
+    public void setWithPompa(boolean withPompa) {
+        this.withPompa = withPompa;
+    }
+
+    public String getIdProfilLahan() {
+        return idProfilLahan;
+    }
+
+    public void setIdProfilLahan(String idProfilLahan) {
+        this.idProfilLahan = idProfilLahan;
+    }
+
+    public String getNamaObatOrganik() {
+        return namaObatOrganik;
+    }
+
+    public void setNamaObatOrganik(String namaObatOrganik) {
+        this.namaObatOrganik = namaObatOrganik;
     }
 
     @Override

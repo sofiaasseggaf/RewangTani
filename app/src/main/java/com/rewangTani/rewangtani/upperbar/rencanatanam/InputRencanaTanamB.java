@@ -59,12 +59,7 @@ public class InputRencanaTanamB extends AppCompatActivity {
         binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!binding.buruhTanam.getText().toString().equalsIgnoreCase("")&&!binding.buruhBajak.getText().toString().equalsIgnoreCase("")&&
-                        !binding.buruhSemprot.getText().toString().equalsIgnoreCase("")&&!binding.buruhMenyiangiRumput.getText().toString().equalsIgnoreCase("")&&
-                        !binding.buruhGalengan.getText().toString().equalsIgnoreCase("")&&!binding.buruhPupuk.getText().toString().equalsIgnoreCase("")&&
-                        !binding.buruhPanen.getText().toString().equalsIgnoreCase("")) {
-                    saveLocalData();
-                }
+                saveLocalData();
 
                 /*
                 if(pompa==1){

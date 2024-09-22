@@ -1,5 +1,6 @@
 package com.rewangTani.rewangtani.upperbar.sudahtanam;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -42,8 +43,10 @@ import retrofit2.Response;
 public class ListSudahTanam extends AppCompatActivity {
 
     UpperbarStListSudahTanamBinding binding;
+    static ListSudahTanam classListSudahTanam = new ListSudahTanam();
     AdapterListSudahTanam itemList;
     ModelSudahTanam modelSudahTanam;
+    DatumSudahTanam datumSudahTanam;
     List<DatumSudahTanam> listSudahTanam = new ArrayList<>();
     List<DatumSudahTanam> listNewSudahTanam = new ArrayList<>();
     List<String> idST = new ArrayList<>();
@@ -57,7 +60,8 @@ public class ListSudahTanam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_list_sudah_tanam);
 
-        //getData();
+        getData();
+        initializeNewSudahTanam();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +69,6 @@ public class ListSudahTanam extends AppCompatActivity {
                 goToInputSudahTanam();
             }
         });
-
 
         binding.btnRt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +114,6 @@ public class ListSudahTanam extends AppCompatActivity {
                 goToRAB();
             }
         });
-
 
     }
 
@@ -316,6 +318,61 @@ public class ListSudahTanam extends AppCompatActivity {
             });
         }
 
+    }
+
+    public DatumSudahTanam getDatumSudahTanam() {
+        return datumSudahTanam;
+    }
+
+    public void initializeNewSudahTanam() {
+        this.datumSudahTanam = new DatumSudahTanam( "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", false, "");
+    }
+
+    public void setDetailSudahTanam(Context context, DatumSudahTanam data){
+        if (datumSudahTanam == null) {
+            initializeNewSudahTanam();
+        }
+
+//        if (!data.getIdSudahTanam().equalsIgnoreCase("")){ datumSudahTanam.setIdSudahTanam(data.getIdSudahTanam()); }
+        if (!data.getIdRencanaTanam().equalsIgnoreCase("")){ datumSudahTanam.setIdRencanaTanam(data.getIdRencanaTanam()); }
+        if (!data.getIdProfilLahan().equalsIgnoreCase("")){ datumSudahTanam.setIdProfilLahan(data.getIdProfilLahan());}
+        if (!data.getIdPertumbuhanNormal().equalsIgnoreCase("")){ datumSudahTanam.setIdPertumbuhanNormal(data.getIdPertumbuhanNormal()); }
+        if (!data.getIdKendalaPertumbuhan().equalsIgnoreCase("")){ datumSudahTanam.setIdKendalaPertumbuhan(data.getIdKendalaPertumbuhan()); }
+        if (!data.getIdBiayaburuhTanam().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhTanam(data.getIdBiayaburuhTanam()); }
+        if (!data.getIdBiayaburuhBajak().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhBajak(data.getIdBiayaburuhBajak()); }
+        if (!data.getIdBiayaburuhSemprot().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhSemprot(data.getIdBiayaburuhSemprot()); }
+        if (!data.getIdBiayaburuhMenyiangirumput().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhMenyiangirumput(data.getIdBiayaburuhMenyiangirumput()); }
+        if (!data.getIdBiayaburuhGalangan().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhGalangan(data.getIdBiayaburuhGalangan()); }
+        if (!data.getIdBiayaburuhPupuk().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhPupuk(data.getIdBiayaburuhPupuk()); }
+        if (!data.getIdBiayaburuhPanen().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaburuhPanen(data.getIdBiayaburuhPanen()); }
+
+        if (!data.getIdSewamesinBajak().equalsIgnoreCase("")){ datumSudahTanam.setIdSewamesinBajak(data.getIdSewamesinBajak()); }
+        if (!data.getIdSewamesinTanam().equalsIgnoreCase("")){ datumSudahTanam.setIdSewamesinTanam(data.getIdSewamesinTanam()); }
+        if (!data.getIdSewamesinPanen().equalsIgnoreCase("")){ datumSudahTanam.setIdSewamesinPanen(data.getIdSewamesinPanen()); }
+        if (!data.getIdSewamesinPompa().equalsIgnoreCase("")){ datumSudahTanam.setIdSewamesinPompa(data.getIdSewamesinPompa()); }
+        if (!data.getIdSewamesinPompaBbm().equalsIgnoreCase("")){ datumSudahTanam.setIdSewamesinPompaBbm(data.getIdSewamesinPompaBbm()); }
+
+        if (!data.getIdBiayabibitLocalHet().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayabibitLocalHet(data.getIdBiayabibitLocalHet()); }
+        if (!data.getIdBiayabibitSubsidi().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayabibitSubsidi(data.getIdBiayabibitSubsidi()); }
+
+        if (!data.getIdBiayapupukKimiaLocalHet().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayapupukKimiaLocalHet(data.getIdBiayapupukKimiaLocalHet()); }
+        if (!data.getIdBiayapupukKimiaPhonska().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayapupukKimiaPhonska(data.getIdBiayapupukKimiaPhonska()); }
+        if (!data.getIdBiayapupukOrganik().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayapupukOrganik(data.getIdBiayapupukOrganik()); }
+        if (!data.getIdBiayapupukKimiaUrea().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayapupukKimiaUrea(data.getIdBiayapupukKimiaUrea()); }
+        if (!data.getIdBiayapupukKimiaFosfat().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayapupukKimiaFosfat(data.getIdBiayapupukKimiaFosfat()); }
+
+        if (!data.getIdObatKimiaLocal().equalsIgnoreCase("")){ datumSudahTanam.setIdObatKimiaLocal(data.getIdObatKimiaLocal()); }
+//        if (!data.getIdObatKimiaSubsidi().equalsIgnoreCase("")){ datumSudahTanam.setIdObatKimiaSubsidi(data.getIdObatKimiaSubsidi()); }
+        if (!data.getIdObatOrganik().equalsIgnoreCase("")){ datumSudahTanam.setIdObatOrganik(data.getIdObatOrganik()); }
+        if (!data.getIdBiayaobatKimiaLocalHet().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaobatKimiaLocalHet(data.getIdBiayaobatKimiaLocalHet()); }
+//        if (!data.getIdBiayaobatKimiaSubsidi().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaobatKimiaSubsidi(data.getIdBiayaobatKimiaSubsidi()); }
+        if (!data.getIdBiayaobatOrganik().equalsIgnoreCase("")){ datumSudahTanam.setIdBiayaobatOrganik(data.getIdBiayaobatOrganik()); }
+        datumSudahTanam.setWithPompa(data.isWithPompa());
+        if (!data.getNamaObatOrganik().equalsIgnoreCase("")) { datumSudahTanam.setNamaObatOrganik(data.getNamaObatOrganik()); }
+    }
+
+    public static ListSudahTanam getInstance() {
+        return classListSudahTanam;
     }
 
     public void setData() {

@@ -26,6 +26,7 @@ import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
@@ -47,7 +48,6 @@ public class InputSudahTanamA extends AppCompatActivity {
     ModelProfilLahan modelProfilLahan;
     ModelKomoditas modelKomoditas;
     ModelVarietas modelVarietas;
-    ModelObat modelObat;
     DatumRencanaTanam datumRencanaTanam;
     ModelAkun modelAkun;
     List<String> listToken = new ArrayList<String>();
@@ -55,24 +55,18 @@ public class InputSudahTanamA extends AppCompatActivity {
     ModelProfilAkun modelProfilAkun;
     List<String> listIDAkunwithAlamat = new ArrayList<>();
     List<String> listRT = new ArrayList<String>();
-    List<String> listObatKimiaLocal = new ArrayList<>();
-    List<String> listObatKimiaOrganik = new ArrayList<>();
-    List<String> listObatSemua = new ArrayList<>();
-    ArrayAdapter<String> adapterRT, adapterObatKimia, adapterObatOrganik;
+    ArrayAdapter<String> adapterRT;
     String namaRT, idRT, namaPL, idPL, namaK, idK, namaV, idV;
-    String idObatKimia=null;
-    String idObatOrganik=null;
-    String tipeSIa, tipeSIb, tipeSIc, idSistemIrigasi, txt_pompa, txt_pompabbm;
-    Integer sewa, hargaBBM;
+    String tipeSIa, tipeSIb, tipeSIc, idSistemIrigasi;
     DecimalFormat formatter;
-    String namaobatKimia;
+    boolean isWithPompa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_input_sudah_tanam_a);
 
-        //getData();
+        getData();
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -105,11 +99,11 @@ public class InputSudahTanamA extends AppCompatActivity {
         binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // cek dulu baru ke B !
-                // simpan();
-
-                moveToB();
+                if (idRT!=null && idPL!=null && idK!=null && idV!=null) {
+                    saveLocalData();
+                } else {
+                    Toast.makeText(InputSudahTanamA.this, "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -508,42 +502,17 @@ public class InputSudahTanamA extends AppCompatActivity {
     }
     */
 
-    public void simpan(){
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int count = 0;
-            @Override
-            public void run() {
-                count++;
-                if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
-                if (count == 3)
-                    count = 0;
-                handler.postDelayed(this, 1500);
-            }
-        };
-        handler.postDelayed(runnable, 1 * 1000);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-               check();
-            }
-        }).start();
-    }
+    private void saveLocalData() {
 
-    private void check(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                moveToB();
-            }
-        });
+        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
+            isWithPompa = false;
+        } else {
+            isWithPompa = true;
+        }
+
+        DatumSudahTanam datumSudahTanam = new DatumSudahTanam(idRT, idPL, "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
+        ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);
+        moveToB();
     }
 
     public void moveToB(){
