@@ -563,6 +563,7 @@ public class InputSudahTanamF extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                ListSudahTanam.getInstance().initializeNewSudahTanam();
                                 goToListST();
                             }
                         });

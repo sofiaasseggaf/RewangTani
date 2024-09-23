@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.DatumKendalaPertumbuhan;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
-
 import java.util.List;
 
 public class AdapterListKendalaPertumbuhan extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -30,13 +28,11 @@ public class AdapterListKendalaPertumbuhan extends RecyclerView.Adapter<Recycler
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.z_list, parent, false);
-        Penampung penampung = new Penampung(view);
-        return penampung;
+        return new Penampung(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        // id rencana tanam, nanti diganti nama rencana tanam
         for(int j=0; j<dataRT.size(); j++){
             if (dataItemList.get(position).getIdSudahTanam().equalsIgnoreCase(dataRT.get(j).getIdRencanaTanam())){
                 ((Penampung)holder).nama.setText(dataRT.get(j).getNamaRencanaTanam());

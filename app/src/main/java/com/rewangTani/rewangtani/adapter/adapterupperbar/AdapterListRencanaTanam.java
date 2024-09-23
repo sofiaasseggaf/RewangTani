@@ -21,7 +21,6 @@ import java.util.Locale;
 public class AdapterListRencanaTanam extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<DatumRencanaTanam> dataItemList;
-    DecimalFormat formatter;
 
     public AdapterListRencanaTanam(List<DatumRencanaTanam> dataItemList) {
         this.dataItemList = dataItemList;

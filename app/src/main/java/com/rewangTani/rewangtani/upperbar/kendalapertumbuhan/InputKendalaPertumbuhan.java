@@ -48,9 +48,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_input_kendala_pertumbuhan);
 
-        //getData();
-
-        idRT = "";
+        getData();
 
         binding.spRencanaTanam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -74,26 +72,17 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(InputKendalaPertumbuhan.this, "Simpan ", Toast.LENGTH_SHORT).show();
-                goToListKendalaPertumbuhan();
-//                if (!idRT.equalsIgnoreCase("")){
-//                    sendData();
-//                } else {
-//                    Toast.makeText(InputKendalaPertumbuhan.this, "Pilih rencana tanam terlebih dahulu", Toast.LENGTH_SHORT).show();
-//                }
+                if (idRT != null && idPL != null) {
+                    sendData();
+                } else {
+                    Toast.makeText(InputKendalaPertumbuhan.this, "Pilih Rencana Tanam Terlebih Dahulu !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-//        btn_batal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onBackPressed();
-//            }
-//        });
-
     }
 
     public void getData(){
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;

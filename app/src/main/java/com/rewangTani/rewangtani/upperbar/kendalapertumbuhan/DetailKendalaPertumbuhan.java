@@ -27,7 +27,7 @@ import retrofit2.Response;
 public class DetailKendalaPertumbuhan extends AppCompatActivity {
 
     UpperbarKpDetailKendalaPertumbuhanBinding binding;
-    String id, idRT, idPL, namaRT, namaPL;
+    String idRT, idPL, namaRT, namaPL;
     ModelRencanaTanam modelRencanaTanam;
     ModelKendalaPertumbuhan modelKendalaPertumbuhan;
     DatumKendalaPertumbuhan dataKendalaPertumbuhan;
@@ -39,13 +39,13 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_detail_kendala_pertumbuhan);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
+        String idKendalaPertumbuhan = intent.getStringExtra("idKendalaPertumbuhan");
 
-        //getData();
+        getData(idKendalaPertumbuhan);
 
     }
 
-    public void getData(){
+    public void getData(String idKendalaPertumbuhan){
         findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -69,12 +69,12 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getKendalaPertumbuhan();
+                getKendalaPertumbuhan(idKendalaPertumbuhan);
             }
         }).start();
     }
 
-    public void getKendalaPertumbuhan() {
+    public void getKendalaPertumbuhan(String idKendalaPertumbuhan) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelKendalaPertumbuhan> dataRT = apiInterface.getDataKendalaPertumbuhan();
         dataRT.enqueue(new Callback<ModelKendalaPertumbuhan>() {
@@ -86,7 +86,7 @@ public class DetailKendalaPertumbuhan extends AppCompatActivity {
                     try {
                         for (int i = 0; i < modelKendalaPertumbuhan.getTotalData(); i++) {
                             String idkp = modelKendalaPertumbuhan.getData().get(i).getIdKendalaPertumbuhan();
-                            if (id.equalsIgnoreCase(idkp)) {
+                            if (idKendalaPertumbuhan.equalsIgnoreCase(idkp)) {
                                 idRT = modelKendalaPertumbuhan.getData().get(i).getIdSudahTanam();
                                 idPL = modelKendalaPertumbuhan.getData().get(i).getIdProfilTanah();
                                 dataKendalaPertumbuhan = modelKendalaPertumbuhan.getData().get(i);

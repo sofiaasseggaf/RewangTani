@@ -383,8 +383,8 @@ public class ListSudahTanam extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Intent a = new Intent(ListSudahTanam.this, UpdateSudahTanamA.class);
-                        a.putExtra("id", listNewRencanaTanam.get(position).getIdRencanaTanam());
+                        Intent a = new Intent(ListSudahTanam.this, UpdateSudahTanamRT.class);
+                        a.putExtra("idRencanaTanam", listNewRencanaTanam.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
 

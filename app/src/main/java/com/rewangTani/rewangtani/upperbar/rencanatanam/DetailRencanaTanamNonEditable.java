@@ -9,10 +9,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.UpperbarRtDetailRencanaTanamNonEditableBinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
@@ -31,60 +33,25 @@ import retrofit2.Response;
 
 public class DetailRencanaTanamNonEditable extends AppCompatActivity {
 
-    //DataHelper dbHelper;
-    String id;
-    TextView txt_nama, txt_profil_lahan, txt_komoditas, txt_varietas, txt_estimasi_hasil;
-    TextView txt_buruh_tanam, txt_buruh_bajak, txt_buruh_semprot, txt_buruh_menyiangi, txt_buruh_galengan, txt_buruh_pupuk, txt_buruh_panen;
-    TextView txt_mesin_bajak, txt_mesin_tanam, txt_mesin_panen, txt_mesin_pompa, txt_mesin_pompa_bbm;
-    TextView txt_bibit_local, txt_bibit_subsidi;
-    TextView txt_pupuk_kimia_local, txt_pupuk_kimia_phonska, txt_pupuk_kimia_urea, txt_pupuk_kimia_fosfat, txt_pupuk_organik;
-    EditText txt_estimasi_rab;
+    UpperbarRtDetailRencanaTanamNonEditableBinding binding;
     ModelRencanaTanam modelRencanaTanam;
     DatumRencanaTanam dataRencanaTanam;
     ModelProfilLahan modelProfilLahan;
     ModelKomoditas modelKomoditas;
     ModelVarietas modelVarietas;
     ModelOutputRencanaTanam modelOutputRencanaTanam;
-    TextView txtload;
     String namaPL,namaKomoditas, namaVarietas, est_biaya, est_hasil;
     DecimalFormat formatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upperbar_rt_detail_rencana_tanam_non_editable);
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_detail_rencana_tanam_non_editable);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
+        String idRencanaTanam = intent.getStringExtra("idRencanaTanam");
 
-        txt_nama = findViewById(R.id.txt_nama);
-        txt_profil_lahan = findViewById(R.id.txt_profil_lahan);
-        txt_komoditas = findViewById(R.id.txt_komoditas);
-        txt_varietas = findViewById(R.id.txt_varietas);
-        txt_estimasi_rab = findViewById(R.id.txt_estimasi_rab);
-        txt_estimasi_hasil = findViewById(R.id.txt_estimasi_hasil);
-        txt_buruh_tanam = findViewById(R.id.txt_buruh_tanam);
-        txt_buruh_bajak = findViewById(R.id.txt_buruh_bajak);
-        txt_buruh_semprot = findViewById(R.id.txt_buruh_semprot);
-        txt_buruh_menyiangi = findViewById(R.id.txt_buruh_menyiangi);
-        txt_buruh_galengan = findViewById(R.id.txt_buruh_galengan);
-        txt_buruh_pupuk = findViewById(R.id.txt_buruh_pupuk);
-        txt_buruh_panen = findViewById(R.id.txt_buruh_panen);
-        txt_mesin_bajak = findViewById(R.id.txt_mesin_bajak);
-        txt_mesin_panen = findViewById(R.id.txt_mesin_panen);
-        txt_mesin_tanam = findViewById(R.id.txt_mesin_tanam);
-        txt_mesin_pompa = findViewById(R.id.txt_mesin_pompa);
-        txt_mesin_pompa_bbm = findViewById(R.id.txt_mesin_pompa_bbm);
-        txt_bibit_local = findViewById(R.id.txt_bibit_local);
-        txt_bibit_subsidi = findViewById(R.id.txt_bibit_subsidi);
-        txt_pupuk_kimia_local = findViewById(R.id.txt_pupuk_kimia_local_het);
-//        txt_pupuk_kimia_phonska = findViewById(R.id.txt_pupuk_kimia_phonska);
-//        txt_pupuk_kimia_urea = findViewById(R.id.txt_pupuk_kimia_urea);
-//        txt_pupuk_kimia_fosfat = findViewById(R.id.txt_pupuk_kimia_fosfat);
-        txt_pupuk_organik = findViewById(R.id.txt_pupuk_organik);
-        txtload = findViewById(R.id.textloading);
-
-        getData();
+        getData(idRencanaTanam);
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -94,8 +61,8 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
 
     }
 
-    public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+    public void getData(String idRencanaTanam){
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -103,11 +70,11 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    txtload.setText("Tunggu sebentar ya ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya ."); }
                 else if (count == 2) {
-                    txtload.setText("Tunggu sebentar ya . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
                 else if (count == 3) {
-                    txtload.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -118,12 +85,12 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getRencanaTanam();
+                getRencanaTanam(idRencanaTanam);
             }
         }).start();
     }
 
-    public void getRencanaTanam() {
+    public void getRencanaTanam(String idRencanaTanam) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanam();
         dataRT.enqueue(new Callback<ModelRencanaTanam>() {
@@ -134,7 +101,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                     try{
                         for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
                             String idrt = modelRencanaTanam.getData().get(i).getIdRencanaTanam();
-                            if (id.equalsIgnoreCase(idrt)) {
+                            if (idRencanaTanam.equalsIgnoreCase(idrt)) {
                                 dataRencanaTanam = modelRencanaTanam.getData().get(i);
                                 if (dataRencanaTanam!=null){
                                     getDataProfilLahan();
@@ -149,7 +116,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamNonEditable.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -185,7 +152,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(DetailRencanaTanamNonEditable.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                                 call.cancel();
                             }
@@ -220,7 +187,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamNonEditable.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -253,7 +220,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamNonEditable.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -283,7 +250,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 setDataOutput();
                             }
                         });
@@ -291,7 +258,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                findViewById(R.id.framelayout).setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(DetailRencanaTanamNonEditable.this, "Data RAB tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 setData();
                             }
@@ -304,7 +271,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailRencanaTanamNonEditable.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -324,54 +291,54 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
 
     public void setDataOutput(){
         est_biaya = formatter.format(Double.valueOf(est_biaya).longValue());
-        txt_estimasi_rab.setText(est_biaya);
-        txt_estimasi_hasil.setText(est_hasil+" Kg");
+        binding.txtEstimasiRab.setText(est_biaya);
+        binding.txtEstimasiHasil.setText(est_hasil+" Kg");
         setData();
     }
 
     public void setData(){
-        txt_nama.setText(dataRencanaTanam.getNamaRencanaTanam());
-        txt_profil_lahan.setText(namaPL);
-        txt_komoditas.setText(namaKomoditas);
-        txt_varietas.setText(namaVarietas);
+        binding.txtNama.setText(dataRencanaTanam.getNamaRencanaTanam());
+        binding.txtProfilLahan.setText(namaPL);
+        binding.txtKomoditas.setText(namaKomoditas);
+        binding.txtVarietas.setText(namaVarietas);
         String a = checkDesimal(dataRencanaTanam.getIdBiayaBuruhTanam());
-        txt_buruh_tanam.setText(a);
+        binding.txtBuruhTanam.setText(a);
         String b = checkDesimal(dataRencanaTanam.getIdBiayaBuruhBajak());
-        txt_buruh_bajak.setText(b);
+        binding.txtBuruhBajak.setText(b);
         String c = checkDesimal(dataRencanaTanam.getIdBiayaBuruhSemprot());
-        txt_buruh_semprot.setText(c);
+        binding.txtBuruhSemprot.setText(c);
         String d = checkDesimal(dataRencanaTanam.getIdBiayaBuruhMenyiangirumput());
-        txt_buruh_menyiangi.setText(d);
+        binding.txtBuruhMenyiangi.setText(d);
         String e = checkDesimal(dataRencanaTanam.getIdBiayaBuruhGalangan());
-        txt_buruh_galengan.setText(e);
+        binding.txtBuruhGalengan.setText(e);
         String f = checkDesimal(dataRencanaTanam.getIdBiayaBuruhPupuk());
-        txt_buruh_pupuk.setText(f);
+        binding.txtBuruhPupuk.setText(f);
         String g = checkDesimal(dataRencanaTanam.getIdBiayaBuruhPanen());
-        txt_buruh_panen.setText(g);
+        binding.txtBuruhPanen.setText(g);
         String h = checkDesimal(dataRencanaTanam.getIdSewaMesinBajak());
-        txt_mesin_bajak.setText(h);
+        binding.txtMesinBajak.setText(h);
         String i = checkDesimal(dataRencanaTanam.getIdSewaMesinPanen());
-        txt_mesin_panen.setText(i);
+        binding.txtMesinPanen.setText(i);
         String j = checkDesimal(dataRencanaTanam.getIdSewaMesinTanam());
-        txt_mesin_tanam.setText(j);
+        binding.txtMesinTanam.setText(j);
         if (dataRencanaTanam.getIdSewamesinPompa()!=null){
             String k = checkDesimal(dataRencanaTanam.getIdSewamesinPompa());
-            txt_mesin_pompa.setText(k);
+            binding.txtMesinPompa.setText(k);
         } else {
-            txt_mesin_pompa.setText("-");
+            binding.txtMesinPompa.setText("-");
         }
         if (dataRencanaTanam.getIdSewamesinPompaBbm()!=null){
             String l = checkDesimal(dataRencanaTanam.getIdSewamesinPompaBbm());
-            txt_mesin_pompa_bbm.setText(l);
+            binding.txtMesinPompaBbm.setText(l);
         } else {
-            txt_mesin_pompa_bbm.setText("-");
+            binding.txtMesinPompaBbm.setText("-");
         }
         String m = checkDesimal(dataRencanaTanam.getIdBiayabibitLocalHet());
-        txt_bibit_local.setText(m);
+        binding.txtBibitLocal.setText(m);
         String n = checkDesimal(dataRencanaTanam.getIdBiayabibitSubsidi());
-        txt_bibit_subsidi.setText(n);
+        binding.txtBibitSubsidi.setText(n);
         String o = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaLocalHet());
-        txt_pupuk_kimia_local.setText(o);
+        binding.txtPupukKimiaLocalHet.setText(o);
 //        String p = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaPhonska());
 //        txt_pupuk_kimia_phonska.setText(p);
 //        String q = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaUrea());
@@ -379,7 +346,7 @@ public class DetailRencanaTanamNonEditable extends AppCompatActivity {
 //        String r = checkDesimal(dataRencanaTanam.getIdBiayapupukKimiaFosfat());
 //        txt_pupuk_kimia_fosfat.setText(r);
         String s = checkDesimal(dataRencanaTanam.getIdBiayapupukOrganik());
-        txt_pupuk_organik.setText(s);
+        binding.txtPupukOrganik.setText(s);
     }
 
     public  void goToListRT(){

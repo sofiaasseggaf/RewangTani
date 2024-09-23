@@ -24,6 +24,7 @@ import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -396,7 +397,7 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
         binding.estimasiBiayaProduksi.setText(est_biaya);
         binding.estimasiHasilTanam.setText(est_hasil + " Kg");
 
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), new DatumRencanaTanam("", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", false, "", ""));
+        ListRencanaTanam.getInstance().initializeNewRencanaTanam();
 
     }
 

@@ -54,14 +54,13 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
     List<String> kendala = new ArrayList<>();
     ModelRencanaTanam modelRencanaTanam;
     List<DatumRencanaTanam> listRencanaTanam = new ArrayList<>();
-    List<DatumRencanaTanam> listNewRencanaTanam = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_kp_list_kendala_pertumbuhan);
 
-        //getData();
+        getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,7 +336,8 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
+                    binding.scrollView.setVisibility(View.VISIBLE);
                     setData();
                 }
             });
@@ -345,10 +345,8 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
 
     }
 
-
     public void setData(){
-        itemList = new AdapterListKendalaPertumbuhan(listKendalaPertumbuhanSorted, listRencanaTanam);
-        //itemList = new AdapterListKendalaPertumbuhan(listNewKendalaPertumbuhan, listNewRencanaTanam);
+        itemList = new AdapterListKendalaPertumbuhan(listNewKendalaPertumbuhan, listRencanaTanam);
         binding.rvKendalaPertumbuhan.setLayoutManager(new LinearLayoutManager(ListKendalaPertumbuhan.this));
         binding.rvKendalaPertumbuhan.setAdapter(itemList);
         binding.rvKendalaPertumbuhan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvKendalaPertumbuhan,
@@ -356,7 +354,7 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListKendalaPertumbuhan.this, DetailKendalaPertumbuhan.class);
-                        a.putExtra("id", listKendalaPertumbuhanSorted.get(position).getIdKendalaPertumbuhan());
+                        a.putExtra("idKendalaPertumbuhan", listNewKendalaPertumbuhan.get(position).getIdKendalaPertumbuhan());
                         startActivity(a);
                     }
                     @Override
@@ -366,14 +364,11 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                 }));
     }
 
-
     public void goToInputKendalaPertumbuhan(){
         Intent a = new Intent(ListKendalaPertumbuhan.this, InputKendalaPertumbuhan.class);
         startActivity(a);
         finish();
     }
-
-
 
     public void goToBeranda(){
         Intent a = new Intent(ListKendalaPertumbuhan.this, Home.class);

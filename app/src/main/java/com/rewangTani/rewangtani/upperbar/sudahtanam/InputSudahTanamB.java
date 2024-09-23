@@ -462,12 +462,6 @@ public class InputSudahTanamB extends AppCompatActivity {
         finish();
     }
 
-    public  void goToListST(){
-        Intent a = new Intent(InputSudahTanamB.this, ListSudahTanam.class);
-        startActivity(a);
-        finish();
-    }
-
     @Override
     public void onBackPressed() {
         moveToA();

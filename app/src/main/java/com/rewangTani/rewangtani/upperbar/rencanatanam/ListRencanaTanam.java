@@ -191,7 +191,7 @@ public class ListRencanaTanam extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListRencanaTanam.this, DetailRencanaTanamNonEditable.class);
-                        a.putExtra("id", listRencanaTanam.get(position).getIdRencanaTanam());
+                        a.putExtra("idRencanaTanam", listRencanaTanam.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
                     @Override
