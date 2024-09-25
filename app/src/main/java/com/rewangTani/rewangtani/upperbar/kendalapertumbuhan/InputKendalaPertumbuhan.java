@@ -19,6 +19,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarKpInputKendalaPertumbuhanBinding;
+import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -40,6 +41,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
     UpperbarKpInputKendalaPertumbuhanBinding binding;
     ModelRencanaTanam modelRencanaTanam;
     List<String> listRT = new ArrayList<String>();
+    List<DatumRencanaTanam> myRencanaTanam = new ArrayList<>();
     String namaRT, idRT, idPL;
     ArrayAdapter<String> adapterRT;
 
@@ -55,11 +57,11 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 namaRT = binding.spRencanaTanam.getSelectedItem().toString();
-                for (int a=0; a<modelRencanaTanam.getTotalData(); a++){
+                for (int a=0; a < myRencanaTanam.size(); a++){
                     try {
-                        if (modelRencanaTanam.getData().get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)){
-                            idRT = modelRencanaTanam.getData().get(a).getIdRencanaTanam();
-                            idPL = modelRencanaTanam.getData().get(a).getIdProfilTanah();
+                        if (myRencanaTanam.get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)){
+                            idRT = myRencanaTanam.get(a).getIdRencanaTanam();
+                            idPL = myRencanaTanam.get(a).getIdProfilTanah();
                         }
                     } catch (Exception e){}
                 }
@@ -122,6 +124,7 @@ public class InputKendalaPertumbuhan extends AppCompatActivity {
                         try {
                             if (PreferenceUtils.getIdAkun(getApplicationContext())
                                     .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
+                                myRencanaTanam.add(modelRencanaTanam.getData().get(i));
                                 listRT.add(modelRencanaTanam.getData().get(i).getNamaRencanaTanam());
                             }
                         } catch (Exception e){ }

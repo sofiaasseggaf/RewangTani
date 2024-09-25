@@ -213,14 +213,6 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
 
                         sortDataKendalaPertumbuhan();
 
-                        /*runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                setData();
-                            }
-                        });*/
-
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -230,35 +222,6 @@ public class ListKendalaPertumbuhan extends AppCompatActivity {
                             }
                         });
                     }
-
-                    /*if (listKendalaPertumbuhan.size()>0){
-                        idKP.clear();
-                        newidKP.clear();
-                        for(int i=0; i<listKendalaPertumbuhan.size(); i++){
-                            idKP.add(listKendalaPertumbuhan.get(i).getIdSudahTanam());
-                        }
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                // gaada kendala pertumbuhan dari id akun ini
-                            }
-                        });
-                    }
-
-                    if(idKP.size()>0){
-                        newidKP = idKP.stream().distinct().collect(Collectors.toList());
-                        getNewKendalaPertumbuhan();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                            }
-                        });
-                    }*/
-
                 }
             }
             @Override

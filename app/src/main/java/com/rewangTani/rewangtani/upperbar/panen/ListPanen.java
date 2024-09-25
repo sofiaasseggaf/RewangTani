@@ -57,7 +57,7 @@ public class ListPanen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_list_panen);
 
-        //getData();
+        getData();
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -324,7 +324,7 @@ public class ListPanen extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListPanen.this, DetailPanen.class);
-                        a.putExtra("id", listPanen.get(position).getIdPanen());
+                        a.putExtra("idPanen", listPanen.get(position).getIdPanen());
                         startActivity(a);
                     }
                     @Override
@@ -339,7 +339,6 @@ public class ListPanen extends AppCompatActivity {
         startActivity(a);
         finish();
     }
-
 
     public void goToBeranda(){
         Intent a = new Intent(ListPanen.this, Home.class);
@@ -370,12 +369,6 @@ public class ListPanen extends AppCompatActivity {
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
-        finish();
-    }
-
-    public void goToPanen(){
-        Intent a = new Intent(ListPanen.this, ListPanen.class);
-        startActivity(a);
         finish();
     }
 

@@ -29,7 +29,6 @@ import retrofit2.Response;
 public class DetailPanen extends AppCompatActivity {
 
     UpperbarPDetailPanenBinding binding;
-    String id;
     ModelPanen modelPanen;
     DatumPanen dataPanen;
     DecimalFormat formatter;
@@ -41,9 +40,18 @@ public class DetailPanen extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_detail_panen);
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
+        String idPanen = intent.getStringExtra("idPanen");
 
-        //getData();
+        getData(idPanen);
+
+        binding.btnX.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (binding.rlAcuanPemerintah.getVisibility() == View.VISIBLE) {
+                    binding.rlAcuanPemerintah.setVisibility(View.GONE);
+                }
+            }
+        });
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -53,7 +61,7 @@ public class DetailPanen extends AppCompatActivity {
 
     }
 
-    public void getData(){
+    public void getData(String idPanen){
         findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -77,12 +85,12 @@ public class DetailPanen extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getPanen();
+                getPanen(idPanen);
             }
         }).start();
     }
 
-    public void getPanen() {
+    public void getPanen(String idPanen) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelPanen> dataRT = apiInterface.getDataPanen();
         dataRT.enqueue(new Callback<ModelPanen>() {
@@ -93,7 +101,7 @@ public class DetailPanen extends AppCompatActivity {
                     try{
                         for (int i = 0; i < modelPanen.getTotalData(); i++) {
                             String idp = modelPanen.getData().get(i).getIdPanen();
-                            if (id.equalsIgnoreCase(idp)) {
+                            if (idPanen.equalsIgnoreCase(idp)) {
                                 dataPanen = modelPanen.getData().get(i);
                                 if (dataPanen!=null){
                                     runOnUiThread(new Runnable() {

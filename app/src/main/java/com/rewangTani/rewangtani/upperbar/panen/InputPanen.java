@@ -19,6 +19,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarPInputPanenBinding;
+import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
@@ -41,6 +42,7 @@ public class InputPanen extends AppCompatActivity {
     UpperbarPInputPanenBinding binding;
     ModelRencanaTanam modelRencanaTanam;
     List<String> listRencanaTanam = new ArrayList<>();
+    List<DatumRencanaTanam> myRencanaTanam = new ArrayList<>();
     ArrayAdapter<String> adapterRT;
     String namaRT, idRT;
     String[] tujuanjual, hasilpanen;
@@ -50,64 +52,61 @@ public class InputPanen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_p_input_panen);
 
-        //getData();
+        getData();
 
         binding.hargaJual.addTextChangedListener(new NumberTextWatcher(binding.hargaJual));
-        //et_jumlah_hasil_panen.addTextChangedListener(new NumberTextWatcher(et_jumlah_hasil_panen));
 
         binding.spRencanaTanam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 namaRT = binding.spRencanaTanam.getSelectedItem().toString();
-                for (int a=0; a<modelRencanaTanam.getTotalData(); a++){
+                for (int a = 0; a < myRencanaTanam.size(); a++) {
                     try {
-                        if (modelRencanaTanam.getData().get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)){
-                            idRT = modelRencanaTanam.getData().get(a).getIdRencanaTanam();
+                        if (myRencanaTanam.get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)) {
+                            idRT = myRencanaTanam.get(a).getIdRencanaTanam();
                         }
-                    } catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) { }
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
         });
 
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(InputPanen.this, "Simpan !", Toast.LENGTH_SHORT).show();
-                goToListPanen();
-//                if(!binding.jumlahHasilPanen.getText().toString().equalsIgnoreCase("") && !binding.hargaJual.getText().toString().equalsIgnoreCase("")){
-//                    getIDRT();
-//                } else {
-//                    Toast.makeText(InputPanen.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
-//                }
+                if (!binding.jumlahHasilPanen.getText().toString().equalsIgnoreCase("") && !binding.hargaJual.getText().toString().equalsIgnoreCase("") &&
+                !idRT.equalsIgnoreCase("") && !binding.spTujuanJual.getSelectedItem().toString().equalsIgnoreCase("") &&
+                !binding.spJenisPanen.getSelectedItem().toString().equalsIgnoreCase("")) {
+                    sendData();
+                } else {
+                    Toast.makeText(InputPanen.this, "Lengkapi Field Terlebih Dahulu !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-//        btn_batal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                batal();
-//            }
-//        });
-
     }
 
-    private void getData(){
+    private void getData() {
         findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -123,24 +122,26 @@ public class InputPanen extends AppCompatActivity {
         }).start();
     }
 
-    public void getRencanaTanam(){
+    public void getRencanaTanam() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanam();
         dataRT.enqueue(new Callback<ModelRencanaTanam>() {
             @Override
             public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                 modelRencanaTanam = response.body();
-                if (response.body()!=null){
+                if (response.body() != null) {
 
                     for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
                         try {
                             if (PreferenceUtils.getIdAkun(getApplicationContext())
                                     .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
+                                myRencanaTanam.add(modelRencanaTanam.getData().get(i));
                                 listRencanaTanam.add(modelRencanaTanam.getData().get(i).getNamaRencanaTanam());
                             }
-                        } catch (Exception e){ }
+                        } catch (Exception e) {
+                        }
                     }
-                    if (listRencanaTanam.size()>0){
+                    if (listRencanaTanam.size() > 0) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -171,16 +172,12 @@ public class InputPanen extends AppCompatActivity {
                                         .show();
 
 
-
-
-
-
-
                             }
                         });
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelRencanaTanam> call, Throwable t) {
                 runOnUiThread(new Runnable() {
@@ -195,14 +192,14 @@ public class InputPanen extends AppCompatActivity {
         });
     }
 
-    public void setDataSpinner(){
+    public void setDataSpinner() {
         adapterRT = new ArrayAdapter<String>(InputPanen.this, R.layout.z_spinner_list, listRencanaTanam);
         adapterRT.setDropDownViewResource(R.layout.z_spinner_list);
         binding.spRencanaTanam.setAdapter(adapterRT);
         setSpinnerTujuanJual();
     }
 
-    public void setSpinnerTujuanJual(){
+    public void setSpinnerTujuanJual() {
         tujuanjual = getResources().getStringArray(R.array.tujuanjual);
         ArrayAdapter<String> adapterTJ = new ArrayAdapter<>(InputPanen.this, R.layout.z_spinner_list, tujuanjual);
         adapterTJ.setDropDownViewResource(R.layout.z_spinner_list);
@@ -210,39 +207,29 @@ public class InputPanen extends AppCompatActivity {
         setSpinnerHasilPanen();
     }
 
-    public void setSpinnerHasilPanen(){
+    public void setSpinnerHasilPanen() {
         hasilpanen = getResources().getStringArray(R.array.jenishasilpanen);
         ArrayAdapter<String> adapterHP = new ArrayAdapter<>(InputPanen.this, R.layout.z_spinner_list, hasilpanen);
         adapterHP.setDropDownViewResource(R.layout.z_spinner_list);
         binding.spJenisPanen.setAdapter(adapterHP);
     }
 
-    public void getIDRT(){
-        namaRT = binding.spRencanaTanam.getSelectedItem().toString();
-        for (int a=0; a<modelRencanaTanam.getTotalData(); a++){
-            try {
-                if (modelRencanaTanam.getData().get(a).getNamaRencanaTanam().equalsIgnoreCase(namaRT)){
-                    idRT = modelRencanaTanam.getData().get(a).getIdRencanaTanam();
-                    savePanen();
-                }
-            } catch (Exception e){}
-        }
-    }
-
-    public void savePanen(){
+    public void sendData() {
         findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
+
             @Override
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
+                    binding.textLoading.setText("Tunggu sebentar ya .");
+                } else if (count == 2) {
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
+                } else if (count == 3) {
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
+                }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -257,13 +244,12 @@ public class InputPanen extends AppCompatActivity {
         }).start();
     }
 
-    private void sendDataPanen(){
+    private void sendDataPanen() {
         Double a = Double.parseDouble(binding.jumlahHasilPanen.getText().toString());
-        //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
-        //String now = formatter.format(new Date());
+
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
-        jsonParams.put("idRencanaTanam", idRT );
+        jsonParams.put("idRencanaTanam", idRT);
         jsonParams.put("tujuanJual", binding.spTujuanJual.getSelectedItem().toString());
         jsonParams.put("jenisHasilPanen", binding.spJenisPanen.getSelectedItem().toString());
         jsonParams.put("hasilPanen", a);
@@ -299,6 +285,7 @@ public class InputPanen extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 runOnUiThread(new Runnable() {
@@ -313,17 +300,17 @@ public class InputPanen extends AppCompatActivity {
         });
     }
 
-    public void batal(){
+    public void batal() {
         onBackPressed();
     }
 
-    public void goToListPanen(){
+    public void goToListPanen() {
         Intent a = new Intent(InputPanen.this, ListPanen.class);
         startActivity(a);
         finish();
     }
 
-    public  void goToRencanaTanam(){
+    public void goToRencanaTanam() {
         Intent a = new Intent(InputPanen.this, ListRencanaTanam.class);
         startActivity(a);
         finish();
@@ -346,7 +333,7 @@ public class InputPanen extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-        AlertDialog alertDialog =builder.create();
+        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 }

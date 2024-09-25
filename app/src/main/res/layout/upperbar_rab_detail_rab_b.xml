@@ -53,6 +53,7 @@
                     android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
                     <RelativeLayout
+                        android:id="@+id/btnRAB"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
                         android:padding="10dp"
@@ -111,7 +112,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="24/07/2023"
                         android:fontFamily="@font/inter_regular"
                         android:textSize="12sp"
                         android:textColor="#327036"
@@ -140,9 +140,10 @@
                         android:orientation="horizontal">
 
                         <ImageButton
+                            android:id="@+id/btnOngkosBuruh"
                             android:layout_width="12dp"
                             android:layout_height="10dp"
-                            android:background="@drawable/triangle_upside_down_green" />
+                            android:background="@drawable/triangle_point_to_right_green" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -159,7 +160,8 @@
                         android:id="@+id/viewOngkosBuruh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -181,7 +183,7 @@
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
                                 android:text="Rp. 0"
-                                android:textColor="@color/red"
+                                android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
                         <RelativeLayout
@@ -345,9 +347,10 @@
                         android:orientation="horizontal">
 
                         <ImageButton
+                            android:id="@+id/btnSewaMesin"
                             android:layout_width="12dp"
                             android:layout_height="10dp"
-                            android:background="@drawable/triangle_upside_down_green" />
+                            android:background="@drawable/triangle_point_to_right_green" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -364,7 +367,8 @@
                         android:id="@+id/viewSewaMesin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -450,9 +454,10 @@
                         android:orientation="horizontal">
 
                         <ImageButton
+                            android:id="@+id/btnHargaBibit"
                             android:layout_width="12dp"
                             android:layout_height="10dp"
-                            android:background="@drawable/triangle_upside_down_green" />
+                            android:background="@drawable/triangle_point_to_right_green" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -469,7 +474,8 @@
                         android:id="@+id/viewHargaBibit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -530,9 +536,10 @@
                         android:orientation="horizontal">
 
                         <ImageButton
+                            android:id="@+id/btnHargaPupuk"
                             android:layout_width="12dp"
                             android:layout_height="10dp"
-                            android:background="@drawable/triangle_upside_down_green" />
+                            android:background="@drawable/triangle_point_to_right_green" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -549,7 +556,8 @@
                         android:id="@+id/viewHargaPupuk"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -635,9 +643,10 @@
                         android:orientation="horizontal">
 
                         <ImageButton
+                            android:id="@+id/btnHargaObat"
                             android:layout_width="12dp"
                             android:layout_height="10dp"
-                            android:background="@drawable/triangle_upside_down_green" />
+                            android:background="@drawable/triangle_point_to_right_green" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -654,7 +663,8 @@
                         android:id="@+id/viewHargaObat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -704,11 +714,10 @@
                             android:textColor="#327036"
                             android:textAlignment="center"/>
                         <TextView
-                            android:id="@+id/tglEstimasiAwal"
+                            android:id="@+id/totalBiaya"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Rp. 238.980"
                             android:fontFamily="@font/inter_bold"
                             android:textSize="12sp"
                             android:textColor="#327036"
@@ -722,7 +731,7 @@
         </ScrollView>
 
         <FrameLayout
-            android:id="@+id/framelayout"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_loading"
@@ -733,7 +742,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

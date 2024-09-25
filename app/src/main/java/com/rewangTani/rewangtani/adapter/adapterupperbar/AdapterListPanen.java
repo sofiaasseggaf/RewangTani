@@ -29,8 +29,7 @@ public class AdapterListPanen extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.z_list, parent, false);
-        Penampung penampung = new Penampung(view);
-        return penampung;
+        return new Penampung(view);
     }
 
     @Override
