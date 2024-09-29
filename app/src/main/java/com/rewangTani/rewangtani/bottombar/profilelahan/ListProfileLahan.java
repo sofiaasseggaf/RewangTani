@@ -232,7 +232,7 @@ public class ListProfileLahan extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListProfileLahan.this, DetailProfilLahan.class);
-                        a.putExtra("id", listProfilLahan.get(position).getIdProfileTanah());
+                        a.putExtra("idProfilLahan", listProfilLahan.get(position).getIdProfileTanah());
                         startActivity(a);
                     }
                     @Override

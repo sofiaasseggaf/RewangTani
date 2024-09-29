@@ -85,12 +85,14 @@ public class Login extends AppCompatActivity {
         });
 
         binding.btnLoginWithGoogle.setOnClickListener(v -> {
-            if (mGoogleSignInClient != null) {
-                signOutGoogle();
-            }
-            // Initialize sign in intent
-            Intent intent = mGoogleSignInClient.getSignInIntent();
-            startActivityForResult(intent, 100);
+            Toast.makeText(Login.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+
+//            if (mGoogleSignInClient != null) {
+//                signOutGoogle();
+//            }
+//            Intent intent = mGoogleSignInClient.getSignInIntent();
+//            startActivityForResult(intent, 100);
+
         });
 
         binding.btnPassword.setOnClickListener(v -> {

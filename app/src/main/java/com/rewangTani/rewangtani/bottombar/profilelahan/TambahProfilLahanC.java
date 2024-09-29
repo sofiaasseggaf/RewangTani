@@ -38,7 +38,7 @@ import retrofit2.Response;
 public class TambahProfilLahanC extends FragmentActivity {
 
     BottombarPlTambahProfilLahanCBinding binding;
-    int ph;
+    int ph, kt;
     ModelSistemIrigasi modelSistemIrigasi;
     List<String> listSistemIrigasi = new ArrayList<String>();
     int checkPh;
@@ -60,15 +60,14 @@ public class TambahProfilLahanC extends FragmentActivity {
         });
 
         if(Build.VERSION.SDK_INT >= 26){
+
             binding.sbPhtanah.setClickable(true);
             binding.sbPhtanah.setVisibility(View.VISIBLE);
-            binding.rlPhTanah.setClickable(true);
-            binding.rlPhTanah.setVisibility(View.VISIBLE);
+            binding.rlPhTanahTV.setClickable(true);
+            binding.rlPhTanahTV.setVisibility(View.VISIBLE);
 
-            binding.etPhtanah.setVisibility(View.GONE);
-            binding.rlPhTanah.setClickable(false);
-            binding.rlPhTanahTv.setVisibility(View.GONE);
-            binding.rlPhTanahTv.setClickable(false);
+            binding.phTanahEditText.setVisibility(View.GONE);
+            binding.phTanahEditText.setClickable(false);
             binding.panjangPhTanah.setVisibility(View.GONE);
             binding.panjangPhTanah.setClickable(false);
 
@@ -76,7 +75,7 @@ public class TambahProfilLahanC extends FragmentActivity {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     double value = ((double) progress / 10.0);
-                    binding.etPhtanah.setText(String.valueOf(value));
+                    binding.textPhTanah.setText(String.valueOf(value));
                 }
 
                 @Override
@@ -86,25 +85,24 @@ public class TambahProfilLahanC extends FragmentActivity {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
-                    ph = Integer.valueOf(binding.etPhtanah.getText().toString().replaceAll("[^0-9]", ""));
+                    ph = Integer.valueOf(binding.textPhTanah.getText().toString().replaceAll("[^0-9]", ""));
                 }
             });
+
         } else {
 
             binding.sbPhtanah.setClickable(false);
             binding.sbPhtanah.setVisibility(View.GONE);
-            binding.rlPhTanah.setClickable(false);
-            binding.rlPhTanah.setVisibility(View.GONE);
+            binding.rlPhTanahTV.setClickable(false);
+            binding.rlPhTanahTV.setVisibility(View.GONE);
 
-            binding.etPhtanah.setVisibility(View.VISIBLE);
-            binding.etPhtanah.setClickable(true);
-            binding.rlPhTanahTv.setVisibility(View.VISIBLE);
-            binding.rlPhTanahTv.setClickable(false);
+            binding.phTanahEditText.setVisibility(View.VISIBLE);
+            binding.phTanahEditText.setClickable(true);
             binding.panjangPhTanah.setVisibility(View.GONE);
             binding.panjangPhTanah.setClickable(false);
 
-            binding.etPhtanah.addTextChangedListener(new TextWatcher() {
-                int a;
+            binding.phTanahEditText.addTextChangedListener(new TextWatcher() {
+                double a;
                 double value;
 
                 @Override
@@ -115,7 +113,7 @@ public class TambahProfilLahanC extends FragmentActivity {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!s.toString().equalsIgnoreCase("")){
-                        a = Integer.valueOf(s.toString());
+                        a = Double.valueOf(s.toString());
                     } else {
                         binding.textPhTanah.setText("");
                     }
@@ -125,16 +123,20 @@ public class TambahProfilLahanC extends FragmentActivity {
 
                 @Override
                 public void afterTextChanged(Editable s) {
-                    value = ((double) a / 10.0);
-                    binding.textPhTanah.setText(String.valueOf(value));
-                    if (value>14.0){
+//                    value = ((double) a / 10.0);
+//                    binding.textPhTanah.setText(String.valueOf(value));
+                    if (a>14.0){
                         binding.panjangPhTanah.setVisibility(View.VISIBLE);
                         checkPh = 1;
                     } else {
                         binding.panjangPhTanah.setVisibility(View.GONE);
                         checkPh = 0;
                     }
-                    ph = Integer.valueOf(binding.textPhTanah.getText().toString().replaceAll("[^0-9]", ""));
+                    if (!binding.phTanahEditText.getText().toString().equalsIgnoreCase("")) {
+                        ph = Integer.valueOf(binding.phTanahEditText.getText().toString().replaceAll("[^0-9]", ""));
+                    } else {
+                        ph = 0;
+                    }
                 }
             });
         }
@@ -181,16 +183,29 @@ public class TambahProfilLahanC extends FragmentActivity {
                 //goToTambahProfilLahanD();
 
                 if (checkPh==1){
+
                     Toast.makeText(TambahProfilLahanC.this, "pH tanah tidak boleh lebih dari 14.0", Toast.LENGTH_SHORT).show();
+
                 } else if(checkPh==0){
-                    if(!idSistemIrigasi.equalsIgnoreCase("")&&(!binding.etPhtanah.getText().toString().equalsIgnoreCase(""))&&
-                            (!binding.kemiringanTanah.getText().toString().equalsIgnoreCase(""))&&(!binding.luasGarapan.getText().toString().equalsIgnoreCase(""))){
-                        tambahProfilTanah();
+
+                    if(Build.VERSION.SDK_INT >= 26 && !binding.textPhTanah.getText().toString().equalsIgnoreCase("")){
+                        if(!idSistemIrigasi.equalsIgnoreCase("")&& (!binding.kemiringanTanah.getText().toString().equalsIgnoreCase(""))&&(!binding.luasGarapan.getText().toString().equalsIgnoreCase(""))){
+                            kt = Integer.valueOf(binding.kemiringanTanah.getText().toString().replaceAll("[^0-9]", ""));
+                            tambahProfilTanah();
+                        } else {
+                            Toast.makeText(TambahProfilLahanC.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if ((Build.VERSION.SDK_INT < 26 && !binding.phTanahEditText.getText().toString().equalsIgnoreCase(""))) {
+                        if(!idSistemIrigasi.equalsIgnoreCase("")&& (!binding.kemiringanTanah.getText().toString().equalsIgnoreCase(""))&&(!binding.luasGarapan.getText().toString().equalsIgnoreCase(""))){
+                            kt = Integer.valueOf(binding.kemiringanTanah.getText().toString().replaceAll("[^0-9]", ""));
+                            tambahProfilTanah();
+                        } else {
+                            Toast.makeText(TambahProfilLahanC.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(TambahProfilLahanC.this, "Lengkapi field terlebih dahulu", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
     }
@@ -298,7 +313,7 @@ public class TambahProfilLahanC extends FragmentActivity {
         jsonParams.put("longitude", PreferenceUtils.getPLlongitude(getApplicationContext())); // gak boleh kosong
         jsonParams.put("luasGarapan", binding.luasGarapan.getText().toString());
         jsonParams.put("idSistemIrigasi", idSistemIrigasi);
-        jsonParams.put("kemiringanTanah", binding.kemiringanTanah.getText().toString());
+        jsonParams.put("kemiringanTanah", kt);
         jsonParams.put("phTanah", ph);
         jsonParams.put("namaProfilTanah", PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()));
 

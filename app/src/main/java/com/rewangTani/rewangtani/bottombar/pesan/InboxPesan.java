@@ -51,9 +51,9 @@ public class InboxPesan extends AppCompatActivity {
 
         //getData();
 
-        binding.inboxOne.setOnClickListener(v->{
-            goToChat();
-        });
+//        binding.inboxOne.setOnClickListener(v->{
+//            goToChat();
+//        });
 
         binding.btnHome.setOnClickListener(v->{
             goToBeranda();

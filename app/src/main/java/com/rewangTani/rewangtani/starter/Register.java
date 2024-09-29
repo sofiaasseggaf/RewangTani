@@ -148,9 +148,11 @@ public class Register extends AppCompatActivity {
         });
 
         binding.btnSignupWithGoogle.setOnClickListener(v -> {
-            signOutGoogle();
-            Intent intent = mGoogleSignInClient.getSignInIntent();
-            startActivityForResult(intent, 100);
+            Toast.makeText(Register.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//            signOutGoogle();
+//            Intent intent = mGoogleSignInClient.getSignInIntent();
+//            startActivityForResult(intent, 100);
+
         });
 
     }

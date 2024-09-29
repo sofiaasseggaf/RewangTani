@@ -95,7 +95,8 @@ public class BerandaProfile extends AppCompatActivity {
         setData();
 
         binding.btnPesanan.setOnClickListener(v->{
-            goToPesanan();
+            Toast.makeText(BerandaProfile.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//            goToPesanan();
         });
 
         binding.btnUbahProfile.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +109,8 @@ public class BerandaProfile extends AppCompatActivity {
         binding.btnGantiPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToEditPassword();
+                Toast.makeText(BerandaProfile.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                goToEditPassword();
             }
         });
 
@@ -129,7 +131,8 @@ public class BerandaProfile extends AppCompatActivity {
         binding.btnHubungkanGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hubungkanGoogle();
+                Toast.makeText(BerandaProfile.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                hubungkanGoogle();
             }
         });
 

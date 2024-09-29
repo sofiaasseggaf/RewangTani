@@ -64,7 +64,6 @@
                         android:hint="Masukkan Judul Info"
                         android:lines="1"
                         android:backgroundTint="@android:color/transparent"
-                        android:inputType="number"
                         android:paddingLeft="15dp"
                         android:textColor="@color/black"
                         android:textColorHint="#A0A0A0"
@@ -98,7 +97,6 @@
                         android:fontFamily="@font/inter_regular"
                         android:hint="Masukkan Keterangan Info"
                         android:backgroundTint="@android:color/transparent"
-                        android:inputType="number"
                         android:padding="15dp"
                         android:lines="10"
                         android:textAlignment="gravity"
@@ -129,7 +127,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/framelayout"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_loading"
@@ -140,7 +138,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

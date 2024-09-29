@@ -181,6 +181,7 @@
                     android:paddingLeft="15dp"
                     android:textColor="@color/black"
                     android:textColorHint="#A0A0A0"
+                    android:inputType="numberSigned|numberDecimal"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -251,6 +252,7 @@
                     android:fontFamily="@font/inter_regular"
                     android:hint="Masukkan Kemiringan Tanah"
                     android:lines="1"
+                    android:inputType="numberSigned|numberDecimal"
                     android:paddingLeft="15dp"
                     android:textColor="@color/black"
                     android:textColorHint="#A0A0A0"
@@ -285,9 +287,8 @@
                     android:thumb="@drawable/thumb"
                     android:visibility="visible" />
 
-
                 <EditText
-                    android:id="@+id/phTanah"
+                    android:id="@+id/phTanahEditText"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="5dp"
@@ -295,6 +296,7 @@
                     android:fontFamily="@font/inter_regular"
                     android:hint="Masukkan pH Tanah"
                     android:lines="1"
+                    android:inputType="numberSigned|numberDecimal"
                     android:paddingLeft="15dp"
                     android:textColor="@color/black"
                     android:textColorHint="#A0A0A0"
@@ -302,7 +304,7 @@
                     android:visibility="visible"/>
 
                 <RelativeLayout
-                    android:id="@+id/rl_ph_tanah_tv"
+                    android:id="@+id/rlPhTanahTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -335,31 +337,6 @@
                     android:textColor="#F44336"
                     android:textSize="12sp"
                     android:visibility="gone" />
-
-
-                <RelativeLayout
-                    android:id="@+id/rl_ph_tanah"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/sb_phtanah"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/rect_edittext"
-                    android:clickable="true"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/et_phtanah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingLeft="15dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="#ADABAB"
-                        android:textSize="12sp" />
-                </RelativeLayout>
 
             </LinearLayout>
 

@@ -22,6 +22,7 @@ import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
+import com.rewangTani.rewangtani.starter.Login;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.Services;
 
@@ -60,24 +61,23 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (!binding.txtJudul.getText().toString().equalsIgnoreCase("") && !binding.txtKeterangan.getText().toString().equalsIgnoreCase("")) {
+                if (!binding.txtJudul.getText().toString().equalsIgnoreCase("") && !binding.txtKeterangan.getText().toString().equalsIgnoreCase("")) {
+                    send();
 //                    if (listToken.size()>0){
 //                        send();
 //                    } else {
 //                        sendDataInfotanpaNotification();
 //                    }
-//                    //startService();
-//                } else {
-//                    Toast.makeText(TambahInfoPeringatanCuaca.this, "Lengkapi Field Terlebih Dahulu", Toast.LENGTH_SHORT).show();
-//                }
-                Toast.makeText(TambahInfoPeringatanCuaca.this, "Tambah !", Toast.LENGTH_SHORT).show();
-                goToBerandaInfo();
+                    //startService();
+                } else {
+                    Toast.makeText(TambahInfoPeringatanCuaca.this, "Lengkapi Field Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void start(){
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+/*    private void start(){
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -85,11 +85,11 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu Sebentar Ya ."); }
+                    binding.textLoading.setText("Tunggu Sebentar Ya ."); }
                 else if (count == 2) {
-                    binding.textloading.setText("Tunggu Sebentar Ya . ."); }
+                    binding.textLoading.setText("Tunggu Sebentar Ya . ."); }
                 else if (count == 3) {
-                    binding.textloading.setText("Tunggu Sebentar Ya . . ."); }
+                    binding.textLoading.setText("Tunggu Sebentar Ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -218,11 +218,10 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     private void send(){
-
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -230,11 +229,11 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu Sebentar Ya ."); }
+                    binding.textLoading.setText("Tunggu Sebentar Ya ."); }
                 else if (count == 2) {
-                    binding.textloading.setText("Tunggu Sebentar Ya . ."); }
+                    binding.textLoading.setText("Tunggu Sebentar Ya . ."); }
                 else if (count == 3) {
-                    binding.textloading.setText("Tunggu Sebentar Ya . . ."); }
+                    binding.textLoading.setText("Tunggu Sebentar Ya . . ."); }
                 if (count == 3)
                     count = 0;
                 handler.postDelayed(this, 1500);
@@ -244,7 +243,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sendDataInfo();
+                sendDataInfotanpaNotification();
             }
         }).start();
     }
@@ -341,6 +340,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                                Toast.makeText(TambahInfoPeringatanCuaca.this, "Berhasil Tambah Info", Toast.LENGTH_LONG).show();
                                 //BerandaInfoPeringatanCuaca.dataInfo.getInfo();
                                 // set notifikasi ke yg daerah sekitarnya
                                 goToBerandaInfo();

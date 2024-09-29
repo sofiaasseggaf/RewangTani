@@ -94,7 +94,6 @@ public class Home extends AppCompatActivity {
         });
 
         getLoc();
-//        start();
 
         binding.btnRencanaTanam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,49 +147,48 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        binding.btnPlusInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToTambahInfo();
-            }
-        });
-
         binding.btnWarungTenagaKerja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToWarungTK();
+                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                goToWarungTK();
             }
         });
 
         binding.btnWarungSewaMesin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToWarungSM();
+                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                goToWarungSM();
             }
         });
 
         binding.btnWarungPupuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToWarungPupuk();
+                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                goToWarungPupuk();
             }
         });
 
         binding.btnWarungBibit.setOnClickListener(v -> {
-            goToWarungPupuk();
+            Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//            goToWarungPupuk();
         });
 
         binding.btnWarungPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToWarungPestisida();
+                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                goToWarungPestisida();
             }
         });
 
         binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToWarungku();
+                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//                goToWarungku();
             }
         });
 
@@ -202,7 +200,8 @@ public class Home extends AppCompatActivity {
         });
 
         binding.btnPesan.setOnClickListener(v -> {
-            goToPesan();
+            Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//            goToPesan();
         });
 
         binding.btnAkun.setOnClickListener(new View.OnClickListener() {
@@ -232,38 +231,6 @@ public class Home extends AppCompatActivity {
             goToKeranjang();
         });
 
-    }
-
-    // ------------------------------------------------------------------------------
-
-    public void start() {
-        binding.frameLoading.setVisibility(View.VISIBLE);
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int count = 0;
-
-            @Override
-            public void run() {
-                count++;
-                if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya .");
-                } else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . .");
-                } else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . .");
-                }
-                if (count == 3)
-                    count = 0;
-                handler.postDelayed(this, 1500);
-            }
-        };
-        handler.postDelayed(runnable, 1 * 1000);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getLoc();
-            }
-        }).start();
     }
 
     public void getLoc() {

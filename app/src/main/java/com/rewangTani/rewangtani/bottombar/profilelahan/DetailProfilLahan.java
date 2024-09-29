@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class DetailProfilLahan extends AppCompatActivity {
 
     BottombarPlDetailProfilLahanBinding binding;
-    String id, namaSistemIrigasi;
+    String namaSistemIrigasi;
     ModelProfilLahan modelProfilLahan;
     DatumProfilLahan dataProfilLahan;
     ModelSistemIrigasi modelSistemIrigasi;
@@ -43,10 +43,10 @@ public class DetailProfilLahan extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_detail_profil_lahan);
 
-        //Intent intent = getIntent();
-        //id = intent.getStringExtra("id");
+        Intent intent = getIntent();
+        String idProfilLahan = intent.getStringExtra("idProfilLahan");
 
-        //getData();
+        getData(idProfilLahan);
 
         binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class DetailProfilLahan extends AppCompatActivity {
 
     }
 
-    public void getData(){
+    public void getData(String idProfilLahan){
         binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -81,12 +81,12 @@ public class DetailProfilLahan extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getProfilLahan();
+                getProfilLahan(idProfilLahan);
             }
         }).start();
     }
 
-    public void getProfilLahan() {
+    public void getProfilLahan(String idProfilLahan) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelProfilLahan> dataPL = apiInterface.getDataProfilLahan();
         dataPL.enqueue(new Callback<ModelProfilLahan>() {
@@ -97,7 +97,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                     try{
                         for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
                             String idpl = modelProfilLahan.getData().get(i).getIdProfileTanah();
-                            if (id.equalsIgnoreCase(idpl)) {
+                            if (idProfilLahan.equalsIgnoreCase(idpl)) {
                                 dataProfilLahan = modelProfilLahan.getData().get(i);
                                 if (dataProfilLahan!=null){
                                     getStatusPekerja();
@@ -112,7 +112,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //binding.viewLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(DetailProfilLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -123,7 +123,6 @@ public class DetailProfilLahan extends AppCompatActivity {
 
     public void getStatusPekerja(){
         getSistemIrigasi();
-
     }
 
     public void getSistemIrigasi(){
@@ -165,13 +164,16 @@ public class DetailProfilLahan extends AppCompatActivity {
         binding.namaProfilLahan.setText(dataProfilLahan.getNamaProfilTanah());
         binding.koordinatLahan.setText(dataProfilLahan.getLatitude()+", "+dataProfilLahan.getLongitude());
         binding.luasGarapan.setText(dataProfilLahan.getLuasGarapan().toString() + " m2");
-        binding.kemiringanTanah.setText(dataProfilLahan.getKemiringanTanah().toString());
 
-        //String ph2 = String.valueOf(ph);
+
         String ph2 = dataProfilLahan.getPhTanah().toString();
         double ph = Double.valueOf(ph2.substring(0, ph2.length() - 2))/10;
         binding.phTanah.setText(String.valueOf(ph));
-        // get data sistem irigasi
+
+        String kt2 = dataProfilLahan.getKemiringanTanah().toString();
+        double kt = Double.valueOf(kt2.substring(0, kt2.length() - 2))/10;
+        binding.kemiringanTanah.setText(String.valueOf(kt));
+
         binding.sistemIrigasi.setText(namaSistemIrigasi);
     }
 
