@@ -62,27 +62,28 @@ public class InputRencanaTanamE extends AppCompatActivity {
         binding.pupukOrganik.addTextChangedListener(new NumberTextWatcher(binding.pupukOrganik));
 
         binding.btnSimpan.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Simpan Rencana Tanam ?")
-                    .setCancelable(false)
-                    .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            if (!binding.pupukKimiaLokal.getText().toString().equalsIgnoreCase("") && !binding.pupukOrganik.getText().toString().equalsIgnoreCase("")) {
+            if (!binding.pupukKimiaLokal.getText().toString().equalsIgnoreCase("") && !binding.pupukOrganik.getText().toString().equalsIgnoreCase("")) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Simpan Rencana Tanam ?")
+                        .setCancelable(false)
+                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
                                 saveLocalData();
                             }
-                        }
-                    })
+                        })
 
-                    .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-
+                        .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int i) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            } else {
+                Toast.makeText(InputRencanaTanamE.this, "Lengkapi field terlebih dahulu !", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
@@ -111,6 +112,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 int count = 0;
+
                 @Override
                 public void run() {
                     count++;
@@ -174,9 +176,9 @@ public class InputRencanaTanamE extends AppCompatActivity {
             double bbm = l * durasi * hektar;
             txtPompa = datumRencanaTanam.getIdSewamesinPompa().replaceAll("[^0-9]", "");
             txtPompaBbm = String.valueOf(bbm);
-            total = a + b + c + d + e + f + g + h + i + j + k + bbm + m + n + o + + s + obat;
+            total = a + b + c + d + e + f + g + h + i + j + k + bbm + m + n + o + +s + obat;
         } else {
-            total = a+b+c+d+e+f+g+h+i+j+m+n+s+obat;
+            total = a + b + c + d + e + f + g + h + i + j + m + n + s + obat;
             pendapatan = 10000 * hasil;
             txtPompa = "0";
             txtPompaBbm = "0";
@@ -185,7 +187,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
         sendDataRencanaTanam(datumRencanaTanam);
     }
 
-    private void sendDataRencanaTanam(DatumRencanaTanam datumRencanaTanam){
+    private void sendDataRencanaTanam(DatumRencanaTanam datumRencanaTanam) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 
@@ -226,9 +228,9 @@ public class InputRencanaTanamE extends AppCompatActivity {
                     Log.d("SOFIA", String.valueOf(rawResponse.body()));
                     if (rawResponse.body() != null) {
                         ResponseRencanaTanam modelRencanaTanam = rawResponse.body();
-                        try{
+                        try {
                             String idRT = modelRencanaTanam.getData().getIdRencanaTanam();
-                            if (idRT!=null){
+                            if (idRT != null) {
                                 PreferenceUtils.saveIdRt(modelRencanaTanam.getData().getIdRencanaTanam(), getApplicationContext());
                                 sendOutput();
                             } else {
@@ -240,7 +242,8 @@ public class InputRencanaTanamE extends AppCompatActivity {
                                     }
                                 });
                             }
-                        } catch (Exception e){ }
+                        } catch (Exception e) {
+                        }
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -254,6 +257,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseRencanaTanam> call, Throwable throwable) {
                 runOnUiThread(new Runnable() {
@@ -268,7 +272,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
         });
     }
 
-    private void sendOutput(){
+    private void sendOutput() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 
@@ -301,6 +305,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable throwable) {
                 runOnUiThread(new Runnable() {
@@ -322,19 +327,21 @@ public class InputRencanaTanamE extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelOutputRencanaTanam> call, Response<ModelOutputRencanaTanam> response) {
                 ModelOutputRencanaTanam modelOutputRencanaTanam = response.body();
-                if (response.body()!=null){
-                    try{
+                if (response.body() != null) {
+                    try {
                         for (int i = 0; i < modelOutputRencanaTanam.getTotalData(); i++) {
-                            if(modelOutputRencanaTanam.getData().get(i).getIdRencanaTanam()
-                                    .equalsIgnoreCase(PreferenceUtils.getIdRt(getApplicationContext()))){
+                            if (modelOutputRencanaTanam.getData().get(i).getIdRencanaTanam()
+                                    .equalsIgnoreCase(PreferenceUtils.getIdRt(getApplicationContext()))) {
                                 dataOutputRT = modelOutputRencanaTanam.getData().get(i);
                                 PreferenceUtils.saveOIdRt(dataOutputRT.getIdOutputRencanaTanam(), getApplicationContext());
                                 moveToRAB();
                             }
                         }
-                    } catch (Exception e){ }
+                    } catch (Exception e) {
+                    }
                 }
             }
+
             @Override
             public void onFailure(Call<ModelOutputRencanaTanam> call, Throwable t) {
                 runOnUiThread(new Runnable() {

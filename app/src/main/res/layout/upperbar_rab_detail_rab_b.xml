@@ -207,7 +207,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -232,7 +231,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -257,7 +255,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -282,7 +279,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -307,7 +303,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -332,7 +327,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -389,7 +383,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -414,7 +407,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -439,7 +431,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -496,7 +487,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -521,7 +511,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -578,7 +567,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -603,7 +591,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>
@@ -628,7 +615,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:fontFamily="@font/inter_medium"
-                                android:text="Rp. 124.000"
                                 android:textColor="#327036"
                                 android:textSize="10sp" />
                         </RelativeLayout>

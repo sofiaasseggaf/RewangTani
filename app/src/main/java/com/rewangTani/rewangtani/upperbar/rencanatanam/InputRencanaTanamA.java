@@ -454,7 +454,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
     }
 
     private void checkLocalData(){
-        if (!ListRencanaTanam.getInstance().getDatumRencanaTanam().getNamaRencanaTanam().equalsIgnoreCase("")) {
+        if ( ListRencanaTanam.getInstance().getDatumRencanaTanam() != null && !ListRencanaTanam.getInstance().getDatumRencanaTanam().getNamaRencanaTanam().equalsIgnoreCase("") ) {
             binding.namaRencanaTanam.setText(PreferenceUtils.getRTnamaRT(getApplicationContext()));
         }
     }

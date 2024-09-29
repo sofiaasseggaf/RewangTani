@@ -98,4 +98,6 @@ dependencies {
         exclude group: 'com.google.guava'
     }
 
+    implementation 'org.osmdroid:osmdroid-android:6.1.20'
+
 }

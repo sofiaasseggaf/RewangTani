@@ -76,7 +76,7 @@ public class Home extends AppCompatActivity {
     HttpResponse hr;
 
     private HomeImageCarouselAdapter homeImageCarouselAdapter;
-    private int[] imageIds = {R.drawable.img_event, R.drawable.bg_info, R.drawable.img_logo};
+    private int[] imageIds = {R.drawable.img_event, R.drawable.event1, R.drawable.event2};
     private ImageView[] dots;
 
     @Override

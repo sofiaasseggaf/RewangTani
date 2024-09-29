@@ -255,7 +255,7 @@ public class DetailRancanganAnggaranBiayaA extends AppCompatActivity {
 
     public void setDataRABonly(){
         String a = checkDesimal(dataRencanaTanam.getIdBiayaBuruhTanam());
-        binding.buruhPanen.setText(a);
+        binding.buruhTanam.setText(a);
         String b = checkDesimal(dataRencanaTanam.getIdBiayaBuruhBajak());
         binding.buruhBajak.setText(b);
         String c = checkDesimal(dataRencanaTanam.getIdBiayaBuruhSemprot());
