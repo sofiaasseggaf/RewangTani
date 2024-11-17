@@ -31,6 +31,7 @@ import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
 
@@ -59,10 +60,10 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
     List<String> urutanTanggal = new ArrayList<>();
     List<String> urutanNama = new ArrayList<>();
     List<Integer> urutanHarga = new ArrayList<>();
-    String mode = "Kotak";
+    String mode = Global.KOTAK;
     String urutkan;
 
-    String[] tampilan = {"Kotak","Garis","Monitor"};
+    String[] tampilan = {Global.KOTAK,Global.GARIS, Global.MONITOR};
     int images[] = {R.drawable.mode_kotak,R.drawable.mode_garis, R.drawable.mode_monitor };
 
     @Override
@@ -77,7 +78,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             }
         });
 
-        //getData();
+        getData();
 
         binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -119,17 +120,17 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long arg3) {
                 namaUrutan = tampilan[pos];
-                if (namaUrutan.equalsIgnoreCase("Kotak")){
-                    mode = "Kotak";
+                if (namaUrutan.equalsIgnoreCase(Global.KOTAK)){
+                    mode = Global.KOTAK;
                     checkTampilan();
-                } else if(namaUrutan.equalsIgnoreCase("Garis")){
-                    mode = "Garis";
+                } else if(namaUrutan.equalsIgnoreCase(Global.GARIS)){
+                    mode = Global.GARIS;
                     checkTampilan();
-                } else if(namaUrutan.equalsIgnoreCase("Monitor")){
-                    mode = "Monitor";
+                } else if(namaUrutan.equalsIgnoreCase(Global.MONITOR)){
+                    mode = Global.MONITOR;
                     checkTampilan();
                 } else {
-                    mode = "Kotak";
+                    mode = Global.KOTAK;
                     checkTampilan();
                 }
 
@@ -265,14 +266,13 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
         adapterUrutan.setDropDownViewResource(R.layout.z_spinner_list);
         binding.spUrutkan.setAdapter(adapterUrutan);
 
-        if (listTenagaKerja.size()>0){
-            setDataTenagaKerja();
-        } else {
-
-        }
-
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),images,tampilan);
         binding.spTampilan.setAdapter(customAdapter);
+
+        if (listTenagaKerja.size()>0){
+            setDataTenagaKerja();
+        }
+
     }
 
     public void checkTampilan(){
@@ -308,7 +308,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
         binding.rvWarungTenagakerjaHargaTerendah.setVisibility(View.GONE);
         binding.rvWarungTenagakerjaHargaTertinggi.setVisibility(View.GONE);
 
-        if (mode.equalsIgnoreCase("Kotak")){
+        if (mode.equalsIgnoreCase(Global.KOTAK)){
             itemList = new AdapterListWarungTenagaKerja(listTenagaKerja);
             binding.rvWarungTenagakerja.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
             binding.rvWarungTenagakerja.setAdapter(itemList);
@@ -325,7 +325,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                         }
                     }));
-        } else if (mode.equalsIgnoreCase("Garis")){
+        } else if (mode.equalsIgnoreCase(Global.GARIS)){
             itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerja);
             binding.rvWarungTenagakerja.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
             binding.rvWarungTenagakerja.setAdapter(itemListGaris);
@@ -342,7 +342,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                         }
                     }));
-        } else if (mode.equalsIgnoreCase("Monitor")){
+        } else if (mode.equalsIgnoreCase(Global.MONITOR)){
             itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerja);
             binding.rvWarungTenagakerja.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
             binding.rvWarungTenagakerja.setAdapter(itemListMonitor);
@@ -449,7 +449,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
                 binding.rvWarungTenagakerjaTerbaru.setAdapter(itemList);
@@ -466,7 +466,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")){
+            } else if (mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaTerbaru.setAdapter(itemListGaris);
@@ -483,7 +483,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")){
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaTerbaru.setAdapter(itemListMonitor);
@@ -557,7 +557,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaTerlama.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
                 binding.rvWarungTenagakerjaTerlama.setAdapter(itemList);
@@ -574,7 +574,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")){
+            } else if (mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaTerlama.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaTerlama.setAdapter(itemListGaris);
@@ -591,7 +591,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")){
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaTerlama.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaTerlama.setAdapter(itemListMonitor);
@@ -663,7 +663,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaAz.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
                 binding.rvWarungTenagakerjaAz.setAdapter(itemList);
@@ -680,7 +680,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")){
+            } else if (mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaAz.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaAz.setAdapter(itemListGaris);
@@ -697,7 +697,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")){
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted);
                 binding.rvWarungTenagakerjaAz.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaAz.setAdapter(itemListMonitor);
@@ -772,7 +772,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 listTenagaKerjaSorted2.add(listTenagaKerjaSorted.get(y));
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSorted2);
                 binding.rvWarungTenagakerjaZa.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
                 binding.rvWarungTenagakerjaZa.setAdapter(itemList);
@@ -789,7 +789,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")){
+            } else if (mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSorted2);
                 binding.rvWarungTenagakerjaZa.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaZa.setAdapter(itemListGaris);
@@ -806,7 +806,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")){
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSorted2);
                 binding.rvWarungTenagakerjaZa.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaZa.setAdapter(itemListMonitor);
@@ -879,7 +879,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSortedHargaTerendah);
                 binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
                 binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemList);
@@ -896,7 +896,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")){
+            } else if (mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSortedHargaTerendah);
                 binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemListGaris);
@@ -913,7 +913,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")){
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSortedHargaTerendah);
                 binding.rvWarungTenagakerjaHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaHargaTerendah.setAdapter(itemListMonitor);
@@ -989,7 +989,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungTenagaKerja(listTenagaKerjaSortedHargaTertinggi);
                 binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new GridLayoutManager(ListWarungTenagaKerja.this, 2));
                 binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemList);
@@ -1006,7 +1006,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")){
+            } else if (mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungTenagaKerjaGaris(listTenagaKerjaSortedHargaTertinggi);
                 binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemListGaris);
@@ -1023,7 +1023,7 @@ public class ListWarungTenagaKerja extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")){
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungTenagaKerjaMonitor(listTenagaKerjaSortedHargaTertinggi);
                 binding.rvWarungTenagakerjaHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungTenagaKerja.this));
                 binding.rvWarungTenagakerjaHargaTertinggi.setAdapter(itemListMonitor);

@@ -31,6 +31,7 @@ import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
 
@@ -59,9 +60,9 @@ public class ListWarungPestisida extends AppCompatActivity {
     List<String> urutanTanggal = new ArrayList<>();
     List<String> urutanNama = new ArrayList<>();
     List<Integer> urutanHarga = new ArrayList<>();
-    String mode = "Kotak";
+    String mode = Global.KOTAK;
     String urutkan;
-    String[] tampilan = {"Kotak", "Garis", "Monitor"};
+    String[] tampilan = {Global.KOTAK, Global.GARIS, Global.MONITOR};
     int images[] = {R.drawable.mode_kotak, R.drawable.mode_garis, R.drawable.mode_monitor};
 
     @Override
@@ -76,7 +77,7 @@ public class ListWarungPestisida extends AppCompatActivity {
             }
         });
 
-        //getData();
+        getData();
 
         binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -120,17 +121,17 @@ public class ListWarungPestisida extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long arg3) {
                 namaUrutan = tampilan[pos];
-                if (namaUrutan.equalsIgnoreCase("Kotak")) {
-                    mode = "Kotak";
+                if (namaUrutan.equalsIgnoreCase(Global.KOTAK)) {
+                    mode = Global.KOTAK;
                     checkTampilan();
-                } else if (namaUrutan.equalsIgnoreCase("Garis")) {
-                    mode = "Garis";
+                } else if (namaUrutan.equalsIgnoreCase(Global.GARIS)) {
+                    mode = Global.GARIS;
                     checkTampilan();
-                } else if (namaUrutan.equalsIgnoreCase("Monitor")) {
-                    mode = "Monitor";
+                } else if (namaUrutan.equalsIgnoreCase(Global.MONITOR)) {
+                    mode = Global.MONITOR;
                     checkTampilan();
                 } else {
-                    mode = "Kotak";
+                    mode = Global.KOTAK;
                     checkTampilan();
                 }
 
@@ -239,7 +240,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                     listPestisida.clear();
                     for (int i = 0; i < modelPupukPestisida.getTotalData(); i++) {
                         if (modelPupukPestisida.getData().get(i).getIdTipeProduk()
-                                .equalsIgnoreCase("ad211570-6943-4e4c-88b2-c7837a0a3b28"))
+                                .equalsIgnoreCase(Global.PESTISIDA))
                             listPestisida.add(modelPupukPestisida.getData().get(i));
                     }
                     runOnUiThread(new Runnable() {
@@ -272,14 +273,13 @@ public class ListWarungPestisida extends AppCompatActivity {
         adapterUrutan.setDropDownViewResource(R.layout.z_spinner_list);
         binding.spUrutkan.setAdapter(adapterUrutan);
 
-        if (listPestisida.size() > 0) {
-            setDataPestisida();
-        } else {
-
-        }
-
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(), images, tampilan);
         binding.spTampilan.setAdapter(customAdapter);
+
+        if (listPestisida.size() > 0) {
+            setDataPestisida();
+        }
+
     }
 
     public void setDataPestisida() {
@@ -295,7 +295,7 @@ public class ListWarungPestisida extends AppCompatActivity {
         binding.rvWarungPestisidaHargaTerendah.setVisibility(View.GONE);
         binding.rvWarungPestisidaHargaTertinggi.setVisibility(View.GONE);
 
-        if (mode.equalsIgnoreCase("Kotak")) {
+        if (mode.equalsIgnoreCase(Global.KOTAK)) {
             itemList = new AdapterListWarungPestisida(listPestisida);
             binding.rvWarungPestisida.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
             binding.rvWarungPestisida.setAdapter(itemList);
@@ -313,7 +313,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                         }
                     }));
-        } else if (mode.equalsIgnoreCase("Garis")) {
+        } else if (mode.equalsIgnoreCase(Global.GARIS)) {
             itemListGaris = new AdapterListWarungPestisidaGaris(listPestisida);
             binding.rvWarungPestisida.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
             binding.rvWarungPestisida.setAdapter(itemListGaris);
@@ -331,7 +331,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                         }
                     }));
-        } else if (mode.equalsIgnoreCase("Monitor")) {
+        } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
             itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisida);
             binding.rvWarungPestisida.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
             binding.rvWarungPestisida.setAdapter(itemListMonitor);
@@ -440,7 +440,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")) {
+            if (mode.equalsIgnoreCase(Global.KOTAK)) {
                 itemList = new AdapterListWarungPestisida(listPestisidaSorted);
                 binding.rvWarungPestisidaTerbaru.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
                 binding.rvWarungPestisidaTerbaru.setAdapter(itemList);
@@ -458,7 +458,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")) {
+            } else if (mode.equalsIgnoreCase(Global.GARIS)) {
                 itemListGaris = new AdapterListWarungPestisidaGaris(listPestisidaSorted);
                 binding.rvWarungPestisidaTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaTerbaru.setAdapter(itemListGaris);
@@ -476,7 +476,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")) {
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
                 itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisidaSorted);
                 binding.rvWarungPestisidaTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaTerbaru.setAdapter(itemListMonitor);
@@ -554,7 +554,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")) {
+            if (mode.equalsIgnoreCase(Global.KOTAK)) {
                 itemList = new AdapterListWarungPestisida(listPestisidaSorted);
                 binding.rvWarungPestisidaTerlama.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
                 binding.rvWarungPestisidaTerlama.setAdapter(itemList);
@@ -572,7 +572,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")) {
+            } else if (mode.equalsIgnoreCase(Global.GARIS)) {
                 itemListGaris = new AdapterListWarungPestisidaGaris(listPestisidaSorted);
                 binding.rvWarungPestisidaTerlama.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaTerlama.setAdapter(itemListGaris);
@@ -590,7 +590,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")) {
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
                 itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisidaSorted);
                 binding.rvWarungPestisidaTerlama.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaTerlama.setAdapter(itemListMonitor);
@@ -665,7 +665,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")) {
+            if (mode.equalsIgnoreCase(Global.KOTAK)) {
                 itemList = new AdapterListWarungPestisida(listPestisidaSorted);
                 binding.rvWarungPestisidaAz.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
                 binding.rvWarungPestisidaAz.setAdapter(itemList);
@@ -683,7 +683,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")) {
+            } else if (mode.equalsIgnoreCase(Global.GARIS)) {
                 itemListGaris = new AdapterListWarungPestisidaGaris(listPestisidaSorted);
                 binding.rvWarungPestisidaAz.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaAz.setAdapter(itemListGaris);
@@ -701,7 +701,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")) {
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
                 itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisidaSorted);
                 binding.rvWarungPestisidaAz.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaAz.setAdapter(itemListMonitor);
@@ -781,7 +781,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                 listPestisidaSorted2.add(listPestisidaSorted.get(y));
             }
 
-            if (mode.equalsIgnoreCase("Kotak")) {
+            if (mode.equalsIgnoreCase(Global.KOTAK)) {
                 itemList = new AdapterListWarungPestisida(listPestisidaSorted2);
                 binding.rvWarungPestisidaZa.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
                 binding.rvWarungPestisidaZa.setAdapter(itemList);
@@ -799,7 +799,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")) {
+            } else if (mode.equalsIgnoreCase(Global.GARIS)) {
                 itemListGaris = new AdapterListWarungPestisidaGaris(listPestisidaSorted2);
                 binding.rvWarungPestisidaZa.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaZa.setAdapter(itemListGaris);
@@ -817,7 +817,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")) {
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
                 itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisidaSorted2);
                 binding.rvWarungPestisidaZa.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaZa.setAdapter(itemListMonitor);
@@ -890,7 +890,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")) {
+            if (mode.equalsIgnoreCase(Global.KOTAK)) {
                 itemList = new AdapterListWarungPestisida(listPestisidaSortedHargaTerendah);
                 binding.rvWarungPestisidaHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
                 binding.rvWarungPestisidaHargaTerendah.setAdapter(itemList);
@@ -908,7 +908,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")) {
+            } else if (mode.equalsIgnoreCase(Global.GARIS)) {
                 itemListGaris = new AdapterListWarungPestisidaGaris(listPestisidaSortedHargaTerendah);
                 binding.rvWarungPestisidaHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaHargaTerendah.setAdapter(itemListGaris);
@@ -926,7 +926,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")) {
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
                 itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisidaSortedHargaTerendah);
                 binding.rvWarungPestisidaHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaHargaTerendah.setAdapter(itemListMonitor);
@@ -1003,7 +1003,7 @@ public class ListWarungPestisida extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")) {
+            if (mode.equalsIgnoreCase(Global.KOTAK)) {
                 itemList = new AdapterListWarungPestisida(listPestisidaSortedHargaTertinggi);
                 binding.rvWarungPestisidaHargaTertinggi.setLayoutManager(new GridLayoutManager(ListWarungPestisida.this, 2));
                 binding.rvWarungPestisidaHargaTertinggi.setAdapter(itemList);
@@ -1021,7 +1021,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Garis")) {
+            } else if (mode.equalsIgnoreCase(Global.GARIS)) {
                 itemListGaris = new AdapterListWarungPestisidaGaris(listPestisidaSortedHargaTertinggi);
                 binding.rvWarungPestisidaHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaHargaTertinggi.setAdapter(itemListGaris);
@@ -1039,7 +1039,7 @@ public class ListWarungPestisida extends AppCompatActivity {
 
                             }
                         }));
-            } else if (mode.equalsIgnoreCase("Monitor")) {
+            } else if (mode.equalsIgnoreCase(Global.MONITOR)) {
                 itemListMonitor = new AdapterListWarungPestisidaMonitor(listPestisidaSortedHargaTertinggi);
                 binding.rvWarungPestisidaHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungPestisida.this));
                 binding.rvWarungPestisidaHargaTertinggi.setAdapter(itemListMonitor);

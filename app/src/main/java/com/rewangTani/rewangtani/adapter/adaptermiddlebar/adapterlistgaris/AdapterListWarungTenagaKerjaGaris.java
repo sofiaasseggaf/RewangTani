@@ -45,7 +45,7 @@ public class AdapterListWarungTenagaKerjaGaris extends RecyclerView.Adapter<Recy
         String a = checkDesimal(dataItemList.get(position).getBiaya().toString());
         ((Penampung)holder).biaya_warung.setText("Rp " + a + " / Hari");
         //((Penampung)holder).lokasi_warung.setText(dataItemList.get(position).getKota());
-        if (!dataItemList.get(position).getIdFoto().equalsIgnoreCase("")){
+        if ( dataItemList.get(position).getIdFoto() != null ){
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+dataItemList.get(position).getIdFoto();
             Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)

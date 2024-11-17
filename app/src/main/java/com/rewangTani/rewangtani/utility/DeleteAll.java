@@ -79,7 +79,7 @@ public class DeleteAll extends AppCompatActivity {
         del_tenaga_kerja = findViewById(R.id.del_tenaga_kerja);
         del_sewa_mesin = findViewById(R.id.del_sewa_mesin);
         del_bpp = findViewById(R.id.del_bpp);
-        txtload = findViewById(R.id.textloading);
+        txtload = findViewById(R.id.textLoading);
 
         getData();
 
@@ -404,7 +404,7 @@ public class DeleteAll extends AppCompatActivity {
 
 
     public void getData(){
-        findViewById(R.id.framelayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -448,7 +448,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -473,7 +473,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -498,7 +498,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -523,7 +523,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -548,7 +548,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -573,7 +573,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -598,7 +598,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -623,7 +623,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -648,7 +648,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -673,7 +673,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -692,7 +692,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                     }
                 });
             }
@@ -701,7 +701,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -724,7 +724,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Akun " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -735,7 +735,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -755,7 +755,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Profil " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -766,7 +766,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -786,7 +786,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Rencana Tanam " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -797,7 +797,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -817,7 +817,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Sudah Tanam " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -828,7 +828,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -848,7 +848,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Panen " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -859,7 +859,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -879,7 +879,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Output RT " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -890,7 +890,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -910,7 +910,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Profil Lahan " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -921,7 +921,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -941,7 +941,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Produk " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -952,7 +952,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -972,7 +972,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Tenaga Kerja " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -983,7 +983,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -1003,7 +1003,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus Sewa Mesin " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -1014,7 +1014,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -1034,7 +1034,7 @@ public class DeleteAll extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            findViewById(R.id.framelayout).setVisibility(View.GONE);
+                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
                             Toast.makeText(DeleteAll.this, "Berhasil Hapus BPP " +id, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -1045,7 +1045,7 @@ public class DeleteAll extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.framelayout).setVisibility(View.GONE);
+                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
                         Toast.makeText(DeleteAll.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

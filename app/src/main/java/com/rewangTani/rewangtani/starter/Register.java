@@ -158,7 +158,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void showLoadingView() {
-        binding.frameLoading.setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -201,7 +201,7 @@ public class Register extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.frameLoading.setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                             Toast.makeText(Register.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
 
                         }
@@ -214,7 +214,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -233,7 +233,7 @@ public class Register extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        binding.frameLoading.setVisibility(View.GONE);
+                                        binding.viewLoading.setVisibility(View.GONE);
                                         Toast.makeText(Register.this, "Fetching FCM registration token failed", Toast.LENGTH_SHORT).show();
                                         tokenis = 0;
                                     }
@@ -248,7 +248,7 @@ public class Register extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        binding.frameLoading.setVisibility(View.GONE);
+                                        binding.viewLoading.setVisibility(View.GONE);
                                     }
                                 });
                             } else {
@@ -261,7 +261,7 @@ public class Register extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.frameLoading.setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                 }
             });
         }
@@ -290,7 +290,7 @@ public class Register extends AppCompatActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                binding.frameLoading.setVisibility(View.GONE);
+                                                binding.viewLoading.setVisibility(View.GONE);
                                                 checkUserByGoogle();
                                             }
                                         });
@@ -300,7 +300,7 @@ public class Register extends AppCompatActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                binding.frameLoading.setVisibility(View.GONE);
+                                                binding.viewLoading.setVisibility(View.GONE);
                                                 Toast.makeText(Register.this, "Authentication Failed :" + task.getException()
                                                         .getMessage(), Toast.LENGTH_SHORT).show();
                                                 signOutGoogle();
@@ -319,7 +319,7 @@ public class Register extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.frameLoading.setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                     Toast.makeText(Register.this, "Authentication Failed ", Toast.LENGTH_SHORT).show();
                     signOutGoogle();
 
@@ -389,7 +389,7 @@ public class Register extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.frameLoading.setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                             Toast.makeText(Register.this, "Email sudah terpakai", Toast.LENGTH_LONG).show();
                             firebaseAuth = FirebaseAuth.getInstance();
                             firebaseAuth.signOut();
@@ -405,7 +405,7 @@ public class Register extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.frameLoading.setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                     testEmail = 0;
 
                     LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -439,7 +439,7 @@ public class Register extends AppCompatActivity {
                                 mGoogleSignInClient.signOut();
                                 popupWindow.dismiss();
 
-                                binding.frameLoading.setVisibility(View.VISIBLE);
+                                binding.viewLoading.setVisibility(View.VISIBLE);
                                 final Handler handler = new Handler();
                                 Runnable runnable = new Runnable() {
                                     int count = 0;
@@ -540,7 +540,7 @@ public class Register extends AppCompatActivity {
                                     Toast.makeText(Register.this, "Centang kebijakan privasi terlebih dahulu", Toast.LENGTH_SHORT).show();
                                 } else if (check == 10) {
                                     popupWindow.dismiss();
-                                    binding.frameLoading.setVisibility(View.VISIBLE);
+                                    binding.viewLoading.setVisibility(View.VISIBLE);
                                     final Handler handler = new Handler();
                                     Runnable runnable = new Runnable() {
                                         int count = 0;
@@ -608,7 +608,7 @@ public class Register extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLoading.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(Register.this, "Gagal register", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -623,7 +623,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -660,7 +660,7 @@ public class Register extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLoading.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(Register.this, "Gagal register", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -675,7 +675,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -706,7 +706,7 @@ public class Register extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    binding.frameLoading.setVisibility(View.GONE);
+                                    binding.viewLoading.setVisibility(View.GONE);
                                     Toast.makeText(Register.this, "Data akun tidak ditemukan", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -721,7 +721,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
 
                     }
@@ -758,7 +758,7 @@ public class Register extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    binding.frameLoading.setVisibility(View.GONE);
+                                    binding.viewLoading.setVisibility(View.GONE);
                                     Toast.makeText(Register.this, "Data akun tidak ditemukan", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -773,7 +773,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
 
                     }
@@ -814,7 +814,7 @@ public class Register extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLoading.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(Register.this, "Gagal register", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -829,7 +829,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -855,7 +855,7 @@ public class Register extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            binding.frameLoading.setVisibility(View.GONE);
+                                            binding.viewLoading.setVisibility(View.GONE);
                                             Toast.makeText(Register.this, "Berhasil daftar", Toast.LENGTH_SHORT).show();
                                             saveData();
                                         }
@@ -864,7 +864,7 @@ public class Register extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            binding.frameLoading.setVisibility(View.GONE);
+                                            binding.viewLoading.setVisibility(View.GONE);
                                             Toast.makeText(Register.this, "Data profil tidak ditemukan", Toast.LENGTH_LONG).show();
                                         }
                                     });
@@ -881,7 +881,7 @@ public class Register extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Register.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -914,7 +914,7 @@ public class Register extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Check condition
         if (requestCode == 100) {
-            binding.frameLoading.setVisibility(View.VISIBLE);
+            binding.viewLoading.setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 int count = 0;

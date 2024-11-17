@@ -25,12 +25,13 @@ import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
-import com.rewangTani.rewangtani.databinding.MiddlebarListWarungPupukBinding;
+import com.rewangTani.rewangtani.databinding.MiddlebarListWarungBibitPupukBinding;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
 
@@ -44,7 +45,7 @@ import retrofit2.Response;
 
 public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
-    MiddlebarListWarungPupukBinding binding;
+    MiddlebarListWarungBibitPupukBinding binding;
     AdapterListWarungBibitdanPupuk itemList;
     AdapterListWarungBibitdanPupukGaris itemListGaris;
     AdapterListWarungBibitdanPupukMonitor itemListMonitor;
@@ -59,18 +60,18 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     List<String> urutanTanggal = new ArrayList<>();
     List<String> urutanNama = new ArrayList<>();
     List<Integer> urutanHarga = new ArrayList<>();
-    String mode = "Kotak";
+    String mode = Global.KOTAK;
     String urutkan;
 
-    String[] tampilan = {"Kotak","Garis","Monitor"};
+    String[] tampilan = {Global.KOTAK,Global.GARIS,Global.MONITOR};
     int images[] = {R.drawable.mode_kotak,R.drawable.mode_garis, R.drawable.mode_monitor };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_pupuk);
+        binding = DataBindingUtil.setContentView(this, R.layout.middlebar_list_warung_bibit_pupuk);
 
-        //getData();
+        getData();
 
         binding.spUrutkan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -112,17 +113,17 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int pos, long arg3) {
                 namaUrutan = tampilan[pos];
-                if (namaUrutan.equalsIgnoreCase("Kotak")){
-                    mode = "Kotak";
+                if (namaUrutan.equalsIgnoreCase(Global.KOTAK)){
+                    mode = Global.KOTAK;
                     checkTampilan();
-                } else if(namaUrutan.equalsIgnoreCase("Garis")){
-                    mode = "Garis";
+                } else if(namaUrutan.equalsIgnoreCase(Global.GARIS)){
+                    mode = Global.GARIS;
                     checkTampilan();
-                } else if(namaUrutan.equalsIgnoreCase("Monitor")){
-                    mode = "Monitor";
+                } else if(namaUrutan.equalsIgnoreCase(Global.MONITOR)){
+                    mode = Global.MONITOR;
                     checkTampilan();
                 } else {
-                    mode = "Kotak";
+                    mode = Global.KOTAK;
                     checkTampilan();
                 }
 
@@ -219,9 +220,9 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                     listBibitdanPupuk.clear();
                     for (int i = 0; i < modelPupukPestisida.getTotalData(); i++) {
                         if (modelPupukPestisida.getData().get(i).getIdTipeProduk()
-                                .equalsIgnoreCase("4f54e40a-04a2-4569-8a82-860f193e321b") ||
+                                .equalsIgnoreCase(Global.BIBIT) ||
                                 modelPupukPestisida.getData().get(i).getIdTipeProduk()
-                                        .equalsIgnoreCase("49944852-6f8c-4185-aa08-4407d99f3f8c"))
+                                        .equalsIgnoreCase(Global.PUPUK))
                             listBibitdanPupuk.add(modelPupukPestisida.getData().get(i));
                     }
                     runOnUiThread(new Runnable() {
@@ -260,14 +261,13 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
         adapterUrutan.setDropDownViewResource(R.layout.z_spinner_list);
         binding.spUrutkan.setAdapter(adapterUrutan);
 
-        if (listBibitdanPupuk.size()>0){
-            setDataBibitdanPupuk();
-        } else {
-
-        }
-
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),images,tampilan);
         binding.spTampilan.setAdapter(customAdapter);
+
+        if (listBibitdanPupuk.size()>0){
+            setDataBibitdanPupuk();
+        }
+
     }
 
     public void setDataBibitdanPupuk(){
@@ -283,7 +283,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
         binding.rvWarungPupukHargaTerendah.setVisibility(View.GONE);
         binding.rvWarungPupukHargaTertinggi.setVisibility(View.GONE);
 
-        if (mode.equalsIgnoreCase("Kotak")){
+        if (mode.equalsIgnoreCase(Global.KOTAK)){
             itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupuk);
             binding.rvWarungPupuk.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
             binding.rvWarungPupuk.setAdapter(itemList);
@@ -300,7 +300,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                         }
                     }));
-        } else if(mode.equalsIgnoreCase("Garis")){
+        } else if(mode.equalsIgnoreCase(Global.GARIS)){
             itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupuk);
             binding.rvWarungPupuk.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
             binding.rvWarungPupuk.setAdapter(itemListGaris);
@@ -317,7 +317,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                         }
                     }));
-        } else if(mode.equalsIgnoreCase("Monitor")){
+        } else if(mode.equalsIgnoreCase(Global.MONITOR)){
             itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupuk);
             binding.rvWarungPupuk.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
             binding.rvWarungPupuk.setAdapter(itemListMonitor);
@@ -424,7 +424,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
                 binding.rvWarungPupukTerbaru.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
                 binding.rvWarungPupukTerbaru.setAdapter(itemList);
@@ -441,7 +441,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Garis")){
+            } else if(mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted);
                 binding.rvWarungPupukTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukTerbaru.setAdapter(itemListGaris);
@@ -458,7 +458,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Monitor")){
+            } else if(mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted);
                 binding.rvWarungPupukTerbaru.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukTerbaru.setAdapter(itemListMonitor);
@@ -533,7 +533,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
                 binding.rvWarungPupukTerlama.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
                 binding.rvWarungPupukTerlama.setAdapter(itemList);
@@ -550,7 +550,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Garis")){
+            } else if(mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted);
                 binding.rvWarungPupukTerlama.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukTerlama.setAdapter(itemListGaris);
@@ -567,7 +567,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Monitor")){
+            } else if(mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted);
                 binding.rvWarungPupukTerlama.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukTerlama.setAdapter(itemListMonitor);
@@ -641,7 +641,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted);
                 binding.rvWarungPupukAz.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
                 binding.rvWarungPupukAz.setAdapter(itemList);
@@ -658,7 +658,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Garis")){
+            } else if(mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted);
                 binding.rvWarungPupukAz.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukAz.setAdapter(itemListGaris);
@@ -750,7 +750,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 listBibitdanPupukSorted2.add(listBibitdanPupukSorted.get(y));
             }
 
-            if(mode.equalsIgnoreCase("Kotak")){
+            if(mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSorted2);
                 binding.rvWarungPupukZa.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
                 binding.rvWarungPupukZa.setAdapter(itemList);
@@ -767,7 +767,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Garis")){
+            } else if(mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSorted2);
                 binding.rvWarungPupukZa.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukZa.setAdapter(itemListGaris);
@@ -784,7 +784,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Monitor")){
+            } else if(mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSorted2);
                 binding.rvWarungPupukZa.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukZa.setAdapter(itemListMonitor);
@@ -858,7 +858,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
 
-            if (mode.equalsIgnoreCase("Kotak")){
+            if (mode.equalsIgnoreCase(Global.KOTAK)){
                 itemList = new AdapterListWarungBibitdanPupuk(listBibitdanPupukSortedHargaTerendah);
                 binding.rvWarungPupukHargaTerendah.setLayoutManager(new GridLayoutManager(ListWarungBibitdanPupuk.this, 2));
                 binding.rvWarungPupukHargaTerendah.setAdapter(itemList);
@@ -876,7 +876,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                             }
                         }));
 
-            } else if(mode.equalsIgnoreCase("Garis")){
+            } else if(mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSortedHargaTerendah);
                 binding.rvWarungPupukHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukHargaTerendah.setAdapter(itemListGaris);
@@ -894,7 +894,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                             }
                         }));
 
-            } else if(mode.equalsIgnoreCase("Monitor")){
+            } else if(mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSortedHargaTerendah);
                 binding.rvWarungPupukHargaTerendah.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukHargaTerendah.setAdapter(itemListMonitor);
@@ -988,7 +988,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Garis")){
+            } else if(mode.equalsIgnoreCase(Global.GARIS)){
                 itemListGaris = new AdapterListWarungBibitdanPupukGaris(listBibitdanPupukSortedHargaTertinggi);
                 binding.rvWarungPupukHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukHargaTertinggi.setAdapter(itemListGaris);
@@ -1005,7 +1005,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
                             }
                         }));
-            } else if(mode.equalsIgnoreCase("Monitor")){
+            } else if(mode.equalsIgnoreCase(Global.MONITOR)){
                 itemListMonitor = new AdapterListWarungBibitdanPupukMonitor(listBibitdanPupukSortedHargaTertinggi);
                 binding.rvWarungPupukHargaTertinggi.setLayoutManager(new LinearLayoutManager(ListWarungBibitdanPupuk.this));
                 binding.rvWarungPupukHargaTertinggi.setAdapter(itemListMonitor);

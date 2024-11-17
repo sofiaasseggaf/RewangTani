@@ -327,6 +327,11 @@ public interface APIInterfacesRest {
     @GET("tenaga-kerja/read")
     Call<ModelTenagaKerja> getDataWarungTenagaKerja();
 
+    @GET("tenaga-kerja/read")
+    Call<DataTenagaKerjaById> getDataWarungTenagaKerjaById(
+            @Query("id") String id
+    );
+
     @POST("tenaga-kerja/create")
     Call<DataTenagaKerjaById> sendTenagaKerja(
             @Body RequestBody body
@@ -347,6 +352,11 @@ public interface APIInterfacesRest {
 
     @GET("sewa-mesin/read")
     Call<ModelSewaMesin> getDataWarungSewaMesin();
+
+    @GET("sewa-mesin/read")
+    Call<DataSewaMesinById> getDataWarungSewaMesinById(
+            @Query("id") String id
+    );
 
     @POST("sewa-mesin/create")
     Call<DataSewaMesinById> sendSewaMesin(
@@ -369,6 +379,12 @@ public interface APIInterfacesRest {
     // warung bibit pupuk pestisida
     @GET("warung-bpp/read")
     Call<ModelPupukPestisida> getDataWarungBibitPupukPestisida();
+
+
+    // warung bibit pupuk pestisida by id
+    @GET("warung-bpp/read")
+    Call<DataBppById> getDataWarungBibitPupukPestisidaById(
+            @Query("id") String id);
 
     @POST("warung-bpp/create")
     Call<DataBppById> sendBibitPestisida(

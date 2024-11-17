@@ -8,22 +8,6 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".starter.Login">
-        <!--  <ImageButton
-              android:id="@+id/btn_back"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:background="@drawable/btn_back"
-              android:layout_marginTop="50dp"
-              android:layout_marginLeft="20dp"/>
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20dp"
-              android:layout_marginTop="75dp"
-              android:fontFamily="@font/comfortaa_regular"
-              android:text="Masuk"
-              android:textColor="@color/black"
-              android:textSize="36sp" />-->
         <ImageView
             android:id="@+id/logo"
             android:layout_width="150dp"
@@ -224,7 +208,7 @@
         </LinearLayout>
 
         <FrameLayout
-            android:id="@+id/frameLoading"
+            android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -241,7 +225,7 @@
                     android:layout_centerInParent="true"/>
 
                 <TextView
-                    android:id="@+id/textloading"
+                    android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

@@ -86,24 +86,32 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/framelayout"
+        android:id="@+id/viewLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/bg_loading">
+        android:background="@color/white"
+        android:visibility="gone">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/textloading"
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:background="@drawable/new_logo"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:id="@+id/textLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="100dp"
                 android:fontFamily="@font/inter_bold"
-                android:textSize="22sp"
-                android:textColor="@color/dark_green"/>
+                android:textColor="@color/dark_green"
+                android:textSize="22sp"/>
 
         </RelativeLayout>
 

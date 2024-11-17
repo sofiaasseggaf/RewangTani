@@ -114,7 +114,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void showLoadingView() {
-        binding.frameLoading.setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -123,11 +123,11 @@ public class Login extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya .");
+                    binding.textLoading.setText("Tunggu sebentar ya .");
                 } else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . .");
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
                 } else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . .");
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
                 }
                 if (count == 3)
                     count = 0;
@@ -155,14 +155,14 @@ public class Login extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.frameLoading.setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                         }
                     });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.frameLoading.setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                             Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -174,7 +174,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -184,7 +184,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void showLoadingViewlogin() {
-        binding.frameLoading.setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -193,11 +193,11 @@ public class Login extends AppCompatActivity {
             public void run() {
                 count++;
                 if (count == 1) {
-                    binding.textloading.setText("Tunggu sebentar ya .");
+                    binding.textLoading.setText("Tunggu sebentar ya .");
                 } else if (count == 2) {
-                    binding.textloading.setText("Tunggu sebentar ya . .");
+                    binding.textLoading.setText("Tunggu sebentar ya . .");
                 } else if (count == 3) {
-                    binding.textloading.setText("Tunggu sebentar ya . . .");
+                    binding.textLoading.setText("Tunggu sebentar ya . . .");
                 }
                 if (count == 3)
                     count = 0;
@@ -235,7 +235,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Akun belum terdaftar", Toast.LENGTH_SHORT).show();
 
                     }
@@ -247,7 +247,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.frameLoading.setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -255,7 +255,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.frameLoading.setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -263,7 +263,7 @@ public class Login extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    binding.frameLoading.setVisibility(View.GONE);
+                    binding.viewLoading.setVisibility(View.GONE);
                     Toast.makeText(Login.this, "Silahkan isi kolom yang kosong", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -290,7 +290,7 @@ public class Login extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            binding.frameLoading.setVisibility(View.GONE);
+                                            binding.viewLoading.setVisibility(View.GONE);
                                             Toast.makeText(Login.this, "Data akun tidak ditemukan", Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -307,7 +307,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -325,7 +325,7 @@ public class Login extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    binding.frameLoading.setVisibility(View.GONE);
+                                    binding.viewLoading.setVisibility(View.GONE);
                                     Toast.makeText(Login.this, "Fetching FCM registration token failed", Toast.LENGTH_SHORT).show();
                                     tokenis = 0;
                                 }
@@ -369,7 +369,7 @@ public class Login extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLoading.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 Toast.makeText(Login.this, "Gagal update token", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -384,7 +384,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                     }
                 });
@@ -409,7 +409,7 @@ public class Login extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                binding.frameLoading.setVisibility(View.GONE);
+                binding.viewLoading.setVisibility(View.GONE);
                 Toast.makeText(Login.this, "Berhasil masuk", Toast.LENGTH_SHORT).show();
                 goToHome();
             }
@@ -448,7 +448,7 @@ public class Login extends AppCompatActivity {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
-                                                binding.frameLoading.setVisibility(View.GONE);
+                                                binding.viewLoading.setVisibility(View.GONE);
                                                 checkUserByGoogle();
                                             }
                                         });
@@ -490,7 +490,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
                         builder.setMessage("Akun Google belum pernah register")
                                 .setPositiveButton("Register", new DialogInterface.OnClickListener() {
@@ -518,7 +518,7 @@ public class Login extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(Login.this, s, Toast.LENGTH_SHORT).show();
                         firebaseAuth = FirebaseAuth.getInstance();
                         firebaseAuth.signOut();
@@ -571,7 +571,7 @@ public class Login extends AppCompatActivity {
         if (requestCode == 100) {
             // When request code is equal to 100
             // Initialize task
-            binding.frameLoading.setVisibility(View.VISIBLE);
+            binding.viewLoading.setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 int count = 0;
@@ -580,11 +580,11 @@ public class Login extends AppCompatActivity {
                 public void run() {
                     count++;
                     if (count == 1) {
-                        binding.textloading.setText("Tunggu sebentar ya .");
+                        binding.textLoading.setText("Tunggu sebentar ya .");
                     } else if (count == 2) {
-                        binding.textloading.setText("Tunggu sebentar ya . .");
+                        binding.textLoading.setText("Tunggu sebentar ya . .");
                     } else if (count == 3) {
-                        binding.textloading.setText("Tunggu sebentar ya . . .");
+                        binding.textLoading.setText("Tunggu sebentar ya . . .");
                     }
                     if (count == 3)
                         count = 0;

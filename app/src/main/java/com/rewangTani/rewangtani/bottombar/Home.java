@@ -150,37 +150,37 @@ public class Home extends AppCompatActivity {
         binding.btnWarungTenagaKerja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//                goToWarungTK();
+//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+                goToWarungTK();
             }
         });
 
         binding.btnWarungSewaMesin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//                goToWarungSM();
+//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+                goToWarungSM();
             }
         });
 
         binding.btnWarungPupuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//                goToWarungPupuk();
+//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+                goToWarungPupuk();
             }
         });
 
         binding.btnWarungBibit.setOnClickListener(v -> {
-            Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//            goToWarungPupuk();
+//            Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+            goToWarungPupuk();
         });
 
         binding.btnWarungPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//                goToWarungPestisida();
+//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+                goToWarungPestisida();
             }
         });
 

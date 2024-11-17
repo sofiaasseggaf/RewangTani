@@ -170,33 +170,6 @@
 
             </ScrollView>
 
-            <FrameLayout
-                android:id="@+id/framelayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/bg_loading"
-                android:visibility="gone">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textloading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="100dp"
-                        android:fontFamily="@font/inter_bold"
-                        android:textColor="@color/dark_green"
-                        android:textSize="22sp" />
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-
         </RelativeLayout>
 
         <LinearLayout
@@ -220,11 +193,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <RelativeLayout
-                    android:id="@+id/btnPesan"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_blank_grey_radius_rect">
                     <ImageButton
+                        android:id="@+id/btnPesan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/ic_pesan_off"
@@ -284,6 +257,38 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/viewLoading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/new_logo"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/textLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="100dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/dark_green"
+                    android:textSize="22sp"/>
+
+            </RelativeLayout>
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

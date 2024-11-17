@@ -103,7 +103,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void getData(){
-        binding.frameLoading.setVisibility(View.VISIBLE);
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -156,7 +156,7 @@ public class ListProfileLahan extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.frameLoading.setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
@@ -185,7 +185,7 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLoading.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 binding.scrollview.setVisibility(View.VISIBLE);
                                 setData();
                             }
@@ -194,7 +194,7 @@ public class ListProfileLahan extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                binding.frameLoading.setVisibility(View.GONE);
+                                binding.viewLoading.setVisibility(View.GONE);
                                 binding.frameDataNotFound.setVisibility(View.VISIBLE);
                             }
                         });
@@ -203,7 +203,7 @@ public class ListProfileLahan extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.frameLoading.setVisibility(View.GONE);
+                            binding.viewLoading.setVisibility(View.GONE);
                             binding.frameDataNotFound.setVisibility(View.VISIBLE);
                         }
                     });
