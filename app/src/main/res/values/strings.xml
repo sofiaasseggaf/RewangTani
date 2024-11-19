@@ -2,6 +2,12 @@
     <string name="app_name">Rewang Tani</string>
     <string name="title_activity_maps">Map</string>
 
+    <!--Toast Text-->
+
+    <string name="photos_not_completed">Lengkapi 3 Foto Terlebih Dahulu</string>
+    <string name="field_not_comleted">Lengkapi Field Terlebih Dahulu</string>
+    <string name="add_product_successed">Berhasil Tambah Produk</string>
+
     <string-array name="gender">
         <item>Laki - Laki</item>
         <item>Perempuan</item>

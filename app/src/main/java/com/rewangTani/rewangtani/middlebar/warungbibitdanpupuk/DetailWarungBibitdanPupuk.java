@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
@@ -164,11 +166,12 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
         binding.lokasiWarung.setText("Kota : " + dataBppById.getData().getKota());
         binding.terjualWarung.setText("Terjual : " + dataBppById.getData().getJmlTerjual().toString() + " kali");
         binding.txtKet.setText(dataBppById.getData().getDeskProduk());
-        if ( dataBppById.getData().getIdFoto() != null ){
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+dataBppById.getData().getIdFoto();
-            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .into(binding.imgWarung);
+        if ( dataBppById.getData().getIdFoto() != null )
+        {
+            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + dataBppById.getData().getIdFoto();
+            Log.i("SOFIA", "DetailWarungBIBITPUPUK - setData() - uri = " + imageUri);
+            SwipeablePhotosAdapter swipeablePhotosAdapter = new SwipeablePhotosAdapter(this, imageUri);
+            binding.viewPager.setAdapter(swipeablePhotosAdapter);
         }
     }
 

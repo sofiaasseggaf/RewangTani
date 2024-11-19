@@ -186,15 +186,16 @@
                         android:paddingLeft="15dp"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewWarungPupukPestisida1"
+                    android:id="@+id/viewWarungBibit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="15dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -215,7 +216,7 @@
                             android:orientation="horizontal"
                             android:layout_marginTop="5dp">
                             <ImageButton
-                                android:id="@+id/btnTambahFoto1"
+                                android:id="@+id/btnTambahFotoBibit"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:background="@drawable/ic_plus"/>
@@ -227,21 +228,7 @@
                                 android:background="@drawable/bg_blank_grey_radius_rect"
                                 android:padding="5dp">
                                 <ImageView
-                                    android:id="@+id/imgProduk1a"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/ic_warungku_on"
-                                    android:scaleType="centerCrop"/>
-                            </FrameLayout>
-                            <FrameLayout
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="10dp"
-                                android:gravity="center"
-                                android:background="@drawable/bg_blank_grey_radius_rect"
-                                android:padding="5dp">
-                                <ImageView
-                                    android:id="@+id/imgProduk1b"
+                                    android:id="@+id/imgProdukBibit1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"/>
@@ -254,7 +241,20 @@
                                 android:background="@drawable/bg_blank_grey_radius_rect"
                                 android:padding="5dp">
                                 <ImageView
-                                    android:id="@+id/imgProduk1c"
+                                    android:id="@+id/imgProdukBibit2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukBibit3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"/>
@@ -285,7 +285,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/namaProduk1"
+                            android:id="@+id/namaProdukBibit"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -313,7 +313,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/hargaProduk1"
+                            android:id="@+id/hargaProdukBibit"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -342,7 +342,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/jumlahProduk1"
+                            android:id="@+id/jumlahProdukBibit"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -371,7 +371,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/beratProduk1"
+                            android:id="@+id/beratProdukBibit"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -411,7 +411,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/deskProduk1"
+                            android:id="@+id/deskProdukBibit"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -443,7 +443,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/kotaProduk1"
+                            android:id="@+id/kotaProdukBibit"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -466,7 +466,558 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewWarungSewaMesin2"
+                    android:id="@+id/viewWarungPupuk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Foto Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+                            <ImageButton
+                                android:id="@+id/btnTambahFotoPupuk"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:background="@drawable/ic_plus"/>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukPupuk1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukPupuk2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukPupuk3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!--<ImageView
+                        android:id="@+id/ll1_imgproduk"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop" />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/namaProdukPupuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Nama Produk"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Harga Produk (HET)"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/hargaProdukPupuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Harga Produk (HET)"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Jumlah Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/jumlahProdukPupuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Jumlah Produk"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Berat Isi"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/beratProdukPupuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Berat Isi"
+                            android:inputType="numberSigned|numberDecimal"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Kg / Ltr"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Deskripsi Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/deskProdukPupuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:gravity="left"
+                            android:hint="Masukkan Deskripsi Produk"
+                            android:minLines="5"
+                            android:padding="15dp"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Kota"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/kotaProdukPupuk"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Nama Kota"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!--  <ImageButton
+                          android:id="@+id/btn_ll1_imgproduk"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:layout_marginTop="20dp"
+                          android:background="@drawable/btn_tambah_foto" />-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewWarungPestisida"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Foto Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp">
+                            <ImageButton
+                                android:id="@+id/btnTambahFotoPestisida"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:background="@drawable/ic_plus"/>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukPestisida1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukPestisida2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukPestisida3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!--<ImageView
+                        android:id="@+id/ll1_imgproduk"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop" />-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/namaProdukPestisida"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Nama Produk"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Harga Produk (HET)"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/hargaProdukPestisida"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Harga Produk (HET)"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Jumlah Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/jumlahProdukPestisida"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Jumlah Produk"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Berat Isi"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/beratProdukPestisida"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Berat Isi"
+                            android:inputType="numberSigned|numberDecimal"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/inter_regular"
+                            android:text="Kg / Ltr"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Deskripsi Produk"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/deskProdukPestisida"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:gravity="left"
+                            android:hint="Masukkan Deskripsi Produk"
+                            android:minLines="5"
+                            android:padding="15dp"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:text="Nama Kota"
+                            android:textColor="@color/dark_green2"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/kotaProdukPestisida"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/rect_input_blank_green_radius"
+                            android:fontFamily="@font/inter_regular"
+                            android:hint="Masukkan Nama Kota"
+                            android:paddingLeft="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#ADABAB"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <!--  <ImageButton
+                          android:id="@+id/btn_ll1_imgproduk"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:layout_marginTop="20dp"
+                          android:background="@drawable/btn_tambah_foto" />-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/viewWarungSewaMesin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -492,7 +1043,7 @@
                             android:orientation="horizontal"
                             android:layout_marginTop="5dp">
                             <ImageButton
-                                android:id="@+id/btnTambahFoto2"
+                                android:id="@+id/btnTambahFotoSewaMesin"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:background="@drawable/ic_plus"/>
@@ -504,21 +1055,7 @@
                                 android:background="@drawable/bg_blank_grey_radius_rect"
                                 android:padding="5dp">
                                 <ImageView
-                                    android:id="@+id/imgProduk2a"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/ic_warungku_on"
-                                    android:scaleType="centerCrop"/>
-                            </FrameLayout>
-                            <FrameLayout
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="10dp"
-                                android:gravity="center"
-                                android:background="@drawable/bg_blank_grey_radius_rect"
-                                android:padding="5dp">
-                                <ImageView
-                                    android:id="@+id/imgProduk2b"
+                                    android:id="@+id/imgProdukSewaMesin1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"/>
@@ -531,7 +1068,20 @@
                                 android:background="@drawable/bg_blank_grey_radius_rect"
                                 android:padding="5dp">
                                 <ImageView
-                                    android:id="@+id/imgProduk2c"
+                                    android:id="@+id/imgProdukSewaMesin2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukSewaMesin3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"/>
@@ -555,7 +1105,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/namaProduk2"
+                            android:id="@+id/namaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -583,7 +1133,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/hargaProduk2"
+                            android:id="@+id/hargaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -623,7 +1173,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/deskProduk2"
+                            android:id="@+id/deskProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -654,7 +1204,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/spesifikasiProduk2"
+                            android:id="@+id/spesifikasiProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -685,7 +1235,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/kotaProduk2"
+                            android:id="@+id/kotaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -715,11 +1265,11 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/jumlahProduk2"
+                            android:id="@+id/jumlahProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
+                            android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
                             android:gravity="left"
                             android:hint="Masukkan Jumlah Produk"
@@ -734,7 +1284,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewWarungTenagaKerja3"
+                    android:id="@+id/viewWarungTenagaKerja"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
@@ -760,7 +1310,7 @@
                             android:orientation="horizontal"
                             android:layout_marginTop="5dp">
                             <ImageButton
-                                android:id="@+id/btnTambahFoto3"
+                                android:id="@+id/btnTambahFotoTenagaKerja"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:background="@drawable/ic_plus"/>
@@ -772,21 +1322,7 @@
                                 android:background="@drawable/bg_blank_grey_radius_rect"
                                 android:padding="5dp">
                                 <ImageView
-                                    android:id="@+id/imgProduk3a"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:background="@drawable/ic_warungku_on"
-                                    android:scaleType="centerCrop"/>
-                            </FrameLayout>
-                            <FrameLayout
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginLeft="10dp"
-                                android:gravity="center"
-                                android:background="@drawable/bg_blank_grey_radius_rect"
-                                android:padding="5dp">
-                                <ImageView
-                                    android:id="@+id/imgProduk3b"
+                                    android:id="@+id/imgProdukTenagaKerja1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"/>
@@ -799,7 +1335,20 @@
                                 android:background="@drawable/bg_blank_grey_radius_rect"
                                 android:padding="5dp">
                                 <ImageView
-                                    android:id="@+id/imgProduk3c"
+                                    android:id="@+id/imgProdukTenagaKerja2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:scaleType="centerCrop"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginLeft="10dp"
+                                android:gravity="center"
+                                android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:padding="5dp">
+                                <ImageView
+                                    android:id="@+id/imgProdukTenagaKerja3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"/>
@@ -823,7 +1372,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/namaProdukPenyediaJasa3"
+                            android:id="@+id/namaProdukPenyediaJasaTenagaKerja"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -851,7 +1400,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/hargaProdukLayananJasa3"
+                            android:id="@+id/hargaProdukLayananJasaTenagaKerja"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -891,7 +1440,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/deskProdukLayananJasa3"
+                            android:id="@+id/deskProdukLayananJasaTenagaKerja"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -922,7 +1471,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/keahlianPenyediaJasa3"
+                            android:id="@+id/keahlianPenyediaJasaTenagaKerja"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -953,7 +1502,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/kotaProduk3"
+                            android:id="@+id/kotaProdukTenagaKerja"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -1164,4 +1713,5 @@
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

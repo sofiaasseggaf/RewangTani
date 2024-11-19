@@ -29,6 +29,7 @@ import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSew
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -48,14 +49,14 @@ public class PesananWarungku extends AppCompatActivity {
     List<DatumTenagaKerja> tenagaKerjaList = new ArrayList<>();
     List<DatumPupukPestisida> pupukPestisidaList = new ArrayList<>();
     AdapterListWarungku itemList;
-    int checkKelengkapan = 0;
+    int checkKelengkapan = Global.INT_DEFAULT_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_pesananwarungku);
 
-        //start();
+        getData();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +116,8 @@ public class PesananWarungku extends AppCompatActivity {
         });
     }
 
-    private void start() {
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+    private void getData() {
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;
@@ -155,12 +156,11 @@ public class PesananWarungku extends AppCompatActivity {
                 if (dataProfilById.getData().getTelepon() != null && dataProfilById.getData().getNik() != null &&
                         dataProfilById.getData().getIdAlamat() != null && dataProfilById.getData().getAlamat() != null &&
                         dataProfilById.getData().getGender() != null && dataProfilById.getData().getTglLahir() != null) {
-                    checkKelengkapan = 1;
+                    checkKelengkapan = Global.INT_RIGHT_VALUE;
                     getDataPesanan();
                 } else {
-                    checkKelengkapan = 0;
+                    checkKelengkapan = Global.INT_DEFAULT_VALUE;
                     getDataPesanan();
-
                 }
             }
 
@@ -169,7 +169,7 @@ public class PesananWarungku extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
+                        binding.viewLoading.setVisibility(View.GONE);
                         Toast.makeText(PesananWarungku.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }

@@ -89,6 +89,7 @@ public class Home extends AppCompatActivity {
         homeImageCarouselAdapter = new HomeImageCarouselAdapter(this, imageIds);
         binding.viewPager.setAdapter(homeImageCarouselAdapter);
         addDotsIndicator(0);
+
         binding.viewPager.setOnClickListener(v -> {
             goToBlog();
         });
@@ -150,7 +151,6 @@ public class Home extends AppCompatActivity {
         binding.btnWarungTenagaKerja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
                 goToWarungTK();
             }
         });
@@ -158,7 +158,6 @@ public class Home extends AppCompatActivity {
         binding.btnWarungSewaMesin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
                 goToWarungSM();
             }
         });
@@ -166,20 +165,17 @@ public class Home extends AppCompatActivity {
         binding.btnWarungPupuk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
                 goToWarungPupuk();
             }
         });
 
         binding.btnWarungBibit.setOnClickListener(v -> {
-//            Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
             goToWarungPupuk();
         });
 
         binding.btnWarungPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
                 goToWarungPestisida();
             }
         });
@@ -187,8 +183,7 @@ public class Home extends AppCompatActivity {
         binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//                goToWarungku();
+                goToWarungku();
             }
         });
 

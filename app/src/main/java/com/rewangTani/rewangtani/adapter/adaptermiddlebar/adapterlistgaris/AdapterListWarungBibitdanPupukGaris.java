@@ -46,7 +46,7 @@ public class AdapterListWarungBibitdanPupukGaris extends RecyclerView.Adapter<Re
         ((Penampung)holder).biaya_warung.setText("Rp " + a);
         //((Penampung)holder).lokasi_warung.setText(dataItemList.get(position).getKota());
         if ( dataItemList.get(position).getIdFoto() != null ){
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+dataItemList.get(position).getIdFoto();
+            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+ dataItemList.get(position).getIdFoto() + "0";
             Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .into(((Penampung) holder).img_warung);
