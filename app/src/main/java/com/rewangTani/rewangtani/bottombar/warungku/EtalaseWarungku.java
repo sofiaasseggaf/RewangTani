@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -59,7 +61,7 @@ public class EtalaseWarungku extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_etalase_warungku);
 
-        //start();
+        getData();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,31 +99,31 @@ public class EtalaseWarungku extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 goToTambahWarungku();
-//                if (checkKelengkapan == 1) {
-//                    goToTambahWarungku();
-//                } else if (checkKelengkapan == 0) {
-//                    binding.viewBelumPunya.setVisibility(View.GONE);
-//                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(EtalaseWarungku.this);
-//                    builder.setView(customLayout);
-//                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-//                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-//                    buttonOk.setOnClickListener(v -> {
-//                        goToEditProfil();
-//                    });
-//                    buttonCancel.setOnClickListener(v -> {
-//                        goToEtalase();
-//                    });
-//                    AlertDialog dialog = builder.create();
-//                    dialog.show();
-//                }
+                if (checkKelengkapan == 1) {
+                    goToTambahWarungku();
+                } else if (checkKelengkapan == 0) {
+                    binding.viewBelumPunya.setVisibility(View.GONE);
+                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EtalaseWarungku.this);
+                    builder.setView(customLayout);
+                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+                    buttonOk.setOnClickListener(v -> {
+                        goToEditProfil();
+                    });
+                    buttonCancel.setOnClickListener(v -> {
+                        goToEtalase();
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
 
     }
 
-    private void start() {
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
+    private void getData() {
+        binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             int count = 0;

@@ -57,27 +57,14 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
                         ((Penampung) holder).nama_warung.setText(sewaMesinList.get(j).getNamaProduk());
                         String a = checkDesimal(sewaMesinList.get(j).getHargaProduk().toString());
                         ((Penampung)holder).biaya_warung.setText("Rp. " + a);
-                       // ((Penampung) holder).biaya_warung.setText(sewaMesinList.get(j).getHargaProduk().toString());
-                        //((Penampung) holder).lokasi_warung.setText(sewaMesinList.get(j).getKota());
                         if(sewaMesinList.get(j).getJmlTerjual()!=null){
                             ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : "+sewaMesinList.get(j).getJmlTerjual().toString());
                         } else {
                             ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : 0");
                         }
-
-                        if (!sewaMesinList.get(j).getIdFoto().equalsIgnoreCase("")) {
-                            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + sewaMesinList.get(j).getIdFoto();
-                            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                    .into(((Penampung) holder).img_warung);
-                        }
                     }
                 }
             }
-
-
-
-
 
             if (tenagaKerjaList.size()>0){
                 for (int j=0; j<tenagaKerjaList.size(); j++){
@@ -85,15 +72,7 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
                         ((Penampung)holder).nama_warung.setText(tenagaKerjaList.get(j).getNamaTenagaKerja());
                         String a = checkDesimal(tenagaKerjaList.get(j).getBiaya().toString());
                         ((Penampung)holder).biaya_warung.setText("Rp. " + a + " / Hari");
-                        //((Penampung)holder).biaya_warung.setText(tenagaKerjaList.get(j).getBiaya().toString());
-                        //((Penampung)holder).lokasi_warung.setText(tenagaKerjaList.get(j).getKota());
                         ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : "+tenagaKerjaList.get(j).getJmlTerjual().toString());
-                        if (!tenagaKerjaList.get(j).getIdFoto().equalsIgnoreCase("")){
-                            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+tenagaKerjaList.get(j).getIdFoto();
-                            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                    .into(((Penampung) holder).img_warung);
-                        }
                     }
                 }
             }
@@ -104,27 +83,18 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
                         ((Penampung)holder).nama_warung.setText(pupukPestisidaList.get(j).getNamaProduk());
                         String a = checkDesimal(pupukPestisidaList.get(j).getHargaProduk().toString());
                         ((Penampung)holder).biaya_warung.setText("Rp. " + a);
-                        //((Penampung)holder).biaya_warung.setText(pupukPestisidaList.get(j).getHargaProduk().toString());
-                        //((Penampung)holder).lokasi_warung.setText(pupukPestisidaList.get(j).getKota());
                         ((Penampung) holder).jml_terjual.setText("Jumlah Terjual : "+pupukPestisidaList.get(j).getJmlTerjual().toString());
-                        if (!pupukPestisidaList.get(j).getIdFoto().equalsIgnoreCase("")){
-                            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+pupukPestisidaList.get(j).getIdFoto();
-                            Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
-                                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                                    .into(((Penampung) holder).img_warung);
-                        }
                     }
                 }
             }
 
-        /*((Penampung)holder).biaya_warung.setText(dataItemList.get(position).getHargaProduk().toString());
-        ((Penampung)holder).lokasi_warung.setText(dataItemList.get(position).getKota());
-        if (!dataItemList.get(position).getFoto().equalsIgnoreCase("")){
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+dataItemList.get(position).getFoto();
+        if ( dataItemList.get(position).getFoto() != null ){
+            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id="+ dataItemList.get(position).getFoto() + "0";
             Picasso.get().load(imageUri).networkPolicy(NetworkPolicy.NO_CACHE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE)
                     .into(((Penampung) holder).img_warung);
-        }*/
+        }
+
     }
 
     @Override

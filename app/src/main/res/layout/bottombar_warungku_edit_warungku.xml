@@ -48,14 +48,14 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/viewWarungPupukPestisida1"
+                    android:id="@+id/viewWarungPupukPestisida"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="15dp"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
-                    <!--<LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -68,64 +68,89 @@
                             android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
+                        <RelativeLayout
+                            android:id="@+id/imgWarungBpp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/rounded_carousle_background">
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/viewPagerBpp"
+                                android:layout_width="195dp"
+                                android:layout_height="195dp"
+                                android:layout_gravity="center_horizontal"
+                                android:clipToPadding="false"
+                                android:overScrollMode="never" />
+
+                        </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp">
+                            android:layout_marginTop="10sp"
+                            android:orientation="horizontal">
+
                             <ImageButton
-                                android:id="@+id/btnTambahFoto1"
+                                android:id="@+id/btnTambahFotoBpp"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:background="@drawable/ic_plus"/>
+                                android:background="@drawable/ic_plus" />
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk1a"
+                                    android:id="@+id/imgProdukBpp1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/ic_warungku_on"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk1b"
+                                    android:id="@+id/imgProdukBpp2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk1c"
+                                    android:id="@+id/imgProdukBpp3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
                         </LinearLayout>
 
-                    </LinearLayout>-->
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -136,7 +161,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/namaProduk1"
+                            android:id="@+id/namaProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -164,7 +189,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/hargaProduk1"
+                            android:id="@+id/hargaProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -178,7 +203,7 @@
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
@@ -193,7 +218,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/jumlahProduk1"
+                            android:id="@+id/jumlahProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -205,7 +230,7 @@
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
                             android:textSize="14sp" />
-                    </LinearLayout>
+                    </LinearLayout>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -222,7 +247,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/beratProduk1"
+                            android:id="@+id/beratProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -262,7 +287,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/deskProduk1"
+                            android:id="@+id/deskProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -277,7 +302,6 @@
                             android:textColorHint="#ADABAB"
                             android:textSize="14sp" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -294,7 +318,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/kotaProduk1"
+                            android:id="@+id/kotaProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -317,14 +341,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewWarungSewaMesin2"
+                    android:id="@+id/viewWarungSewaMesin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_marginTop="15dp"
+                    android:orientation="vertical"
                     android:visibility="gone">
 
-                   <!-- <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -337,64 +361,89 @@
                             android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
+                        <RelativeLayout
+                            android:id="@+id/imgWarungSewaMesin"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/rounded_carousle_background">
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/viewPagerSewaMesin"
+                                android:layout_width="195dp"
+                                android:layout_height="195dp"
+                                android:layout_gravity="center_horizontal"
+                                android:clipToPadding="false"
+                                android:overScrollMode="never" />
+
+                        </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp">
+                            android:layout_marginTop="10sp"
+                            android:orientation="horizontal">
+
                             <ImageButton
-                                android:id="@+id/btnTambahFoto2"
+                                android:id="@+id/btnTambahFotoSewaMesin"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:background="@drawable/ic_plus"/>
+                                android:background="@drawable/ic_plus" />
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk2a"
+                                    android:id="@+id/imgProdukSewaMesin1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/ic_warungku_on"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk2b"
+                                    android:id="@+id/imgProdukSewaMesin2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk2c"
+                                    android:id="@+id/imgProdukSewaMesin3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
                         </LinearLayout>
 
-                    </LinearLayout>-->
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -405,7 +454,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/namaProduk2"
+                            android:id="@+id/namaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -433,7 +482,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/hargaProduk2"
+                            android:id="@+id/hargaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -473,7 +522,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/deskProduk2"
+                            android:id="@+id/deskProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -504,7 +553,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/spesifikasiProduk2"
+                            android:id="@+id/spesifikasiProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -535,7 +584,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/kotaProduk2"
+                            android:id="@+id/kotaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -550,7 +599,7 @@
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -565,11 +614,11 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/jumlahProduk2"
+                            android:id="@+id/jumlahProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
-                            android:background="@drawable/rect_edittext"
+                            android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
                             android:gravity="left"
                             android:hint="Masukkan Jumlah Produk"
@@ -580,18 +629,18 @@
                             android:textColor="@color/black"
                             android:textColorHint="#ADABAB"
                             android:textSize="14sp" />
-                    </LinearLayout>
+                    </LinearLayout>-->
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/viewWarungTenagaKerja3"
+                    android:id="@+id/viewWarungTenagaKerja"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
-                <!--    <LinearLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -604,64 +653,89 @@
                             android:textColor="@color/dark_green2"
                             android:textSize="14sp" />
 
+                        <RelativeLayout
+                            android:id="@+id/imgWarungTenagaKerja"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/rounded_carousle_background">
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/viewPagerTenagaKerja"
+                                android:layout_width="195dp"
+                                android:layout_height="195dp"
+                                android:layout_gravity="center_horizontal"
+                                android:clipToPadding="false"
+                                android:overScrollMode="never" />
+
+                        </RelativeLayout>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="5dp">
+                            android:layout_marginTop="10sp"
+                            android:orientation="horizontal">
+
                             <ImageButton
-                                android:id="@+id/btnTambahFoto3"
+                                android:id="@+id/btnTambahFotoTenagaKerja"
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
-                                android:background="@drawable/ic_plus"/>
+                                android:background="@drawable/ic_plus" />
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk3a"
+                                    android:id="@+id/imgProdukTenagaKerja1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/ic_warungku_on"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk3b"
+                                    android:id="@+id/imgProdukTenagaKerja2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
+
                             <FrameLayout
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"
                                 android:layout_marginLeft="10dp"
-                                android:gravity="center"
                                 android:background="@drawable/bg_blank_grey_radius_rect"
+                                android:gravity="center"
                                 android:padding="5dp">
+
                                 <ImageView
-                                    android:id="@+id/imgProduk3c"
+                                    android:id="@+id/imgProdukTenagaKerja3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"/>
+                                    android:scaleType="centerCrop" />
                             </FrameLayout>
                         </LinearLayout>
 
-                    </LinearLayout>-->
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -672,7 +746,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/namaProdukPenyediaJasa3"
+                            android:id="@+id/namaProdukPenyediaJasa"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -700,7 +774,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/hargaProdukLayananJasa3"
+                            android:id="@+id/hargaProdukLayananJasa"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -740,7 +814,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/deskProdukLayananJasa3"
+                            android:id="@+id/deskProdukLayananJasa"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -771,7 +845,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/keahlianPenyediaJasa3"
+                            android:id="@+id/keahlianPenyediaJasa"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -802,7 +876,7 @@
                             android:textSize="14sp" />
 
                         <EditText
-                            android:id="@+id/kotaProduk3"
+                            android:id="@+id/kotaPenyediaJasa"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -1017,8 +1091,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/new_logo"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/new_logo" />
 
                 <TextView
                     android:id="@+id/textLoading"
@@ -1029,7 +1103,7 @@
                     android:layout_marginBottom="100dp"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/dark_green"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" />
 
             </RelativeLayout>
 
