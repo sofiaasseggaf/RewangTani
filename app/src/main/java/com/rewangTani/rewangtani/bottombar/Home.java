@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.bottombar;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,18 +9,15 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,7 +45,6 @@ import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.squareup.picasso.Picasso;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -58,15 +53,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity
+{
 
     BottombarHomeBinding binding;
     int PERMISSION_CODE = 1;
@@ -80,7 +74,8 @@ public class Home extends AppCompatActivity {
     private ImageView[] dots;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState )
+    {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_home);
 
@@ -195,8 +190,7 @@ public class Home extends AppCompatActivity {
         });
 
         binding.btnPesan.setOnClickListener(v -> {
-            Toast.makeText(Home.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-//            goToPesan();
+            goToPesan();
         });
 
         binding.btnAkun.setOnClickListener(new View.OnClickListener() {
@@ -228,9 +222,8 @@ public class Home extends AppCompatActivity {
 
     }
 
-    public void getLoc() {
-
-
+    public void getLoc()
+    {
         if (ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
@@ -325,17 +318,21 @@ public class Home extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void translate(String text) {
+    public void translate( String text )
+    {
         new Thread(new Runnable() {
             @Override
-            public void run() {
-                try {
+            public void run()
+            {
+                try
+                {
                     String query = URLEncoder.encode(text, "UTF-8");
-                    String url = "http://mymemory.translated.net/api/get?q="+query+"&langpair=en%7Cid";
+                    String url = "http://mymemory.translated.net/api/get?q=" + query + "&langpair=en%7Cid";
                     HttpClient hc = new DefaultHttpClient();
                     HttpGet hg = new HttpGet(url);
                     hr = hc.execute(hg);
-                    if(hr.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    if ( hr.getStatusLine().getStatusCode() == HttpStatus.SC_OK )
+                    {
                         JSONObject response = new JSONObject(EntityUtils.toString(hr.getEntity()));
                         runOnUiThread(new Runnable() {
                             @Override
@@ -349,7 +346,9 @@ public class Home extends AppCompatActivity {
                             }
                         });
                     }
-                } catch (Exception e) {
+                }
+                catch ( Exception e )
+                {
                     e.printStackTrace();
                 }
             }

@@ -173,7 +173,8 @@
                     android:hint="Tulis sesuatu . ."
                     android:textColor="@color/black"
                     android:textColorHint="#80000000"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"
+                    android:maxLength="100"/>
 
             </RelativeLayout>
         </RelativeLayout>

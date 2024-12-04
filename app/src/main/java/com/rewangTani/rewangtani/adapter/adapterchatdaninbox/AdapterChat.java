@@ -1,47 +1,50 @@
 package com.rewangTani.rewangtani.adapter.adapterchatdaninbox;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.DatumChat;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
-
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import java.util.List;
 
-public class AdapterChat extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterChat extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     List<DatumChat> dataItemList;
-    String idSender;
+    Context context;
 
-    public AdapterChat(List<DatumChat> dataItemList,   String idSender) {
+    public AdapterChat( List<DatumChat> dataItemList, Context context )
+    {
         this.dataItemList = dataItemList;
-        this.idSender = idSender;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType )
+    {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.z_list_chat, parent, false);
         Penampung penampung = new Penampung(view);
         return penampung;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder( @NonNull RecyclerView.ViewHolder holder, int position )
+    {
+        String idSender = PreferenceUtils.getIdProfil(context);
+
         ((Penampung)holder).time.setText(dataItemList.get(position).getCreatedDate());
         ((Penampung)holder).lastText.setText(dataItemList.get(position).getText());
-        if (dataItemList.get(position).getIdSender().equalsIgnoreCase(idSender)){
+        if (dataItemList.get(position).getIdSender().equalsIgnoreCase(idSender))
+        {
             ((Penampung)holder).root.setBackgroundResource(R.color.chatGrey);
             ((Penampung)holder).time.setTextColor(Color.parseColor("#919191"));
             ((Penampung)holder).lastText.setTextColor(Color.parseColor("#919191"));
@@ -49,7 +52,9 @@ public class AdapterChat extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
             params.setMargins(125,0, 0, 20);
             ((Penampung)holder).root.setLayoutParams(params);
-        } else {
+        }
+        else
+        {
             ((Penampung)holder).root.setBackgroundResource(R.color.chatGreen);
             ((Penampung)holder).time.setTextColor(Color.parseColor("#ffffff"));
             ((Penampung)holder).lastText.setTextColor(Color.parseColor("#ffffff"));
@@ -61,21 +66,24 @@ public class AdapterChat extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return dataItemList == null ? 0 : dataItemList.size();
     }
 
-    static class Penampung extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class Penampung extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         public TextView time, lastText;
         public RelativeLayout root;
-        public Penampung(View itemView) {
+        public Penampung( View itemView ) {
             super(itemView);
             root = itemView.findViewById(R.id.root);
             time = itemView.findViewById(R.id.time);
             lastText = itemView.findViewById(R.id.lastText);
         }
         @Override
-        public void onClick(View v) {
+        public void onClick( View v )
+        {
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + lastText.getText());
         }
     }

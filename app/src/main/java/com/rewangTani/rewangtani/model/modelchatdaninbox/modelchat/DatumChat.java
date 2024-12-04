@@ -5,6 +5,10 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
 public class DatumChat implements Serializable
 {
@@ -73,6 +77,31 @@ public class DatumChat implements Serializable
         this.text = text;
         this.sentAt = sentAt;
         this.isRead = isRead;
+    }
+
+    // Parse the sentDate to a Date object using DateTimeFormatter
+    public Instant getParsedDate()
+    {
+        try
+        {
+            // Try parsing with microseconds
+            DateTimeFormatter formatterWithMicros = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            return LocalDateTime.parse(createdDate, formatterWithMicros).toInstant(ZoneOffset.UTC);
+        }
+        catch ( Exception e1 )
+        {
+            try
+            {
+                // Fallback to seconds only
+                DateTimeFormatter formatterWithoutMicros = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+                return LocalDateTime.parse(createdDate, formatterWithoutMicros).toInstant(ZoneOffset.UTC);
+            }
+            catch ( Exception e2 )
+            {
+                e2.printStackTrace();
+                return null; // Handle invalid formats gracefully
+            }
+        }
     }
 
     public String getCreatedBy() {

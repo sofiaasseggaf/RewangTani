@@ -1,83 +1,119 @@
 package com.rewangTani.rewangtani.adapter.adapterchatdaninbox;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
-
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
+import com.rewangTani.rewangtani.utility.Global;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+{
 
     List<DatumInbox> dataItemList;
-    String idProfil;
-    List<String> idProfilParticipant;
-    String nama = "";
+    List<DatumInboxParticipant> listDataInboxParticipant;
+    List<DatumProfil> listDataProfil;
+    Context context;
 
-    public AdapterInbox(List<DatumInbox> dataItemList, String idProfil,  List<String> idProfilParticipant) {
+    public AdapterInbox( List<DatumInbox> dataItemList, List<DatumProfil> listDataProfil, List<DatumInboxParticipant> listDataInboxParticipant, Context context )
+    {
         this.dataItemList = dataItemList;
-        this.idProfil = idProfil;
-        this.idProfilParticipant = idProfilParticipant;
+        this.listDataProfil = listDataProfil;
+        this.listDataInboxParticipant = listDataInboxParticipant;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType )
+    {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.z_list_inbox, parent, false);
         Penampung penampung = new Penampung(view);
         return penampung;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<DatumProfil> dataRT = apiInterface.getDatumProfilAkunById(dataItemList.get(position).getLastSender());
-        dataRT.enqueue(new Callback<DatumProfil>() {
-            @Override
-            public void onResponse(Call<DatumProfil> call, Response<DatumProfil> response) {
-                DatumProfil dataProfilById = response.body();
-                if (response.body()!=null){
-                    nama = dataProfilById.getNamaDepan()+" "+dataProfilById.getNamaBelakang();
-                    ((Penampung) holder).sender.setText(nama);
-                    ((Penampung) holder).lastText.setText(dataItemList.get(position).getLastText());
-                    if (dataItemList.get(position).getReadFlag().equalsIgnoreCase("Y")) {
-                        ((Penampung) holder).icon.setVisibility(View.GONE);
-                    } else if (dataItemList.get(position).getReadFlag().equalsIgnoreCase("X") &&
-                            !dataItemList.get(position).getLastSender().equalsIgnoreCase(idProfil)) {
-                        ((Penampung) holder).icon.setVisibility(View.VISIBLE);
+    public void onBindViewHolder( @NonNull RecyclerView.ViewHolder holder, int position )
+    {
+        String thisProfile = PreferenceUtils.getNamaDepan(context) + " " + PreferenceUtils.getNamaBelakang(context);
+        String idProfile = PreferenceUtils.getIdProfil(context);
+        String idLastSender = Global.STRING_DEFAULT_VALUE;
+        String otherProfile = Global.STRING_DEFAULT_VALUE;
+
+        ((Penampung) holder).lastText.setText(dataItemList.get(position).getLastText());
+
+        if ( dataItemList.get(position).getLastSender().equalsIgnoreCase(idProfile) )
+        {
+            ((Penampung) holder).sender.setText(thisProfile);
+        }
+        else
+        {
+            if ( !dataItemList.get(position).getLastSender().equalsIgnoreCase(idProfile) )
+            {
+                for ( int i = 0; i < listDataInboxParticipant.size(); i++ )
+                {
+                    if ( dataItemList.get(position).getLastSender().equalsIgnoreCase(listDataInboxParticipant.get(i).getIdProfilA()) )
+                    {
+                        idLastSender = listDataInboxParticipant.get(i).getIdProfilA();
+                        break;
+                    }
+                    else if ( dataItemList.get(position).getLastSender().equalsIgnoreCase(listDataInboxParticipant.get(i).getIdProfilB()) )
+                    {
+                        idLastSender = listDataInboxParticipant.get(i).getIdProfilB();
+                        break;
+                    }
+                }
+
+                if ( !idLastSender.equalsIgnoreCase(Global.STRING_DEFAULT_VALUE) )
+                {
+                    for ( int i = 0; i < listDataProfil.size(); i++ )
+                    {
+                        if ( listDataProfil.get(i).getIdProfile().equalsIgnoreCase(idLastSender) )
+                        {
+                            otherProfile = listDataProfil.get(i).getNamaDepan() + " " + listDataProfil.get(i).getNamaBelakang();
+                            ((Penampung) holder).sender.setText(otherProfile);
+                            break;
+                        }
                     }
                 }
             }
-            @Override
-            public void onFailure(Call<DatumProfil> call, Throwable t) {}
-        });
+        }
+
+        if ( dataItemList.get(position).getReadFlag().equalsIgnoreCase("Y") ||
+                dataItemList.get(position).getLastSender().equalsIgnoreCase(idProfile) )
+        {
+            ((Penampung) holder).icon.setVisibility(View.GONE);
+        }
+        else if ( dataItemList.get(position).getReadFlag().equalsIgnoreCase("N") &&
+                !dataItemList.get(position).getLastSender().equalsIgnoreCase(idProfile) )
+        {
+            ((Penampung) holder).icon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return dataItemList == null ? 0 : dataItemList.size();
     }
 
-    static class Penampung extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class Penampung extends RecyclerView.ViewHolder implements View.OnClickListener
+    {
         public TextView sender, lastText;
         public ImageView icon;
 
-        public Penampung(View itemView) {
+        public Penampung( View itemView )
+        {
             super(itemView);
             sender = itemView.findViewById(R.id.sender);
             lastText = itemView.findViewById(R.id.lastText);
@@ -85,25 +121,10 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick( View v )
+        {
             Log.d("onclick", "onClick " + getLayoutPosition() + " " + lastText.getText());
         }
     }
 
-    public String getDataProfil(String id) {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<DatumProfil> dataRT = apiInterface.getDatumProfilAkunById(id);
-        dataRT.enqueue(new Callback<DatumProfil>() {
-            @Override
-            public void onResponse(Call<DatumProfil> call, Response<DatumProfil> response) {
-                DatumProfil dataProfilById = response.body();
-                if (response.body()!=null){
-                    nama = dataProfilById.getNamaDepan()+" "+dataProfilById.getNamaBelakang();
-                }
-            }
-            @Override
-            public void onFailure(Call<DatumProfil> call, Throwable t) {}
-        });
-        return nama;
-    }
 }
