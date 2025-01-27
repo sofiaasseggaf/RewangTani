@@ -42,9 +42,9 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ChatViewHolder
 
         if (idProfile.equals(chatMessage.getIdSender()))
         {
-            holder.root.setBackground(context.getResources().getDrawable(R.drawable.bg_chat_gray));
-            holder.time.setTextColor(context.getResources().getColor(R.color.fontChatGray));
-            holder.lastText.setTextColor(context.getResources().getColor(R.color.fontChatGray));
+            holder.root.setBackground(context.getResources().getDrawable(R.drawable.bg_chat_green));
+            holder.time.setTextColor(context.getResources().getColor(R.color.fontChatGreen));
+            holder.lastText.setTextColor(context.getResources().getColor(R.color.fontChatGreen));
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
             params.setMargins(125,0, 20, 30);
@@ -52,9 +52,9 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ChatViewHolder
         }
         else
         {
-            holder.root.setBackground(context.getResources().getDrawable(R.drawable.bg_chat_green));
-            holder.time.setTextColor(context.getResources().getColor(R.color.fontChatGreen));
-            holder.lastText.setTextColor(context.getResources().getColor(R.color.fontChatGreen));
+            holder.root.setBackground(context.getResources().getDrawable(R.drawable.bg_chat_gray));
+            holder.time.setTextColor(context.getResources().getColor(R.color.fontChatGray));
+            holder.lastText.setTextColor(context.getResources().getColor(R.color.fontChatGray));
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
             params.setMargins(20,0, 125, 30);

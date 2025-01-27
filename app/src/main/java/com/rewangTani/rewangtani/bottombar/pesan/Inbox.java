@@ -1,6 +1,9 @@
 package com.rewangTani.rewangtani.bottombar.pesan;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
@@ -8,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
@@ -24,6 +28,7 @@ import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
@@ -46,6 +51,13 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
     ModelInbox modelInbox;
     List<DatumInbox> listInbox = new ArrayList<>();
     AdapterInbox itemList;
+
+    private BroadcastReceiver chatReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            getDataProfil();
+        }
+    };
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -127,6 +139,7 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
                 ModelProfilAkun modelProfilAkun = response.body();
                 if (response.body() != null)
                 {
+                    listProfil.clear();
                     for ( int i = 0; i < modelProfilAkun.getTotalData(); i++ )
                     {
                         listProfil.add(modelProfilAkun.getData().get(i));
@@ -170,6 +183,7 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
 
                 if ( response.body() != null )
                 {
+                    listInboxParticipant.clear();
                     for ( int i = 0; i < modelInboxParticipant.getTotalData(); i++ )
                     {
                         try
@@ -231,6 +245,7 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
 
                 if ( response.body() != null )
                 {
+                    listInbox.clear();
                     for ( int i = 0; i < modelInbox.getTotalData(); i++ )
                     {
                         for ( int j = 0; j < listInboxParticipant.size(); j++ )
@@ -291,29 +306,9 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
 
     private void setData()
     {
-//        String idProfile = PreferenceUtils.getIdProfil(this);
         itemList = new AdapterInbox(listInbox, listProfil, listInboxParticipant, this, this);
         binding.rvInbox.setLayoutManager(new LinearLayoutManager(Inbox.this));
         binding.rvInbox.setAdapter(itemList);
-//        binding.rvInbox.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvInbox,
-//                new RecyclerItemClickListener.OnItemClickListener()
-//                {
-//                    @Override
-//                    public void onItemClick( View view, int position )
-//                    {
-//                        DatumInbox clickedInbox = listInbox.get(position);
-//                        if ( clickedInbox.getReadFlag().equalsIgnoreCase("N") && !clickedInbox.getLastSender().equalsIgnoreCase(idProfile) )
-//                        {
-//                            updateReadFlag(clickedInbox);
-//                        }
-//                        goToChat(clickedInbox.getIdInbox());
-//                    }
-//                    @Override
-//                    public void onLongItemClick( View view, int position )
-//                    {
-//
-//                    }
-//                }));
     }
 
     private void updateReadFlag( DatumInbox datumInbox )
@@ -362,7 +357,6 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
         finish();
     }
 
-
     public void goToProfilLahan(){
         Intent a = new Intent(Inbox.this, ListProfileLahan.class);
         startActivity(a);
@@ -376,12 +370,29 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
     }
 
     @Override
+    protected void onResume()
+    {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                chatReceiver,
+                new IntentFilter(Global.INTENT_ACTION_REFRESH_INBOX)
+        );
+    }
+
+    @Override
+    protected void onPause()
+    {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(chatReceiver);
+        super.onPause();
+    }
+
+    @Override
     public void onBackPressed() {
         goToBeranda();
     }
 
     @Override
-    public void onInboxItemClick(DatumInbox datumInbox)
+    public void onInboxItemClick(DatumInbox datumInbox, String otherProfile)
     {
         String idProfile = PreferenceUtils.getIdProfil(this);
         if ( datumInbox.getReadFlag().equalsIgnoreCase("N") && !datumInbox.getLastSender().equalsIgnoreCase(idProfile) )
@@ -390,7 +401,8 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
         }
         // When an inbox item is clicked, navigate to the chat screen
         Intent intent = new Intent(Inbox.this, Chat.class);
-        intent.putExtra("idInbox", datumInbox.getIdInbox());
+        intent.putExtra(Global.ID_INBOX, datumInbox.getIdInbox());
+        intent.putExtra(Global.NAMA_INBOX, otherProfile);
         startActivity(intent);
     }
 }

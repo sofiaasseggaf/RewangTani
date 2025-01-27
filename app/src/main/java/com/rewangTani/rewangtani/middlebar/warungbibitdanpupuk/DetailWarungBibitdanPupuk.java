@@ -19,6 +19,8 @@ import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DataBppById;
+import com.rewangTani.rewangtani.utility.ChatUtils;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
 
@@ -40,11 +42,13 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
     DataBppById dataBppById;
     DataProfilById dataProfilById;
     DecimalFormat formatter;
+    ChatUtils chatUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_detail_warung_pupuk);
+        chatUtils = new ChatUtils(this);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -60,7 +64,15 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
         binding.btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailWarungBibitdanPupuk.this, "FITUR DALAM PENGERJAAN", Toast.LENGTH_SHORT).show();
+                String idProfile = PreferenceUtils.getIdProfil(getApplicationContext());
+                if ( idProfile.equalsIgnoreCase(dataProfilById.getData().getIdProfile()) )
+                {
+                    Toast.makeText(DetailWarungBibitdanPupuk.this, "Ini Produk Anda", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    chatUtils.goToInbox(idProfile, dataProfilById.getData().getIdProfile(), dataProfilById.getData().getNamaDepan());
+                }
             }
         });
     }

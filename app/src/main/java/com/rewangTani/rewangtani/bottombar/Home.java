@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 import com.android.volley.Request;
@@ -24,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.rewangTani.rewangtani.APIService.APIClient;
+import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterHomeImageCarousel;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
@@ -36,6 +39,11 @@ import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitda
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
+import com.rewangTani.rewangtani.service.ChatService;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
@@ -43,6 +51,7 @@ import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.squareup.picasso.Picasso;
 import org.apache.http.HttpResponse;
@@ -55,9 +64,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Home extends AppCompatActivity
 {
@@ -90,6 +104,7 @@ public class Home extends AppCompatActivity
         });
 
         getLoc();
+        getInboxParticipant();
 
         binding.btnRencanaTanam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,6 +368,103 @@ public class Home extends AppCompatActivity
                 }
             }
         }).start();
+    }
+
+    private void getInboxParticipant()
+    {
+        List<DatumInboxParticipant> listInboxParticipant = new ArrayList<>();
+        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
+        final Call<ModelInboxParticipant> dataRT = apiInterface.getDataInboxParticipant();
+        dataRT.enqueue(new Callback<ModelInboxParticipant>()
+        {
+            @Override
+            public void onResponse( Call<ModelInboxParticipant> call, retrofit2.Response<ModelInboxParticipant> response )
+            {
+                ModelInboxParticipant modelInboxParticipant = response.body();
+                String idProfile = PreferenceUtils.getIdProfil(getApplicationContext());
+
+                if ( response.body() != null )
+                {
+                    for ( int i = 0; i < modelInboxParticipant.getTotalData(); i++ )
+                    {
+                        try
+                        {
+                            if ( idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilA()) ||
+                                    idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilB()) )
+                            {
+                                listInboxParticipant.add(modelInboxParticipant.getData().get(i));
+                            }
+                        }
+                        catch ( Exception e ) { }
+                    }
+
+                    if ( listInboxParticipant.size() > 0 )
+                    {
+                        getInbox(listInboxParticipant);
+                    }
+                }
+            }
+            @Override
+            public void onFailure( Call<ModelInboxParticipant> call, Throwable t )
+            { }
+        });
+    }
+
+    private void getInbox(List<DatumInboxParticipant> listInboxParticipant)
+    {
+        List<DatumInbox> listInbox = new ArrayList<>();
+        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
+        final Call<ModelInbox> dataRT = apiInterface.getDataInbox();
+        dataRT.enqueue(new Callback<ModelInbox>()
+        {
+            @Override
+            public void onResponse( Call<ModelInbox> call, retrofit2.Response<ModelInbox> response )
+            {
+                ModelInbox modelInbox = response.body();
+                if ( response.body() != null )
+                {
+                    for ( int i = 0; i < modelInbox.getTotalData(); i++ )
+                    {
+                        for ( int j = 0; j < listInboxParticipant.size(); j++ )
+                        {
+                            try
+                            {
+                                if ( modelInbox.getData().get(i).getIdInboxParticipant().equalsIgnoreCase(listInboxParticipant.get(j).getIdInboxParticipant()) )
+                                {
+                                    listInbox.add(modelInbox.getData().get(i));
+                                }
+                            }
+                            catch ( Exception e ) { }
+                        }
+                    }
+
+                    if ( listInbox.size() > 0 )
+                    {
+                        ArrayList<String> inboxIds = new ArrayList<>();
+                        for ( DatumInbox inbox : listInbox )
+                        {
+                            inboxIds.add(inbox.getIdInbox());
+                        }
+
+                        startService(inboxIds);
+//                        if ( inboxIds.size() > 0 )
+//                        {
+//                            startService(inboxIds);
+//                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure( Call<ModelInbox> call, Throwable t )
+            { }
+        });
+    }
+
+    public void startService(ArrayList<String> listIdInbox)
+    {
+        Intent serviceIntent = new Intent(this, ChatService.class);
+        serviceIntent.putStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS, listIdInbox);
+        ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     public void goToRencanaTanam() {

@@ -13,7 +13,9 @@ import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.ModelChat;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ResponseInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
+import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ResponseInboxParticipant;
 import com.rewangTani.rewangtani.model.modelinfo.ModelInfo;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
@@ -444,7 +446,7 @@ public interface APIInterfacesRest {
             @Query("id") String id);
 
     @POST("inboxparticipant/create")
-    Call<ResponseBody> sendInboxParticipant(
+    Call<ResponseInboxParticipant> sendInboxParticipant(
             @Body RequestBody body
     );
 
@@ -463,7 +465,7 @@ public interface APIInterfacesRest {
             @Query("id") String id);
 
     @POST("inbox/create")
-    Call<ResponseBody> sendInbox(
+    Call<ResponseInbox> sendInbox(
             @Body RequestBody body
     );
 

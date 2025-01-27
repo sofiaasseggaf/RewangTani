@@ -1,7 +1,4 @@
 package com.rewangTani.rewangtani.service;
-
-import static com.rewangTani.rewangtani.utility.App.CHANNEL_ID;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -15,6 +12,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
+import com.rewangTani.rewangtani.utility.Global;
 
 import java.util.Locale;
 
@@ -35,8 +33,8 @@ public class CuacaService extends Service {
 
         Intent notificationIntent = new Intent(this, BerandaInfoPeringatanCuaca.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                0, notificationIntent, PendingIntent.FLAG_MUTABLE);
+        Notification notification = new NotificationCompat.Builder(this, Global.CHANNEL_ID)
                 .setContentTitle(judul)
                 .setContentText(ket)
                 .setSmallIcon(R.drawable.icon_logo_alert)

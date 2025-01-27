@@ -55,18 +55,9 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         ((Penampung) holder).lastText.setText(inbox.getLastText());
 
-        if ( dataItemList.get(position).getLastSender().equalsIgnoreCase(idProfile) )
-        {
-            ((Penampung) holder).sender.setText(thisProfile);
-        }
-        else
-        {
-            idLastSender = getLastSenderId(inbox.getLastSender());
-            if (!idLastSender.equalsIgnoreCase(Global.STRING_DEFAULT_VALUE)) {
-                otherProfile = getProfileNameById(idLastSender);
-                ((Penampung) holder).sender.setText(otherProfile);
-            }
-        }
+        String otherProfileName = getOtherProfileName(dataItemList.get(position).getIdInboxParticipant());
+        ((Penampung)holder).sender.setText(otherProfileName);
+
 
         setReadFlagVisibility(inbox, idProfile, (Penampung) holder);
     }
@@ -94,9 +85,12 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
         @Override
-        public void onClick(View v) {
-            if (listener != null) {
-                listener.onInboxItemClick(dataItemList.get(getAdapterPosition())); // Pass the clicked item data
+        public void onClick( View v )
+        {
+            if ( listener != null )
+            {
+                String otherProfileName = getOtherProfileName(dataItemList.get(getAdapterPosition()).getIdInboxParticipant());
+                listener.onInboxItemClick(dataItemList.get(getAdapterPosition()), otherProfileName); // Pass the clicked item data
             }
         }
     }
@@ -121,6 +115,29 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return Global.STRING_DEFAULT_VALUE;
     }
 
+    private String getOtherProfileName( String idInboxParticipant )
+    {
+        String idProfile = PreferenceUtils.getIdProfil(context);
+        for (DatumInboxParticipant inboxParticipant : listDataInboxParticipant )
+        {
+            if ( inboxParticipant.getIdInboxParticipant().equalsIgnoreCase(idInboxParticipant) )
+            {
+                for ( DatumProfil profile : listDataProfil )
+                {
+                    if ( inboxParticipant.getIdProfilA().equalsIgnoreCase(profile.getIdProfile()) &&
+                    !inboxParticipant.getIdProfilA().equalsIgnoreCase(idProfile))
+                    {
+                        return profile.getNamaDepan() + " " + profile.getNamaBelakang();
+                    } else if ( inboxParticipant.getIdProfilB().equalsIgnoreCase(profile.getIdProfile()) &&
+                            !inboxParticipant.getIdProfilB().equalsIgnoreCase(idProfile) ) {
+                        return profile.getNamaDepan() + " " + profile.getNamaBelakang();
+                    }
+                }
+            }
+        }
+        return Global.STRING_DEFAULT_VALUE;
+    }
+
     private void setReadFlagVisibility(DatumInbox inbox, String idProfile, Penampung holder) {
         if (inbox.getReadFlag().equalsIgnoreCase("Y") || inbox.getLastSender().equalsIgnoreCase(idProfile)) {
             holder.icon.setVisibility(View.GONE);
@@ -130,6 +147,6 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public interface OnInboxItemClickListener {
-        void onInboxItemClick(DatumInbox datumInbox);
+        void onInboxItemClick(DatumInbox datumInbox, String otherProfile);
     }
 }

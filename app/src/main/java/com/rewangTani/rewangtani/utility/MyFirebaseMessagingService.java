@@ -1,7 +1,5 @@
 package com.rewangTani.rewangtani.utility;
 
-import static com.rewangTani.rewangtani.utility.App.CHANNEL_ID;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -82,7 +80,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         else
         {
             pendingIntent = PendingIntent.getActivity
-                    (this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                    (this, 0, intent, PendingIntent.FLAG_MUTABLE);
         }
 
         /*PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
@@ -90,7 +88,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this, CHANNEL_ID)
+                new NotificationCompat.Builder(this, Global.CHANNEL_ID)
                         //.setContentTitle(from)
                         .setContentTitle(PreferenceUtils.getTitle(getApplicationContext()))
                         .setContentText(msg)
@@ -102,7 +100,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,
+            NotificationChannel channel = new NotificationChannel(Global.CHANNEL_ID,
                     "Channel human readable title",
                     NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);

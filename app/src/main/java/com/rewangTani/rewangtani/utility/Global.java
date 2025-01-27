@@ -21,8 +21,23 @@ public class Global {
     public static String MONITOR = "MONITOR";
 
 
-    // REQUEST ID
+    // ID
 
     public static int CAMERA_REQUEST = 12345;
     public static int GALLERY_REQUEST = 54321;
+    public static int CHAT_NOTIFICATION_ID = 15;
+
+
+    // NOTIFICATION CHANNEL
+
+    public static String CHAT_CHANNEL = "CHAT_CHANNEL";
+    public static String CHANNEL_ID = "CHANNEL_ID";
+
+
+    // INTENT EXTRA
+
+    public static String ID_INBOX = "ID_INBOX";
+    public static String NAMA_INBOX = "NAMA_INBOX";
+    public static String INTENT_EXTRA_INBOX_IDS = "INTENT_EXTRA_INBOX_ID";
+    public static String INTENT_ACTION_REFRESH_INBOX = "INTENT_ACTION_REFRESH_INBOX";
 }

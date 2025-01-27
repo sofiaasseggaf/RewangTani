@@ -17,8 +17,11 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungTenagaKerjaBinding;
+import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.DetailWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DataTenagaKerjaById;
+import com.rewangTani.rewangtani.utility.ChatUtils;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
 
@@ -40,11 +43,13 @@ public class DetailWarungTenagaKerja extends AppCompatActivity {
     DataTenagaKerjaById dataTenagaKerjaById;
     DataProfilById dataProfilById;
     DecimalFormat formatter;
+    ChatUtils chatUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_detail_warung_tenaga_kerja);
+        chatUtils = new ChatUtils(this);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -60,7 +65,15 @@ public class DetailWarungTenagaKerja extends AppCompatActivity {
         binding.btnPesan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailWarungTenagaKerja.this, "FITUR DALAM PENGERJAAN", Toast.LENGTH_SHORT).show();
+                String idProfile = PreferenceUtils.getIdProfil(getApplicationContext());
+                if ( idProfile.equalsIgnoreCase(dataProfilById.getData().getIdProfile()) )
+                {
+                    Toast.makeText(DetailWarungTenagaKerja.this, "Ini Produk Anda", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    chatUtils.goToInbox(idProfile, dataProfilById.getData().getIdProfile(), dataProfilById.getData().getNamaDepan());
+                }
             }
         });
     }

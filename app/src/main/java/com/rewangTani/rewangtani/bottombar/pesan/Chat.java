@@ -23,6 +23,7 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterChat;
 import com.rewangTani.rewangtani.databinding.BottombarPesanChatBinding;
 import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.WebSocketManager;
 
@@ -43,11 +44,8 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
 {
     BottombarPesanChatBinding binding;
     private WebSocketManager webSocketManager;
-    private RecyclerView recyclerView;
     private AdapterChat adapterChat;
     private List<ChatRequest> chatList = new ArrayList<>();
-    private EditText messageEditText;
-    private RelativeLayout sendButton;
     private List<ChatRequest> chatMessages = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -57,15 +55,13 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pesan_chat);
 
         Intent intent = getIntent();
-        String inboxId = intent.getStringExtra("idInbox");
+        String inboxId = intent.getStringExtra(Global.ID_INBOX);
+        String inboxNama = intent.getStringExtra(Global.NAMA_INBOX);
 
-        recyclerView = findViewById(R.id.rvChat);
-        messageEditText = findViewById(R.id.txtChat);
-        sendButton = findViewById(R.id.btnSend);
-
+        binding.namaProfile.setText(inboxNama);
         adapterChat = new AdapterChat(chatMessages, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapterChat);
+        binding.rvChat.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvChat.setAdapter(adapterChat);
 
         webSocketManager = new WebSocketManager(this, this);
         webSocketManager.init();
@@ -80,9 +76,12 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
             }
         }
 
+        binding.btnBack.setOnClickListener(v -> {
+            goToInbox();
+        });
 
-        sendButton.setOnClickListener(v -> {
-            String message = messageEditText.getText().toString().trim();
+        binding.btnSend.setOnClickListener(v -> {
+            String message = binding.txtChat.getText().toString().trim();
             if (!message.equalsIgnoreCase(""))
             {
                 if ( inboxId != null )
@@ -101,15 +100,15 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
     public void onNewMessageReceived(String message) {
         ChatRequest chatRequest = new Gson().fromJson(message, ChatRequest.class);
         chatMessages.add(chatRequest);
-        adapterChat.notifyItemInserted(chatMessages.size() - 1);
-        recyclerView.scrollToPosition(chatMessages.size() - 1);
+        binding.rvChat.scrollToPosition(chatMessages.size() - 1);
     }
 
     @Override
-    public void onChatDataReceived(List<ChatRequest> chatRequests) {
+    public void onAllChatDataReceived(List<ChatRequest> chatRequests) {
         chatMessages.clear();
         chatMessages.addAll(chatRequests);
-        recyclerView.post(() -> recyclerView.scrollToPosition(chatMessages.size() - 1));
+        binding.rvChat.setNestedScrollingEnabled(false);
+        binding.rvChat.scrollToPosition(adapterChat.getItemCount() - 1);
     }
 
 
@@ -118,12 +117,7 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         String idProfile = PreferenceUtils.getIdProfil(this);
         ChatRequest chatRequest = new ChatRequest(inboxId, idProfile, message, LocalDateTime.now().toString(), "N");
         webSocketManager.sendMessage(chatRequest);
-
-        chatMessages.add(chatRequest);
-        adapterChat.notifyItemInserted(chatMessages.size() - 1);
-        recyclerView.scrollToPosition(chatMessages.size() - 1); // Scroll to the latest message
-
-        messageEditText.setText("");
+        binding.txtChat.setText("");
         udpateInbox(inboxId, message);
     }
 
@@ -159,10 +153,16 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        webSocketManager.disconnect();
+    private void goToInbox()
+    {
+        Intent intent = new Intent(Chat.this, Inbox.class);
+        startActivity(intent);
+        finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        goToInbox();
+    }
 }
