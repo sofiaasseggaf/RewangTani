@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.adapter.adapterchatdaninbox.AdapterInbox;
+import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterInbox;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
@@ -25,7 +25,7 @@ import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
+
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InboxPesan extends AppCompatActivity
+public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItemClickListener
 {
 
     BottombarPesanInboxBinding binding;
@@ -148,7 +148,7 @@ public class InboxPesan extends AppCompatActivity
                     public void run()
                     {
                         binding.viewLoading.setVisibility(View.GONE);
-                        Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -195,7 +195,7 @@ public class InboxPesan extends AppCompatActivity
                             public void run()
                             {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(InboxPesan.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Inbox.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -210,7 +210,7 @@ public class InboxPesan extends AppCompatActivity
                     public void run()
                     {
                         findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                        Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -266,7 +266,7 @@ public class InboxPesan extends AppCompatActivity
                             public void run()
                             {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(InboxPesan.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Inbox.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -281,7 +281,7 @@ public class InboxPesan extends AppCompatActivity
                     public void run()
                     {
                         findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                        Toast.makeText(InboxPesan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
                         call.cancel();
                     }
                 });
@@ -291,29 +291,29 @@ public class InboxPesan extends AppCompatActivity
 
     private void setData()
     {
-        String idProfile = PreferenceUtils.getIdProfil(this);
-        itemList = new AdapterInbox(listInbox, listProfil, listInboxParticipant, this);
-        binding.rvInbox.setLayoutManager(new LinearLayoutManager(InboxPesan.this));
+//        String idProfile = PreferenceUtils.getIdProfil(this);
+        itemList = new AdapterInbox(listInbox, listProfil, listInboxParticipant, this, this);
+        binding.rvInbox.setLayoutManager(new LinearLayoutManager(Inbox.this));
         binding.rvInbox.setAdapter(itemList);
-        binding.rvInbox.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvInbox,
-                new RecyclerItemClickListener.OnItemClickListener()
-                {
-                    @Override
-                    public void onItemClick( View view, int position )
-                    {
-                        DatumInbox clickedInbox = listInbox.get(position);
-                        if ( clickedInbox.getReadFlag().equalsIgnoreCase("N") && !clickedInbox.getLastSender().equalsIgnoreCase(idProfile) )
-                        {
-                            updateReadFlag(clickedInbox);
-                        }
-                        goToChat(clickedInbox.getIdInbox());
-                    }
-                    @Override
-                    public void onLongItemClick( View view, int position )
-                    {
-
-                    }
-                }));
+//        binding.rvInbox.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvInbox,
+//                new RecyclerItemClickListener.OnItemClickListener()
+//                {
+//                    @Override
+//                    public void onItemClick( View view, int position )
+//                    {
+//                        DatumInbox clickedInbox = listInbox.get(position);
+//                        if ( clickedInbox.getReadFlag().equalsIgnoreCase("N") && !clickedInbox.getLastSender().equalsIgnoreCase(idProfile) )
+//                        {
+//                            updateReadFlag(clickedInbox);
+//                        }
+//                        goToChat(clickedInbox.getIdInbox());
+//                    }
+//                    @Override
+//                    public void onLongItemClick( View view, int position )
+//                    {
+//
+//                    }
+//                }));
     }
 
     private void updateReadFlag( DatumInbox datumInbox )
@@ -344,33 +344,33 @@ public class InboxPesan extends AppCompatActivity
     }
 
     public void goToChat( String idInbox ){
-        Intent a = new Intent(InboxPesan.this, Chat.class);
+        Intent a = new Intent(Inbox.this, Chat.class);
         a.putExtra("idInbox", idInbox);
         startActivity(a);
         finish();
     }
 
     public void goToBeranda(){
-        Intent a = new Intent(InboxPesan.this, Home.class);
+        Intent a = new Intent(Inbox.this, Home.class);
         startActivity(a);
         finish();
     }
 
     public void goToWarungku(){
-        Intent a = new Intent(InboxPesan.this, PesananWarungku.class);
+        Intent a = new Intent(Inbox.this, PesananWarungku.class);
         startActivity(a);
         finish();
     }
 
 
     public void goToProfilLahan(){
-        Intent a = new Intent(InboxPesan.this, ListProfileLahan.class);
+        Intent a = new Intent(Inbox.this, ListProfileLahan.class);
         startActivity(a);
         finish();
     }
 
     public void goToProfilAkun(){
-        Intent a = new Intent(InboxPesan.this, BerandaProfile.class);
+        Intent a = new Intent(Inbox.this, BerandaProfile.class);
         startActivity(a);
         finish();
     }
@@ -378,5 +378,19 @@ public class InboxPesan extends AppCompatActivity
     @Override
     public void onBackPressed() {
         goToBeranda();
+    }
+
+    @Override
+    public void onInboxItemClick(DatumInbox datumInbox)
+    {
+        String idProfile = PreferenceUtils.getIdProfil(this);
+        if ( datumInbox.getReadFlag().equalsIgnoreCase("N") && !datumInbox.getLastSender().equalsIgnoreCase(idProfile) )
+        {
+            updateReadFlag(datumInbox);
+        }
+        // When an inbox item is clicked, navigate to the chat screen
+        Intent intent = new Intent(Inbox.this, Chat.class);
+        intent.putExtra("idInbox", datumInbox.getIdInbox());
+        startActivity(intent);
     }
 }

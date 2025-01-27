@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
@@ -58,7 +58,7 @@ public class Blog extends AppCompatActivity {
     }
 
     public void goToPesan(){
-        Intent a = new Intent(Blog.this, InboxPesan.class);
+        Intent a = new Intent(Blog.this, Inbox.class);
         startActivity(a);
         finish();
     }

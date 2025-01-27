@@ -72,8 +72,11 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.starter_login);
 
+        // Initialize firebase auth
+        firebaseAuth = FirebaseAuth.getInstance();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("878909563548-6a6d4mj5uqmqm4hlea3sa73agsv10fhm.apps.googleusercontent.com")
+                .requestIdToken("871147289264-at1ci259siqgsjao8akj50cdgkend9ma.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -86,13 +89,8 @@ public class Login extends AppCompatActivity {
 
         binding.btnLoginWithGoogle.setOnClickListener(v -> {
             Toast.makeText(Login.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-
-//            if (mGoogleSignInClient != null) {
-//                signOutGoogle();
-//            }
 //            Intent intent = mGoogleSignInClient.getSignInIntent();
 //            startActivityForResult(intent, 100);
-
         });
 
         binding.btnPassword.setOnClickListener(v -> {
@@ -429,8 +427,7 @@ public class Login extends AppCompatActivity {
                         .getResult(ApiException.class);
                 // Check condition
                 if (googleSignInAccount != null) {
-                    // Initialize firebase auth
-                    firebaseAuth = FirebaseAuth.getInstance();
+
                     // When sign in account is not equal to null
                     // Initialize auth credential
                     AuthCredential authCredential = GoogleAuthProvider
@@ -546,9 +543,7 @@ public class Login extends AppCompatActivity {
         mGoogleSignInClient.revokeAccess()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        // do nothing
-                    }
+                    public void onComplete(@NonNull Task<Void> task) { }
                 });
     }
 
@@ -569,8 +564,6 @@ public class Login extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         // Check condition
         if (requestCode == 100) {
-            // When request code is equal to 100
-            // Initialize task
             binding.viewLoading.setVisibility(View.VISIBLE);
             final Handler handler = new Handler();
             Runnable runnable = new Runnable() {

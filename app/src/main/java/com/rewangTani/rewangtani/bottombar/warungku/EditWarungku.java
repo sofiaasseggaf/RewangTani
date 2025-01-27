@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,10 +25,9 @@ import com.kosalgeek.android.photoutil.ImageBase64;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListWarungku;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.BottombarWarungkuEditWarungkuBinding;
@@ -1100,7 +1098,7 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void goToPesan() {
-        Intent a = new Intent(EditWarungku.this, InboxPesan.class);
+        Intent a = new Intent(EditWarungku.this, Inbox.class);
         startActivity(a);
         finish();
     }

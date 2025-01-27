@@ -68,7 +68,7 @@
             android:name=".middlebar.Blog"
             android:exported="false" />
         <activity
-            android:name=".bottombar.pesan.InboxPesan"
+            android:name=".bottombar.pesan.Inbox"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -259,7 +259,7 @@
             android:name=".zzz.YoutubePage"
             android:exported="true" />
 
-        <service android:name=".utility.Services" />
+        <service android:name=".service.CuacaService" />
         <service
             android:name=".utility.MyFirebaseMessagingService"
             android:exported="false">

@@ -22,9 +22,8 @@ import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
-import com.rewangTani.rewangtani.starter.Login;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Services;
+import com.rewangTani.rewangtani.service.CuacaService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -423,14 +422,14 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
     }
 
     public void startService(){
-        Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, Services.class);
+        Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, CuacaService.class);
         serviceIntent.putExtra("judul", binding.txtJudul.getText().toString());
         serviceIntent.putExtra("ket", binding.txtKeterangan.getText().toString());
         startService(serviceIntent);
     }
 
     public void stopService(){
-        Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, Services.class);
+        Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, CuacaService.class);
         stopService(serviceIntent);
     }
 

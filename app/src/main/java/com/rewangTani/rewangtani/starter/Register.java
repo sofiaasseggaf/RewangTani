@@ -1,5 +1,7 @@
 package com.rewangTani.rewangtani.starter;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -80,6 +82,11 @@ public class Register extends AppCompatActivity {
     int pw2 = 0;
     int tokenis = 0;
 
+
+    private static final int RC_SIGN_IN = 101;
+    private GoogleSignInClient googleSignInClient;
+    private String selectedAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,10 +148,11 @@ public class Register extends AppCompatActivity {
         });
 
         binding.btnDaftar.setOnClickListener(v -> {
-            if (tokenis == 0)
-                Toast.makeText(Register.this, "Maaf register bermasalah", Toast.LENGTH_SHORT).show();
-            else
-                checkUsername();
+            checkUsername();
+//            if (tokenis == 0)
+//                Toast.makeText(Register.this, "Maaf register bermasalah", Toast.LENGTH_SHORT).show();
+//            else
+//                checkUsername();
         });
 
         binding.btnSignupWithGoogle.setOnClickListener(v -> {
@@ -152,9 +160,53 @@ public class Register extends AppCompatActivity {
 //            signOutGoogle();
 //            Intent intent = mGoogleSignInClient.getSignInIntent();
 //            startActivityForResult(intent, 100);
+//            showAccountPicker();
 
         });
 
+    }
+
+    private void showAccountPicker() {
+        AccountManager accountManager = AccountManager.get(this);
+        Account[] accounts = accountManager.getAccountsByType("com.google");
+
+        if (accounts.length == 0) {
+            Toast.makeText(this, "No Google accounts found on this device", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] accountNames = new String[accounts.length];
+        for (int i = 0; i < accounts.length; i++) {
+            accountNames[i] = accounts[i].name;
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("Select a Google Account")
+                .setItems(accountNames, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedAccount = accountNames[which];
+                        initiateGoogleSignIn(selectedAccount);
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    private void initiateGoogleSignIn(String accountName) {
+        // Configure Google Sign-In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken("878909563548") // Replace with your client ID
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // Sign out from previous accounts for testing (optional)
+        googleSignInClient.signOut();
+
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void showLoadingView() {
@@ -196,7 +248,13 @@ public class Register extends AppCompatActivity {
             public void onResponse(Call<ModelAkun> call, Response<ModelAkun> response) {
                 modelAkunAwal = response.body();
                 if (response.body() != null) {
-                    getToken();
+//                    getToken();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.viewLoading.setVisibility(View.GONE);
+                        }
+                    });
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override
@@ -417,7 +475,7 @@ public class Register extends AppCompatActivity {
                     popupWindow = new PopupWindow(popupView, width, height, focusable);
                     popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
                     CheckBox checkBox = popupView.findViewById(R.id.checkBox);
-                    ImageButton btnDaftar = popupView.findViewById(R.id.btnDaftarPopup);
+                    RelativeLayout btnDaftar = popupView.findViewById(R.id.btnDaftarPopup);
 
                     popupView.setOnTouchListener(new View.OnTouchListener() {
                         @Override
@@ -470,8 +528,6 @@ public class Register extends AppCompatActivity {
                     });
                 }
             });
-
-
         } else {
             testEmail = 0;
         }

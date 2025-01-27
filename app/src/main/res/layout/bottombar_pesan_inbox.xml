@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".bottombar.pesan.InboxPesan">
+        tools:context=".bottombar.pesan.Inbox">
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"

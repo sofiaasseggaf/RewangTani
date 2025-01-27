@@ -1,12 +1,26 @@
 package com.rewangTani.rewangtani.APIService;
 
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import com.rewangTani.rewangtani.utility.StringConverter;
+import com.rewangTani.rewangtani.utility.StringDateComparator;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.ConnectionSpec;
@@ -24,6 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClient {
 
     private static Retrofit retrofit = null;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static Retrofit getClient() {
 
      Interceptor interceptor = new Interceptor() {
@@ -64,6 +79,8 @@ public class APIClient {
 
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(String.class, new StringConverter());
+        gb.registerTypeAdapter(LocalDateTime.class, new StringDateComparator.LocalDateTimeDeserializer());
+        gb.registerTypeAdapter(LocalDateTime.class, new StringDateComparator.LocalDateTimeSerializer());
         gb.setLenient();
         Gson gson = gb.create();
 

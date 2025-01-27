@@ -1,4 +1,4 @@
-package com.rewangTani.rewangtani.utility;
+package com.rewangTani.rewangtani.service;
 
 import static com.rewangTani.rewangtani.utility.App.CHANNEL_ID;
 
@@ -18,7 +18,7 @@ import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringa
 
 import java.util.Locale;
 
-public class Services extends Service {
+public class CuacaService extends Service {
 
 
     @Override

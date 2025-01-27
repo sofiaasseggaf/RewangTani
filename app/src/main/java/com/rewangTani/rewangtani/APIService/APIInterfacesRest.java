@@ -5,6 +5,7 @@ package com.rewangTani.rewangtani.APIService;
  */
 
 
+import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
 import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
@@ -45,6 +46,8 @@ import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSew
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DataTenagaKerjaById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
 
+import java.util.List;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -53,6 +56,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
@@ -483,7 +487,7 @@ public interface APIInterfacesRest {
     Call<ModelChat> getDataChat();
 
     @GET("chat/readbyidinbox")
-    Call<ModelChat> getDataChatByIdInbox(
+    Call<List<ChatRequest>> getDataChatByIdInbox(
             @Query("id_inbox") String idInbox);
 
     @POST("chat/create")
@@ -494,6 +498,17 @@ public interface APIInterfacesRest {
     @DELETE("chat/delete")
     Call<ModelChat> deleteChat(
             @Query("id") String id);
+
+
+
+    // -------------------------------------------- CHAT WITH WEB SOCKET --------------------------------------------
+
+
+    @GET("chat/read/{idInbox}")
+    Call<List<ChatRequest>> getChatHistory(@Path("idInbox") String idInbox);
+
+    @POST("chat")
+    Call<ChatRequest> postChat(@Body ChatRequest chatRequest);
 
 
 }

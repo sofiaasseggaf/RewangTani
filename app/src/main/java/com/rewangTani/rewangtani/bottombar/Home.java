@@ -25,8 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.adapter.adapterbottombar.HomeImageCarouselAdapter;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterHomeImageCarousel;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
@@ -69,7 +69,7 @@ public class Home extends AppCompatActivity
     String translated;
     HttpResponse hr;
 
-    private HomeImageCarouselAdapter homeImageCarouselAdapter;
+    private AdapterHomeImageCarousel adapterHomeImageCarousel;
     private int[] imageIds = {R.drawable.img_event, R.drawable.event1, R.drawable.event2};
     private ImageView[] dots;
 
@@ -81,8 +81,8 @@ public class Home extends AppCompatActivity
 
         binding.txtNama.setText("Hai, " + PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
 
-        homeImageCarouselAdapter = new HomeImageCarouselAdapter(this, imageIds);
-        binding.viewPager.setAdapter(homeImageCarouselAdapter);
+        adapterHomeImageCarousel = new AdapterHomeImageCarousel(this, imageIds);
+        binding.viewPager.setAdapter(adapterHomeImageCarousel);
         addDotsIndicator(0);
 
         binding.viewPager.setOnClickListener(v -> {
@@ -434,7 +434,7 @@ public class Home extends AppCompatActivity
     }
 
     public void goToPesan() {
-        Intent a = new Intent(Home.this, InboxPesan.class);
+        Intent a = new Intent(Home.this, Inbox.class);
         startActivity(a);
         finish();
     }
@@ -486,4 +486,8 @@ public class Home extends AppCompatActivity
         alertDialog.show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

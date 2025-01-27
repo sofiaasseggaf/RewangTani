@@ -11,11 +11,11 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.rewangTani.rewangtani.R;
 
-public class HomeImageCarouselAdapter extends PagerAdapter {
+public class AdapterHomeImageCarousel extends PagerAdapter {
     private Context context;
     private int[] imageIds; // Add your image resource IDs here
 
-    public HomeImageCarouselAdapter(Context context, int[] imageIds) {
+    public AdapterHomeImageCarousel(Context context, int[] imageIds) {
         this.context = context;
         this.imageIds = imageIds;
     }

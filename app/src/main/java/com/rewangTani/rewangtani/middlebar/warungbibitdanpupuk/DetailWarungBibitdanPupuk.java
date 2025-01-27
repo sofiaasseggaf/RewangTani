@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
@@ -20,12 +19,6 @@ import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DataBppById;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
-import com.rewangTani.rewangtani.utility.Global;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 

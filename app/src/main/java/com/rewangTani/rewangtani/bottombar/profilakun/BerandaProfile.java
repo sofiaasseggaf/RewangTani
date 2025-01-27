@@ -38,7 +38,7 @@ import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.pesanan.PesananDiproses;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
@@ -636,7 +636,7 @@ public class BerandaProfile extends AppCompatActivity {
     }
 
     public void goToPesan(){
-        Intent a = new Intent(BerandaProfile.this, InboxPesan.class);
+        Intent a = new Intent(BerandaProfile.this, Inbox.class);
         startActivity(a);
         finish();
     }

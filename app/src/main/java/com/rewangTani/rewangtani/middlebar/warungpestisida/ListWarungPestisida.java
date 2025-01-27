@@ -21,7 +21,7 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.Adapt
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungPestisida;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungPestisidaMonitor;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
@@ -1140,7 +1140,7 @@ public class ListWarungPestisida extends AppCompatActivity {
     }
 
     public void goToPesan(){
-        Intent a = new Intent(ListWarungPestisida.this, InboxPesan.class);
+        Intent a = new Intent(ListWarungPestisida.this, Inbox.class);
         startActivity(a);
         finish();
     }

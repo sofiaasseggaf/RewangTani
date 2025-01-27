@@ -1,263 +1,141 @@
 package com.rewangTani.rewangtani.bottombar.pesan;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.ArrayMap;
-import android.view.View;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rewangTani.rewangtani.APIService.APIClient;
 import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.adapter.adapterchatdaninbox.AdapterChat;
+import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterChat;
 import com.rewangTani.rewangtani.databinding.BottombarPesanChatBinding;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.DatumChat;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.ModelChat;
+import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.WebSocketManager;
+
 import org.json.JSONObject;
-import java.io.IOException;
-import java.time.Instant;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Chat extends AppCompatActivity
+public class Chat extends AppCompatActivity implements WebSocketManager.OnMessageReceivedListener
 {
-
     BottombarPesanChatBinding binding;
-    String idInbox;
-    ModelChat modelChat;
-    List<DatumChat> listChat = new ArrayList<>();
-    AdapterChat itemList;
+    private WebSocketManager webSocketManager;
+    private RecyclerView recyclerView;
+    private AdapterChat adapterChat;
+    private List<ChatRequest> chatList = new ArrayList<>();
+    private EditText messageEditText;
+    private RelativeLayout sendButton;
+    private List<ChatRequest> chatMessages = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected void onCreate( Bundle savedInstanceState )
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pesan_chat);
 
         Intent intent = getIntent();
-        idInbox = intent.getStringExtra("idInbox");
+        String inboxId = intent.getStringExtra("idInbox");
 
-        if ( idInbox != null )
+        recyclerView = findViewById(R.id.rvChat);
+        messageEditText = findViewById(R.id.txtChat);
+        sendButton = findViewById(R.id.btnSend);
+
+        adapterChat = new AdapterChat(chatMessages, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapterChat);
+
+        webSocketManager = new WebSocketManager(this, this);
+        webSocketManager.init();
+        webSocketManager.connect();
+        webSocketManager.subscribeToInbox(inboxId);
+
+        if ( inboxId != null )
         {
-            if ( !idInbox.equalsIgnoreCase("") )
+            if ( !inboxId.equalsIgnoreCase("") )
             {
-                getData(idInbox);
+                webSocketManager.requestChatData(inboxId);
             }
         }
 
-        binding.btnSend.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick( View v )
+
+        sendButton.setOnClickListener(v -> {
+            String message = messageEditText.getText().toString().trim();
+            if (!message.equalsIgnoreCase(""))
             {
-                String text = binding.txtChat.getText().toString();
-                if ( !text.equalsIgnoreCase("") )
+                if ( inboxId != null )
                 {
-                    sendChat(text);
+                    if ( !inboxId.equalsIgnoreCase("") )
+                    {
+                        sendMessage(message, inboxId);
+                    }
                 }
             }
         });
 
     }
 
-    private void getData( String idInbox )
-    {
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int count = 0;
-            @Override
-            public void run() {
-                count++;
-                if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
-                if (count == 3)
-                    count = 0;
-                handler.postDelayed(this, 1500);
-            }
-        };
-        handler.postDelayed(runnable, 1 * 1000);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                getChat(idInbox);
-            }
-        }).start();
+    @Override
+    public void onNewMessageReceived(String message) {
+        ChatRequest chatRequest = new Gson().fromJson(message, ChatRequest.class);
+        chatMessages.add(chatRequest);
+        adapterChat.notifyItemInserted(chatMessages.size() - 1);
+        recyclerView.scrollToPosition(chatMessages.size() - 1);
     }
 
-    private void getChat( String idInbox )
-    {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelChat> dataRT = apiInterface.getDataChat();
-        dataRT.enqueue(new Callback<ModelChat>()
-        {
-            @Override
-            public void onResponse(Call<ModelChat> call, Response<ModelChat> response)
-            {
-                if ( response.body() != null )
-                {
-                    modelChat = response.body();
-
-                    for (int i = 0; i < modelChat.getTotalData(); i++)
-                    {
-                        try
-                        {
-                            if ( modelChat.getData().get(i).getIdInbox().equalsIgnoreCase(idInbox) )
-                            {
-                                listChat.add(modelChat.getData().get(i));
-                            }
-                        }
-                        catch ( Exception e ) {}
-                    }
-
-                    if ( listChat.size() > 0 )
-                    {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                setData();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                Toast.makeText(Chat.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelChat> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.viewLoading.setVisibility(View.GONE);
-                        Toast.makeText(Chat.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
-            }
-        });
+    @Override
+    public void onChatDataReceived(List<ChatRequest> chatRequests) {
+        chatMessages.clear();
+        chatMessages.addAll(chatRequests);
+        recyclerView.post(() -> recyclerView.scrollToPosition(chatMessages.size() - 1));
     }
 
-    private void setData()
-    {
-        // Sort by date (descending for newest first)
-        Collections.sort(listChat, (chat1, chat2) -> {
-            Instant instant1 = chat1.getParsedDate();
-            Instant instant2 = chat2.getParsedDate();
-            if ( instant1 == null || instant2 == null ) return 0; // Handle null dates
-            return instant1.compareTo(instant2); // Sort newest first
-        });
 
-        itemList = new AdapterChat(listChat, this);
-        binding.rvChat.setLayoutManager(new LinearLayoutManager(Chat.this));
-        binding.rvChat.setAdapter(itemList);
-        binding.rvChat.smoothScrollToPosition(listChat.size());
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void sendMessage(String message, String inboxId) {
+        String idProfile = PreferenceUtils.getIdProfil(this);
+        ChatRequest chatRequest = new ChatRequest(inboxId, idProfile, message, LocalDateTime.now().toString(), "N");
+        webSocketManager.sendMessage(chatRequest);
+
+        chatMessages.add(chatRequest);
+        adapterChat.notifyItemInserted(chatMessages.size() - 1);
+        recyclerView.scrollToPosition(chatMessages.size() - 1); // Scroll to the latest message
+
+        messageEditText.setText("");
+        udpateInbox(inboxId, message);
     }
 
-    private void sendChat( String text )
+    private void udpateInbox(String inboxId, String message)
     {
         String idSender = PreferenceUtils.getIdProfil(getApplicationContext());
 
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 
-        jsonParams.put("idInbox", idInbox);
-        jsonParams.put("idSender", idSender);
-        jsonParams.put("text", text);
-        jsonParams.put("isRead", "N");
-
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
-                (new JSONObject(jsonParams)).toString());
-
-        Call<ResponseBody> response = apiInterface.sendChat(body);
-        response.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse( Call<ResponseBody> call, Response<ResponseBody> rawResponse )
-            {
-                try {
-                    if (rawResponse.body() != null) {
-                        binding.txtChat.setText("");
-                        binding.rvChat.setAdapter(null);
-                        listChat.clear();
-                        udpateInbox(text);
-                    } else {
-                        Toast.makeText(Chat.this, "Gagal mengirim pesan", Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure( Call<ResponseBody> call, Throwable throwable )
-            {
-                Toast.makeText(Chat.this, "Gagal mengirim pesan", Toast.LENGTH_LONG).show();
-                call.cancel();
-            }
-        });
-    }
-
-    void callApi(JSONObject jsonObject)
-    {
-        MediaType JSON = MediaType.get("application/json; charset=utf-8");
-        OkHttpClient client = new OkHttpClient();
-        String url = "https://fcm.googleapis.com/fcm/send";
-        RequestBody body = RequestBody.create(jsonObject.toString(),JSON);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .header("Authorization","Bearer YOUR_API_KEY")
-                .build();
-        client.newCall(request).enqueue(new okhttp3.Callback()
-        {
-            @Override
-            public void onFailure(@NonNull okhttp3.Call call, @NonNull IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(@NonNull okhttp3.Call call, @NonNull okhttp3.Response response) throws IOException {
-
-            }
-        });
-
-    }
-
-    private void udpateInbox( String text )
-    {
-        String idSender = PreferenceUtils.getIdProfil(getApplicationContext());
-
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        Map<String, Object> jsonParams = new ArrayMap<>();
-
-        jsonParams.put("idInbox", idInbox);
-        jsonParams.put("lastText", text);
+        jsonParams.put("idInbox", inboxId);
+        jsonParams.put("lastText", message);
         jsonParams.put("lastSender", idSender);
         jsonParams.put("readFlag", "N");
 
@@ -270,14 +148,7 @@ public class Chat extends AppCompatActivity
             @Override
             public void onResponse( Call<ResponseBody> call, Response<ResponseBody> rawResponse )
             {
-                if( rawResponse.body() != null )
-                {
-                    getData(idInbox);
-                }
-                else
-                {
-                    Toast.makeText(Chat.this, "Gagal update inbox", Toast.LENGTH_LONG).show();
-                }
+
             }
             @Override
             public void onFailure( Call<ResponseBody> call, Throwable throwable )
@@ -289,10 +160,9 @@ public class Chat extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed()
-    {
-        Intent a = new Intent(Chat.this, InboxPesan.class);
-        startActivity(a);
-        finish();
+    protected void onDestroy() {
+        super.onDestroy();
+        webSocketManager.disconnect();
     }
+
 }

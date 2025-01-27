@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.middlebar.warungtenagakerja;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
@@ -18,14 +17,8 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungTenagaKerjaBinding;
-import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.DetailWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DataTenagaKerjaById;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 

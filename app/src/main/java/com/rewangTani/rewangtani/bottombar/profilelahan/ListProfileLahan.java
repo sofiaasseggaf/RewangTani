@@ -17,7 +17,7 @@ import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListProfilLahan;
 import com.rewangTani.rewangtani.bottombar.Home;
-import com.rewangTani.rewangtani.bottombar.pesan.InboxPesan;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
@@ -267,7 +267,7 @@ public class ListProfileLahan extends AppCompatActivity {
     }
 
     public void goToPesan(){
-        Intent a = new Intent(ListProfileLahan.this, InboxPesan.class);
+        Intent a = new Intent(ListProfileLahan.this, Inbox.class);
         startActivity(a);
         finish();
     }
