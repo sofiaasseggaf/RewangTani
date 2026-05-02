@@ -30,6 +30,7 @@
 
     <application
         android:name=".utility.App"
+        android:largeHeap="true"
         android:allowBackup="true"
         android:debuggable="false"
         android:icon="@drawable/new_logo"
@@ -43,19 +44,19 @@
         tools:ignore="HardcodedDebugMode">
 
         <activity
-            android:name=".bottombar.Keranjang"
+            android:name=".ui.keranjang.ActivityKeranjang"
             android:exported="false" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanA"
+            android:name=".ui.profilelahan.TambahProfilLahanA"
             android:exported="false" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanB"
+            android:name=".ui.profilelahan.TambahProfilLahanB"
             android:exported="false" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanC"
+            android:name=".ui.profilelahan.TambahProfilLahanC"
             android:exported="false" />
         <activity
-            android:name=".bottombar.profilelahan.TambahProfilLahanD"
+            android:name=".ui.profilelahan.TambahProfilLahanD"
             android:exported="false" />
         <activity
             android:name=".bottombar.profilakun.pesanan.PesananDibatalkan"
@@ -72,16 +73,16 @@
         <activity
             android:name=".bottombar.pesan.Inbox"
             android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+<!--            <meta-profilById-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
         </activity>
         <activity
             android:name=".bottombar.pesan.Chat"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+<!--            <meta-profilById-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
         </activity>
         <activity
             android:name=".upperbar.kendalapertumbuhan.DetailKendalaPertumbuhan"
@@ -93,15 +94,15 @@
             android:name=".upperbar.kendalapertumbuhan.ListKendalaPertumbuhan"
             android:exported="false" />
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
+<!--        <provider-->
+<!--            android:name="androidx.core.content.FileProvider"-->
+<!--            android:authorities="${applicationId}.provider"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+<!--            <meta-profilById-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/provider_paths" />-->
+<!--        </provider>-->
 
         <activity
             android:name=".utility.DeleteAll"
@@ -194,7 +195,7 @@
             android:name=".bottombar.profilakun.Keluar"
             android:exported="false" />
         <activity
-            android:name=".bottombar.profilelahan.DetailProfilLahan"
+            android:name=".ui.profilelahan.DetailProfilLahan"
             android:exported="false" />
         <activity
             android:name=".bottombar.warungku.TambahWarungku"
@@ -206,7 +207,7 @@
             android:name=".bottombar.Home"
             android:exported="true" />
         <activity
-            android:name=".bottombar.profilelahan.ListProfileLahan"
+            android:name=".ui.profilelahan.ListProfileLahan"
             android:exported="true" />
         <activity
             android:name=".bottombar.profilakun.EditProfil"
@@ -251,10 +252,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".starter.Login"
+            android:name=".ui.login.ActivityLogin"
             android:exported="true" />
         <activity
-            android:name=".starter.Register"
+            android:name=".ui.register.ActivityRegister"
             android:exported="true" /> <!-- Bottom Bar -->
         <!-- ETC -->
         <activity

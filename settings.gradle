@@ -1,2 +1,10 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()              // 🔥 untuk RxJava
+        maven { url 'https://jitpack.io' } // 🔥 untuk STOMP
+    }
+}
 include ':app'
-rootProject.name = "RewangTani"
+rootProject.name = "MyApp"

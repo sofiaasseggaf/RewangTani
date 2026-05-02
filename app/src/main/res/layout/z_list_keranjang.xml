@@ -12,12 +12,11 @@
         android:layout_marginHorizontal="20dp"
         android:padding="15dp">
 
-
     <ImageView
         android:id="@+id/checkBox"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:background="@drawable/rect_gray_fill_radius"/>
+        android:src="@drawable/ic_checkbox_unchecked"/>
 
     <TextView
         android:id="@+id/namaToko"
@@ -43,7 +42,7 @@
         android:layout_marginTop="10sp"/>
 
     <TextView
-        android:id="@+id/namaWarung"
+        android:id="@+id/namaProduk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Traktor Tipe C"
@@ -55,28 +54,61 @@
         android:layout_toRightOf="@id/imgWarung" />
 
     <TextView
-        android:id="@+id/jmlPesanan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Jumlah = 1"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/imgWarung"
-        android:layout_below="@id/namaWarung"
-        android:fontFamily="@font/inter_medium"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/biayaWarung"
+        android:id="@+id/biayaProduk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Rp. 250.000"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@id/namaWarung"
+        android:layout_marginEnd="10dp"
+        android:layout_alignTop="@id/namaProduk"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/inter_bold"
         android:textColor="#16672E"
         android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@id/biayaProduk"
+            android:gravity="center_vertical|right"
+            android:layout_marginTop="5dp">
+            <FrameLayout
+                android:id="@+id/btnMinus"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_circle_gray">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cart_minus"
+                    android:padding="5dp"/>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/jmlPesanan"
+                android:layout_marginHorizontal="12dp"
+                android:text="1"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="#16672E"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                android:id="@+id/btnAdd"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_circle_gray">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cart_add"
+                    android:padding="5dp"/>
+            </FrameLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -13,17 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterInbox;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPesanInboxBinding;
-import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
-import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
@@ -52,7 +52,7 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
     List<DatumInbox> listInbox = new ArrayList<>();
     AdapterInbox itemList;
 
-    private BroadcastReceiver chatReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver chatReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             getDataProfil();
@@ -116,7 +116,7 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override

@@ -1,16 +1,13 @@
 package com.rewangTani.rewangtani.utility;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.ArrayMap;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
-import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.DetailWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ResponseInbox;
@@ -33,7 +30,7 @@ public class ChatUtils {
     static Context context;
 
     public ChatUtils(Context context) {
-        this.context = context;
+        ChatUtils.context = context;
     }
 
     public void createInboxParticipant(String idProfile, String idOther, String namaOther)

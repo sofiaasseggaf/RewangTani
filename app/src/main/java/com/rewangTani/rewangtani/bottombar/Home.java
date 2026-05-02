@@ -13,26 +13,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterHomeImageCarousel;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarHomeBinding;
 import com.rewangTani.rewangtani.middlebar.Blog;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
@@ -44,6 +45,8 @@ import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.service.ChatService;
+import com.rewangTani.rewangtani.ui.keranjang.ActivityKeranjang;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
@@ -51,9 +54,11 @@ import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.squareup.picasso.Picasso;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -62,6 +67,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -84,7 +90,7 @@ public class Home extends AppCompatActivity
     HttpResponse hr;
 
     private AdapterHomeImageCarousel adapterHomeImageCarousel;
-    private int[] imageIds = {R.drawable.img_event, R.drawable.event1, R.drawable.event2};
+    private final int[] imageIds = {R.drawable.img_event, R.drawable.event1, R.drawable.event2};
     private ImageView[] dots;
 
     @Override
@@ -341,8 +347,10 @@ public class Home extends AppCompatActivity
             {
                 try
                 {
-                    String query = URLEncoder.encode(text, "UTF-8");
-                    String url = "http://mymemory.translated.net/api/get?q=" + query + "&langpair=en%7Cid";
+                    String url = "https://api.mymemory.translated.net/get?q="
+                            + URLEncoder.encode(text, "UTF-8")
+                            + "&langpair="
+                            + URLEncoder.encode("en|id", "UTF-8");
                     HttpClient hc = new DefaultHttpClient();
                     HttpGet hg = new HttpGet(url);
                     hr = hc.execute(hg);
@@ -365,6 +373,7 @@ public class Home extends AppCompatActivity
                 catch ( Exception e )
                 {
                     e.printStackTrace();
+                    // insert LOG
                 }
             }
         }).start();
@@ -570,32 +579,18 @@ public class Home extends AppCompatActivity
     }
 
     public void goToKeranjang() {
-        Intent a = new Intent(Home.this, Keranjang.class);
+        Intent a = new Intent(Home.this, ActivityKeranjang.class);
         startActivity(a);
         finish();
     }
 
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Anda mau menutup aplikasi")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        Home.super.onBackPressed();
-                        finish();
-                        finishAffinity();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        DialogUtil.showConfirmDialog(this, () -> {
+            Home.super.onBackPressed();
+            finish();
+            finishAffinity();
+        });
     }
 
     @Override

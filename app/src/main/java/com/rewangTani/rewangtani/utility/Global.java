@@ -40,4 +40,8 @@ public class Global {
     public static String NAMA_INBOX = "NAMA_INBOX";
     public static String INTENT_EXTRA_INBOX_IDS = "INTENT_EXTRA_INBOX_ID";
     public static String INTENT_ACTION_REFRESH_INBOX = "INTENT_ACTION_REFRESH_INBOX";
+
+    // BINDER BYTE
+
+    public static String API_BINDER = "61504c8bbb5871c92eb635e57e6c8ac6ba5bd728ad3035e907843762702ccdb7";
 }

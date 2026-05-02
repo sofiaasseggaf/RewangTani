@@ -22,24 +22,24 @@ import androidx.databinding.DataBindingUtil;
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarWarungkuEditWarungkuBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.model.modelproduk.DataProdukById;
-import com.rewangTani.rewangtani.model.modelproduk.ModelProduk;
+import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSewaMesin;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.Utils;
 
@@ -184,7 +184,7 @@ public class EditWarungku extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -302,7 +302,7 @@ public class EditWarungku extends AppCompatActivity {
         binding.hargaProdukSewaMesin.setText("Rp. " + Utils.checkDesimal(datumSewaMesin.getHargaProduk().toString()));
         binding.deskProdukSewaMesin.setText(datumSewaMesin.getDeskProduk());
         binding.spesifikasiProdukSewaMesin.setText(datumSewaMesin.getDeskProduk());
-        binding.kotaProdukSewaMesin.setText(datumSewaMesin.getKota().toString());
+        binding.kotaProdukSewaMesin.setText(datumSewaMesin.getKota());
         if ( datumSewaMesin.getIdFoto() != null )
         {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumSewaMesin.getIdFoto();
@@ -379,7 +379,7 @@ public class EditWarungku extends AppCompatActivity {
         binding.hargaProdukLayananJasa.setText("Rp. " + Utils.checkDesimal(datumTenagaKerja.getBiaya().toString()));
         binding.deskProdukLayananJasa.setText(datumTenagaKerja.getDeskripsi());
         binding.keahlianPenyediaJasa.setText(datumTenagaKerja.getKeahlian());
-        binding.kotaPenyediaJasa.setText(datumTenagaKerja.getKota().toString());
+        binding.kotaPenyediaJasa.setText(datumTenagaKerja.getKota());
         if ( datumTenagaKerja.getIdFoto() != null )
         {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumTenagaKerja.getIdFoto();
@@ -445,7 +445,7 @@ public class EditWarungku extends AppCompatActivity {
         binding.hargaProdukBpp.setText("Rp. " + Utils.checkDesimal(datumPupukPestisida.getHargaProduk().toString()));
         binding.deskProdukBpp.setText(datumPupukPestisida.getDeskProduk());
         binding.beratProdukBpp.setText(datumPupukPestisida.getBeratProduk().toString());
-        binding.kotaProdukBpp.setText(datumPupukPestisida.getKota().toString());
+        binding.kotaProdukBpp.setText(datumPupukPestisida.getKota());
         if ( datumPupukPestisida.getIdFoto() != null )
         {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumPupukPestisida.getIdFoto();

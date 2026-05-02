@@ -13,8 +13,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.CustomSpinnerAdapter;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.AdapterListWarungBibitdanPupukGaris;
@@ -23,7 +23,7 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.Ada
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.MiddlebarListWarungBibitPupukBinding;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
@@ -64,7 +64,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     String urutkan;
 
     String[] tampilan = {Global.KOTAK,Global.GARIS,Global.MONITOR};
-    int images[] = {R.drawable.mode_kotak,R.drawable.mode_garis, R.drawable.mode_monitor };
+    int[] images = {R.drawable.mode_kotak,R.drawable.mode_garis, R.drawable.mode_monitor };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,7 +199,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override

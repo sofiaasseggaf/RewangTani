@@ -18,8 +18,8 @@ import com.squareup.picasso.Picasso;
 
 public class SwipeablePhotosAdapter extends PagerAdapter {
 
-    private Context context;
-    private String imageUri;
+    private final Context context;
+    private final String imageUri;
 
     public SwipeablePhotosAdapter(Context context, String imageUri) {
         this.context = context;

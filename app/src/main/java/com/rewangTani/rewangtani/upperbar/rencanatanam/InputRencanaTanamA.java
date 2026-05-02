@@ -1,11 +1,9 @@
 package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -20,13 +18,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamABinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
@@ -105,7 +102,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 }
                 for (int a = 0; a < modelVarietas.getTotalData(); a++) {
                     try {
-                        if (modelVarietas.getData().get(a).getIdKomoditas().toString().equalsIgnoreCase(idKomoditas)) {
+                        if (modelVarietas.getData().get(a).getIdKomoditas().equalsIgnoreCase(idKomoditas)) {
                             listVarietas.add(modelVarietas.getData().get(a).getNamaVarietas());
                         }
                     } catch (Exception e) {
@@ -193,7 +190,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -250,7 +247,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                         try {
                             if (PreferenceUtils.getIdAkun(getApplicationContext())
                                     .equalsIgnoreCase(modelProfilLahan.getData().get(i).getIdUser())) {
-                                listProfilLahan.add(modelProfilLahan.getData().get(i).getNamaProfilTanah().toString());
+                                listProfilLahan.add(modelProfilLahan.getData().get(i).getNamaProfilTanah());
                             }
                         } catch (Exception e) {
                         }
@@ -492,11 +489,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
 
     private void saveLocalData() {
 
-        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
-            isWithPompa = false;
-        } else {
-            isWithPompa = true;
-        }
+        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(tipeSIb);
 
         DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam(binding.namaRencanaTanam.getText().toString(), idProfilLahan, idKomoditas, idVarietas, "",
                 "", "", "", "", "", "", "", "", "",

@@ -8,6 +8,11 @@
     <string name="field_not_comleted">Lengkapi Field Terlebih Dahulu</string>
     <string name="add_product_successed">Berhasil Tambah Produk</string>
 
+    <!--Dialog Text-->
+    <string name="confirm_exit">Anda mau menutup aplikasi ?</string>
+    <string name="confirm_yes">Ya</string>
+    <string name="confirm_no">Tidak</string>
+
     <string-array name="gender">
         <item>Laki - Laki</item>
         <item>Perempuan</item>

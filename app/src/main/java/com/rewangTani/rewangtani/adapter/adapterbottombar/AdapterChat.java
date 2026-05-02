@@ -16,8 +16,8 @@ import java.util.List;
 
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ChatViewHolder> {
 
-    private List<ChatRequest> chatMessages;
-    private Context context;
+    private final List<ChatRequest> chatMessages;
+    private final Context context;
 
     public AdapterChat(List<ChatRequest> chatMessages, Context context) {
         this.chatMessages = chatMessages;

@@ -1,22 +1,22 @@
 package com.rewangTani.rewangtani.starter;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.ui.login.ActivityLogin;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 2000;
+    private static final int SPLASH_TIME_OUT = 2000;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -28,7 +28,7 @@ public class SplashScreen extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent homeIntent = new Intent(SplashScreen.this, Login.class);
+                    Intent homeIntent = new Intent(SplashScreen.this, ActivityLogin.class);
                     startActivity(homeIntent);
                     finish();
                 }
@@ -46,25 +46,12 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Anda mau menutup aplikasi")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        SplashScreen.super.onBackPressed();
-                        finish();
-                        finishAffinity();
-                    }
-                })
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog =builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        DialogUtil.showConfirmDialog(this, () -> {
+            SplashScreen.super.onBackPressed();
+            finish();
+            finishAffinity();
+        });
     }
 }

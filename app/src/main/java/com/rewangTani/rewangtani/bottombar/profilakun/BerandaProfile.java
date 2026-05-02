@@ -34,13 +34,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.pesanan.PesananDiproses;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
@@ -328,7 +328,7 @@ public class BerandaProfile extends AppCompatActivity {
                                     handler.postDelayed(this, 1500);
                                 }
                             };
-                            handler.postDelayed(runnable, 1 * 1000);
+                            handler.postDelayed(runnable, 1000);
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -365,7 +365,7 @@ public class BerandaProfile extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
         new Thread(new Runnable() {
             @Override
             public void run() {

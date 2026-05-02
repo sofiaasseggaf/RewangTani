@@ -3,12 +3,18 @@ package com.rewangTani.rewangtani.model.modelupperbar.rencanatanam;
 
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "rencana_tanam")
 public class DatumRencanaTanam implements Parcelable
 {
-
+    @PrimaryKey
+    private int id;
     @SerializedName("createdBy")
     @Expose
     private String createdBy;
@@ -102,6 +108,7 @@ public class DatumRencanaTanam implements Parcelable
 
     private boolean withPompa;
     private String luasLahan, potensiHasilVarietas;
+    public long lastUpdated;
 
     public final static Creator<DatumRencanaTanam> CREATOR = new Creator<DatumRencanaTanam>() {
 
@@ -119,6 +126,7 @@ public class DatumRencanaTanam implements Parcelable
 
     };
 
+    @Ignore
     protected DatumRencanaTanam(android.os.Parcel in) {
         this.createdBy = ((String) in.readValue((String.class.getClassLoader())));
         this.createdDate = ((String) in.readValue((String.class.getClassLoader())));
@@ -150,6 +158,9 @@ public class DatumRencanaTanam implements Parcelable
         this.idBiayapupukKimiaFosfat = ((String) in.readValue((String.class.getClassLoader())));
         this.idSewamesinPompa = ((String) in.readValue((String.class.getClassLoader())));
         this.idSewamesinPompaBbm = ((String) in.readValue((String.class.getClassLoader())));
+    }
+
+    public DatumRencanaTanam() {
     }
 
     /**
@@ -219,6 +230,7 @@ public class DatumRencanaTanam implements Parcelable
         this.idSewamesinPompaBbm = idSewamesinPompaBbm;
     }
 
+    @Ignore
     public DatumRencanaTanam(String namaRencanaTanam, String idProfilTanah, String idKomoditas, String idVarietas, String idBiayaBuruhTanam, String idBiayaBuruhBajak, String idBiayaBuruhSemprot, String idBiayaBuruhMenyiangirumput, String idBiayaBuruhGalangan, String idBiayaBuruhPupuk, String idBiayaBuruhPanen, String idSewaMesinBajak, String idSewaMesinTanam, String idSewaMesinPanen, String idSewamesinPompa, String idSewamesinPompaBbm, String idBiayabibitLocalHet, String idBiayabibitSubsidi, String idBiayapupukKimiaLocalHet, String idBiayapupukKimiaPhonska, String idBiayapupukOrganik, String idBiayapupukKimiaUrea, String idBiayapupukKimiaFosfat, boolean withPompa, String luasLahan, String potensiHasilVarietas) {
         this.namaRencanaTanam = namaRencanaTanam;
         this.idProfilTanah = idProfilTanah;
@@ -248,7 +260,13 @@ public class DatumRencanaTanam implements Parcelable
         this.potensiHasilVarietas = potensiHasilVarietas;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCreatedBy() {
         return createdBy;

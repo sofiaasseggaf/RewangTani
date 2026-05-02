@@ -11,13 +11,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
-import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DataBppById;
 import com.rewangTani.rewangtani.utility.ChatUtils;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -40,7 +40,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
 
     MiddlebarDetailWarungPupukBinding binding;
     DataBppById dataBppById;
-    DataProfilById dataProfilById;
+    ModelProfilById modelProfilById;
     DecimalFormat formatter;
     ChatUtils chatUtils;
 
@@ -65,13 +65,13 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String idProfile = PreferenceUtils.getIdProfil(getApplicationContext());
-                if ( idProfile.equalsIgnoreCase(dataProfilById.getData().getIdProfile()) )
+                if ( idProfile.equalsIgnoreCase(modelProfilById.getData().getIdProfile()) )
                 {
                     Toast.makeText(DetailWarungBibitdanPupuk.this, "Ini Produk Anda", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    chatUtils.goToInbox(idProfile, dataProfilById.getData().getIdProfile(), dataProfilById.getData().getNamaDepan());
+                    chatUtils.goToInbox(idProfile, modelProfilById.getData().getIdProfile(), modelProfilById.getData().getNamaDepan());
                 }
             }
         });
@@ -96,7 +96,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -134,11 +134,11 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
 
     public void getDataProfil(String id) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<DataProfilById> dataRT = apiInterface.getDatumProfilAkun(id);
-        dataRT.enqueue(new Callback<DataProfilById>() {
+        final Call<ModelProfilById> dataRT = apiInterface.getDatumProfilAkun(id);
+        dataRT.enqueue(new Callback<ModelProfilById>() {
             @Override
-            public void onResponse(Call<DataProfilById> call, Response<DataProfilById> response) {
-                dataProfilById = response.body();
+            public void onResponse(Call<ModelProfilById> call, Response<ModelProfilById> response) {
+                modelProfilById = response.body();
                 if (response.body()!=null){
                     runOnUiThread(new Runnable() {
                         @Override
@@ -150,7 +150,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<DataProfilById> call, Throwable t) {
+            public void onFailure(Call<ModelProfilById> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -199,7 +199,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override

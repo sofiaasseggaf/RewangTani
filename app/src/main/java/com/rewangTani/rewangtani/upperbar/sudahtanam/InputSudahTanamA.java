@@ -13,15 +13,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamABinding;
-import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
-import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
-import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
+import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
-import com.rewangTani.rewangtani.model.modelnoneditable.obat.ModelObat;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
@@ -129,7 +128,7 @@ public class InputSudahTanamA extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -440,7 +439,7 @@ public class InputSudahTanamA extends AppCompatActivity {
     private void setDataV(){
         for (int a=0; a<=modelVarietas.getTotalData(); a++){
             if(modelVarietas.getData().get(a).getIdVarietas().equalsIgnoreCase(idV)){
-                namaV = modelVarietas.getData().get(a).getNamaVarietas().toString();
+                namaV = modelVarietas.getData().get(a).getNamaVarietas();
                 binding.txtVarietas.setText(namaV);
             }
         }
@@ -504,11 +503,7 @@ public class InputSudahTanamA extends AppCompatActivity {
 
     private void saveLocalData() {
 
-        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
-            isWithPompa = false;
-        } else {
-            isWithPompa = true;
-        }
+        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(tipeSIb);
 
         DatumSudahTanam datumSudahTanam = new DatumSudahTanam(idRT, idPL, "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
         ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);

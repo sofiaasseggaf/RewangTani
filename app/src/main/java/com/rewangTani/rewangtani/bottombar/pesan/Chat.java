@@ -4,21 +4,16 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.ArrayMap;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterChat;
 import com.rewangTani.rewangtani.databinding.BottombarPesanChatBinding;
@@ -45,8 +40,8 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
     BottombarPesanChatBinding binding;
     private WebSocketManager webSocketManager;
     private AdapterChat adapterChat;
-    private List<ChatRequest> chatList = new ArrayList<>();
-    private List<ChatRequest> chatMessages = new ArrayList<>();
+    private final List<ChatRequest> chatList = new ArrayList<>();
+    private final List<ChatRequest> chatMessages = new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

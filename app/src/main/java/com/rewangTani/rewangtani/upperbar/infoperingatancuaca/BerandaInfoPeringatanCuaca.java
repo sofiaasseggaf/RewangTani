@@ -23,14 +23,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.AdapterListInfo;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.databinding.UpperbarInfoBerandainfoBinding;
-import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.model.modelinfo.DatumInfo;
 import com.rewangTani.rewangtani.model.modelinfo.ModelInfo;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -68,7 +68,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
     List<DatumInfo> listInfo = new ArrayList<DatumInfo>();
     List<DatumInfo> listInfoSorted = new ArrayList<DatumInfo>();
     AdapterListInfo itemList;
-    DataProfilById dataProfilById;
+    ModelProfilById modelProfilById;
     int checkKelengkapan = 0;
     String translated;
     HttpResponse hr;
@@ -184,7 +184,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -196,15 +196,15 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
 
     public void getDataProfil() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<DataProfilById> dataRT = apiInterface.getDatumProfilAkun(PreferenceUtils.getIdProfil(getApplicationContext()));
-        dataRT.enqueue(new Callback<DataProfilById>() {
+        final Call<ModelProfilById> dataRT = apiInterface.getDatumProfilAkun(PreferenceUtils.getIdProfil(getApplicationContext()));
+        dataRT.enqueue(new Callback<ModelProfilById>() {
             @Override
-            public void onResponse(Call<DataProfilById> call, retrofit2.Response<DataProfilById> response) {
-                dataProfilById = response.body();
+            public void onResponse(Call<ModelProfilById> call, retrofit2.Response<ModelProfilById> response) {
+                modelProfilById = response.body();
                 if (response.body()!=null){
-                    if (dataProfilById.getData().getTelepon()!=null && dataProfilById.getData().getNik()!=null &&
-                            dataProfilById.getData().getIdAlamat()!=null && dataProfilById.getData().getAlamat()!=null &&
-                            dataProfilById.getData().getGender()!=null && dataProfilById.getData().getTglLahir()!=null){
+                    if (modelProfilById.getData().getTelepon()!=null && modelProfilById.getData().getNik()!=null &&
+                            modelProfilById.getData().getIdAlamat()!=null && modelProfilById.getData().getAlamat()!=null &&
+                            modelProfilById.getData().getGender()!=null && modelProfilById.getData().getTglLahir()!=null){
                         checkKelengkapan = 1;
                         getInfo();
                     } else {
@@ -215,7 +215,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<DataProfilById> call, Throwable t) {
+            public void onFailure(Call<ModelProfilById> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -13,7 +13,7 @@ import com.rewangTani.rewangtani.R;
 public class CustomSpinnerAdapter extends BaseAdapter {
 
     Context context;
-    int images[];
+    int[] images;
     String[] tampilan;
     LayoutInflater inflter;
 

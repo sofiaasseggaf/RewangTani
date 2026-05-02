@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".starter.Register">
+        tools:context=".ui.register.RegisterActivity">
 
         <ImageView
             android:id="@+id/logo"
@@ -98,7 +98,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/ic_eye" />
+                        android:background="@color/transparant"
+                        android:src="@drawable/ic_password_show" />
                 </RelativeLayout>
 
                 <TextView
@@ -139,7 +140,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/ic_eye" />
+                        android:background="@color/transparant"
+                        android:src="@drawable/ic_password_show" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -183,32 +185,14 @@
             android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="gone">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/new_logo"
-                    android:layout_centerInParent="true"/>
-
-                <TextView
-                    android:id="@+id/textLoading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="100dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:textColor="@color/dark_green"
-                    android:textSize="22sp"/>
-
-            </RelativeLayout>
-
+            android:visibility="gone"
+            android:background="#66000000"
+            android:clickable="true"
+            android:focusable="true">
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"/>
         </FrameLayout>
 
     </RelativeLayout>

@@ -11,17 +11,10 @@ import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamBBinding;
-import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
-import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
-import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
-import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
-import com.rewangTani.rewangtani.model.modelnoneditable.obat.ModelObat;
-import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
-import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
+import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 import java.text.DecimalFormat;
@@ -136,7 +129,7 @@ public class InputSudahTanamB extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -433,11 +426,7 @@ public class InputSudahTanamB extends AppCompatActivity {
 
     private void saveLocalData() {
         boolean isWithPompa;
-        if(ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa()){
-            isWithPompa = true;
-        } else {
-            isWithPompa = false;
-        }
+        isWithPompa = ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa();
 
         DatumSudahTanam datumSudahTanam = new DatumSudahTanam( "", "", "", "", binding.buruhTanam.getText().toString().replaceAll("[^0-9]",""), binding.buruhBajak.getText().toString().replaceAll("[^0-9]",""), binding.buruhSemprot.getText().toString().replaceAll("[^0-9]",""), binding.buruhMenyiangiRumput.getText().toString().replaceAll("[^0-9]",""),
                 binding.buruhGalengan.getText().toString().replaceAll("[^0-9]",""), binding.buruhPupuk.getText().toString().replaceAll("[^0-9]",""), binding.buruhPanen.getText().toString().replaceAll("[^0-9]",""), "", "", "", "","", "", "", "", "","",

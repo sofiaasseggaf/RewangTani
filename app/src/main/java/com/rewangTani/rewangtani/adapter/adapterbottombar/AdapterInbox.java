@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.adapter.adapterbottombar;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
+import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.utility.Global;
@@ -23,7 +22,7 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     List<DatumInbox> dataItemList;
     List<DatumInboxParticipant> listDataInboxParticipant;
     List<DatumProfil> listDataProfil;
-    private OnInboxItemClickListener listener;
+    private final OnInboxItemClickListener listener;
     Context context;
 
     public AdapterInbox( List<DatumInbox> dataItemList, List<DatumProfil> listDataProfil, List<DatumInboxParticipant> listDataInboxParticipant, Context context, OnInboxItemClickListener listener )
@@ -72,7 +71,7 @@ public class AdapterInbox extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
         public TextView sender, lastText;
         public ImageView icon;
-        private OnInboxItemClickListener listener; // Add a listener reference
+        private final OnInboxItemClickListener listener; // Add a listener reference
 
         public Penampung( View itemView, OnInboxItemClickListener listener )
         {

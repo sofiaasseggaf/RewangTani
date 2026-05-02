@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".starter.Login">
+        tools:context=".ui.login.ActivityLogin">
+
         <ImageView
             android:id="@+id/logo"
             android:layout_width="150dp"
@@ -44,7 +45,7 @@
                 android:background="@drawable/bg_grey_radius"
                 android:fontFamily="@font/inter_regular"
                 android:hint="Nama Pengguna"
-                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
                 android:textColor="@color/black"
                 android:textColorHint="#80000000"
                 android:textSize="10sp" />
@@ -60,13 +61,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="50dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="50dp"
                     android:background="#B3E1E1E1"
                     android:fontFamily="@font/inter_regular"
                     android:hint="Kata Sandi"
                     android:inputType="textPassword"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:textColor="@color/black"
                     android:textColorHint="#80000000"
                     android:textSize="10sp" />
@@ -75,10 +76,11 @@
                     android:id="@+id/btn_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/ic_eye" />
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/transparant"
+                    android:src="@drawable/ic_password_show" />
             </RelativeLayout>
 
             <TextView
@@ -161,9 +163,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_toRightOf="@id/icGoogle"
+                        android:layout_toEndOf="@id/icGoogle"
                         android:fontFamily="@font/inter_regular"
                         android:text="Masuk dengan Google"
                         android:textColor="@color/black"
@@ -190,7 +192,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Belum Punya Akun?"
                 android:textColor="@color/black"
@@ -211,32 +213,14 @@
             android:id="@+id/viewLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:visibility="gone">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/new_logo"
-                    android:layout_centerInParent="true"/>
-
-                <TextView
-                    android:id="@+id/textLoading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="100dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:textColor="@color/dark_green"
-                    android:textSize="22sp"/>
-
-            </RelativeLayout>
-
+            android:visibility="gone"
+            android:background="#66000000"
+            android:clickable="true"
+            android:focusable="true">
+            <ProgressBar
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"/>
         </FrameLayout>
 
     </RelativeLayout>

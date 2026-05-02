@@ -17,8 +17,8 @@ import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamFBinding;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.model.modelnoneditable.obat.ModelObat;
 import com.rewangTani.rewangtani.model.modelnoneditable.obat.ResponseSendObat;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
@@ -128,7 +128,7 @@ public class InputSudahTanamF extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -198,11 +198,7 @@ public class InputSudahTanamF extends AppCompatActivity {
         String namaObatOrganik = "";
         String biayaObatOrganik = "";
 
-        if (ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa()) {
-            isWithPompa = true;
-        } else {
-            isWithPompa = false;
-        }
+        isWithPompa = ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa();
 
         if (isSaveIdObatOrganik) {
             DatumSudahTanam datumSudahTanam = new DatumSudahTanam("", "", "", "", "", "", "", "",
@@ -256,7 +252,7 @@ public class InputSudahTanamF extends AppCompatActivity {
                     handler.postDelayed(this, 1500);
                 }
             };
-            handler.postDelayed(runnable, 1 * 1000);
+            handler.postDelayed(runnable, 1000);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

@@ -87,7 +87,7 @@ public class NoSSLv3SocketFactory extends SSLSocketFactory {
                     enabledProtocols.remove("SSLv3");
                     System.out.println("Removed SSLv3 from enabled protocols");
                 } else {
-                    System.out.println("SSL stuck with protocol available for " + String.valueOf(enabledProtocols));
+                    System.out.println("SSL stuck with protocol available for " + enabledProtocols);
                 }
                 protocols = enabledProtocols.toArray(new String[enabledProtocols.size()]);
             }

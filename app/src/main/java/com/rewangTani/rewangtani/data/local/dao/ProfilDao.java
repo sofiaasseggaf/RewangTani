@@ -1,0 +1,25 @@
+package com.rewangTani.rewangtani.data.local.dao;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+
+import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
+
+import java.util.List;
+
+@Dao
+public interface ProfilDao
+{
+
+    @Query("SELECT * FROM profil")
+    LiveData<List<DatumProfil>> getAllProfiles();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<DatumProfil> accounts);
+
+    @Query("DELETE FROM profil")
+    void deleteAll();
+}

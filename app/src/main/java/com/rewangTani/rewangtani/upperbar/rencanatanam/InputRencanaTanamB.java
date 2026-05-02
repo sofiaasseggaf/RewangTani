@@ -3,26 +3,18 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamBBinding;
-import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
-import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
-import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class InputRencanaTanamB extends AppCompatActivity {
 
@@ -169,11 +161,7 @@ public class InputRencanaTanamB extends AppCompatActivity {
         boolean isWithPompa;
         String luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
         String potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
-        if(ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()){
-            isWithPompa = true;
-        } else {
-            isWithPompa = false;
-        }
+        isWithPompa = ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa();
 
         DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", binding.buruhTanam.getText().toString().replaceAll("[^0-9]", ""),
                 binding.buruhBajak.getText().toString().replaceAll("[^0-9]", ""), binding.buruhSemprot.getText().toString().replaceAll("[^0-9]", ""), binding.buruhMenyiangiRumput.getText().toString().replaceAll("[^0-9]", ""),

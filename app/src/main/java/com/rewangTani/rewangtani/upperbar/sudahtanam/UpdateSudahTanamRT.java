@@ -11,13 +11,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStUpdateSudahTanamABinding;
-import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
-import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
-import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
+import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
@@ -103,7 +103,7 @@ public class UpdateSudahTanamRT extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
 
         new Thread(new Runnable() {
             @Override
@@ -381,7 +381,7 @@ public class UpdateSudahTanamRT extends AppCompatActivity {
                     for (int i = 0; i < modelVarietas.getTotalData(); i++) {
                         try {
                             if (modelVarietas.getData().get(i).getIdVarietas().equalsIgnoreCase(dataRencanaTanam.getIdVarietas())) {
-                                namaVarietas = modelVarietas.getData().get(i).getNamaVarietas().toString(); }
+                                namaVarietas = modelVarietas.getData().get(i).getNamaVarietas(); }
                         } catch (Exception e){ }
                     }
                     if (!namaVarietas.equalsIgnoreCase("")){
@@ -478,11 +478,7 @@ public class UpdateSudahTanamRT extends AppCompatActivity {
 
     private void saveLocalData() {
 
-        if(idSistemIrigasi.equalsIgnoreCase(tipeSIb)){
-            isWithPompa = false;
-        } else {
-            isWithPompa = true;
-        }
+        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(tipeSIb);
 
         DatumSudahTanam datumSudahTanam = new DatumSudahTanam(idRT, idPL, "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
         ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);

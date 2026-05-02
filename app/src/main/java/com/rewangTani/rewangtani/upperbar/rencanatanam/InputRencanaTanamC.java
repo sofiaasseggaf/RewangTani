@@ -61,11 +61,7 @@ public class InputRencanaTanamC extends AppCompatActivity {
         boolean isWithPompa;
         String luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
         String potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
-        if(ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()){
-            isWithPompa = true;
-        } else {
-            isWithPompa = false;
-        }
+        isWithPompa = ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa();
 
         DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "",
                 "", "", "", binding.mesinBajak.getText().toString().replaceAll("[^0-9]", ""), binding.mesinTanam.getText().toString().replaceAll("[^0-9]", ""),

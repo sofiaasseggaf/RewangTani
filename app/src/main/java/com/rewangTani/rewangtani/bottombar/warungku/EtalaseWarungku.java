@@ -12,19 +12,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListWarungku;
 import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
-import com.rewangTani.rewangtani.bottombar.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.BottombarWarungkuEtalaseWarungkuBinding;
-import com.rewangTani.rewangtani.model.modelakunprofil.DataProfilById;
-import com.rewangTani.rewangtani.model.modelproduk.DatumProduk;
-import com.rewangTani.rewangtani.model.modelproduk.ModelProduk;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
+import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
+import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSewaMesin;
@@ -44,7 +44,7 @@ import retrofit2.Response;
 public class EtalaseWarungku extends AppCompatActivity {
 
     BottombarWarungkuEtalaseWarungkuBinding binding;
-    DataProfilById dataProfilById;
+    ModelProfilById modelProfilById;
     ModelProduk modelProduk;
     List<DatumProduk> listDataProduk = new ArrayList<DatumProduk>();
     List<DatumProduk> listDataProdukSorted = new ArrayList<DatumProduk>();
@@ -143,7 +143,7 @@ public class EtalaseWarungku extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -154,14 +154,14 @@ public class EtalaseWarungku extends AppCompatActivity {
 
     public void getDataProfileWithId() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<DataProfilById> dataRT = apiInterface.getDatumProfilAkun(PreferenceUtils.getIdProfil(getApplicationContext()));
-        dataRT.enqueue(new Callback<DataProfilById>() {
+        final Call<ModelProfilById> dataRT = apiInterface.getDatumProfilAkun(PreferenceUtils.getIdProfil(getApplicationContext()));
+        dataRT.enqueue(new Callback<ModelProfilById>() {
             @Override
-            public void onResponse(Call<DataProfilById> call, Response<DataProfilById> response) {
-                dataProfilById = response.body();
-                if (dataProfilById.getData().getTelepon() != null && dataProfilById.getData().getNik() != null &&
-                        dataProfilById.getData().getIdAlamat() != null && dataProfilById.getData().getAlamat() != null &&
-                        dataProfilById.getData().getGender() != null && dataProfilById.getData().getTglLahir() != null) {
+            public void onResponse(Call<ModelProfilById> call, Response<ModelProfilById> response) {
+                modelProfilById = response.body();
+                if (modelProfilById.getData().getTelepon() != null && modelProfilById.getData().getNik() != null &&
+                        modelProfilById.getData().getIdAlamat() != null && modelProfilById.getData().getAlamat() != null &&
+                        modelProfilById.getData().getGender() != null && modelProfilById.getData().getTglLahir() != null) {
                     checkKelengkapan = 1;
                     getDataEtalase();
                 } else {
@@ -172,7 +172,7 @@ public class EtalaseWarungku extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<DataProfilById> call, Throwable t) {
+            public void onFailure(Call<ModelProfilById> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

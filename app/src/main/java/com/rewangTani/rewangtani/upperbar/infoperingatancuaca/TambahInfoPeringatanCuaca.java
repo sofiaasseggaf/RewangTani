@@ -13,14 +13,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.APIService.ApiClientNotification;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.ApiClientNotification;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarInfoTambahinfoBinding;
-import com.rewangTani.rewangtani.model.modelakun.DatumAkun;
-import com.rewangTani.rewangtani.model.modelakun.ModelAkun;
-import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
+import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.service.CuacaService;
@@ -238,7 +238,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
         new Thread(new Runnable() {
             @Override
             public void run() {

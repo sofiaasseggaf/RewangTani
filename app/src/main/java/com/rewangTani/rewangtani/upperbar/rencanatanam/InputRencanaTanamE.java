@@ -13,14 +13,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamEBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
@@ -91,11 +90,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
     private void saveLocalData() {
         luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
         potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
-        if (ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa()) {
-            isWithPompa = true;
-        } else {
-            isWithPompa = false;
-        }
+        isWithPompa = ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa();
 
         DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "", "",
@@ -128,7 +123,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                     handler.postDelayed(this, 1500);
                 }
             };
-            handler.postDelayed(runnable, 1 * 1000);
+            handler.postDelayed(runnable, 1000);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -143,7 +138,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
         int a = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhTanam().replaceAll("[^0-9]", ""));
         int b = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhBajak().replaceAll("[^0-9]", ""));
         int c = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhSemprot().replaceAll("[^0-9]", ""));
-        int d = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhMenyiangirumput().toString().replaceAll("[^0-9]", ""));
+        int d = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhMenyiangirumput().replaceAll("[^0-9]", ""));
         int e = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhGalangan().replaceAll("[^0-9]", ""));
         int f = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhPupuk().replaceAll("[^0-9]", ""));
         int g = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhPanen().replaceAll("[^0-9]", ""));
@@ -272,7 +267,8 @@ public class InputRencanaTanamE extends AppCompatActivity {
         });
     }
 
-    private void sendOutput() {
+    private void sendOutput()
+    {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 
@@ -297,7 +293,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(InputRencanaTanamE.this, "Gagal buat rencana tanam", Toast.LENGTH_LONG).show();
+                                Toast.makeText(InputRencanaTanamE.this, "Gagal buat output rencana tanam", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -320,7 +316,8 @@ public class InputRencanaTanamE extends AppCompatActivity {
         });
     }
 
-    public void getOutput() {
+    public void getOutput()
+    {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelOutputRencanaTanam> dataRT = apiInterface.getDataOutputRT();
         dataRT.enqueue(new Callback<ModelOutputRencanaTanam>() {

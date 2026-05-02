@@ -2,22 +2,30 @@ package com.rewangTani.rewangtani.utility;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+
 import androidx.annotation.RequiresApi;
+
 import com.google.gson.Gson;
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
+
 import java.util.List;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+
+import hu.akarnokd.rxjava3.bridge.RxJavaBridge;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ua.naiksoftware.stomp.Stomp;
 import ua.naiksoftware.stomp.StompClient;
+import ua.naiksoftware.stomp.dto.LifecycleEvent;
+import ua.naiksoftware.stomp.dto.StompMessage;
 
 public class WebSocketManager {
 
@@ -26,11 +34,11 @@ public class WebSocketManager {
     private static final String SUBSCRIBE_TOPIC = "/topic/private/"; // Replace with your subscription topic
     private static final String SEND_ENDPOINT = "/app/sendMessage"; // Replace with your backend's send endpoint
     private StompClient stompClient;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final Gson gson = new Gson();
-    private OnMessageReceivedListener messageListener;
+    private final OnMessageReceivedListener messageListener;
     public static final String CHANNEL_ID = "serviceChannel";
-    private Context context;
+    private final Context context;
 
     public WebSocketManager( OnMessageReceivedListener listener, Context context )
     {
@@ -38,67 +46,96 @@ public class WebSocketManager {
         this.context = context.getApplicationContext();
     }
 
-    public void init()
-    {
-        if ( stompClient == null )
-        {
+    public void init() {
+
+        if (stompClient == null) {
+
             stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, WEBSOCKET_URL);
 
-            // Handle lifecycle events
-            stompClient.lifecycle()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(lifecycleEvent -> {
-                        switch (lifecycleEvent.getType()) {
+            Flowable<LifecycleEvent> v3Lifecycle = RxJavaBridge.toV3Flowable(stompClient.lifecycle());
+
+            Disposable lifecycleDisposable = v3Lifecycle
+                    .subscribe(eventObj -> {
+
+                        switch (eventObj.getType()) {
+
                             case OPENED:
-                                Log.d(TAG, "WebSocket connection opened");
+                                Log.d(TAG, "✅ WebSocket OPENED");
                                 break;
+
                             case ERROR:
-                                Log.e(TAG, "WebSocket error", lifecycleEvent.getException());
+                                Log.e(TAG, "❌ WebSocket ERROR", eventObj.getException());
                                 break;
+
                             case CLOSED:
-                                Log.d(TAG, "WebSocket connection closed");
+                                Log.d(TAG, "🔌 WebSocket CLOSED");
                                 break;
+
                             case FAILED_SERVER_HEARTBEAT:
-                                Log.e(TAG, "WebSocket server heartbeat failed");
+                                Log.e(TAG, "💔 HEARTBEAT FAILED");
                                 break;
                         }
+
+                    }, throwable -> {
+                        Log.e(TAG, "Lifecycle error", throwable);
                     });
+
+            compositeDisposable.add(lifecycleDisposable);
         }
     }
 
     public void connect()
     {
-        stompClient.connect();
+        if (stompClient != null) {
+            stompClient.connect();
+        }
     }
 
     public void subscribeToInbox( String inboxId )
     {
+        compositeDisposable.clear();
         String destination = SUBSCRIBE_TOPIC + inboxId;
-        stompClient.topic(destination) // Subscribe to the topic
-                .subscribeOn(Schedulers.io()) // Handle the subscription on a background thread
-                .observeOn(AndroidSchedulers.mainThread()) // Handle UI updates on the main thread
-                .subscribe(message -> {
-                    ChatRequest receivedMessage = gson.fromJson(message.getPayload(), ChatRequest.class);
-                    if (messageListener != null) {
-                        messageListener.onNewMessageReceived(message.getPayload());
+
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        Flowable<StompMessage> flowable = RxJavaBridge.toV3Flowable(stompClient.topic(destination));
+        Disposable disposable = flowable.subscribe(messageObj -> {
+
+                    StompMessage message = (StompMessage) messageObj;
+                    String payload = message.getPayload();
+
+                    try {
+
+                        mainHandler.post(() -> {
+                            if (messageListener != null) {
+                                messageListener.onNewMessageReceived(payload);
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        Log.e(TAG, "Parse error", e);
                     }
-                    }, throwable -> {
-                    // Handle any errors that occur during message reception
+
+                }, throwable -> {
                     Log.e(TAG, "Error receiving message", throwable);
                 });
+
+        compositeDisposable.add(disposable);
     }
 
     public void sendMessage(ChatRequest chatMessage) {
         String jsonMessage = gson.toJson(chatMessage);
-        Disposable sendSubscription = stompClient.send(SEND_ENDPOINT, jsonMessage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        Disposable sendSubscription = RxJavaBridge
+                .toV3Completable(stompClient.send(SEND_ENDPOINT, jsonMessage)) // 🔥 convert
                 .subscribe(() -> {
-                    Log.i(TAG, "Success sending message = " + jsonMessage);
+
+                    Log.i(TAG, "✅ Success sending message = " + jsonMessage);
+
                 }, throwable -> {
-                    Log.i(TAG, "Error sending message = " + throwable.getMessage());
+
+                    Log.e(TAG, "❌ Error sending message", throwable);
+
                 });
+
         compositeDisposable.add(sendSubscription);
     }
 
@@ -136,4 +173,3 @@ public class WebSocketManager {
     }
 
 }
-

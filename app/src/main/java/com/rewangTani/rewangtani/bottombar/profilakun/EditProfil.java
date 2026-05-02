@@ -21,12 +21,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.APIService.APIClient;
-import com.rewangTani.rewangtani.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPaEditprofilBinding;
-import com.rewangTani.rewangtani.model.modelakunprofil.DatumProfil;
-import com.rewangTani.rewangtani.model.modelakunprofil.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.statuspekerja.ModelStatusPekerja;
@@ -466,7 +466,7 @@ public class EditProfil extends AppCompatActivity {
                 handler.postDelayed(this, 1500);
             }
         };
-        handler.postDelayed(runnable, 1 * 1000);
+        handler.postDelayed(runnable, 1000);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -638,6 +638,7 @@ public class EditProfil extends AppCompatActivity {
                 if (dataProfil.getIdStatusPekerja().equalsIgnoreCase(modelStatusPekerja.getData().get(i).getIdStatusPekerja())) {
                     status_pekerja = dataProfil.getIdStatusPekerja();
                     // set di spinner yg sesuai
+                    break;
                 }
             }
         }

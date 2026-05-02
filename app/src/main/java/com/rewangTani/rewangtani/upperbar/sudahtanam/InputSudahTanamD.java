@@ -38,11 +38,7 @@ public class InputSudahTanamD extends AppCompatActivity {
 
     private void saveLocalData() {
         boolean isWithPompa;
-        if(ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa()){
-            isWithPompa = true;
-        } else {
-            isWithPompa = false;
-        }
+        isWithPompa = ListSudahTanam.getInstance().getDatumSudahTanam().isWithPompa();
 
         DatumSudahTanam datumSudahTanam = new DatumSudahTanam( "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", "","", binding.bibitLokal.getText().toString().replaceAll("[^0-9]",""), binding.bibitSubsidi.getText().toString().replaceAll("[^0-9]",""),

@@ -9,11 +9,11 @@ import java.text.ParseException;
 
 public class NumberTextWatcher implements TextWatcher {
 
-    private DecimalFormat df;
-    private DecimalFormat dfnd;
+    private final DecimalFormat df;
+    private final DecimalFormat dfnd;
     private boolean hasFractionalPart;
 
-    private EditText et;
+    private final EditText et;
 
     public NumberTextWatcher(EditText et)
     {
@@ -35,12 +35,7 @@ public class NumberTextWatcher implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-        if (s.toString().contains(String.valueOf(df.getDecimalFormatSymbols().getDecimalSeparator())))
-        {
-            hasFractionalPart = true;
-        } else {
-            hasFractionalPart = false;
-        }
+        hasFractionalPart = s.toString().contains(String.valueOf(df.getDecimalFormatSymbols().getDecimalSeparator()));
 
     }
 
