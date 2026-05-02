@@ -12,10 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.data.entity.product.CartWithProduct;
-import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
+import com.rewangTani.rewangtani.data.entity.product.CartItemUI;
 import com.rewangTani.rewangtani.ui.keranjang.KeranjangViewModel;
-import com.rewangTani.rewangtani.utility.Global;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -26,7 +24,7 @@ import java.util.List;
 public class AdapterKeranjang extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
 
-    private List<CartWithProduct> keranjangList = new ArrayList<>();
+    private List<CartItemUI > keranjangList = new ArrayList<>();
     private final KeranjangViewModel viewModel;
     Context context;
 
@@ -35,7 +33,7 @@ public class AdapterKeranjang extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.viewModel = viewModel;
     }
 
-    public void setData(List<CartWithProduct> newList)
+    public void setData(List<CartItemUI> newList)
     {
         this.keranjangList = newList;
         notifyDataSetChanged();
@@ -52,21 +50,21 @@ public class AdapterKeranjang extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder( @NonNull RecyclerView.ViewHolder holder, int position )
     {
-        CartWithProduct item = keranjangList.get(position);
+        CartItemUI item = keranjangList.get(position);
 
-        ((Penampung) holder).namaToko.setText(getProfileNameById(item.product.getIdProfil()));
+        ((Penampung) holder).namaToko.setText(item.profile.getNamaDepan());
         ((Penampung) holder).namaProduk.setText(item.product.getIdProduk());
-        ((Penampung) holder).biayaProduk.setText(item.product.getHargaProduk());
-        ((Penampung) holder).jmlPesanan.setText(item.keranjangLocal.quantity);
+        ((Penampung) holder).biayaProduk.setText(String.valueOf(item.product.getHargaProduk()));
+        ((Penampung) holder).jmlPesanan.setText(String.valueOf(item.cart.quantity));
         ((Penampung)holder).checkBox.setImageResource(checkCheckboxVisibility(item));
         ((Penampung)holder).btnAdd.setOnClickListener(v ->
-                viewModel.increase(item.keranjangLocal.productId)
+                viewModel.increase(item.cart.productId)
         );
         ((Penampung)holder).btnMinus.setOnClickListener(v ->
-                viewModel.decrease(item.keranjangLocal.productId)
+                viewModel.decrease(item.cart.productId)
         );
         ((Penampung)holder).checkBox.setOnClickListener( v ->
-                viewModel.updateIsChecked(item.product.idProduk, !item.keranjangLocal.isChecked)
+                viewModel.updateIsChecked(item.product.idProduk, !item.cart.isChecked)
         );
 
         if ( item.product.getFoto() != null ){
@@ -107,19 +105,9 @@ public class AdapterKeranjang extends RecyclerView.Adapter<RecyclerView.ViewHold
         { }
     }
 
-    private String getProfileNameById(String profileId) {
-        List<DatumProfil> listDataProfil = viewModel.getProfiles().getData();
-        for (DatumProfil profil : listDataProfil) {
-            if (profil.getIdProfile().equalsIgnoreCase(profileId)) {
-                return profil.getNamaDepan() + " " + profil.getNamaBelakang();
-            }
-        }
-        return Global.STRING_DEFAULT_VALUE;
-    }
-
-    private int checkCheckboxVisibility(CartWithProduct item)
+    private int checkCheckboxVisibility(CartItemUI item)
     {
-        if (item.keranjangLocal.isChecked)
+        if (item.cart.isChecked)
         {
             return R.drawable.ic_checkbox_unchecked;
         } else {

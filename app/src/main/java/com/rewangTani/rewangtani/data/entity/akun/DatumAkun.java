@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.data.entity.akun;
 
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -12,8 +13,6 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "akun")
 public class DatumAkun implements Parcelable
 {
-    @PrimaryKey
-    private int id;
     @SerializedName("createdBy")
     @Expose
     private String createdBy;
@@ -26,6 +25,8 @@ public class DatumAkun implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idAkun")
     @Expose
     private String idAkun;
@@ -113,14 +114,6 @@ public class DatumAkun implements Parcelable
         this.email = email;
         this.idGoogle = idGoogle;
         this.token = token;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public long getLastUpdated() {

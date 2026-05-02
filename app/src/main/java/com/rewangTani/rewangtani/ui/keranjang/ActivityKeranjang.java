@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterKeranjang;
-import com.rewangTani.rewangtani.bottombar.Home;
 import com.rewangTani.rewangtani.databinding.BottombarKeranjangBinding;
+import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.utility.FakePaymentActivity;
 
 public class ActivityKeranjang extends AppCompatActivity
 {
@@ -29,29 +30,23 @@ public class ActivityKeranjang extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_keranjang);
         viewModel = new ViewModelProvider(this).get(KeranjangViewModel.class);
 
-        initLayout();
-        initEvent();
-        observeViewModel();
-
-        Toast.makeText(ActivityKeranjang.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
-
-    }
-
-    private void initLayout()
-    {
-
-    }
-
-    private void initEvent()
-    {
         adapter = new AdapterKeranjang(viewModel);
         binding.rvKeranjang.setLayoutManager(new LinearLayoutManager(this));
         binding.rvKeranjang.setAdapter(adapter);
+
+        binding.btnMetodePengiriman.setOnClickListener( v -> {
+            Intent intent = new Intent(this, FakePaymentActivity.class);
+            intent.putExtra("Harga", binding.txtTotal.getText().toString());
+            startActivity(intent);
+        });
+
+        observeViewModel();
     }
 
     private void observeViewModel()
     {
         viewModel.loadProducts();
+        viewModel.loadProfiles();
 
         viewModel.isLoading.observe(this, isLoading -> {
             binding.viewLoading.setVisibility(isLoading ? View.VISIBLE : View.GONE);
@@ -61,7 +56,7 @@ public class ActivityKeranjang extends AppCompatActivity
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         });
 
-        viewModel.cartItems.observe(this, list -> {
+        viewModel.cartUI.observe(this, list -> {
             adapter.setData(list);
         });
 
@@ -72,8 +67,6 @@ public class ActivityKeranjang extends AppCompatActivity
 
 
     }
-
-
 
 //    public void addToCart(int productId) {
 //        executor.execute(() -> {

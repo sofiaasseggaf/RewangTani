@@ -20,7 +20,7 @@ import com.rewangTani.rewangtani.adapter.CustomSpinnerAdapter;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistgaris.AdapterListWarungMesinGaris;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistkotak.AdapterListWarungMesin;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.adapterlistmonitor.AdapterListWarungMesinMonitor;
-import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;

@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.rewangTani.rewangtani.data.entity.product.CartItemUI;
 import com.rewangTani.rewangtani.data.entity.product.CartWithProduct;
 import com.rewangTani.rewangtani.data.entity.product.DatumKeranjangLocal;
 import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
@@ -17,9 +18,11 @@ import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.KeranjangDao;
+import com.rewangTani.rewangtani.data.local.dao.ProfilDao;
 import com.rewangTani.rewangtani.data.repository.ProdukRepo;
 import com.rewangTani.rewangtani.data.repository.ProfilRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -34,6 +37,7 @@ public class KeranjangViewModel extends AndroidViewModel
     private final ProdukRepo productRepo;
     private final ProfilRepo profileRepo;
     private final KeranjangDao keranjangDao;
+    private final ProfilDao profilDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final LiveData<List<DatumProduk>> products;
     private final LiveData<List<DatumProfil>> profiles;
@@ -43,6 +47,7 @@ public class KeranjangViewModel extends AndroidViewModel
     public MutableLiveData<String> errorMessage = new MutableLiveData<>();
     public LiveData<List<CartWithProduct>> cartItems;
     private final MediatorLiveData<Integer> totalPrice = new MediatorLiveData<>();
+    MediatorLiveData<List<CartItemUI>> cartUI = new MediatorLiveData<>();
 
     public KeranjangViewModel(@NonNull Application application)
     {
@@ -51,8 +56,10 @@ public class KeranjangViewModel extends AndroidViewModel
         productRepo = new ProdukRepo(application);
         profileRepo = new ProfilRepo(application);
         keranjangDao = RewangTaniDB.getInstance(application).keranjangDao();
+        profilDao = RewangTaniDB.getInstance(application).profilDao();
         products = productRepo.getProducts();
         profiles = profileRepo.getProfiles();
+        Log.i("SOFIA", " profile = " + profiles.getValue());
         cartItems = keranjangDao.getAllCarts();
 
         // 💰 Auto calculate total
@@ -69,16 +76,32 @@ public class KeranjangViewModel extends AndroidViewModel
 
             totalPrice.setValue(total);
         });
+
+
+        cartUI.addSource(cartItems, list -> {
+            executor.execute(() -> {
+                List<CartItemUI> result = new ArrayList<>();
+                for (CartWithProduct item : list)
+                {
+                    DatumProfil profile =
+                            profilDao.getProfileByProductIdDirect(item.keranjangLocal.productId);
+
+                    CartItemUI ui = new CartItemUI();
+                    ui.product = item.product;
+                    ui.cart = item.keranjangLocal;
+                    ui.profile = profile;
+
+                    result.add(ui);
+                }
+
+                cartUI.postValue(result);
+            });
+        });
     }
 
-    public LiveData<List<DatumProduk>> getProducts()
+    public List<DatumProfil> getProfiles()
     {
-        return products;
-    }
-
-    public ModelProfilAkun getProfiles()
-    {
-        return cachedProfiles;
+        return profiles.getValue();
     }
 
     public void loadProducts()
@@ -129,13 +152,13 @@ public class KeranjangViewModel extends AndroidViewModel
         });
     }
 
-    public void addToCart(DatumProduk product)
+    public void addToCart(String idProduk)
     {
         executor.execute(() -> {
-            if (keranjangDao.isExist(product.idProduk)) {
-                keranjangDao.increase(product.idProduk);
+            if (keranjangDao.isExist(idProduk)) {
+                keranjangDao.increase(idProduk);
             } else {
-                keranjangDao.insert(new DatumKeranjangLocal(product.idProduk, 1, false));
+                keranjangDao.insert(new DatumKeranjangLocal(idProduk, 1, false));
             }
         });
     }

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.login.ActivityLogin;
 import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;

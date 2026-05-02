@@ -27,7 +27,7 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.AdapterListInfo;
-import com.rewangTani.rewangtani.bottombar.Home;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.databinding.UpperbarInfoBerandainfoBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;

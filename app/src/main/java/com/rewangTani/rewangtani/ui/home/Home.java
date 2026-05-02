@@ -1,4 +1,4 @@
-package com.rewangTani.rewangtani.bottombar;
+package com.rewangTani.rewangtani.ui.home;
 
 import android.Manifest;
 import android.content.Context;
@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.Request;
@@ -83,6 +84,7 @@ public class Home extends AppCompatActivity
 {
 
     BottombarHomeBinding binding;
+    private HomeViewModel viewModel;
     int PERMISSION_CODE = 1;
     Double lat = 0.0;
     Double longt = 0.0;
@@ -98,6 +100,7 @@ public class Home extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_home);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding.txtNama.setText("Hai, " + PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
 

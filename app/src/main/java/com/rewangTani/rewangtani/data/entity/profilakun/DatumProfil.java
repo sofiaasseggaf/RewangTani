@@ -2,6 +2,7 @@ package com.rewangTani.rewangtani.data.entity.profilakun;
 
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,8 +11,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "profil")
 public class DatumProfil implements Parcelable
 {
-    @PrimaryKey
-    private int id;
+
     @SerializedName("createdBy")
     @Expose
     private String createdBy;
@@ -27,6 +27,8 @@ public class DatumProfil implements Parcelable
     @SerializedName("idProfile")
     @Expose
     private String idProfile;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idAkun")
     @Expose
     private String idAkun;
@@ -141,14 +143,6 @@ public class DatumProfil implements Parcelable
         this.telepon = telepon;
         this.foto = foto;
         this.idStatusPekerja = idStatusPekerja;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public long getLastUpdated() {

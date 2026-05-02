@@ -10,15 +10,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
-import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
 import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DataBppById;
+import com.rewangTani.rewangtani.ui.keranjang.KeranjangViewModel;
 import com.rewangTani.rewangtani.utility.ChatUtils;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
@@ -36,9 +38,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailWarungBibitdanPupuk extends AppCompatActivity {
+public class DetailWarungBibitdanPupuk extends AppCompatActivity
+{
 
     MiddlebarDetailWarungPupukBinding binding;
+    private KeranjangViewModel viewModel;
     DataBppById dataBppById;
     ModelProfilById modelProfilById;
     DecimalFormat formatter;
@@ -48,6 +52,7 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_detail_warung_pupuk);
+        viewModel = new ViewModelProvider(this).get(KeranjangViewModel.class);
         chatUtils = new ChatUtils(this);
 
         Intent intent = getIntent();
@@ -75,9 +80,15 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
         });
+
+        binding.btnAddToCart.setOnClickListener( v -> {
+            viewModel.addToCart(dataBppById.getData().getIdProduk());
+            Toast.makeText(this, "Menambahkan item ke keranjang", Toast.LENGTH_SHORT).show();
+        });
     }
 
-    public void getData(String id){
+    public void getData(String id)
+    {
         binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
