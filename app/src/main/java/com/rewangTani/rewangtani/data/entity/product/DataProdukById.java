@@ -1,5 +1,5 @@
 
-package com.rewangTani.rewangtani.model.modelproduk;
+package com.rewangTani.rewangtani.data.entity.product;
 
 import android.os.Parcelable;
 

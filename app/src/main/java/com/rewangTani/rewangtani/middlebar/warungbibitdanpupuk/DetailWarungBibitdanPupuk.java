@@ -19,7 +19,7 @@ import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPupukBinding;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DataBppById;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DataBppById;
 import com.rewangTani.rewangtani.ui.keranjang.KeranjangViewModel;
 import com.rewangTani.rewangtani.utility.ChatUtils;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;

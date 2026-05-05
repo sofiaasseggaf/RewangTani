@@ -1,12 +1,12 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin;
+package com.rewangTani.rewangtani.data.entity.warungtenagakerja;
 
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataSewaMesinById implements Parcelable
+public class DataTenagaKerjaById implements Parcelable
 {
 
     @SerializedName("data")
@@ -15,24 +15,23 @@ public class DataSewaMesinById implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
-    public final static Creator<DataSewaMesinById> CREATOR = new Creator<DataSewaMesinById>() {
+    public final static Creator<DataTenagaKerjaById> CREATOR = new Creator<DataTenagaKerjaById>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public DataSewaMesinById createFromParcel(android.os.Parcel in) {
-            return new DataSewaMesinById(in);
+        public DataTenagaKerjaById createFromParcel(android.os.Parcel in) {
+            return new DataTenagaKerjaById(in);
         }
 
-        public DataSewaMesinById[] newArray(int size) {
-            return (new DataSewaMesinById[size]);
+        public DataTenagaKerjaById[] newArray(int size) {
+            return (new DataTenagaKerjaById[size]);
         }
 
-    }
-    ;
+    };
 
-    protected DataSewaMesinById(android.os.Parcel in) {
+    protected DataTenagaKerjaById(android.os.Parcel in) {
         this.data = ((Data) in.readValue((Data.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
     }
@@ -41,7 +40,7 @@ public class DataSewaMesinById implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public DataSewaMesinById() {
+    public DataTenagaKerjaById() {
     }
 
     /**
@@ -49,7 +48,7 @@ public class DataSewaMesinById implements Parcelable
      * @param data
      * @param message
      */
-    public DataSewaMesinById(Data data, String message) {
+    public DataTenagaKerjaById(Data data, String message) {
         super();
         this.data = data;
         this.message = message;
@@ -74,7 +73,7 @@ public class DataSewaMesinById implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DataSewaMesinById.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(DataTenagaKerjaById.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("data");
         sb.append('=');
         sb.append(((this.data == null)?"<null>":this.data));

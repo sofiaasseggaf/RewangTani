@@ -1,12 +1,12 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida;
+package com.rewangTani.rewangtani.data.entity.warungsewamesin;
 
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataBppById implements Parcelable
+public class DataSewaMesinById implements Parcelable
 {
 
     @SerializedName("data")
@@ -15,24 +15,24 @@ public class DataBppById implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
-    public final static Creator<DataBppById> CREATOR = new Creator<DataBppById>() {
+    public final static Creator<DataSewaMesinById> CREATOR = new Creator<DataSewaMesinById>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public DataBppById createFromParcel(android.os.Parcel in) {
-            return new DataBppById(in);
+        public DataSewaMesinById createFromParcel(android.os.Parcel in) {
+            return new DataSewaMesinById(in);
         }
 
-        public DataBppById[] newArray(int size) {
-            return (new DataBppById[size]);
+        public DataSewaMesinById[] newArray(int size) {
+            return (new DataSewaMesinById[size]);
         }
 
     }
     ;
 
-    protected DataBppById(android.os.Parcel in) {
+    protected DataSewaMesinById(android.os.Parcel in) {
         this.data = ((Data) in.readValue((Data.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
     }
@@ -41,7 +41,7 @@ public class DataBppById implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public DataBppById() {
+    public DataSewaMesinById() {
     }
 
     /**
@@ -49,7 +49,7 @@ public class DataBppById implements Parcelable
      * @param data
      * @param message
      */
-    public DataBppById(Data data, String message) {
+    public DataSewaMesinById(Data data, String message) {
         super();
         this.data = data;
         this.message = message;
@@ -74,7 +74,7 @@ public class DataBppById implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DataBppById.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(DataSewaMesinById.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("data");
         sb.append('=');
         sb.append(((this.data == null)?"<null>":this.data));

@@ -1,12 +1,12 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin;
+package com.rewangTani.rewangtani.data.entity.product;
 
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DatumSewaMesin implements Parcelable
+public class Data implements Parcelable
 {
 
     @SerializedName("createdBy")
@@ -21,67 +21,59 @@ public class DatumSewaMesin implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
-    @SerializedName("idSewaMesin")
-    @Expose
-    private String idSewaMesin;
-    @SerializedName("idProfil")
-    @Expose
-    private String idProfil;
     @SerializedName("idProduk")
     @Expose
     private String idProduk;
     @SerializedName("idTipeProduk")
     @Expose
     private String idTipeProduk;
-    @SerializedName("namaProduk")
+    @SerializedName("idProfil")
     @Expose
-    private String namaProduk;
+    private String idProfil;
     @SerializedName("hargaProduk")
     @Expose
     private Integer hargaProduk;
-    @SerializedName("deskProduk")
+    @SerializedName("foto")
     @Expose
-    private String deskProduk;
-    @SerializedName("idFoto")
-    @Expose
-    private String idFoto;
+    private String foto;
     @SerializedName("kota")
     @Expose
     private String kota;
+    @SerializedName("jmlProduk")
+    @Expose
+    private Integer jmlProduk;
     @SerializedName("jmlTerjual")
     @Expose
     private Integer jmlTerjual;
-    public final static Creator<DatumSewaMesin> CREATOR = new Creator<DatumSewaMesin>() {
+    public final static Creator<Data> CREATOR = new Creator<Data>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public DatumSewaMesin createFromParcel(android.os.Parcel in) {
-            return new DatumSewaMesin(in);
+        public Data createFromParcel(android.os.Parcel in) {
+            return new Data(in);
         }
 
-        public DatumSewaMesin[] newArray(int size) {
-            return (new DatumSewaMesin[size]);
+        public Data[] newArray(int size) {
+            return (new Data[size]);
         }
 
     }
     ;
 
-    protected DatumSewaMesin(android.os.Parcel in) {
+    protected Data(android.os.Parcel in) {
         this.createdBy = ((String) in.readValue((String.class.getClassLoader())));
         this.createdDate = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedBy = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedDate = ((String) in.readValue((String.class.getClassLoader())));
-        this.idSewaMesin = ((String) in.readValue((String.class.getClassLoader())));
-        this.idProfil = ((String) in.readValue((String.class.getClassLoader())));
         this.idProduk = ((String) in.readValue((String.class.getClassLoader())));
         this.idTipeProduk = ((String) in.readValue((String.class.getClassLoader())));
-        this.namaProduk = ((String) in.readValue((String.class.getClassLoader())));
+        this.idProfil = ((String) in.readValue((String.class.getClassLoader())));
         this.hargaProduk = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.deskProduk = ((String) in.readValue((String.class.getClassLoader())));
-        this.idFoto = ((String) in.readValue((String.class.getClassLoader())));
+        this.foto = ((String) in.readValue((String.class.getClassLoader())));
         this.kota = ((String) in.readValue((String.class.getClassLoader())));
+        this.jmlProduk = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.jmlTerjual = ((Integer) in.readValue((Integer.class.getClassLoader())));
     }
 
@@ -89,41 +81,37 @@ public class DatumSewaMesin implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public DatumSewaMesin() {
+    public Data() {
     }
 
     /**
      * 
      * @param idProduk
+     * @param createdDate
      * @param updatedBy
-     * @param namaProduk
      * @param kota
+     * @param jmlProduk
+     * @param foto
+     * @param createdBy
      * @param idTipeProduk
      * @param jmlTerjual
      * @param hargaProduk
      * @param updatedDate
-     * @param idFoto
-     * @param createdDate
-     * @param createdBy
-     * @param idSewaMesin
-     * @param deskProduk
      * @param idProfil
      */
-    public DatumSewaMesin(String createdBy, String createdDate, String updatedBy, String updatedDate, String idSewaMesin, String idProfil, String idProduk, String idTipeProduk, String namaProduk, Integer hargaProduk, String deskProduk, String idFoto, String kota, Integer jmlTerjual) {
+    public Data(String createdBy, String createdDate, String updatedBy, String updatedDate, String idProduk, String idTipeProduk, String idProfil, Integer hargaProduk, String foto, String kota, Integer jmlProduk, Integer jmlTerjual) {
         super();
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.updatedBy = updatedBy;
         this.updatedDate = updatedDate;
-        this.idSewaMesin = idSewaMesin;
-        this.idProfil = idProfil;
         this.idProduk = idProduk;
         this.idTipeProduk = idTipeProduk;
-        this.namaProduk = namaProduk;
+        this.idProfil = idProfil;
         this.hargaProduk = hargaProduk;
-        this.deskProduk = deskProduk;
-        this.idFoto = idFoto;
+        this.foto = foto;
         this.kota = kota;
+        this.jmlProduk = jmlProduk;
         this.jmlTerjual = jmlTerjual;
     }
 
@@ -159,22 +147,6 @@ public class DatumSewaMesin implements Parcelable
         this.updatedDate = updatedDate;
     }
 
-    public String getIdSewaMesin() {
-        return idSewaMesin;
-    }
-
-    public void setIdSewaMesin(String idSewaMesin) {
-        this.idSewaMesin = idSewaMesin;
-    }
-
-    public String getIdProfil() {
-        return idProfil;
-    }
-
-    public void setIdProfil(String idProfil) {
-        this.idProfil = idProfil;
-    }
-
     public String getIdProduk() {
         return idProduk;
     }
@@ -191,12 +163,12 @@ public class DatumSewaMesin implements Parcelable
         this.idTipeProduk = idTipeProduk;
     }
 
-    public String getNamaProduk() {
-        return namaProduk;
+    public String getIdProfil() {
+        return idProfil;
     }
 
-    public void setNamaProduk(String namaProduk) {
-        this.namaProduk = namaProduk;
+    public void setIdProfil(String idProfil) {
+        this.idProfil = idProfil;
     }
 
     public Integer getHargaProduk() {
@@ -207,20 +179,12 @@ public class DatumSewaMesin implements Parcelable
         this.hargaProduk = hargaProduk;
     }
 
-    public String getDeskProduk() {
-        return deskProduk;
+    public String getFoto() {
+        return foto;
     }
 
-    public void setDeskProduk(String deskProduk) {
-        this.deskProduk = deskProduk;
-    }
-
-    public String getIdFoto() {
-        return idFoto;
-    }
-
-    public void setIdFoto(String idFoto) {
-        this.idFoto = idFoto;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getKota() {
@@ -229,6 +193,14 @@ public class DatumSewaMesin implements Parcelable
 
     public void setKota(String kota) {
         this.kota = kota;
+    }
+
+    public Integer getJmlProduk() {
+        return jmlProduk;
+    }
+
+    public void setJmlProduk(Integer jmlProduk) {
+        this.jmlProduk = jmlProduk;
     }
 
     public Integer getJmlTerjual() {
@@ -242,7 +214,7 @@ public class DatumSewaMesin implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DatumSewaMesin.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Data.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("createdBy");
         sb.append('=');
         sb.append(((this.createdBy == null)?"<null>":this.createdBy));
@@ -259,14 +231,6 @@ public class DatumSewaMesin implements Parcelable
         sb.append('=');
         sb.append(((this.updatedDate == null)?"<null>":this.updatedDate));
         sb.append(',');
-        sb.append("idSewaMesin");
-        sb.append('=');
-        sb.append(((this.idSewaMesin == null)?"<null>":this.idSewaMesin));
-        sb.append(',');
-        sb.append("idProfil");
-        sb.append('=');
-        sb.append(((this.idProfil == null)?"<null>":this.idProfil));
-        sb.append(',');
         sb.append("idProduk");
         sb.append('=');
         sb.append(((this.idProduk == null)?"<null>":this.idProduk));
@@ -275,25 +239,25 @@ public class DatumSewaMesin implements Parcelable
         sb.append('=');
         sb.append(((this.idTipeProduk == null)?"<null>":this.idTipeProduk));
         sb.append(',');
-        sb.append("namaProduk");
+        sb.append("idProfil");
         sb.append('=');
-        sb.append(((this.namaProduk == null)?"<null>":this.namaProduk));
+        sb.append(((this.idProfil == null)?"<null>":this.idProfil));
         sb.append(',');
         sb.append("hargaProduk");
         sb.append('=');
         sb.append(((this.hargaProduk == null)?"<null>":this.hargaProduk));
         sb.append(',');
-        sb.append("deskProduk");
+        sb.append("foto");
         sb.append('=');
-        sb.append(((this.deskProduk == null)?"<null>":this.deskProduk));
-        sb.append(',');
-        sb.append("idFoto");
-        sb.append('=');
-        sb.append(((this.idFoto == null)?"<null>":this.idFoto));
+        sb.append(((this.foto == null)?"<null>":this.foto));
         sb.append(',');
         sb.append("kota");
         sb.append('=');
         sb.append(((this.kota == null)?"<null>":this.kota));
+        sb.append(',');
+        sb.append("jmlProduk");
+        sb.append('=');
+        sb.append(((this.jmlProduk == null)?"<null>":this.jmlProduk));
         sb.append(',');
         sb.append("jmlTerjual");
         sb.append('=');
@@ -312,15 +276,13 @@ public class DatumSewaMesin implements Parcelable
         dest.writeValue(createdDate);
         dest.writeValue(updatedBy);
         dest.writeValue(updatedDate);
-        dest.writeValue(idSewaMesin);
-        dest.writeValue(idProfil);
         dest.writeValue(idProduk);
         dest.writeValue(idTipeProduk);
-        dest.writeValue(namaProduk);
+        dest.writeValue(idProfil);
         dest.writeValue(hargaProduk);
-        dest.writeValue(deskProduk);
-        dest.writeValue(idFoto);
+        dest.writeValue(foto);
         dest.writeValue(kota);
+        dest.writeValue(jmlProduk);
         dest.writeValue(jmlTerjual);
     }
 

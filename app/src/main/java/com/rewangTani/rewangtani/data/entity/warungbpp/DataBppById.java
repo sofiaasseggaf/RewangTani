@@ -1,12 +1,12 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja;
+package com.rewangTani.rewangtani.data.entity.warungbpp;
 
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataTenagaKerjaById implements Parcelable
+public class DataBppById implements Parcelable
 {
 
     @SerializedName("data")
@@ -15,23 +15,24 @@ public class DataTenagaKerjaById implements Parcelable
     @SerializedName("message")
     @Expose
     private String message;
-    public final static Creator<DataTenagaKerjaById> CREATOR = new Creator<DataTenagaKerjaById>() {
+    public final static Creator<DataBppById> CREATOR = new Creator<DataBppById>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public DataTenagaKerjaById createFromParcel(android.os.Parcel in) {
-            return new DataTenagaKerjaById(in);
+        public DataBppById createFromParcel(android.os.Parcel in) {
+            return new DataBppById(in);
         }
 
-        public DataTenagaKerjaById[] newArray(int size) {
-            return (new DataTenagaKerjaById[size]);
+        public DataBppById[] newArray(int size) {
+            return (new DataBppById[size]);
         }
 
-    };
+    }
+    ;
 
-    protected DataTenagaKerjaById(android.os.Parcel in) {
+    protected DataBppById(android.os.Parcel in) {
         this.data = ((Data) in.readValue((Data.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
     }
@@ -40,7 +41,7 @@ public class DataTenagaKerjaById implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public DataTenagaKerjaById() {
+    public DataBppById() {
     }
 
     /**
@@ -48,7 +49,7 @@ public class DataTenagaKerjaById implements Parcelable
      * @param data
      * @param message
      */
-    public DataTenagaKerjaById(Data data, String message) {
+    public DataBppById(Data data, String message) {
         super();
         this.data = data;
         this.message = message;
@@ -73,7 +74,7 @@ public class DataTenagaKerjaById implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DataTenagaKerjaById.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(DataBppById.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("data");
         sb.append('=');
         sb.append(((this.data == null)?"<null>":this.data));

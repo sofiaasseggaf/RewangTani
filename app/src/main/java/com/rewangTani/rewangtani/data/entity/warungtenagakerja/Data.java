@@ -1,12 +1,12 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida;
+package com.rewangTani.rewangtani.data.entity.warungtenagakerja;
 
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DatumPupukPestisida implements Parcelable
+public class Data implements Parcelable
 {
 
     @SerializedName("createdBy")
@@ -21,9 +21,9 @@ public class DatumPupukPestisida implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
-    @SerializedName("idWarungBpp")
+    @SerializedName("idTenagaKerja")
     @Expose
-    private String idWarungBpp;
+    private String idTenagaKerja;
     @SerializedName("idProfil")
     @Expose
     private String idProfil;
@@ -33,18 +33,24 @@ public class DatumPupukPestisida implements Parcelable
     @SerializedName("idTipeProduk")
     @Expose
     private String idTipeProduk;
-    @SerializedName("namaProduk")
+    @SerializedName("namaTenagaKerja")
     @Expose
-    private String namaProduk;
-    @SerializedName("hargaProduk")
+    private String namaTenagaKerja;
+    @SerializedName("namaTipeKerja")
     @Expose
-    private Integer hargaProduk;
-    @SerializedName("deskProduk")
+    private String namaTipeKerja;
+    @SerializedName("biaya")
     @Expose
-    private String deskProduk;
-    @SerializedName("beratProduk")
+    private Integer biaya;
+    @SerializedName("deskripsi")
     @Expose
-    private Double beratProduk;
+    private String deskripsi;
+    @SerializedName("keahlian")
+    @Expose
+    private String keahlian;
+    @SerializedName("pengalamanKerja")
+    @Expose
+    private String pengalamanKerja;
     @SerializedName("idFoto")
     @Expose
     private String idFoto;
@@ -54,36 +60,38 @@ public class DatumPupukPestisida implements Parcelable
     @SerializedName("jmlTerjual")
     @Expose
     private Integer jmlTerjual;
-    public final static Creator<DatumPupukPestisida> CREATOR = new Creator<DatumPupukPestisida>() {
+    public final static Creator<Data> CREATOR = new Creator<Data>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public DatumPupukPestisida createFromParcel(android.os.Parcel in) {
-            return new DatumPupukPestisida(in);
+        public Data createFromParcel(android.os.Parcel in) {
+            return new Data(in);
         }
 
-        public DatumPupukPestisida[] newArray(int size) {
-            return (new DatumPupukPestisida[size]);
+        public Data[] newArray(int size) {
+            return (new Data[size]);
         }
 
     }
     ;
 
-    protected DatumPupukPestisida(android.os.Parcel in) {
+    protected Data(android.os.Parcel in) {
         this.createdBy = ((String) in.readValue((String.class.getClassLoader())));
         this.createdDate = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedBy = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedDate = ((String) in.readValue((String.class.getClassLoader())));
-        this.idWarungBpp = ((String) in.readValue((String.class.getClassLoader())));
+        this.idTenagaKerja = ((String) in.readValue((String.class.getClassLoader())));
         this.idProfil = ((String) in.readValue((String.class.getClassLoader())));
         this.idProduk = ((String) in.readValue((String.class.getClassLoader())));
         this.idTipeProduk = ((String) in.readValue((String.class.getClassLoader())));
-        this.namaProduk = ((String) in.readValue((String.class.getClassLoader())));
-        this.hargaProduk = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.deskProduk = ((String) in.readValue((String.class.getClassLoader())));
-        this.beratProduk = ((Double) in.readValue((Double.class.getClassLoader())));
+        this.namaTenagaKerja = ((String) in.readValue((String.class.getClassLoader())));
+        this.namaTipeKerja = ((String) in.readValue((String.class.getClassLoader())));
+        this.biaya = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.deskripsi = ((String) in.readValue((String.class.getClassLoader())));
+        this.keahlian = ((String) in.readValue((String.class.getClassLoader())));
+        this.pengalamanKerja = ((String) in.readValue((String.class.getClassLoader())));
         this.idFoto = ((String) in.readValue((String.class.getClassLoader())));
         this.kota = ((String) in.readValue((String.class.getClassLoader())));
         this.jmlTerjual = ((Integer) in.readValue((Integer.class.getClassLoader())));
@@ -93,41 +101,45 @@ public class DatumPupukPestisida implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public DatumPupukPestisida() {
+    public Data() {
     }
 
     /**
      * 
      * @param idProduk
      * @param updatedBy
-     * @param namaProduk
      * @param kota
+     * @param pengalamanKerja
      * @param idTipeProduk
      * @param jmlTerjual
-     * @param hargaProduk
+     * @param namaTenagaKerja
      * @param updatedDate
-     * @param beratProduk
+     * @param idTenagaKerja
+     * @param keahlian
      * @param idFoto
      * @param createdDate
+     * @param biaya
      * @param createdBy
-     * @param deskProduk
-     * @param idWarungBpp
+     * @param namaTipeKerja
+     * @param deskripsi
      * @param idProfil
      */
-    public DatumPupukPestisida(String createdBy, String createdDate, String updatedBy, String updatedDate, String idWarungBpp, String idProfil, String idProduk, String idTipeProduk, String namaProduk, Integer hargaProduk, String deskProduk, Double beratProduk, String idFoto, String kota, Integer jmlTerjual) {
+    public Data(String createdBy, String createdDate, String updatedBy, String updatedDate, String idTenagaKerja, String idProfil, String idProduk, String idTipeProduk, String namaTenagaKerja, String namaTipeKerja, Integer biaya, String deskripsi, String keahlian, String pengalamanKerja, String idFoto, String kota, Integer jmlTerjual) {
         super();
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.updatedBy = updatedBy;
         this.updatedDate = updatedDate;
-        this.idWarungBpp = idWarungBpp;
+        this.idTenagaKerja = idTenagaKerja;
         this.idProfil = idProfil;
         this.idProduk = idProduk;
         this.idTipeProduk = idTipeProduk;
-        this.namaProduk = namaProduk;
-        this.hargaProduk = hargaProduk;
-        this.deskProduk = deskProduk;
-        this.beratProduk = beratProduk;
+        this.namaTenagaKerja = namaTenagaKerja;
+        this.namaTipeKerja = namaTipeKerja;
+        this.biaya = biaya;
+        this.deskripsi = deskripsi;
+        this.keahlian = keahlian;
+        this.pengalamanKerja = pengalamanKerja;
         this.idFoto = idFoto;
         this.kota = kota;
         this.jmlTerjual = jmlTerjual;
@@ -165,12 +177,12 @@ public class DatumPupukPestisida implements Parcelable
         this.updatedDate = updatedDate;
     }
 
-    public String getIdWarungBpp() {
-        return idWarungBpp;
+    public String getIdTenagaKerja() {
+        return idTenagaKerja;
     }
 
-    public void setIdWarungBpp(String idWarungBpp) {
-        this.idWarungBpp = idWarungBpp;
+    public void setIdTenagaKerja(String idTenagaKerja) {
+        this.idTenagaKerja = idTenagaKerja;
     }
 
     public String getIdProfil() {
@@ -197,36 +209,52 @@ public class DatumPupukPestisida implements Parcelable
         this.idTipeProduk = idTipeProduk;
     }
 
-    public String getNamaProduk() {
-        return namaProduk;
+    public String getNamaTenagaKerja() {
+        return namaTenagaKerja;
     }
 
-    public void setNamaProduk(String namaProduk) {
-        this.namaProduk = namaProduk;
+    public void setNamaTenagaKerja(String namaTenagaKerja) {
+        this.namaTenagaKerja = namaTenagaKerja;
     }
 
-    public Integer getHargaProduk() {
-        return hargaProduk;
+    public String getNamaTipeKerja() {
+        return namaTipeKerja;
     }
 
-    public void setHargaProduk(Integer hargaProduk) {
-        this.hargaProduk = hargaProduk;
+    public void setNamaTipeKerja(String namaTipeKerja) {
+        this.namaTipeKerja = namaTipeKerja;
     }
 
-    public String getDeskProduk() {
-        return deskProduk;
+    public Integer getBiaya() {
+        return biaya;
     }
 
-    public void setDeskProduk(String deskProduk) {
-        this.deskProduk = deskProduk;
+    public void setBiaya(Integer biaya) {
+        this.biaya = biaya;
     }
 
-    public Double getBeratProduk() {
-        return beratProduk;
+    public String getDeskripsi() {
+        return deskripsi;
     }
 
-    public void setBeratProduk(Double beratProduk) {
-        this.beratProduk = beratProduk;
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public String getKeahlian() {
+        return keahlian;
+    }
+
+    public void setKeahlian(String keahlian) {
+        this.keahlian = keahlian;
+    }
+
+    public String getPengalamanKerja() {
+        return pengalamanKerja;
+    }
+
+    public void setPengalamanKerja(String pengalamanKerja) {
+        this.pengalamanKerja = pengalamanKerja;
     }
 
     public String getIdFoto() {
@@ -256,7 +284,7 @@ public class DatumPupukPestisida implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(DatumPupukPestisida.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(Data.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("createdBy");
         sb.append('=');
         sb.append(((this.createdBy == null)?"<null>":this.createdBy));
@@ -273,9 +301,9 @@ public class DatumPupukPestisida implements Parcelable
         sb.append('=');
         sb.append(((this.updatedDate == null)?"<null>":this.updatedDate));
         sb.append(',');
-        sb.append("idWarungBpp");
+        sb.append("idTenagaKerja");
         sb.append('=');
-        sb.append(((this.idWarungBpp == null)?"<null>":this.idWarungBpp));
+        sb.append(((this.idTenagaKerja == null)?"<null>":this.idTenagaKerja));
         sb.append(',');
         sb.append("idProfil");
         sb.append('=');
@@ -289,21 +317,29 @@ public class DatumPupukPestisida implements Parcelable
         sb.append('=');
         sb.append(((this.idTipeProduk == null)?"<null>":this.idTipeProduk));
         sb.append(',');
-        sb.append("namaProduk");
+        sb.append("namaTenagaKerja");
         sb.append('=');
-        sb.append(((this.namaProduk == null)?"<null>":this.namaProduk));
+        sb.append(((this.namaTenagaKerja == null)?"<null>":this.namaTenagaKerja));
         sb.append(',');
-        sb.append("hargaProduk");
+        sb.append("namaTipeKerja");
         sb.append('=');
-        sb.append(((this.hargaProduk == null)?"<null>":this.hargaProduk));
+        sb.append(((this.namaTipeKerja == null)?"<null>":this.namaTipeKerja));
         sb.append(',');
-        sb.append("deskProduk");
+        sb.append("biaya");
         sb.append('=');
-        sb.append(((this.deskProduk == null)?"<null>":this.deskProduk));
+        sb.append(((this.biaya == null)?"<null>":this.biaya));
         sb.append(',');
-        sb.append("beratProduk");
+        sb.append("deskripsi");
         sb.append('=');
-        sb.append(((this.beratProduk == null)?"<null>":this.beratProduk));
+        sb.append(((this.deskripsi == null)?"<null>":this.deskripsi));
+        sb.append(',');
+        sb.append("keahlian");
+        sb.append('=');
+        sb.append(((this.keahlian == null)?"<null>":this.keahlian));
+        sb.append(',');
+        sb.append("pengalamanKerja");
+        sb.append('=');
+        sb.append(((this.pengalamanKerja == null)?"<null>":this.pengalamanKerja));
         sb.append(',');
         sb.append("idFoto");
         sb.append('=');
@@ -330,14 +366,16 @@ public class DatumPupukPestisida implements Parcelable
         dest.writeValue(createdDate);
         dest.writeValue(updatedBy);
         dest.writeValue(updatedDate);
-        dest.writeValue(idWarungBpp);
+        dest.writeValue(idTenagaKerja);
         dest.writeValue(idProfil);
         dest.writeValue(idProduk);
         dest.writeValue(idTipeProduk);
-        dest.writeValue(namaProduk);
-        dest.writeValue(hargaProduk);
-        dest.writeValue(deskProduk);
-        dest.writeValue(beratProduk);
+        dest.writeValue(namaTenagaKerja);
+        dest.writeValue(namaTipeKerja);
+        dest.writeValue(biaya);
+        dest.writeValue(deskripsi);
+        dest.writeValue(keahlian);
+        dest.writeValue(pengalamanKerja);
         dest.writeValue(idFoto);
         dest.writeValue(kota);
         dest.writeValue(jmlTerjual);

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "profil")
 public class DatumProfil implements Parcelable
 {
@@ -24,11 +25,11 @@ public class DatumProfil implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idProfile")
     @Expose
     private String idProfile;
-    @PrimaryKey
-    @NonNull
     @SerializedName("idAkun")
     @Expose
     private String idAkun;

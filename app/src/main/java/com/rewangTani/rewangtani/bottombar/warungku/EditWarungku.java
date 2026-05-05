@@ -31,14 +31,14 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarWarungkuEditWarungkuBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
-import com.rewangTani.rewangtani.model.modelproduk.DataProdukById;
+import com.rewangTani.rewangtani.data.entity.product.DataProdukById;
 import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
+import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.Utils;
@@ -60,8 +60,8 @@ public class EditWarungku extends AppCompatActivity {
     DatumSewaMesin datumSewaMesin;
     ModelTenagaKerja modelTenagaKerja;
     DatumTenagaKerja datumTenagaKerja;
-    ModelPupukPestisida modelPupukPestisida;
-    DatumPupukPestisida datumPupukPestisida;
+    ModelBpp modelBpp;
+    DatumBpp datumBpp;
     CameraPhoto cameraPhoto;
     GalleryPhoto galleryPhoto;
     Bitmap bitmap;
@@ -390,22 +390,22 @@ public class EditWarungku extends AppCompatActivity {
 
     public void getdataProdukBibitPupukPestisida(){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
-                modelPupukPestisida = response.body();
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
+                modelBpp = response.body();
                 if (response.body()!=null){
 
                     try{
-                        for (int i = 0; i < modelPupukPestisida.getTotalData(); i++) {
-                            if(modelPupukPestisida.getData().get(i).getIdProduk().equalsIgnoreCase(id)){
-                                datumPupukPestisida = modelPupukPestisida.getData().get(i);
+                        for (int i = 0; i < modelBpp.getTotalData(); i++) {
+                            if(modelBpp.getData().get(i).getIdProduk().equalsIgnoreCase(id)){
+                                datumBpp = modelBpp.getData().get(i);
                             }
                         }
                     } catch (Exception e){}
 
-                    if (datumPupukPestisida!=null){
+                    if (datumBpp !=null){
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -427,7 +427,7 @@ public class EditWarungku extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -441,14 +441,14 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void setDataProdukBibitPupukPestisida(){
-        binding.namaProdukBpp.setText(datumPupukPestisida.getNamaProduk());
-        binding.hargaProdukBpp.setText("Rp. " + Utils.checkDesimal(datumPupukPestisida.getHargaProduk().toString()));
-        binding.deskProdukBpp.setText(datumPupukPestisida.getDeskProduk());
-        binding.beratProdukBpp.setText(datumPupukPestisida.getBeratProduk().toString());
-        binding.kotaProdukBpp.setText(datumPupukPestisida.getKota());
-        if ( datumPupukPestisida.getIdFoto() != null )
+        binding.namaProdukBpp.setText(datumBpp.getNamaProduk());
+        binding.hargaProdukBpp.setText("Rp. " + Utils.checkDesimal(datumBpp.getHargaProduk().toString()));
+        binding.deskProdukBpp.setText(datumBpp.getDeskProduk());
+        binding.beratProdukBpp.setText(datumBpp.getBeratProduk().toString());
+        binding.kotaProdukBpp.setText(datumBpp.getKota());
+        if ( datumBpp.getIdFoto() != null )
         {
-            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumPupukPestisida.getIdFoto();
+            String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumBpp.getIdFoto();
             SwipeablePhotosAdapter swipeablePhotosAdapter = new SwipeablePhotosAdapter(this, imageUri);
             binding.viewPagerBpp.setAdapter(swipeablePhotosAdapter);
         }
@@ -967,16 +967,16 @@ public class EditWarungku extends AppCompatActivity {
 
     public void hapusBpp(){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.deleteBibitPestisida(datumPupukPestisida.getIdWarungBpp());
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.deleteBibitPestisida(datumBpp.getIdWarungBpp());
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
                 if (response.body()!=null){
                     hapusFotoProdukBpp(0);
                 }
             }
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1023,7 +1023,7 @@ public class EditWarungku extends AppCompatActivity {
 
     private void hapusFotoBpp(int count){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<DatumPhoto> dataRT = apiInterface.deletePhoto(datumPupukPestisida.getIdWarungBpp() + count);
+        final Call<DatumPhoto> dataRT = apiInterface.deletePhoto(datumBpp.getIdWarungBpp() + count);
         dataRT.enqueue(new Callback<DatumPhoto>() {
             @Override
             public void onResponse(Call<DatumPhoto> call, Response<DatumPhoto> response) {

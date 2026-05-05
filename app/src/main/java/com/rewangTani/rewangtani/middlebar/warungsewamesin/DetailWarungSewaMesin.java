@@ -18,7 +18,7 @@ import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungMesinBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DataSewaMesinById;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.DataSewaMesinById;
 import com.rewangTani.rewangtani.utility.ChatUtils;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 

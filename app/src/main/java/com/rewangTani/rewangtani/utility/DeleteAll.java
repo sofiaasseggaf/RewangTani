@@ -20,11 +20,11 @@ import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.ModelPanen;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class DeleteAll extends AppCompatActivity {
     ModelProduk modelProduk;
     ModelTenagaKerja modelTenagaKerja;
     ModelSewaMesin modelSewaMesin;
-    ModelPupukPestisida modelPupukPestisida;
+    ModelBpp modelBpp;
     List<String> idAkun = new ArrayList<>();
     List<String> idProfil = new ArrayList<>();
     List<String> idRT = new ArrayList<>();
@@ -380,8 +380,8 @@ public class DeleteAll extends AppCompatActivity {
                         .setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i) {
-                                for(int x=0; x<modelPupukPestisida.getTotalData(); x++){
-                                    idBPP.add(modelPupukPestisida.getData().get(x).getIdWarungBpp());
+                                for(int x = 0; x< modelBpp.getTotalData(); x++){
+                                    idBPP.add(modelBpp.getData().get(x).getIdWarungBpp());
                                 }
                                 for(int a=0; a<idBPP.size(); a++){
                                     delAllBpp(idBPP.get(a));
@@ -684,11 +684,11 @@ public class DeleteAll extends AppCompatActivity {
 
     public void getDataBpp(){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
-                modelPupukPestisida = response.body();
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
+                modelBpp = response.body();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -697,7 +697,7 @@ public class DeleteAll extends AppCompatActivity {
                 });
             }
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1025,11 +1025,11 @@ public class DeleteAll extends AppCompatActivity {
 
     public void delAllBpp(String id){
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.deleteBibitPestisida(id);
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.deleteBibitPestisida(id);
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
-                modelPupukPestisida = response.body();
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
+                modelBpp = response.body();
                 if (response.body()!=null){
                     runOnUiThread(new Runnable() {
                         @Override
@@ -1041,7 +1041,7 @@ public class DeleteAll extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

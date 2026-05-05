@@ -7,4 +7,5 @@ public class CartItemUI
     public DatumKeranjangLocal cart;
     public DatumProduk product;
     public DatumProfil profile;
+    public String productName;
 }

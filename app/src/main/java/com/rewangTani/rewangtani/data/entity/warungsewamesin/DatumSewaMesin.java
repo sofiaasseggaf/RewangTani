@@ -1,12 +1,17 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin;
+package com.rewangTani.rewangtani.data.entity.warungsewamesin;
 
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data implements Parcelable
+@Entity(tableName = "warung_sewa_mesin")
+public class DatumSewaMesin implements Parcelable
 {
 
     @SerializedName("createdBy")
@@ -21,6 +26,8 @@ public class Data implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idSewaMesin")
     @Expose
     private String idSewaMesin;
@@ -51,24 +58,24 @@ public class Data implements Parcelable
     @SerializedName("jmlTerjual")
     @Expose
     private Integer jmlTerjual;
-    public final static Creator<Data> CREATOR = new Creator<Data>() {
+    public final static Creator<DatumSewaMesin> CREATOR = new Creator<DatumSewaMesin>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Data createFromParcel(android.os.Parcel in) {
-            return new Data(in);
+        public DatumSewaMesin createFromParcel(android.os.Parcel in) {
+            return new DatumSewaMesin(in);
         }
 
-        public Data[] newArray(int size) {
-            return (new Data[size]);
+        public DatumSewaMesin[] newArray(int size) {
+            return (new DatumSewaMesin[size]);
         }
 
     }
     ;
 
-    protected Data(android.os.Parcel in) {
+    protected DatumSewaMesin(android.os.Parcel in) {
         this.createdBy = ((String) in.readValue((String.class.getClassLoader())));
         this.createdDate = ((String) in.readValue((String.class.getClassLoader())));
         this.updatedBy = ((String) in.readValue((String.class.getClassLoader())));
@@ -89,7 +96,7 @@ public class Data implements Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public Data() {
+    public DatumSewaMesin() {
     }
 
     /**
@@ -109,7 +116,7 @@ public class Data implements Parcelable
      * @param deskProduk
      * @param idProfil
      */
-    public Data(String createdBy, String createdDate, String updatedBy, String updatedDate, String idSewaMesin, String idProfil, String idProduk, String idTipeProduk, String namaProduk, Integer hargaProduk, String deskProduk, String idFoto, String kota, Integer jmlTerjual) {
+    public DatumSewaMesin(String createdBy, String createdDate, String updatedBy, String updatedDate, String idSewaMesin, String idProfil, String idProduk, String idTipeProduk, String namaProduk, Integer hargaProduk, String deskProduk, String idFoto, String kota, Integer jmlTerjual) {
         super();
         this.createdBy = createdBy;
         this.createdDate = createdDate;
@@ -242,7 +249,7 @@ public class Data implements Parcelable
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(Data.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(DatumSewaMesin.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("createdBy");
         sb.append('=');
         sb.append(((this.createdBy == null)?"<null>":this.createdBy));

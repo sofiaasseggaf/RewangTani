@@ -1,8 +1,9 @@
 
-package com.rewangTani.rewangtani.model.modelupperbar.rencanatanam;
+package com.rewangTani.rewangtani.data.entity.rencanatanam;
 
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -13,8 +14,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "rencana_tanam")
 public class DatumRencanaTanam implements Parcelable
 {
-    @PrimaryKey
-    private int id;
+
     @SerializedName("createdBy")
     @Expose
     private String createdBy;
@@ -27,6 +27,8 @@ public class DatumRencanaTanam implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idRencanaTanam")
     @Expose
     private String idRencanaTanam;
@@ -258,14 +260,6 @@ public class DatumRencanaTanam implements Parcelable
         this.withPompa = withPompa;
         this.luasLahan = luasLahan;
         this.potensiHasilVarietas = potensiHasilVarietas;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCreatedBy() {

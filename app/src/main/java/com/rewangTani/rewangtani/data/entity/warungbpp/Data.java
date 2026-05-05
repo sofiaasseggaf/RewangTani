@@ -1,5 +1,5 @@
 
-package com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida;
+package com.rewangTani.rewangtani.data.entity.warungbpp;
 
 import android.os.Parcelable;
 
