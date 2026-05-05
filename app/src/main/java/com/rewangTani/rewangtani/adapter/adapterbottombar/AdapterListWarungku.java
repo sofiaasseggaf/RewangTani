@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -30,10 +30,10 @@ public class AdapterListWarungku extends RecyclerView.Adapter<RecyclerView.ViewH
     List<DatumProduk> dataItemList;
     List<DatumSewaMesin> sewaMesinList;
     List<DatumTenagaKerja> tenagaKerjaList;
-    List<DatumPupukPestisida> pupukPestisidaList;
+    List<DatumBpp> pupukPestisidaList;
     DecimalFormat formatter;
 
-    public AdapterListWarungku(List<DatumProduk> dataItemList, List<DatumSewaMesin> sewaMesinList, List<DatumTenagaKerja> tenagaKerjaList, List<DatumPupukPestisida> pupukPestisidaList) {
+    public AdapterListWarungku(List<DatumProduk> dataItemList, List<DatumSewaMesin> sewaMesinList, List<DatumTenagaKerja> tenagaKerjaList, List<DatumBpp> pupukPestisidaList) {
         this.dataItemList = dataItemList;
         this.sewaMesinList = sewaMesinList;
         this.tenagaKerjaList = tenagaKerjaList;

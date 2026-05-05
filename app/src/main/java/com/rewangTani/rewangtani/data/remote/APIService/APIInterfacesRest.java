@@ -25,7 +25,7 @@ import com.rewangTani.rewangtani.model.modelnoneditable.statuspekerja.ModelStatu
 import com.rewangTani.rewangtani.model.modelnoneditable.tipeproduk.ModelTipeProduk;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelphoto.DataPhotoById;
-import com.rewangTani.rewangtani.model.modelproduk.DataProdukById;
+import com.rewangTani.rewangtani.data.entity.product.DataProdukById;
 import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
 import com.rewangTani.rewangtani.model.modelprofillahan.DataProfilLahanById;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
@@ -37,16 +37,16 @@ import com.rewangTani.rewangtani.model.modelnoneditable.harga.ModelHarga;
 import com.rewangTani.rewangtani.model.modelnoneditable.kategoriharga.ModelKategoriHarga;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelnoneditable.subkategoriharga.ModelSubKategoriHarga;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ResponseRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DataBppById;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DataSewaMesinById;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DataTenagaKerjaById;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DataBppById;
+import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.DataSewaMesinById;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DataTenagaKerjaById;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
 
 import java.util.List;
 
@@ -146,7 +146,7 @@ public interface APIInterfacesRest {
     @GET("rencana-tanam/read")
     Call<ModelRencanaTanam> getDataRencanaTanam();
 
-    @GET("rencana-tanam/readbyidprofil")
+    @GET("rencana-tanam/read")
     Call<ModelRencanaTanam> getDataRencanaTanamByProfilId( @Query("idProfil") String idProfil);
 
     @POST("rencana-tanam/create")
@@ -384,7 +384,7 @@ public interface APIInterfacesRest {
 
     // warung bibit pupuk pestisida
     @GET("warung-bpp/read")
-    Call<ModelPupukPestisida> getDataWarungBibitPupukPestisida();
+    Call<ModelBpp> getDataWarungBibitPupukPestisida();
 
 
     // warung bibit pupuk pestisida by id
@@ -403,7 +403,7 @@ public interface APIInterfacesRest {
     );
 
     @DELETE("warung-bpp/delete")
-    Call<ModelPupukPestisida> deleteBibitPestisida(
+    Call<ModelBpp> deleteBibitPestisida(
             @Query("id") String id);
 
 

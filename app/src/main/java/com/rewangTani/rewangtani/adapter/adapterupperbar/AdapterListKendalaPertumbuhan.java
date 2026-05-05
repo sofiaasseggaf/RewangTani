@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.model.modelupperbar.kendalapertumbuhan.DatumKendalaPertumbuhan;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import java.util.List;
 
 public class AdapterListKendalaPertumbuhan extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

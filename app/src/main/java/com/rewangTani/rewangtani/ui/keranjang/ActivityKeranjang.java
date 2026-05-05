@@ -46,7 +46,6 @@ public class ActivityKeranjang extends AppCompatActivity
     private void observeViewModel()
     {
         viewModel.loadProducts();
-        viewModel.loadProfiles();
 
         viewModel.isLoading.observe(this, isLoading -> {
             binding.viewLoading.setVisibility(isLoading ? View.VISIBLE : View.GONE);

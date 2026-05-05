@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -24,10 +24,10 @@ import java.util.Locale;
 
 public class AdapterListWarungPestisidaGaris extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<DatumPupukPestisida> dataItemList;
+    List<DatumBpp> dataItemList;
     DecimalFormat formatter;
 
-    public AdapterListWarungPestisidaGaris(List<DatumPupukPestisida> dataItemList) {
+    public AdapterListWarungPestisidaGaris(List<DatumBpp> dataItemList) {
         this.dataItemList = dataItemList;
     }
 

@@ -94,10 +94,10 @@ public class ActivityRegister extends AppCompatActivity {
 
         binding.btnPassword2.setOnClickListener(v -> {
             if (isVisible2) {
-                binding.txtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                binding.txtRepeatPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 binding.btnPassword2.setImageResource(R.drawable.ic_password_show);
             } else {
-                binding.txtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                binding.txtRepeatPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 binding.btnPassword2.setImageResource(R.drawable.ic_password_hide);
             }
             isVisible2 = !isVisible2;
