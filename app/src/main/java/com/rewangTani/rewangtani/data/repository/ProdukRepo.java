@@ -11,7 +11,7 @@ import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.ProdukDao;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.model.modelproduk.DataProdukById;
+import com.rewangTani.rewangtani.data.entity.product.DataProdukById;
 
 import java.util.List;
 

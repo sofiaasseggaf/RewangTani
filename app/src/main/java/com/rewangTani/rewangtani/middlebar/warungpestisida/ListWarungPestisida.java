@@ -29,8 +29,8 @@ import com.rewangTani.rewangtani.databinding.MiddlebarListWarungPestisidaBinding
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
+import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
@@ -49,12 +49,12 @@ public class ListWarungPestisida extends AppCompatActivity {
     AdapterListWarungPestisida itemList;
     AdapterListWarungPestisidaGaris itemListGaris;
     AdapterListWarungPestisidaMonitor itemListMonitor;
-    ModelPupukPestisida modelPupukPestisida;
-    List<DatumPupukPestisida> listPestisida = new ArrayList<>();
-    List<DatumPupukPestisida> listPestisidaSorted = new ArrayList<>();
-    List<DatumPupukPestisida> listPestisidaSorted2 = new ArrayList<>();
-    List<DatumPupukPestisida> listPestisidaSortedHargaTerendah = new ArrayList<>();
-    List<DatumPupukPestisida> listPestisidaSortedHargaTertinggi = new ArrayList<>();
+    ModelBpp modelBpp;
+    List<DatumBpp> listPestisida = new ArrayList<>();
+    List<DatumBpp> listPestisidaSorted = new ArrayList<>();
+    List<DatumBpp> listPestisidaSorted2 = new ArrayList<>();
+    List<DatumBpp> listPestisidaSortedHargaTerendah = new ArrayList<>();
+    List<DatumBpp> listPestisidaSortedHargaTertinggi = new ArrayList<>();
     String namaUrutan;
     String[] urutan;
     List<String> urutanTanggal = new ArrayList<>();
@@ -231,17 +231,17 @@ public class ListWarungPestisida extends AppCompatActivity {
 
     public void getPestisida() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
-                modelPupukPestisida = response.body();
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
+                modelBpp = response.body();
                 if (response.body() != null) {
                     listPestisida.clear();
-                    for (int i = 0; i < modelPupukPestisida.getTotalData(); i++) {
-                        if (modelPupukPestisida.getData().get(i).getIdTipeProduk()
+                    for (int i = 0; i < modelBpp.getTotalData(); i++) {
+                        if (modelBpp.getData().get(i).getIdTipeProduk()
                                 .equalsIgnoreCase(Global.PESTISIDA))
-                            listPestisida.add(modelPupukPestisida.getData().get(i));
+                            listPestisida.add(modelBpp.getData().get(i));
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -254,7 +254,7 @@ public class ListWarungPestisida extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

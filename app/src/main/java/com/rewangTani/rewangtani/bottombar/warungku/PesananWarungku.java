@@ -23,12 +23,12 @@ import com.rewangTani.rewangtani.databinding.BottombarWarungkuPesananwarungkuBin
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
 import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.DatumSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelsewamesin.ModelSewaMesin;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.DatumTenagaKerja;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modeltenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
+import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
+import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
@@ -47,7 +47,7 @@ public class PesananWarungku extends AppCompatActivity {
     List<DatumProduk> listDataProduk = new ArrayList<DatumProduk>();
     List<DatumSewaMesin> sewaMesinList = new ArrayList<>();
     List<DatumTenagaKerja> tenagaKerjaList = new ArrayList<>();
-    List<DatumPupukPestisida> pupukPestisidaList = new ArrayList<>();
+    List<DatumBpp> pupukPestisidaList = new ArrayList<>();
     AdapterListWarungku itemList;
     int checkKelengkapan = Global.INT_DEFAULT_VALUE;
 
@@ -293,17 +293,17 @@ public class PesananWarungku extends AppCompatActivity {
 
     public void getDataPupukPestisida() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
-                ModelPupukPestisida modelPupukPestisida = response.body();
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
+                ModelBpp modelBpp = response.body();
                 if (response.body() != null) {
                     pupukPestisidaList.clear();
                     for (int i = 0; i < listDataProduk.size(); i++) {
-                        for (int j = 0; j < modelPupukPestisida.getTotalData(); j++) {
-                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelPupukPestisida.getData().get(j).getIdProduk())) {
-                                pupukPestisidaList.add(modelPupukPestisida.getData().get(j));
+                        for (int j = 0; j < modelBpp.getTotalData(); j++) {
+                            if (listDataProduk.get(i).getIdProduk().equalsIgnoreCase(modelBpp.getData().get(j).getIdProduk())) {
+                                pupukPestisidaList.add(modelBpp.getData().get(j));
                             }
                         }
                     }
@@ -318,7 +318,7 @@ public class PesananWarungku extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

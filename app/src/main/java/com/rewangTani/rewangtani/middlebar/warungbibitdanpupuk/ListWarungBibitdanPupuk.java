@@ -29,8 +29,8 @@ import com.rewangTani.rewangtani.databinding.MiddlebarListWarungBibitPupukBindin
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.DatumPupukPestisida;
-import com.rewangTani.rewangtani.model.modelwarungwarung.modelpupukpestisida.ModelPupukPestisida;
+import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
+import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
@@ -49,12 +49,12 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
     AdapterListWarungBibitdanPupuk itemList;
     AdapterListWarungBibitdanPupukGaris itemListGaris;
     AdapterListWarungBibitdanPupukMonitor itemListMonitor;
-    ModelPupukPestisida modelPupukPestisida;
-    List<DatumPupukPestisida> listBibitdanPupuk = new ArrayList<>();
-    List<DatumPupukPestisida> listBibitdanPupukSorted = new ArrayList<>();
-    List<DatumPupukPestisida> listBibitdanPupukSorted2 = new ArrayList<>();
-    List<DatumPupukPestisida> listBibitdanPupukSortedHargaTerendah = new ArrayList<>();
-    List<DatumPupukPestisida> listBibitdanPupukSortedHargaTertinggi = new ArrayList<>();
+    ModelBpp modelBpp;
+    List<DatumBpp> listBibitdanPupuk = new ArrayList<>();
+    List<DatumBpp> listBibitdanPupukSorted = new ArrayList<>();
+    List<DatumBpp> listBibitdanPupukSorted2 = new ArrayList<>();
+    List<DatumBpp> listBibitdanPupukSortedHargaTerendah = new ArrayList<>();
+    List<DatumBpp> listBibitdanPupukSortedHargaTertinggi = new ArrayList<>();
     String namaUrutan;
     String[] urutan;
     List<String> urutanTanggal = new ArrayList<>();
@@ -211,19 +211,19 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
 
     public void getPupuk() {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelPupukPestisida> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
-        dataRT.enqueue(new Callback<ModelPupukPestisida>() {
+        final Call<ModelBpp> dataRT = apiInterface.getDataWarungBibitPupukPestisida();
+        dataRT.enqueue(new Callback<ModelBpp>() {
             @Override
-            public void onResponse(Call<ModelPupukPestisida> call, Response<ModelPupukPestisida> response) {
-                modelPupukPestisida = response.body();
+            public void onResponse(Call<ModelBpp> call, Response<ModelBpp> response) {
+                modelBpp = response.body();
                 if (response.body()!=null){
                     listBibitdanPupuk.clear();
-                    for (int i = 0; i < modelPupukPestisida.getTotalData(); i++) {
-                        if (modelPupukPestisida.getData().get(i).getIdTipeProduk()
+                    for (int i = 0; i < modelBpp.getTotalData(); i++) {
+                        if (modelBpp.getData().get(i).getIdTipeProduk()
                                 .equalsIgnoreCase(Global.BIBIT) ||
-                                modelPupukPestisida.getData().get(i).getIdTipeProduk()
+                                modelBpp.getData().get(i).getIdTipeProduk()
                                         .equalsIgnoreCase(Global.PUPUK))
-                            listBibitdanPupuk.add(modelPupukPestisida.getData().get(i));
+                            listBibitdanPupuk.add(modelBpp.getData().get(i));
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -242,7 +242,7 @@ public class ListWarungBibitdanPupuk extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ModelPupukPestisida> call, Throwable t) {
+            public void onFailure(Call<ModelBpp> call, Throwable t) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

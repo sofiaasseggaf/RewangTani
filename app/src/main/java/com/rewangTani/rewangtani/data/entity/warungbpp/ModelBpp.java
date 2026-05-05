@@ -1,65 +1,73 @@
 
-package com.rewangTani.rewangtani.model.modelupperbar.rencanatanam;
+package com.rewangTani.rewangtani.data.entity.warungbpp;
 
 import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseRencanaTanam implements Parcelable
+import java.util.List;
+
+public class ModelBpp implements Parcelable
 {
 
     @SerializedName("data")
     @Expose
-    private Data data;
+    private List<DatumBpp> data = null;
     @SerializedName("message")
     @Expose
     private String message;
-    public final static Creator<ResponseRencanaTanam> CREATOR = new Creator<ResponseRencanaTanam>() {
+    @SerializedName("totalData")
+    @Expose
+    private Integer totalData;
+    public final static Creator<ModelBpp> CREATOR = new Creator<ModelBpp>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public ResponseRencanaTanam createFromParcel(android.os.Parcel in) {
-            return new ResponseRencanaTanam(in);
+        public ModelBpp createFromParcel(android.os.Parcel in) {
+            return new ModelBpp(in);
         }
 
-        public ResponseRencanaTanam[] newArray(int size) {
-            return (new ResponseRencanaTanam[size]);
+        public ModelBpp[] newArray(int size) {
+            return (new ModelBpp[size]);
         }
 
     }
     ;
 
-    protected ResponseRencanaTanam(android.os.Parcel in) {
-        this.data = ((Data) in.readValue((Data.class.getClassLoader())));
+    protected ModelBpp(android.os.Parcel in) {
+        in.readList(this.data, (DatumBpp.class.getClassLoader()));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
+        this.totalData = ((Integer) in.readValue((Integer.class.getClassLoader())));
     }
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public ResponseRencanaTanam() {
+    public ModelBpp() {
     }
 
     /**
      * 
+     * @param totalData
      * @param data
      * @param message
      */
-    public ResponseRencanaTanam(Data data, String message) {
+    public ModelBpp(List<DatumBpp> data, String message, Integer totalData) {
         super();
         this.data = data;
         this.message = message;
+        this.totalData = totalData;
     }
 
-    public Data getData() {
+    public List<DatumBpp> getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(List<DatumBpp> data) {
         this.data = data;
     }
 
@@ -71,10 +79,18 @@ public class ResponseRencanaTanam implements Parcelable
         this.message = message;
     }
 
+    public Integer getTotalData() {
+        return totalData;
+    }
+
+    public void setTotalData(Integer totalData) {
+        this.totalData = totalData;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(ResponseRencanaTanam.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
+        sb.append(ModelBpp.class.getName()).append('@').append(Integer.toHexString(System.identityHashCode(this))).append('[');
         sb.append("data");
         sb.append('=');
         sb.append(((this.data == null)?"<null>":this.data));
@@ -82,6 +98,10 @@ public class ResponseRencanaTanam implements Parcelable
         sb.append("message");
         sb.append('=');
         sb.append(((this.message == null)?"<null>":this.message));
+        sb.append(',');
+        sb.append("totalData");
+        sb.append('=');
+        sb.append(((this.totalData == null)?"<null>":this.totalData));
         sb.append(',');
         if (sb.charAt((sb.length()- 1)) == ',') {
             sb.setCharAt((sb.length()- 1), ']');
@@ -92,8 +112,9 @@ public class ResponseRencanaTanam implements Parcelable
     }
 
     public void writeToParcel(android.os.Parcel dest, int flags) {
-        dest.writeValue(data);
+        dest.writeList(data);
         dest.writeValue(message);
+        dest.writeValue(totalData);
     }
 
     public int describeContents() {
