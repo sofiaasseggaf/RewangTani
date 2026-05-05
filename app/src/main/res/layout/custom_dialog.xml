@@ -45,11 +45,11 @@
                 android:background="@drawable/frame_button_white_top_stroke_gray">
 
                 <TextView
+                    android:id="@+id/txt_option_a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/inter_regular"
-                    android:text="YA"
                     android:textColor="#16672E"
                     android:textSize="12sp" />
             </RelativeLayout>
@@ -62,11 +62,11 @@
                 android:background="@drawable/frame_button_white_top_left_stroke_gray">
 
                 <TextView
+                    android:id="@+id/txt_option_b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/inter_regular"
-                    android:text="TIDAK"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
             </RelativeLayout>

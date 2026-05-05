@@ -166,12 +166,14 @@ public class DetailProfilLahan extends AppCompatActivity {
         binding.luasGarapan.setText(dataProfilLahan.getLuasGarapan().toString() + " m2");
 
 
-        String ph2 = dataProfilLahan.getPhTanah().toString();
-        double ph = Double.valueOf(ph2.substring(0, ph2.length() - 2))/10;
+        Integer ph2 = dataProfilLahan.getPhTanah();
+//        double ph = Double.valueOf(ph2.substring(0, ph2.length() - 2))/10;
+        double ph = ph2/10;
         binding.phTanah.setText(String.valueOf(ph));
 
-        String kt2 = dataProfilLahan.getKemiringanTanah().toString();
-        double kt = Double.valueOf(kt2.substring(0, kt2.length() - 2))/10;
+        Integer kt2 = dataProfilLahan.getKemiringanTanah();
+//        double kt = Double.valueOf(kt2.substring(0, kt2.length() - 2))/10;
+        double kt = kt2/10;
         binding.kemiringanTanah.setText(String.valueOf(kt));
 
         binding.sistemIrigasi.setText(namaSistemIrigasi);

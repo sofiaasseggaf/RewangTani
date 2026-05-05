@@ -140,6 +140,9 @@ public interface APIInterfacesRest {
     Call<ModelProfilLahan> deleteProfilLahan(
             @Query("id") String id);
 
+    @GET("profile-tanah/read")
+    Call<ModelProfilLahan> getDataProfileLahanByAkunId( @Query("idUser") String idUser);
+
 
     // -------------------------------------------- RENCANA TANAM --------------------------------------------
 

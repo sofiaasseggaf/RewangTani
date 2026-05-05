@@ -3,9 +3,14 @@ package com.rewangTani.rewangtani.model.modelprofillahan;
 
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "profil_lahan")
 public class DatumProfilLahan implements Parcelable
 {
 
@@ -21,6 +26,8 @@ public class DatumProfilLahan implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idProfileTanah")
     @Expose
     private String idProfileTanah;
@@ -29,7 +36,7 @@ public class DatumProfilLahan implements Parcelable
     private String idUser;
     @SerializedName("idAlamat")
     @Expose
-    private Object idAlamat;
+    private String idAlamat;
     @SerializedName("latitude")
     @Expose
     private String latitude;
@@ -38,19 +45,21 @@ public class DatumProfilLahan implements Parcelable
     private String longitude;
     @SerializedName("luasGarapan")
     @Expose
-    private Object luasGarapan;
+    private String luasGarapan;
     @SerializedName("idSistemIrigasi")
     @Expose
-    private Object idSistemIrigasi;
+    private String idSistemIrigasi;
     @SerializedName("kemiringanTanah")
     @Expose
-    private Object kemiringanTanah;
+    private Integer kemiringanTanah;
     @SerializedName("phTanah")
     @Expose
-    private Object phTanah;
+    private Integer phTanah;
     @SerializedName("namaProfilTanah")
     @Expose
     private String namaProfilTanah;
+    public long lastUpdated;
+
     public final static Creator<DatumProfilLahan> CREATOR = new Creator<DatumProfilLahan>() {
 
 
@@ -75,13 +84,13 @@ public class DatumProfilLahan implements Parcelable
         this.updatedDate = ((String) in.readValue((String.class.getClassLoader())));
         this.idProfileTanah = ((String) in.readValue((String.class.getClassLoader())));
         this.idUser = ((String) in.readValue((String.class.getClassLoader())));
-        this.idAlamat = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.idAlamat = ((String) in.readValue((String.class.getClassLoader())));
         this.latitude = ((String) in.readValue((String.class.getClassLoader())));
         this.longitude = ((String) in.readValue((String.class.getClassLoader())));
-        this.luasGarapan = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.idSistemIrigasi = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.kemiringanTanah = ((Object) in.readValue((Object.class.getClassLoader())));
-        this.phTanah = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.luasGarapan = ((String) in.readValue((String.class.getClassLoader())));
+        this.idSistemIrigasi = ((String) in.readValue((String.class.getClassLoader())));
+        this.kemiringanTanah = ((Integer) in.readValue((String.class.getClassLoader())));
+        this.phTanah = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.namaProfilTanah = ((String) in.readValue((String.class.getClassLoader())));
     }
 
@@ -109,7 +118,7 @@ public class DatumProfilLahan implements Parcelable
      * @param idProfileTanah
      * @param longitude
      */
-    public DatumProfilLahan(String createdBy, String createdDate, String updatedBy, String updatedDate, String idProfileTanah, String idUser, Object idAlamat, String latitude, String longitude, Object luasGarapan, Object idSistemIrigasi, Object kemiringanTanah, Object phTanah, String namaProfilTanah) {
+    public DatumProfilLahan(String createdBy, String createdDate, String updatedBy, String updatedDate, String idProfileTanah, String idUser, String idAlamat, String latitude, String longitude, String luasGarapan, String idSistemIrigasi, Integer kemiringanTanah, Integer phTanah, String namaProfilTanah) {
         super();
         this.createdBy = createdBy;
         this.createdDate = createdDate;
@@ -175,11 +184,11 @@ public class DatumProfilLahan implements Parcelable
         this.idUser = idUser;
     }
 
-    public Object getIdAlamat() {
+    public String getIdAlamat() {
         return idAlamat;
     }
 
-    public void setIdAlamat(Object idAlamat) {
+    public void setIdAlamat(String idAlamat) {
         this.idAlamat = idAlamat;
     }
 
@@ -199,35 +208,35 @@ public class DatumProfilLahan implements Parcelable
         this.longitude = longitude;
     }
 
-    public Object getLuasGarapan() {
+    public String getLuasGarapan() {
         return luasGarapan;
     }
 
-    public void setLuasGarapan(Object luasGarapan) {
+    public void setLuasGarapan(String luasGarapan) {
         this.luasGarapan = luasGarapan;
     }
 
-    public Object getIdSistemIrigasi() {
+    public String getIdSistemIrigasi() {
         return idSistemIrigasi;
     }
 
-    public void setIdSistemIrigasi(Object idSistemIrigasi) {
+    public void setIdSistemIrigasi(String idSistemIrigasi) {
         this.idSistemIrigasi = idSistemIrigasi;
     }
 
-    public Object getKemiringanTanah() {
+    public Integer getKemiringanTanah() {
         return kemiringanTanah;
     }
 
-    public void setKemiringanTanah(Object kemiringanTanah) {
+    public void setKemiringanTanah(Integer kemiringanTanah) {
         this.kemiringanTanah = kemiringanTanah;
     }
 
-    public Object getPhTanah() {
+    public Integer getPhTanah() {
         return phTanah;
     }
 
-    public void setPhTanah(Object phTanah) {
+    public void setPhTanah(Integer phTanah) {
         this.phTanah = phTanah;
     }
 
