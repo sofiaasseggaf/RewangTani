@@ -34,17 +34,23 @@ public class ActivityKeranjang extends AppCompatActivity
         binding.rvKeranjang.setLayoutManager(new LinearLayoutManager(this));
         binding.rvKeranjang.setAdapter(adapter);
 
+        initEvent();
+        initObserver();
+    }
+
+    private void initEvent()
+    {
+
         binding.btnMetodePengiriman.setOnClickListener( v -> {
             Intent intent = new Intent(this, FakePaymentActivity.class);
             intent.putExtra("Harga", binding.txtTotal.getText().toString());
             startActivity(intent);
         });
-
-        observeViewModel();
     }
 
-    private void observeViewModel()
+    private void initObserver()
     {
+
         viewModel.loadProducts();
 
         viewModel.isLoading.observe(this, isLoading -> {

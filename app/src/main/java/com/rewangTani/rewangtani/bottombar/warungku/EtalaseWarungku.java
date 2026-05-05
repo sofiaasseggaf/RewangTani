@@ -211,7 +211,6 @@ public class EtalaseWarungku extends AppCompatActivity {
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 findViewById(R.id.view_belum_punya).setVisibility(View.VISIBLE);
-                                Toast.makeText(EtalaseWarungku.this, "Anda belum memiliki produk", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

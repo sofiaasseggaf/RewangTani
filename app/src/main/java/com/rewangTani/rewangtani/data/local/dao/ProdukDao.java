@@ -22,4 +22,8 @@ public interface ProdukDao
 
     @Query("DELETE FROM produk")
     void deleteAll();
+
+//    @Query(" SELECT p.*, a.namaProduk AS nameA, b.namaProduk AS nameB, c.namaTenagaKerja AS nameC FROM produk p LEFT JOIN warung_bpp a ON a.idProduk = p.idProduk" +
+//            " LEFT JOIN warung_sewa_mesin b ON b.idProduk = p.idProduk LEFT JOIN warung_tenaga_kerja c ON c.idProduk = c.idProduk WHERE p.idProduk = :id")
+//    ProductResolver getProductWithNames(String id);
 }

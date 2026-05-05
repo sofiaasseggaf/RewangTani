@@ -2,7 +2,6 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
@@ -16,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -262,7 +260,7 @@ public class InputRencanaTanamA extends AppCompatActivity {
                                 binding.viewLoading.setVisibility(View.GONE);
                                 Utils.showCustomAlertDialogTwoButtons(
                                         InputRencanaTanamA.this,
-                                        "Buat profil lahan terlebih dahulu",
+                                        getString(R.string.txt_dialog_msg_profile_lahan),
                                         okButton -> goToProfilLahan(),
                                         cancelButton -> goToListRT() );
 
@@ -526,25 +524,12 @@ public class InputRencanaTanamA extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal Input Rencana Tanam ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToListRT();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        Utils.showCustomAlertDialog(
+                InputRencanaTanamA.this,
+                getString(R.string.confirm_batal_input_rt),
+                okButton -> goToListRT() );
     }
 
 }

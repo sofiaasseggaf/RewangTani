@@ -15,15 +15,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.UpperbarPInputPanenBinding;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.UpperbarPInputPanenBinding;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import org.json.JSONObject;
 
@@ -316,24 +317,12 @@ public class InputPanen extends AppCompatActivity {
         finish();
     }
 
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal tambah panen ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToListPanen();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        Utils.showCustomAlertDialog(
+                InputPanen.this,
+                getString(R.string.confirm_batal_tambah_panen),
+                okButton -> goToListPanen() );
     }
+
 }

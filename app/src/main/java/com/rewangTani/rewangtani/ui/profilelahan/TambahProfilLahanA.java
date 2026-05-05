@@ -2,11 +2,12 @@ package com.rewangTani.rewangtani.ui.profilelahan;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,21 +15,19 @@ import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
-import android.location.Criteria;
-import android.location.Location;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanABinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -334,28 +333,17 @@ public class TambahProfilLahanA extends FragmentActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal Tambah Profil Lahan ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        PreferenceUtils.savePLnamaProfilLahan("", getApplicationContext());
-                        PreferenceUtils.savePLlatitude("", getApplicationContext());
-                        PreferenceUtils.savePLlongitude("", getApplicationContext());
-                        goToListProfilLahan();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        Utils.showCustomAlertDialog(
+                TambahProfilLahanA.this,
+                getString(R.string.confirm_batal_tambah_pl),
+                okButton -> {
+                    PreferenceUtils.savePLnamaProfilLahan("", getApplicationContext());
+                    PreferenceUtils.savePLlatitude("", getApplicationContext());
+                    PreferenceUtils.savePLlongitude("", getApplicationContext());
+                    goToListProfilLahan();
+                } );
     }
 
     @Override

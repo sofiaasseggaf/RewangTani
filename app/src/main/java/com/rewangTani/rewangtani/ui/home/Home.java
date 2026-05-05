@@ -2,7 +2,6 @@ package com.rewangTani.rewangtani.ui.home;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -58,6 +56,7 @@ import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
 import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
@@ -102,48 +101,33 @@ public class Home extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_home);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding.txtNama.setText("Hai, " + PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext()));
+        initLayout();
+        initEvent();
+        initObserver();
+        initListener();
+        getLoc();
+        getInboxParticipant();
+    }
+
+    private void initLayout()
+    {
+
+        String user = "Hai, " + PreferenceUtils.getNamaDepan(getApplicationContext()) + " " + PreferenceUtils.getNamaBelakang(getApplicationContext());
+        binding.txtNama.setText(user);
 
         adapterHomeImageCarousel = new AdapterHomeImageCarousel(this, imageIds);
         binding.viewPager.setAdapter(adapterHomeImageCarousel);
         addDotsIndicator(0);
+    }
 
-        binding.viewPager.setOnClickListener(v -> {
-            goToBlog();
-        });
+    private void initEvent()
+    {
 
-        getLoc();
-        getInboxParticipant();
+        binding.viewPager.setOnClickListener(v -> goToBlog() );
+        binding.btnRencanaTanam.setOnClickListener( v -> goToRencanaTanam() );
 
-        binding.btnRencanaTanam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToRencanaTanam();
-            }
-        });
-
-        binding.btnSudahTanam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
-                builder.setMessage("Apa yang ingin anda perbarui ?")
-                        .setCancelable(true)
-                        .setPositiveButton("Proses Tanam", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToSudahTanam();
-                            }
-                        })
-
-                        .setNegativeButton("Kendala Pertumbuhan", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                gotoKendalaPertumbuhan();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+        binding.btnCart.setOnClickListener(v -> {
+            goToKeranjang();
         });
 
         binding.btnHasilPanen.setOnClickListener(new View.OnClickListener() {
@@ -224,6 +208,26 @@ public class Home extends AppCompatActivity
             }
         });
 
+        binding.btnSudahTanam.setOnClickListener( v -> {
+            Utils.showCustomAlertDialogTwoCustomTextButtons(
+                    Home.this,
+                    getString(R.string.confirm_page_st),
+                    okButton -> goToSudahTanam(),
+                    cancelButton -> gotoKendalaPertumbuhan(),
+                    getString(R.string.page_pt),
+                    getString(R.string.page_kp));
+        });
+
+    }
+
+    private void initObserver()
+    {
+
+    }
+
+    private void initListener()
+    {
+
         binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -239,11 +243,6 @@ public class Home extends AppCompatActivity
             public void onPageScrollStateChanged(int state) {
             }
         });
-
-        binding.btnCart.setOnClickListener(v -> {
-            goToKeranjang();
-        });
-
     }
 
     public void getLoc()

@@ -14,6 +14,10 @@
     <!-- Confirmation Text-->
     <string name="confirm_exit">Anda mau menutup aplikasi ?</string>
     <string name="confirm_batal_input_rt">Batal Input Rencana Tanam ?</string>
+    <string name="confirm_batal_tambah_pl">Batal Tambah Profil Lahan ?</string>
+    <string name="confirm_batal_tambah_panen">Batal tambah panen ?</string>
+    <string name="confirm_batal_tambah_produk">Batal tambah produk ?</string>
+    <string name="confirm_batal_tambah_info">Batal tambah info terbaru ?</string>
     <string name="confirm_page_st">Apa yang ingin anda perbarui ?</string>
     <string name="confirm_lengkapi_data_profile">Lengkapi Data Profil</string>
     <string name="confirm_back">"Kembali</string>
@@ -24,7 +28,7 @@
     <string name="page_rt">Rencana Tanam</string>
     <string name="page_kt">Sudah Tanam</string>
     <string name="page_pt">Proses Tanam</string>
-    <string name="page_kp">Hasil Panen</string>
+    <string name="page_kp">Kendala Pertumbuhan</string>
     <string name="page_hp">Hasil Panen</string>
     <string name="page_rb">Rencana Biaya</string>
 

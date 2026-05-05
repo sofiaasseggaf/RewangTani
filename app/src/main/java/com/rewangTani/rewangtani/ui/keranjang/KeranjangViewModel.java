@@ -12,15 +12,16 @@ import androidx.lifecycle.MutableLiveData;
 import com.rewangTani.rewangtani.data.entity.product.CartItemUI;
 import com.rewangTani.rewangtani.data.entity.product.CartWithProduct;
 import com.rewangTani.rewangtani.data.entity.product.DatumKeranjangLocal;
-import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
 import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
+import com.rewangTani.rewangtani.data.entity.product.ProductResolver;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
-import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.KeranjangDao;
 import com.rewangTani.rewangtani.data.local.dao.ProfilDao;
+import com.rewangTani.rewangtani.data.local.dao.WarungBppDao;
+import com.rewangTani.rewangtani.data.local.dao.WarungSewaMesinDao;
+import com.rewangTani.rewangtani.data.local.dao.WarungTenagaKerjaDao;
 import com.rewangTani.rewangtani.data.repository.ProdukRepo;
-import com.rewangTani.rewangtani.data.repository.ProfilRepo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +36,14 @@ public class KeranjangViewModel extends AndroidViewModel
 {
 
     private final ProdukRepo productRepo;
-    private final ProfilRepo profileRepo;
     private final KeranjangDao keranjangDao;
     private final ProfilDao profilDao;
+    private final WarungBppDao warungBppDao;
+    private final WarungSewaMesinDao warungSewaMesinDao;
+    private final WarungTenagaKerjaDao warungTenagaKerjaDao;
+    private final ProductResolver productResolver;
     private final Executor executor = Executors.newSingleThreadExecutor();
-    private final LiveData<List<DatumProduk>> products;
-    private final LiveData<List<DatumProfil>> profiles;
     private ModelProduk cachedProducts;
-    private ModelProfilAkun cachedProfiles;
     public MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     public MutableLiveData<String> errorMessage = new MutableLiveData<>();
     public LiveData<List<CartWithProduct>> cartItems;
@@ -54,18 +55,19 @@ public class KeranjangViewModel extends AndroidViewModel
         super(application);
 
         productRepo = new ProdukRepo(application);
-        profileRepo = new ProfilRepo(application);
         keranjangDao = RewangTaniDB.getInstance(application).keranjangDao();
         profilDao = RewangTaniDB.getInstance(application).profilDao();
-        products = productRepo.getProducts();
-        profiles = profileRepo.getProfiles();
-        Log.i("SOFIA", " profile = " + profiles.getValue());
+        warungBppDao = RewangTaniDB.getInstance(application).warungBppDao();
+        warungSewaMesinDao = RewangTaniDB.getInstance(application).warungSewaMesinDao();
+        warungTenagaKerjaDao = RewangTaniDB.getInstance(application).warungTenagaKerjaDao();
+
+        productRepo.getProducts();
         cartItems = keranjangDao.getAllCarts();
+        productResolver = new ProductResolver(warungBppDao, warungSewaMesinDao, warungTenagaKerjaDao);
 
-        // 💰 Auto calculate total
-        totalPrice.addSource(cartItems, list -> {
+        totalPrice.addSource(cartItems, list ->
+        {
             int total = 0;
-
             if (list != null) {
                 for (CartWithProduct item : list) {
                     if (item.product != null) {
@@ -78,18 +80,25 @@ public class KeranjangViewModel extends AndroidViewModel
         });
 
 
-        cartUI.addSource(cartItems, list -> {
-            executor.execute(() -> {
+        cartUI.addSource(cartItems, list ->
+        {
+            if (list == null) return;
+            executor.execute(() ->
+            {
                 List<CartItemUI> result = new ArrayList<>();
+
                 for (CartWithProduct item : list)
                 {
                     DatumProfil profile =
                             profilDao.getProfileByProductIdDirect(item.keranjangLocal.productId);
+                    String name =
+                            productResolver.resolveName(item.product);
 
                     CartItemUI ui = new CartItemUI();
                     ui.product = item.product;
                     ui.cart = item.keranjangLocal;
                     ui.profile = profile;
+                    ui.productName = name;
 
                     result.add(ui);
                 }
@@ -97,11 +106,6 @@ public class KeranjangViewModel extends AndroidViewModel
                 cartUI.postValue(result);
             });
         });
-    }
-
-    public List<DatumProfil> getProfiles()
-    {
-        return profiles.getValue();
     }
 
     public void loadProducts()
@@ -122,30 +126,6 @@ public class KeranjangViewModel extends AndroidViewModel
 
             @Override
             public void onFailure(@NonNull Call<ModelProduk> call, @NonNull Throwable t) {
-                isLoading.setValue(false);
-                errorMessage.setValue("Koneksi error");
-            }
-        });
-    }
-
-    public void loadProfiles()
-    {
-        isLoading.setValue(true);
-        profileRepo.loadProfiles(new Callback<ModelProfilAkun>() {
-            @Override
-            public void onResponse(@NonNull Call<ModelProfilAkun> call, @NonNull Response<ModelProfilAkun> response) {
-                isLoading.setValue(false);
-
-                if (response.body() != null) {
-                    cachedProfiles = response.body();
-                    Log.i("SOFIA", "KeranjangVM - cachedProfiles = " + cachedProfiles.getTotalData());
-                } else {
-                    errorMessage.setValue("Data profiles kosong");
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<ModelProfilAkun> call, @NonNull Throwable t) {
                 isLoading.setValue(false);
                 errorMessage.setValue("Koneksi error");
             }
@@ -188,11 +168,14 @@ public class KeranjangViewModel extends AndroidViewModel
         });
     }
 
-    public void remove(String productId) {
+    public void remove(String productId)
+    {
         executor.execute(() -> keranjangDao.delete(productId));
     }
 
-    public LiveData<Integer> getTotalPrice() {
+    public LiveData<Integer> getTotalPrice()
+    {
         return totalPrice;
     }
+
 }

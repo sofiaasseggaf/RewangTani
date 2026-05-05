@@ -25,22 +25,23 @@ import androidx.databinding.DataBindingUtil;
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
-import com.rewangTani.rewangtani.databinding.BottombarWarungkuTambahWarungkuBinding;
-import com.rewangTani.rewangtani.model.modelphoto.DataPhotoById;
 import com.rewangTani.rewangtani.data.entity.product.DataProdukById;
 import com.rewangTani.rewangtani.data.entity.warungbpp.DataBppById;
 import com.rewangTani.rewangtani.data.entity.warungsewamesin.DataSewaMesinById;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DataTenagaKerjaById;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.BottombarWarungkuTambahWarungkuBinding;
+import com.rewangTani.rewangtani.model.modelphoto.DataPhotoById;
+import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -2580,25 +2581,12 @@ public class TambahWarungku extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal tambah produk ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToBeranda();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        Utils.showCustomAlertDialog(
+                TambahWarungku.this,
+                getString(R.string.confirm_batal_tambah_produk),
+                okButton -> goToBeranda() );
     }
 
 }

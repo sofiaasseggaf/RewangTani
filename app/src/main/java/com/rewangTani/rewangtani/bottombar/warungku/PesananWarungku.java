@@ -202,7 +202,6 @@ public class PesananWarungku extends AppCompatActivity {
                             @Override
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(PesananWarungku.this, "Anda belum memiliki produk", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

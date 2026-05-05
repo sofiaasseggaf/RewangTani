@@ -1,6 +1,5 @@
 package com.rewangTani.rewangtani.upperbar.infoperingatancuaca;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,21 +8,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.data.remote.APIService.ApiClientNotification;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.UpperbarInfoTambahinfoBinding;
 import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
 import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.data.remote.APIService.ApiClientNotification;
+import com.rewangTani.rewangtani.databinding.UpperbarInfoTambahinfoBinding;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.service.CuacaService;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -440,25 +439,11 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal tambah info terbaru ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToBerandaInfo();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog =builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        Utils.showCustomAlertDialog(
+                TambahInfoPeringatanCuaca.this,
+                getString(R.string.confirm_batal_tambah_info),
+                okButton -> goToBerandaInfo() );
     }
 }

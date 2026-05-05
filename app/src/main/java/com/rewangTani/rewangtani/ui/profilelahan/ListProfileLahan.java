@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.ui.profilelahan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -58,6 +59,7 @@ public class ListProfileLahan extends AppCompatActivity
 
         viewModel.profileLengkap.observe(this, isLengkap ->
         {
+            Toast.makeText(this, "profile lengkap ? = " + isLengkap, Toast.LENGTH_SHORT).show();
             if (isLengkap) {
                 goToTambahPL();
             } else {
