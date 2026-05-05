@@ -17,6 +17,9 @@ public interface ProfilLahanDao
     @Query("SELECT * FROM profil_lahan")
     LiveData<List<DatumProfilLahan>> getAllProfilLahan(); // all pl belong to user only
 
+    @Query("SELECT * FROM profil_lahan")
+    List<DatumProfilLahan> getAllProfilLahanLocal(); // all pl belong to user only
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<DatumProfilLahan> profilLahans);
 

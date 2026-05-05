@@ -1,6 +1,12 @@
 package com.rewangTani.rewangtani.utility;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -9,21 +15,221 @@ import com.rewangTani.rewangtani.R;
 public class DialogUtil
 {
 
-    public interface DialogCallback {
-        void onPositive();
+    public static void showCustomAlertDialog(
+            Context context,
+            String message,
+            View.OnClickListener okListener
+    ) {
+
+        // Inflate the custom layout
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.custom_dialog, null);
+        RelativeLayout okButton = customView.findViewById(R.id.btnOk);
+        RelativeLayout cancelButton = customView.findViewById(R.id.btnCancel);
+        TextView optionA = customView.findViewById(R.id.txt_option_a);
+        TextView optionB = customView.findViewById(R.id.txt_option_b);
+        TextView textMessage = customView.findViewById(R.id.textMessage);
+        optionA.setText("YA");
+        optionB.setText("TIDAK");
+        textMessage.setText(message);
+
+        // Create the AlertDialog
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(customView)
+                .setCancelable(false)
+                .create();
+
+        if (okButton != null) {
+            okButton.setOnClickListener(v -> {
+                if (okListener != null) okListener.onClick(v);
+                dialog.dismiss(); // Dismiss the dialog
+            });
+        }
+
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(v -> {
+                dialog.dismiss(); // Dismiss the dialog
+            });
+        }
+
+        // Adjust dialog window margins
+        dialog.setOnShowListener(dialogInterface -> {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.width = WindowManager.LayoutParams.MATCH_PARENT; // Match parent width
+                window.setAttributes(params);
+                window.setLayout((int) (context.getResources().getDisplayMetrics().widthPixels * 0.8), // 90% of screen width
+                        WindowManager.LayoutParams.WRAP_CONTENT); // Wrap content height
+            }
+        });
+
+        // Show the dialog
+        dialog.show();
     }
 
-    public static void showConfirmDialog(Context context, DialogCallback callback)
-    {
-        new AlertDialog.Builder(context)
-                .setMessage(context.getString(R.string.confirm_exit))
+    public static void showCustomAlertDialogTwoButtons(
+            Context context,
+            String message,
+            View.OnClickListener okListener,
+            View.OnClickListener cancelListener
+    ) {
+
+        // Inflate the custom layout
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.custom_dialog, null);
+        RelativeLayout okButton = customView.findViewById(R.id.btnOk);
+        RelativeLayout cancelButton = customView.findViewById(R.id.btnCancel);
+        TextView optionA = customView.findViewById(R.id.txt_option_a);
+        TextView optionB = customView.findViewById(R.id.txt_option_b);
+        TextView textMessage = customView.findViewById(R.id.textMessage);
+        optionA.setText("YA");
+        optionB.setText("TIDAK");
+        textMessage.setText(message);
+
+        // Create the AlertDialog
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(customView)
                 .setCancelable(false)
-                .setPositiveButton(context.getString(R.string.confirm_yes), (dialog, which) -> {
-                    if (callback != null) callback.onPositive();
-                })
-                .setNegativeButton(context.getString(R.string.confirm_no), (dialog, which) -> {
-                    dialog.dismiss();
-                })
-                .show();
+                .create();
+
+        if (okButton != null) {
+            okButton.setOnClickListener(v -> {
+                if (okListener != null) okListener.onClick(v);
+                dialog.dismiss(); // Dismiss the dialog
+            });
+        }
+
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(v -> {
+                if (cancelListener != null) cancelListener.onClick(v);
+                dialog.dismiss();
+            });
+        }
+
+        // Adjust dialog window margins
+        dialog.setOnShowListener(dialogInterface -> {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.width = WindowManager.LayoutParams.MATCH_PARENT; // Match parent width
+                window.setAttributes(params);
+                window.setLayout((int) (context.getResources().getDisplayMetrics().widthPixels * 0.8), // 90% of screen width
+                        WindowManager.LayoutParams.WRAP_CONTENT); // Wrap content height
+            }
+        });
+
+        // Show the dialog
+        dialog.show();
     }
+
+    public static void showCustomAlertDialogTwoCustomTextButtons(
+            Context context,
+            String message,
+            View.OnClickListener okListener,
+            View.OnClickListener cancelListener,
+            String txtOptionA,
+            String txtOptionB
+    ) {
+
+        // Inflate the custom layout
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.custom_dialog, null);
+        RelativeLayout okButton = customView.findViewById(R.id.btnOk);
+        RelativeLayout cancelButton = customView.findViewById(R.id.btnCancel);
+        TextView optionA = customView.findViewById(R.id.txt_option_a);
+        TextView optionB = customView.findViewById(R.id.txt_option_b);
+        TextView textMessage = customView.findViewById(R.id.textMessage);
+        textMessage.setText(message);
+        optionA.setText(txtOptionA);
+        optionB.setText(txtOptionB);
+        optionA.setTextColor(context.getResources().getColor(R.color.black));
+
+        // Create the AlertDialog
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(customView)
+                .setCancelable(false)
+                .create();
+
+        if (okButton != null) {
+            okButton.setOnClickListener(v -> {
+                if (okListener != null) okListener.onClick(v);
+                dialog.dismiss(); // Dismiss the dialog
+            });
+        }
+
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(v -> {
+                if (cancelListener != null) cancelListener.onClick(v);
+                dialog.dismiss();
+            });
+        }
+
+        // Adjust dialog window margins
+        dialog.setOnShowListener(dialogInterface -> {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.width = WindowManager.LayoutParams.MATCH_PARENT; // Match parent width
+                window.setAttributes(params);
+                window.setLayout((int) (context.getResources().getDisplayMetrics().widthPixels * 0.8), // 90% of screen width
+                        WindowManager.LayoutParams.WRAP_CONTENT); // Wrap content height
+            }
+        });
+
+        // Show the dialog
+        dialog.show();
+    }
+
+    public static void showExitConfirmation(
+            Context context,
+            View.OnClickListener okListener
+    ) {
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View customView = inflater.inflate(R.layout.custom_dialog, null);
+        RelativeLayout okButton = customView.findViewById(R.id.btnOk);
+        RelativeLayout cancelButton = customView.findViewById(R.id.btnCancel);
+        TextView optionA = customView.findViewById(R.id.txt_option_a);
+        TextView optionB = customView.findViewById(R.id.txt_option_b);
+        TextView textMessage = customView.findViewById(R.id.textMessage);
+        optionA.setText("YA");
+        optionB.setText("TIDAK");
+        textMessage.setText(context.getString(R.string.confirm_exit));
+
+        // Create the AlertDialog
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(customView)
+                .setCancelable(false)
+                .create();
+
+        if (okButton != null) {
+            okButton.setOnClickListener(v -> {
+                if (okListener != null) okListener.onClick(v);
+                dialog.dismiss();
+            });
+        }
+
+        if (cancelButton != null) {
+            cancelButton.setOnClickListener(v -> {
+                dialog.dismiss();
+            });
+        }
+
+        // Adjust dialog window margins
+        dialog.setOnShowListener(dialogInterface -> {
+            Window window = dialog.getWindow();
+            if (window != null) {
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.width = WindowManager.LayoutParams.MATCH_PARENT; // Match parent width
+                window.setAttributes(params);
+                window.setLayout((int) (context.getResources().getDisplayMetrics().widthPixels * 0.8), // 90% of screen width
+                        WindowManager.LayoutParams.WRAP_CONTENT); // Wrap content height
+            }
+        });
+
+        // Show the dialog
+        dialog.show();
+    }
+
 }

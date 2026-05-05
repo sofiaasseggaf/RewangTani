@@ -41,7 +41,7 @@ import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -2583,7 +2583,7 @@ public class TambahWarungku extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        Utils.showCustomAlertDialog(
+        DialogUtil.showCustomAlertDialog(
                 TambahWarungku.this,
                 getString(R.string.confirm_batal_tambah_produk),
                 okButton -> goToBeranda() );

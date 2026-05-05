@@ -41,7 +41,8 @@ import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.utility.Global;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.TextUtil;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -299,7 +300,7 @@ public class EditWarungku extends AppCompatActivity {
 
     public void setDataProdukSewaMesin(){
         binding.namaProdukSewaMesin.setText(datumSewaMesin.getNamaProduk());
-        binding.hargaProdukSewaMesin.setText("Rp. " + Utils.checkDesimal(datumSewaMesin.getHargaProduk().toString()));
+        binding.hargaProdukSewaMesin.setText("Rp. " + TextUtil.checkDesimal(datumSewaMesin.getHargaProduk().toString()));
         binding.deskProdukSewaMesin.setText(datumSewaMesin.getDeskProduk());
         binding.spesifikasiProdukSewaMesin.setText(datumSewaMesin.getDeskProduk());
         binding.kotaProdukSewaMesin.setText(datumSewaMesin.getKota());
@@ -376,7 +377,7 @@ public class EditWarungku extends AppCompatActivity {
 
     public void setDataProdukTenagaKerja(){
         binding.namaProdukPenyediaJasa.setText(datumTenagaKerja.getNamaTenagaKerja());
-        binding.hargaProdukLayananJasa.setText("Rp. " + Utils.checkDesimal(datumTenagaKerja.getBiaya().toString()));
+        binding.hargaProdukLayananJasa.setText("Rp. " + TextUtil.checkDesimal(datumTenagaKerja.getBiaya().toString()));
         binding.deskProdukLayananJasa.setText(datumTenagaKerja.getDeskripsi());
         binding.keahlianPenyediaJasa.setText(datumTenagaKerja.getKeahlian());
         binding.kotaPenyediaJasa.setText(datumTenagaKerja.getKota());
@@ -442,7 +443,7 @@ public class EditWarungku extends AppCompatActivity {
 
     public void setDataProdukBibitPupukPestisida(){
         binding.namaProdukBpp.setText(datumBpp.getNamaProduk());
-        binding.hargaProdukBpp.setText("Rp. " + Utils.checkDesimal(datumBpp.getHargaProduk().toString()));
+        binding.hargaProdukBpp.setText("Rp. " + TextUtil.checkDesimal(datumBpp.getHargaProduk().toString()));
         binding.deskProdukBpp.setText(datumBpp.getDeskProduk());
         binding.beratProdukBpp.setText(datumBpp.getBeratProduk().toString());
         binding.kotaProdukBpp.setText(datumBpp.getKota());
@@ -1115,7 +1116,7 @@ public class EditWarungku extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Utils.showCustomAlertDialog(
+        DialogUtil.showCustomAlertDialog(
                 EditWarungku.this,
                 "Batal edit produk ?",
                 okButton -> { goToEtalase();}

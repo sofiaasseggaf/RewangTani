@@ -16,8 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.databinding.StarterLoginBinding;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.register.ActivityRegister;
 import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.ViewUtil;
@@ -372,7 +372,7 @@ public class ActivityLogin extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        DialogUtil.showConfirmDialog(this, () -> {
+        DialogUtil.showExitConfirmation(this, v -> {
             ActivityLogin.super.onBackPressed();
             finish();
             finishAffinity();

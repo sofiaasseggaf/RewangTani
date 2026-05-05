@@ -26,7 +26,7 @@ import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -525,7 +525,7 @@ public class TambahProfilLahanD extends FragmentActivity {
     @Override
     public void onBackPressed()
     {
-        Utils.showCustomAlertDialog(
+        DialogUtil.showCustomAlertDialog(
                 TambahProfilLahanD.this,
                 getString(R.string.confirm_batal_tambah_pl),
                 okButton -> goToListProfilLahan() );

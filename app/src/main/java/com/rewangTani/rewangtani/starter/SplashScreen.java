@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.login.ActivityLogin;
-import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -48,7 +48,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        DialogUtil.showConfirmDialog(this, () -> {
+        DialogUtil.showExitConfirmation(this, v -> {
             SplashScreen.super.onBackPressed();
             finish();
             finishAffinity();

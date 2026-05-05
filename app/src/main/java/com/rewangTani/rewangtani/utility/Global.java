@@ -44,4 +44,11 @@ public class Global {
     // BINDER BYTE
 
     public static String API_BINDER = "61504c8bbb5871c92eb635e57e6c8ac6ba5bd728ad3035e907843762702ccdb7";
+
+    // SISTEM IRIGASI
+
+    public static String SI_A_SUMUR_BOR = "10a9631e-6add-459e-b7e2-aed3a0c907df";
+    public static String SI_B_PERMUKAAN = "26b145d3-632b-4f59-8571-b85a993169b3";
+    public static String SI_C_TADAH_HUJAN = "570ca522-6cca-4c9a-9b83-adc7d3cc0389";
+
 }

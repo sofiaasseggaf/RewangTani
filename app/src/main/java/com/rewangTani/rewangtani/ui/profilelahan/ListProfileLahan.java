@@ -21,7 +21,7 @@ import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class ListProfileLahan extends AppCompatActivity
                 goToTambahPL();
             } else {
                 binding.frameDataNotFound.setVisibility(View.GONE);
-                Utils.showCustomAlertDialogTwoCustomTextButtons(
+                DialogUtil.showCustomAlertDialogTwoCustomTextButtons(
                         ListProfileLahan.this,
                         getString(R.string.txt_dialog_msg_lengkapi_data_profile),
                         okButton -> goToEditProfil(),

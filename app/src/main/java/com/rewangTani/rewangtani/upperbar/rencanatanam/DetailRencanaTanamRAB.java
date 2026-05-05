@@ -395,9 +395,6 @@ public class DetailRencanaTanamRAB extends AppCompatActivity {
         est_biaya = formatter.format(Double.valueOf(est_biaya).longValue());
         binding.estimasiBiayaProduksi.setText(est_biaya);
         binding.estimasiHasilTanam.setText(est_hasil + " Kg");
-
-        ListRencanaTanam.getInstance().initializeNewRencanaTanam();
-
     }
 
     public void deleteRencanaTanam() {

@@ -27,7 +27,7 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanABinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -335,7 +335,7 @@ public class TambahProfilLahanA extends FragmentActivity {
     @Override
     public void onBackPressed()
     {
-        Utils.showCustomAlertDialog(
+        DialogUtil.showCustomAlertDialog(
                 TambahProfilLahanA.this,
                 getString(R.string.confirm_batal_tambah_pl),
                 okButton -> {

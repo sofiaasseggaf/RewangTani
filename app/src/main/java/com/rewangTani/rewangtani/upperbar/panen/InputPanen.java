@@ -24,7 +24,7 @@ import com.rewangTani.rewangtani.databinding.UpperbarPInputPanenBinding;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import org.json.JSONObject;
 
@@ -319,7 +319,7 @@ public class InputPanen extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        Utils.showCustomAlertDialog(
+        DialogUtil.showCustomAlertDialog(
                 InputPanen.this,
                 getString(R.string.confirm_batal_tambah_panen),
                 okButton -> goToListPanen() );

@@ -24,8 +24,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.databinding.StarterRegisterBinding;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.utility.DialogUtil;
 
 public class ActivityRegister extends AppCompatActivity {
@@ -568,7 +568,7 @@ public class ActivityRegister extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        DialogUtil.showConfirmDialog(this, () -> {
+        DialogUtil.showExitConfirmation(this, v -> {
             ActivityRegister.super.onBackPressed();
             finish();
             finishAffinity();

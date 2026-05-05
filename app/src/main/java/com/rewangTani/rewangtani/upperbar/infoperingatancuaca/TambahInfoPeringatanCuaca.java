@@ -22,7 +22,7 @@ import com.rewangTani.rewangtani.databinding.UpperbarInfoTambahinfoBinding;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
 import com.rewangTani.rewangtani.service.CuacaService;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -441,7 +441,7 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        Utils.showCustomAlertDialog(
+        DialogUtil.showCustomAlertDialog(
                 TambahInfoPeringatanCuaca.this,
                 getString(R.string.confirm_batal_tambah_info),
                 okButton -> goToBerandaInfo() );

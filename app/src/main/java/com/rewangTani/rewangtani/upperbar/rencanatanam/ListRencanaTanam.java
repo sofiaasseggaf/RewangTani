@@ -1,6 +1,5 @@
 package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,9 +19,8 @@ import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbu
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class ListRencanaTanam extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        initializeNewRencanaTanam();
+//        initializeNewRencanaTanam();
         initEvent();
         initObserver();
     }
@@ -55,7 +53,7 @@ public class ListRencanaTanam extends AppCompatActivity
         binding.btnPanen.setOnClickListener( v -> goToPanen() );
         binding.btnRab.setOnClickListener( v -> goToRAB() );
         binding.btnSt.setOnClickListener( v -> {
-            Utils.showCustomAlertDialogTwoCustomTextButtons(
+            DialogUtil.showCustomAlertDialogTwoCustomTextButtons(
                     ListRencanaTanam.this,
                     getString(R.string.confirm_page_st),
                     okButton -> goToST(),
@@ -100,52 +98,52 @@ public class ListRencanaTanam extends AppCompatActivity
                 }));
     }
 
-    public DatumRencanaTanam getDatumRencanaTanam() {
-        return datumRencanaTanam;
-    }
+//    public DatumRencanaTanam getDatumRencanaTanam() {
+//        return datumRencanaTanam;
+//    }
 
-    public void initializeNewRencanaTanam() {
-        this.datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", false, "", "");
-    }
+//    public void initializeNewRencanaTanam() {
+//        this.datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", false, "", "");
+//    }
 
-    public void setDetailRencanaTanam(Context context, DatumRencanaTanam data){
-        if (datumRencanaTanam == null) {
-            initializeNewRencanaTanam();
-        }
+//    public void setDetailRencanaTanam(Context context, DatumRencanaTanam data){
+//        if (datumRencanaTanam == null) {
+//            initializeNewRencanaTanam();
+//        }
+//
+//        datumRencanaTanam.setIdUser(PreferenceUtils.getIdAkun(context));
+//        datumRencanaTanam.setIdProfil(PreferenceUtils.getIdProfil(context));
+//        if (!data.getNamaRencanaTanam().equalsIgnoreCase("")){ datumRencanaTanam.setNamaRencanaTanam(data.getNamaRencanaTanam()); }
+//        if (!data.getIdProfilTanah().equalsIgnoreCase("")){ datumRencanaTanam.setIdProfilTanah(data.getIdProfilTanah()); }
+//        if (!data.getIdKomoditas().equalsIgnoreCase("")){ datumRencanaTanam.setIdKomoditas(data.getIdKomoditas()); }
+//        if (!data.getIdVarietas().equalsIgnoreCase("")){ datumRencanaTanam.setIdVarietas(data.getIdVarietas()); }
+//        if (!data.getIdBiayaBuruhTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhTanam(data.getIdBiayaBuruhTanam()); }
+//        if (!data.getIdBiayaBuruhBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhBajak(data.getIdBiayaBuruhBajak()); }
+//        if (!data.getIdBiayaBuruhSemprot().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhSemprot(data.getIdBiayaBuruhSemprot()); }
+//        if (!data.getIdBiayaBuruhMenyiangirumput().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhMenyiangirumput(data.getIdBiayaBuruhMenyiangirumput()); }
+//        if (!data.getIdBiayaBuruhGalangan().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhGalangan(data.getIdBiayaBuruhGalangan()); }
+//        if (!data.getIdBiayaBuruhPupuk().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPupuk(data.getIdBiayaBuruhPupuk()); }
+//        if (!data.getIdBiayaBuruhPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPanen(data.getIdBiayaBuruhPanen()); }
+//        if (!data.getIdSewaMesinBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinBajak(data.getIdSewaMesinBajak()); }
+//        if (!data.getIdSewaMesinTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinTanam(data.getIdSewaMesinTanam()); }
+//        if (!data.getIdSewaMesinPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinPanen(data.getIdSewaMesinPanen()); }
+//        if (!data.getIdSewamesinPompa().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompa(data.getIdSewamesinPompa()); }
+//        if (!data.getIdSewamesinPompaBbm().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompaBbm(data.getIdSewamesinPompaBbm()); }
+//        if (!data.getIdBiayabibitLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitLocalHet(data.getIdBiayabibitLocalHet()); }
+//        if (!data.getIdBiayabibitSubsidi().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitSubsidi(data.getIdBiayabibitSubsidi()); }
+//        if (!data.getIdBiayapupukKimiaLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaLocalHet(data.getIdBiayapupukKimiaLocalHet()); }
+//        if (!data.getIdBiayapupukKimiaPhonska().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaPhonska(data.getIdBiayapupukKimiaPhonska()); }
+//        if (!data.getIdBiayapupukOrganik().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukOrganik(data.getIdBiayapupukOrganik()); }
+//        if (!data.getIdBiayapupukKimiaUrea().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaUrea(data.getIdBiayapupukKimiaUrea()); }
+//        if (!data.getIdBiayapupukKimiaFosfat().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaFosfat(data.getIdBiayapupukKimiaFosfat()); }
+//        datumRencanaTanam.setWithPompa(data.isWithPompa());
+//        datumRencanaTanam.setLuasLahan(data.getLuasLahan());
+//        datumRencanaTanam.setPotensiHasilVarietas(data.getPotensiHasilVarietas());
+//    }
 
-        datumRencanaTanam.setIdUser(PreferenceUtils.getIdAkun(context));
-        datumRencanaTanam.setIdProfil(PreferenceUtils.getIdProfil(context));
-        if (!data.getNamaRencanaTanam().equalsIgnoreCase("")){ datumRencanaTanam.setNamaRencanaTanam(data.getNamaRencanaTanam()); }
-        if (!data.getIdProfilTanah().equalsIgnoreCase("")){ datumRencanaTanam.setIdProfilTanah(data.getIdProfilTanah()); }
-        if (!data.getIdKomoditas().equalsIgnoreCase("")){ datumRencanaTanam.setIdKomoditas(data.getIdKomoditas()); }
-        if (!data.getIdVarietas().equalsIgnoreCase("")){ datumRencanaTanam.setIdVarietas(data.getIdVarietas()); }
-        if (!data.getIdBiayaBuruhTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhTanam(data.getIdBiayaBuruhTanam()); }
-        if (!data.getIdBiayaBuruhBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhBajak(data.getIdBiayaBuruhBajak()); }
-        if (!data.getIdBiayaBuruhSemprot().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhSemprot(data.getIdBiayaBuruhSemprot()); }
-        if (!data.getIdBiayaBuruhMenyiangirumput().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhMenyiangirumput(data.getIdBiayaBuruhMenyiangirumput()); }
-        if (!data.getIdBiayaBuruhGalangan().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhGalangan(data.getIdBiayaBuruhGalangan()); }
-        if (!data.getIdBiayaBuruhPupuk().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPupuk(data.getIdBiayaBuruhPupuk()); }
-        if (!data.getIdBiayaBuruhPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPanen(data.getIdBiayaBuruhPanen()); }
-        if (!data.getIdSewaMesinBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinBajak(data.getIdSewaMesinBajak()); }
-        if (!data.getIdSewaMesinTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinTanam(data.getIdSewaMesinTanam()); }
-        if (!data.getIdSewaMesinPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinPanen(data.getIdSewaMesinPanen()); }
-        if (!data.getIdSewamesinPompa().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompa(data.getIdSewamesinPompa()); }
-        if (!data.getIdSewamesinPompaBbm().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompaBbm(data.getIdSewamesinPompaBbm()); }
-        if (!data.getIdBiayabibitLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitLocalHet(data.getIdBiayabibitLocalHet()); }
-        if (!data.getIdBiayabibitSubsidi().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitSubsidi(data.getIdBiayabibitSubsidi()); }
-        if (!data.getIdBiayapupukKimiaLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaLocalHet(data.getIdBiayapupukKimiaLocalHet()); }
-        if (!data.getIdBiayapupukKimiaPhonska().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaPhonska(data.getIdBiayapupukKimiaPhonska()); }
-        if (!data.getIdBiayapupukOrganik().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukOrganik(data.getIdBiayapupukOrganik()); }
-        if (!data.getIdBiayapupukKimiaUrea().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaUrea(data.getIdBiayapupukKimiaUrea()); }
-        if (!data.getIdBiayapupukKimiaFosfat().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaFosfat(data.getIdBiayapupukKimiaFosfat()); }
-        datumRencanaTanam.setWithPompa(data.isWithPompa());
-        datumRencanaTanam.setLuasLahan(data.getLuasLahan());
-        datumRencanaTanam.setPotensiHasilVarietas(data.getPotensiHasilVarietas());
-    }
-
-    public static ListRencanaTanam getInstance() {
-        return classListRencanaTanam;
-    }
+//    public static ListRencanaTanam getInstance() {
+//        return classListRencanaTanam;
+//    }
 
     public void goToInputRencanaTanam(){
         Intent a = new Intent(ListRencanaTanam.this, InputRencanaTanamA.class);

@@ -2,7 +2,6 @@ package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
@@ -20,9 +20,11 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamEBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
+import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.TextUtil;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import org.json.JSONObject;
 
@@ -34,24 +36,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InputRencanaTanamE extends AppCompatActivity {
+public class InputRencanaTanamE extends AppCompatActivity
+{
 
     UpperbarRtInputRencanaTanamEBinding binding;
+    private HomeViewModel viewModel;
     DatumOutputRencanaTanam dataOutputRT;
-    boolean isWithPompa;
-    String luasLahan, potensiHasilVarietas, txtPompa, txtPompaBbm;
-    double total, hasil, pendapatan;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_e);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding.horizontalScrollView.post(new Runnable() {
             @Override
             public void run() {
                 binding.horizontalScrollView.scrollTo(binding.btnHargaBibit.getLeft(), binding.btnHargaBibit.getTop());
             }
+        });
+
+        viewModel.getDraftRencanaTanamLiveData().observe(this, draft ->
+        {
+            if (draft == null) return;
+
+            binding.pupukKimiaLokal.setText(draft.idBiayapupukKimiaLocalHet);
+            binding.pupukOrganik.setText(draft.idBiayapupukOrganik);
         });
 
         binding.pupukKimiaLokal.addTextChangedListener(new NumberTextWatcher(binding.pupukKimiaLokal));
@@ -63,7 +75,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(v -> {
             if (!binding.pupukKimiaLokal.getText().toString().equalsIgnoreCase("") && !binding.pupukOrganik.getText().toString().equalsIgnoreCase("")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                Utils.showCustomAlertDialog(
+                DialogUtil.showCustomAlertDialog(
                         InputRencanaTanamE.this,
                         "Simpan rencana tanam ?",
                         okButton -> saveLocalData());
@@ -92,53 +104,29 @@ public class InputRencanaTanamE extends AppCompatActivity {
 
     }
 
-    private void saveLocalData() {
-        luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
-        potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
-        isWithPompa = ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa();
+    private void saveLocalData()
+    {
 
-        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "",
-                "", "", binding.pupukKimiaLokal.getText().toString().replaceAll("[^0-9]", ""), "", binding.pupukOrganik.getText().toString().replaceAll("[^0-9]",
-                ""), "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
-        startCountTotal();
+        viewModel.updateDraftRencanaTanam(draft -> {
+            draft.idBiayapupukKimiaLocalHet = TextUtil.cleanNumber(binding.pupukKimiaLokal);
+            draft.idBiayapupukOrganik = TextUtil.cleanNumber(binding.pupukOrganik);
+            countTotal(viewModel.mapDraftToDatum(draft));
+        });
+
+//        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "",
+//                "", "", "", "", "", "", "", "",
+//                "", "", binding.pupukKimiaLokal.getText().toString().replaceAll("[^0-9]", ""), "", binding.pupukOrganik.getText().toString().replaceAll("[^0-9]",
+//                ""), "", "", isWithPompa, luasLahan, potensiHasilVarietas);
+//        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
+
+//        startCountTotal();
     }
 
-    private void startCountTotal() {
-        DatumRencanaTanam datumRencanaTanam = ListRencanaTanam.getInstance().getDatumRencanaTanam();
-        if (datumRencanaTanam != null) {
-            findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
-            final Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
-                int count = 0;
+    private void countTotal(DatumRencanaTanam datumRencanaTanam)
+    {
 
-                @Override
-                public void run() {
-                    count++;
-                    if (count == 1) {
-                        binding.textLoading.setText("Tunggu sebentar ya .");
-                    } else if (count == 2) {
-                        binding.textLoading.setText("Tunggu sebentar ya . .");
-                    } else if (count == 3) {
-                        binding.textLoading.setText("Tunggu sebentar ya . . .");
-                    }
-                    if (count == 3)
-                        count = 0;
-                    handler.postDelayed(this, 1500);
-                }
-            };
-            handler.postDelayed(runnable, 1000);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    countTotal(datumRencanaTanam);
-                }
-            }).start();
-        }
-    }
-
-    private void countTotal(DatumRencanaTanam datumRencanaTanam) {
+        double total, hasil, pendapatan;
+        String txtPompa, txtPompaBbm;
 
         int a = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhTanam().replaceAll("[^0-9]", ""));
         int b = Integer.valueOf(datumRencanaTanam.getIdBiayaBuruhBajak().replaceAll("[^0-9]", ""));
@@ -164,14 +152,14 @@ public class InputRencanaTanamE extends AppCompatActivity {
         int s = Integer.valueOf(datumRencanaTanam.getIdBiayapupukOrganik().replaceAll("[^0-9]", ""));
 
         int obat = 1000000;
-        int luaslahan = Integer.valueOf(luasLahan.replaceAll("[^0-9]", ""));
-        double hektar = Double.valueOf(luasLahan) / 10000;
+        int luaslahan = Integer.valueOf(datumRencanaTanam.getLuasLahan().replaceAll("[^0-9]", ""));
+        double hektar = Double.valueOf(luaslahan) / 10000;
 
-        Double estimasihasil = Double.valueOf(potensiHasilVarietas);
+        Double estimasihasil = Double.valueOf(datumRencanaTanam.getPotensiHasilVarietas());
         hasil = estimasihasil * luaslahan / 10;
         pendapatan = 10000 * hasil;
 
-        if (isWithPompa) {
+        if (datumRencanaTanam.isWithPompa()) {
             int durasi = Integer.valueOf(datumRencanaTanam.getIdSewamesinPompaBbm().replaceAll("[^0-9]", "")) * 2;
             double bbm = l * durasi * hektar;
             txtPompa = datumRencanaTanam.getIdSewamesinPompa().replaceAll("[^0-9]", "");
@@ -184,15 +172,16 @@ public class InputRencanaTanamE extends AppCompatActivity {
             txtPompaBbm = "0";
         }
 
-        sendDataRencanaTanam(datumRencanaTanam);
+        sendDataRencanaTanam(datumRencanaTanam, txtPompa, txtPompaBbm, total, hasil, pendapatan);
     }
 
-    private void sendDataRencanaTanam(DatumRencanaTanam datumRencanaTanam) {
+    private void sendDataRencanaTanam(DatumRencanaTanam datumRencanaTanam, String txtPompa, String txtPompaBbm, double total, double hasil, double pendapatan)
+    {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 
-        jsonParams.put("idUser", datumRencanaTanam.getIdUser());
-        jsonParams.put("idProfil", datumRencanaTanam.getIdProfil());
+        jsonParams.put("idUser", PreferenceUtils.getIdAkun(this));
+        jsonParams.put("idProfil", PreferenceUtils.getIdProfil(this));
         jsonParams.put("idProfilTanah", datumRencanaTanam.getIdProfilTanah());
         jsonParams.put("idKomoditas", datumRencanaTanam.getIdKomoditas());
         jsonParams.put("idVarietas", datumRencanaTanam.getIdVarietas());
@@ -209,11 +198,11 @@ public class InputRencanaTanamE extends AppCompatActivity {
         jsonParams.put("idBiayabibitLocalHet", datumRencanaTanam.getIdBiayabibitLocalHet());
         jsonParams.put("idBiayabibitSubsidi", datumRencanaTanam.getIdBiayabibitSubsidi());
         jsonParams.put("idBiayapupukKimiaLocalHet", datumRencanaTanam.getIdBiayabibitLocalHet());
-        jsonParams.put("idBiayapupukKimiaPhonska", datumRencanaTanam.getIdBiayapupukKimiaPhonska());
+        jsonParams.put("idBiayapupukKimiaPhonska", "null");
         jsonParams.put("idBiayapupukOrganik", datumRencanaTanam.getIdBiayapupukOrganik());
         jsonParams.put("namaRencanaTanam", datumRencanaTanam.getNamaRencanaTanam());
-        jsonParams.put("idBiayapupukKimiaUrea", datumRencanaTanam.getIdBiayapupukKimiaUrea());
-        jsonParams.put("idBiayapupukKimiaFosfat", datumRencanaTanam.getIdBiayapupukKimiaFosfat());
+        jsonParams.put("idBiayapupukKimiaUrea", "null");
+        jsonParams.put("idBiayapupukKimiaFosfat", "null");
         jsonParams.put("idSewamesinPompa", txtPompa);
         jsonParams.put("idSewamesinPompaBbm", txtPompaBbm);
 
@@ -232,7 +221,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                             String idRT = modelRencanaTanam.getData().getIdRencanaTanam();
                             if (idRT != null) {
                                 PreferenceUtils.saveIdRt(modelRencanaTanam.getData().getIdRencanaTanam(), getApplicationContext());
-                                sendOutput();
+                                sendOutput(total, hasil, pendapatan);
                             } else {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -272,7 +261,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
         });
     }
 
-    private void sendOutput()
+    private void sendOutput(double total, double hasil, double pendapatan)
     {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
@@ -336,6 +325,7 @@ public class InputRencanaTanamE extends AppCompatActivity {
                                     .equalsIgnoreCase(PreferenceUtils.getIdRt(getApplicationContext()))) {
                                 dataOutputRT = modelOutputRencanaTanam.getData().get(i);
                                 PreferenceUtils.saveOIdRt(dataOutputRT.getIdOutputRencanaTanam(), getApplicationContext());
+                                viewModel.clearDraftRencanaTanam();
                                 moveToRAB();
                             }
                         }

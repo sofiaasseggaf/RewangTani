@@ -9,26 +9,38 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DraftRencanaTanam;
+import com.rewangTani.rewangtani.data.local.RewangTaniDB;
+import com.rewangTani.rewangtani.data.local.dao.DraftRencanaTanamDao;
+import com.rewangTani.rewangtani.data.repository.MasterRencanaTanamRepo;
 import com.rewangTani.rewangtani.data.repository.ProfileLahanRepo;
 import com.rewangTani.rewangtani.data.repository.ProfileRepo;
 import com.rewangTani.rewangtani.data.repository.RencanaTanamRepo;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
+import com.rewangTani.rewangtani.utility.DraftRencanaTanamManager;
 
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class HomeViewModel extends AndroidViewModel
 {
 
+    private MasterRencanaTanamRepo masterRencanaTanamRepo;
     private RencanaTanamRepo rencanaTanamRepo;
     private ProfileLahanRepo profileLahanRepo;
     private ProfileRepo profileRepo;
+
     private LiveData<List<DatumRencanaTanam>> rencanaTanams;
     private LiveData<List<DatumProfilLahan>> profilLahans;
-    public MutableLiveData<Boolean> profileLengkap = new MutableLiveData<>();
 
+    public MutableLiveData<Boolean> profileLengkap = new MutableLiveData<>();
     private final Executor executor = Executors.newSingleThreadExecutor();
+
+    private final DraftRencanaTanamDao draftRencanaTanamDao;
+    private final DraftRencanaTanamManager draftRencanaTanamManager;
+    private final LiveData<DraftRencanaTanam> draftRencanaTanamLiveData;
 
     public HomeViewModel(@NonNull Application application)
     {
@@ -37,9 +49,15 @@ public class HomeViewModel extends AndroidViewModel
         profileRepo = new ProfileRepo(application);
         rencanaTanamRepo = new RencanaTanamRepo(application);
         profileLahanRepo = new ProfileLahanRepo(application);
+        masterRencanaTanamRepo = new MasterRencanaTanamRepo(application);
 
         rencanaTanams = rencanaTanamRepo.getAllRencanaTanam();
         profilLahans = profileLahanRepo.getAllProfilLahan();
+
+        draftRencanaTanamDao = RewangTaniDB.getInstance(application).draftDao();
+        draftRencanaTanamManager = new DraftRencanaTanamManager(draftRencanaTanamDao);
+        draftRencanaTanamLiveData = draftRencanaTanamManager.getDraftLive();
+
     }
 
     public LiveData<List<DatumRencanaTanam>> getAllRencanaTanamById()
@@ -50,6 +68,31 @@ public class HomeViewModel extends AndroidViewModel
     public LiveData<List<DatumProfilLahan>> getAllProfileLahanById()
     {
         return profilLahans;
+    }
+
+    public DraftRencanaTanamManager getDraftRencanaTanamManager()
+    {
+        return draftRencanaTanamManager;
+    }
+
+    public LiveData<DraftRencanaTanam> getDraftRencanaTanamLiveData()
+    {
+        return draftRencanaTanamLiveData;
+    }
+
+    public void updateDraftRencanaTanam(Consumer<DraftRencanaTanam> updater)
+    {
+        draftRencanaTanamManager.update(updater);
+    }
+
+    public void clearDraftRencanaTanam()
+    {
+        draftRencanaTanamManager.clear();
+    }
+
+    public void fetchAllRencanaTanamData(MasterRencanaTanamRepo.Callback callback)
+    {
+        masterRencanaTanamRepo.loadAll(callback);
     }
 
     public void cekKelengkapanProfile()
@@ -68,6 +111,38 @@ public class HomeViewModel extends AndroidViewModel
                 }
             }
         });
+    }
+
+    public DatumRencanaTanam mapDraftToDatum(DraftRencanaTanam d)
+    {
+        return new DatumRencanaTanam(
+                d.namaRencanaTanam,
+                d.idProfilTanah,
+                d.idKomoditas,
+                d.idVarietas,
+                d.idBiayaBuruhTanam,
+                d.idBiayaBuruhBajak,
+                d.idBiayaBuruhSemprot,
+                d.idBiayaBuruhMenyiangirumput,
+                d.idBiayaBuruhGalangan,
+                d.idBiayaBuruhPupuk,
+                d.idBiayaBuruhPanen,
+                d.idSewaMesinBajak,
+                d.idSewaMesinTanam,
+                d.idSewaMesinPanen,
+                d.idSewamesinPompa,
+                d.idSewamesinPompaBbm,
+                d.idBiayabibitLocalHet,
+                d.idBiayabibitSubsidi,
+                d.idBiayapupukKimiaLocalHet,
+                d.idBiayapupukKimiaPhonska,
+                d.idBiayapupukOrganik,
+                d.idBiayapupukKimiaUrea,
+                d.idBiayapupukKimiaFosfat,
+                d.withPompa,
+                d.luasLahan,
+                d.potensiHasilVarietas
+        );
     }
 
 }

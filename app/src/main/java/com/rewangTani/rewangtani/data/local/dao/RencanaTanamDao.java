@@ -17,6 +17,9 @@ public interface RencanaTanamDao
     @Query("SELECT * FROM rencana_tanam")
     LiveData<List<DatumRencanaTanam>> getAllRencanaTanam(); // all rt belong to user only
 
+    @Query("SELECT * FROM rencana_tanam")
+    List<DatumRencanaTanam> getAllRencanaTanamLocal(); // all rt belong to user only
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<DatumRencanaTanam> rencanaTanams);
 

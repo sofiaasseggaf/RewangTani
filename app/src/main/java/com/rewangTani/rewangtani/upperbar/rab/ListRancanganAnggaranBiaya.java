@@ -24,7 +24,7 @@ import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
         });
 
         binding.btnSt.setOnClickListener( v -> {
-            Utils.showCustomAlertDialogTwoCustomTextButtons(
+            DialogUtil.showCustomAlertDialogTwoCustomTextButtons(
                     ListRancanganAnggaranBiaya.this,
                     getString(R.string.confirm_page_st),
                     okButton -> goToST(),

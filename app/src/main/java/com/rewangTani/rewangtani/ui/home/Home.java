@@ -53,10 +53,9 @@ import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
-import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.Utils;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
@@ -209,7 +208,7 @@ public class Home extends AppCompatActivity
         });
 
         binding.btnSudahTanam.setOnClickListener( v -> {
-            Utils.showCustomAlertDialogTwoCustomTextButtons(
+            DialogUtil.showCustomAlertDialogTwoCustomTextButtons(
                     Home.this,
                     getString(R.string.confirm_page_st),
                     okButton -> goToSudahTanam(),
@@ -588,7 +587,7 @@ public class Home extends AppCompatActivity
 
     public void onBackPressed()
     {
-        DialogUtil.showConfirmDialog(this, () -> {
+        DialogUtil.showExitConfirmation(this, v -> {
             Home.super.onBackPressed();
             finish();
             finishAffinity();

@@ -6,19 +6,27 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamBBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ResponseRencanaTanam;
+import com.rewangTani.rewangtani.utility.DraftRencanaTanamManager;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
+import com.rewangTani.rewangtani.utility.TextUtil;
 
-public class InputRencanaTanamB extends AppCompatActivity {
+public class InputRencanaTanamB extends AppCompatActivity
+{
 
     UpperbarRtInputRencanaTanamBBinding binding;
+    private HomeViewModel viewModel;
+    private DraftRencanaTanamManager draftRencanaTanamManager;
+
     ResponseRencanaTanam modelRencanaTanam;
     ModelOutputRencanaTanam modelOutputRencanaTanam;
     DatumRencanaTanam dataRencanaTanam;
@@ -28,15 +36,32 @@ public class InputRencanaTanamB extends AppCompatActivity {
     String numberOnly, txt_pompa, txt_pompabbm;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_input_rencana_tanam_b);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        draftRencanaTanamManager = viewModel.getDraftRencanaTanamManager();
 
         binding.horizontalScrollView.post(new Runnable() {
             @Override
             public void run() {
                 binding.horizontalScrollView.scrollTo(binding.btnNama.getLeft(), binding.btnNama.getTop());
             }
+        });
+
+        viewModel.getDraftRencanaTanamLiveData().observe(this, draft ->
+        {
+            if (draft == null) return;
+
+            binding.buruhTanam.setText(draft.idBiayaBuruhTanam);
+            binding.buruhBajak.setText(draft.idBiayaBuruhBajak);
+            binding.buruhSemprot.setText(draft.idBiayaBuruhSemprot);
+            binding.buruhMenyiangiRumput.setText(draft.idBiayaBuruhMenyiangirumput);
+            binding.buruhGalengan.setText(draft.idBiayaBuruhGalangan);
+            binding.buruhPupuk.setText(draft.idBiayaBuruhPupuk);
+            binding.buruhPanen.setText(draft.idBiayaBuruhPanen);
         });
 
         binding.buruhTanam.addTextChangedListener(new NumberTextWatcher(binding.buruhTanam));
@@ -157,17 +182,29 @@ public class InputRencanaTanamB extends AppCompatActivity {
         });
     }
 
-    private void saveLocalData() {
-        boolean isWithPompa;
-        String luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
-        String potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
-        isWithPompa = ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa();
+    private void saveLocalData()
+    {
+//        boolean isWithPompa;
+//        String luasLahan = ListRencanaTanam.getInstance().getDatumRencanaTanam().getLuasLahan();
+//        String potensiHasilVarietas = ListRencanaTanam.getInstance().getDatumRencanaTanam().getPotensiHasilVarietas();
+//        isWithPompa = ListRencanaTanam.getInstance().getDatumRencanaTanam().isWithPompa();
 
-        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", binding.buruhTanam.getText().toString().replaceAll("[^0-9]", ""),
-                binding.buruhBajak.getText().toString().replaceAll("[^0-9]", ""), binding.buruhSemprot.getText().toString().replaceAll("[^0-9]", ""), binding.buruhMenyiangiRumput.getText().toString().replaceAll("[^0-9]", ""),
-                binding.buruhGalengan.getText().toString().replaceAll("[^0-9]", ""), binding.buruhPupuk.getText().toString().replaceAll("[^0-9]", ""), binding.buruhPanen.getText().toString().replaceAll("[^0-9]", ""),
-                "", "", "", "","", "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
-        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
+        viewModel.updateDraftRencanaTanam(draft -> {
+            draft.idBiayaBuruhTanam = TextUtil.cleanNumber(binding.buruhTanam);
+            draft.idBiayaBuruhBajak = TextUtil.cleanNumber(binding.buruhBajak);
+            draft.idBiayaBuruhSemprot = TextUtil.cleanNumber(binding.buruhSemprot);
+            draft.idBiayaBuruhMenyiangirumput = TextUtil.cleanNumber(binding.buruhMenyiangiRumput);
+            draft.idBiayaBuruhGalangan = TextUtil.cleanNumber(binding.buruhGalengan);
+            draft.idBiayaBuruhPupuk = TextUtil.cleanNumber(binding.buruhPupuk);
+            draft.idBiayaBuruhPanen = TextUtil.cleanNumber(binding.buruhPanen);
+        });
+
+//        DatumRencanaTanam datumRencanaTanam = new DatumRencanaTanam("", "", "", "", binding.buruhTanam.getText().toString().replaceAll("[^0-9]", ""),
+//                binding.buruhBajak.getText().toString().replaceAll("[^0-9]", ""), binding.buruhSemprot.getText().toString().replaceAll("[^0-9]", ""), binding.buruhMenyiangiRumput.getText().toString().replaceAll("[^0-9]", ""),
+//                binding.buruhGalengan.getText().toString().replaceAll("[^0-9]", ""), binding.buruhPupuk.getText().toString().replaceAll("[^0-9]", ""), binding.buruhPanen.getText().toString().replaceAll("[^0-9]", ""),
+//                "", "", "", "","", "", "", "", "","", "", "", isWithPompa, luasLahan, potensiHasilVarietas);
+//        ListRencanaTanam.getInstance().setDetailRencanaTanam(getApplicationContext(), datumRencanaTanam);
+
         moveToC();
     }
 
