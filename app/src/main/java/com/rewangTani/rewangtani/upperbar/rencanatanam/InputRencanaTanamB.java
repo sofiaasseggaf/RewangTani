@@ -12,8 +12,8 @@ import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamBBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ResponseRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 public class InputRencanaTanamB extends AppCompatActivity {

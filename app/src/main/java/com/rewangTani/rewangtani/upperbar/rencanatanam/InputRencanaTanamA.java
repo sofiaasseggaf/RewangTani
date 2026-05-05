@@ -20,17 +20,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamABinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -259,22 +260,28 @@ public class InputRencanaTanamA extends AppCompatActivity {
                             @Override
                             public void run() {
                                 binding.viewLoading.setVisibility(View.GONE);
-                                AlertDialog.Builder builder = new AlertDialog.Builder(InputRencanaTanamA.this);
-                                builder.setMessage("Buat profil lahan terlebih dahulu")
-                                        .setPositiveButton("Buat Profil Lahan", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int i) {
-                                                goToProfilLahan();
-                                            }
-                                        })
-                                        .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                goToListRT();
-                                            }
-                                        })
-                                        .create()
-                                        .show();
+                                Utils.showCustomAlertDialogTwoButtons(
+                                        InputRencanaTanamA.this,
+                                        "Buat profil lahan terlebih dahulu",
+                                        okButton -> goToProfilLahan(),
+                                        cancelButton -> goToListRT() );
+
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(InputRencanaTanamA.this);
+//                                builder.setMessage("Buat profil lahan terlebih dahulu")
+//                                        .setPositiveButton("Buat Profil Lahan", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int i) {
+//                                                goToProfilLahan();
+//                                            }
+//                                        })
+//                                        .setNegativeButton("Kembali", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                                goToListRT();
+//                                            }
+//                                        })
+//                                        .create()
+//                                        .show();
 
                             }
                         });

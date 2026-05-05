@@ -1,6 +1,5 @@
 package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,16 +12,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarRtInputRencanaTanamEBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.DatumOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ResponseRencanaTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import org.json.JSONObject;
 
@@ -63,23 +63,28 @@ public class InputRencanaTanamE extends AppCompatActivity {
         binding.btnSimpan.setOnClickListener(v -> {
             if (!binding.pupukKimiaLokal.getText().toString().equalsIgnoreCase("") && !binding.pupukOrganik.getText().toString().equalsIgnoreCase("")) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Simpan Rencana Tanam ?")
-                        .setCancelable(false)
-                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                saveLocalData();
-                            }
-                        })
+                Utils.showCustomAlertDialog(
+                        InputRencanaTanamE.this,
+                        "Simpan rencana tanam ?",
+                        okButton -> saveLocalData());
 
-                        .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+//                builder.setMessage("Simpan Rencana Tanam ?")
+//                        .setCancelable(false)
+//                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int i) {
+//                                saveLocalData();
+//                            }
+//                        })
+//
+//                        .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int i) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//                AlertDialog alertDialog = builder.create();
+//                alertDialog.show();
             } else {
                 Toast.makeText(InputRencanaTanamE.this, "Lengkapi field terlebih dahulu !", Toast.LENGTH_SHORT).show();
             }
