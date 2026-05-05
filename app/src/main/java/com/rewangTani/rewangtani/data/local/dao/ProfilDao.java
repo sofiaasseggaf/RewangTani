@@ -17,6 +17,9 @@ public interface ProfilDao
     @Query("SELECT * FROM profil")
     LiveData<List<DatumProfil>> getAllProfiles();
 
+    @Query("SELECT * FROM profil WHERE idProfile = :idProfile LIMIT 1")
+    DatumProfil getMyProfile(String idProfile);
+
     @Query("SELECT profil.* FROM profil " +
             "INNER JOIN produk ON produk.idProfil = profil.idProfile " +
             "WHERE produk.idProduk = :productId LIMIT 1")
@@ -24,6 +27,9 @@ public interface ProfilDao
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<DatumProfil> accounts);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertMyProfile(DatumProfil profile);
 
     @Query("DELETE FROM profil")
     void deleteAll();

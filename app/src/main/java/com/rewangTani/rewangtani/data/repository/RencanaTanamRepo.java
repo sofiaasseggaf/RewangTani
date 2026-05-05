@@ -5,11 +5,12 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.RencanaTanamDao;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.List;
@@ -23,13 +24,15 @@ public class RencanaTanamRepo
 
     private Context context;
     private RencanaTanamDao rencanaTanamDao;
-    private APIInterfacesRest apiInterfaces;
+    private APIInterfacesRest apiInterface;
 
     public RencanaTanamRepo(Context context)
     {
         RewangTaniDB db = RewangTaniDB.getInstance(context);
         this.context = context.getApplicationContext();
+
         rencanaTanamDao = db.rencanaTanamDao();
+        apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
     }
 
     public LiveData<List<DatumRencanaTanam>> getAllRencanaTanam()
@@ -41,7 +44,7 @@ public class RencanaTanamRepo
     private void refreshFromApi()
     {
         String idProfil = PreferenceUtils.getIdProfil(context);
-        apiInterfaces.getDataRencanaTanamByProfilId(idProfil).enqueue(new Callback<ModelRencanaTanam>() {
+        apiInterface.getDataRencanaTanamByProfilId(idProfil).enqueue(new Callback<ModelRencanaTanam>() {
             @Override
             public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                 if (response.isSuccessful() && response.body() != null) {

@@ -5,12 +5,13 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
+import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.ProfilDao;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
-import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.List;
 
@@ -20,27 +21,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfilRepo {
+public class ProfileRepo {
 
+    private Context context;
     private ProfilDao profilDao;
     private APIInterfacesRest apiInterface;
 
-    public ProfilRepo(Context context)
-    {
+    public ProfileRepo(Context context) {
         RewangTaniDB db = RewangTaniDB.getInstance(context);
+        this.context = context.getApplicationContext();
+
         profilDao = db.profilDao();
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
     }
 
-    public LiveData<List<DatumProfil>> getProfiles()
-    {
+    public LiveData<List<DatumProfil>> loadProfiles() {
         refreshFromApi();
+//        refreshDataProfileFromApi();
         return profilDao.getAllProfiles();
     }
 
-    public void loadProfiles(Callback<ModelProfilAkun> callback)
+    public DatumProfil getMyProfile()
     {
-        apiInterface.getDataProfilAkun().enqueue(callback);
+        String idProfile = PreferenceUtils.getIdProfil(context);
+        return profilDao.getMyProfile(idProfile);
     }
 
     public void sendDataProfile(RequestBody body, Callback<ResponseBody> callback)

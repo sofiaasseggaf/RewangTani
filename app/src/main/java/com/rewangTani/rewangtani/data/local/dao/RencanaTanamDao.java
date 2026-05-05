@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface RencanaTanamDao
 {
 
     @Query("SELECT * FROM rencana_tanam")
-    LiveData<List<DatumRencanaTanam>> getAllRencanaTanam();
+    LiveData<List<DatumRencanaTanam>> getAllRencanaTanam(); // all rt belong to user only
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<DatumRencanaTanam> rencanaTanams);
@@ -23,4 +23,6 @@ public interface RencanaTanamDao
     @Query("DELETE FROM rencana_tanam")
     void deleteAll();
 
+    @Query("SELECT rencana_tanam.* FROM rencana_tanam WHERE idProfil = :profileId")
+    LiveData<List<DatumRencanaTanam>> getRencanaTanamById(String profileId);
 }

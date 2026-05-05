@@ -3,15 +3,30 @@
     <string name="title_activity_maps">Map</string>
 
     <!--Toast Text-->
-
     <string name="photos_not_completed">Lengkapi 3 Foto Terlebih Dahulu</string>
     <string name="field_not_comleted">Lengkapi Field Terlebih Dahulu</string>
     <string name="add_product_successed">Berhasil Tambah Produk</string>
 
     <!--Dialog Text-->
+    <string name="txt_dialog_msg_profile_lahan">Buat profil lahan terlebih dahulu</string>
+    <string name="txt_dialog_msg_lengkapi_data_profile">Lengkapi Data Profil Terlebih Dahulu</string>
+
+    <!-- Confirmation Text-->
     <string name="confirm_exit">Anda mau menutup aplikasi ?</string>
+    <string name="confirm_batal_input_rt">Batal Input Rencana Tanam ?</string>
+    <string name="confirm_page_st">Apa yang ingin anda perbarui ?</string>
+    <string name="confirm_lengkapi_data_profile">Lengkapi Data Profil</string>
+    <string name="confirm_back">"Kembali</string>
     <string name="confirm_yes">Ya</string>
     <string name="confirm_no">Tidak</string>
+
+    <!--Page Text-->
+    <string name="page_rt">Rencana Tanam</string>
+    <string name="page_kt">Sudah Tanam</string>
+    <string name="page_pt">Proses Tanam</string>
+    <string name="page_kp">Hasil Panen</string>
+    <string name="page_hp">Hasil Panen</string>
+    <string name="page_rb">Rencana Biaya</string>
 
     <string-array name="gender">
         <item>Laki - Laki</item>
