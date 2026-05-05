@@ -11,7 +11,7 @@ public class ModelProfilById implements Parcelable
 
     @SerializedName("data")
     @Expose
-    private ProfilById profilById;
+    private DatumProfil profilById;
     @SerializedName("message")
     @Expose
     private String message;
@@ -33,7 +33,7 @@ public class ModelProfilById implements Parcelable
     ;
 
     protected ModelProfilById(android.os.Parcel in) {
-        this.profilById = ((ProfilById) in.readValue((ProfilById.class.getClassLoader())));
+        this.profilById = ((DatumProfil) in.readValue((DatumProfil.class.getClassLoader())));
         this.message = ((String) in.readValue((String.class.getClassLoader())));
     }
 
@@ -49,17 +49,17 @@ public class ModelProfilById implements Parcelable
      * @param profilById
      * @param message
      */
-    public ModelProfilById(ProfilById profilById, String message) {
+    public ModelProfilById(DatumProfil profilById, String message) {
         super();
         this.profilById = profilById;
         this.message = message;
     }
 
-    public ProfilById getData() {
+    public DatumProfil getData() {
         return profilById;
     }
 
-    public void setData(ProfilById profilById) {
+    public void setData(DatumProfil profilById) {
         this.profilById = profilById;
     }
 
