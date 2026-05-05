@@ -2,229 +2,93 @@ package com.rewangTani.rewangtani.ui.profilelahan;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterListProfilLahan;
-import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
-import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
-import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
+import com.rewangTani.rewangtani.utility.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class ListProfileLahan extends AppCompatActivity {
+public class ListProfileLahan extends AppCompatActivity
+{
 
     BottombarPlListProfileLahanBinding binding;
+    private HomeViewModel viewModel;
     AdapterListProfilLahan itemList;
-    ModelProfilLahan modelProfilLahan;
-    ModelProfilById modelProfilById;
-    List<DatumProfilLahan> listProfilLahan = new ArrayList<DatumProfilLahan>();
-    int checkKelengkapan = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_list_profile_lahan);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        getData();
-
-        binding.btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToBeranda();
-            }
-        });
-
-        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkKelengkapan==1){
-                    goToTambahPL();
-                } else if (checkKelengkapan==0){
-                    binding.frameDataNotFound.setVisibility(View.GONE);
-                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ListProfileLahan.this);
-                    builder.setView(customLayout);
-                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-                    buttonOk.setOnClickListener(v->{
-                        goToEditProfil();
-                            });
-                    buttonCancel.setOnClickListener(v->{
-                        goToBeranda();
-                            });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            }
-        });
-
-        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToWarungku();
-            }
-        });
-
-        binding.btnPesan.setOnClickListener(v->{
-            goToPesan();
-        });
-
-        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToProfilAkun();
-            }
-        });
-
+        initEvent();
+        initObserver();
     }
 
-    public void getData(){
-        binding.viewLoading.setVisibility(View.VISIBLE);
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int count = 0;
-            @Override
-            public void run() {
-                count++;
-                if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
-                if (count == 3)
-                    count = 0;
-                handler.postDelayed(this, 1500);
-            }
-        };
-        handler.postDelayed(runnable, 1000);
+    private void initEvent()
+    {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getDataProfil();
-            }
-        }).start();
+        binding.btnTambah.setOnClickListener( v -> viewModel.cekKelengkapanProfile() );
+        binding.btnPesan.setOnClickListener(v-> goToPesan() );
+        binding.btnHome.setOnClickListener( v -> goToBeranda() );
+        binding.btnAkun.setOnClickListener( v -> goToProfilAkun() );
+        binding.btnWarungku.setOnClickListener( v -> goToWarungku() );
     }
 
-    public void getDataProfil() {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelProfilById> dataRT = apiInterface.getDatumProfilAkun(PreferenceUtils.getIdProfil(getApplicationContext()));
-        dataRT.enqueue(new Callback<ModelProfilById>() {
-            @Override
-            public void onResponse(Call<ModelProfilById> call, Response<ModelProfilById> response) {
-                modelProfilById = response.body();
-                if (response.body()!=null){
-                    if (!modelProfilById.getData().getTelepon().equalsIgnoreCase("") && !modelProfilById.getData().getNik().equalsIgnoreCase("") &&
-                            !modelProfilById.getData().getIdAlamat().equalsIgnoreCase("") && !modelProfilById.getData().getAlamat().equalsIgnoreCase("") &&
-                    !modelProfilById.getData().getGender().equalsIgnoreCase("") && !modelProfilById.getData().getTglLahir().equalsIgnoreCase("") ){
-                        checkKelengkapan = 1;
-                        getProfilLahan();
-                    } else {
-                        checkKelengkapan = 0;
-                        getProfilLahan();
+    private void initObserver()
+    {
 
-                    }
-                }
+        viewModel.profileLengkap.observe(this, isLengkap ->
+        {
+            if (isLengkap) {
+                goToTambahPL();
+            } else {
+                binding.frameDataNotFound.setVisibility(View.GONE);
+                Utils.showCustomAlertDialogTwoCustomTextButtons(
+                        ListProfileLahan.this,
+                        getString(R.string.txt_dialog_msg_lengkapi_data_profile),
+                        okButton -> goToEditProfil(),
+                        cancelButton -> goToBeranda(),
+                        getString(R.string.confirm_lengkapi_data_profile),
+                        getString(R.string.confirm_back));
             }
-            @Override
-            public void onFailure(Call<ModelProfilById> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.viewLoading.setVisibility(View.GONE);
-                        Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
+
+        });
+
+        viewModel.getAllProfileLahanById().observe(this, items ->
+        {
+            if (items == null || items.isEmpty()) {
+                binding.viewLoading.setVisibility(View.GONE);
+                binding.frameDataNotFound.setVisibility(View.VISIBLE);
+            } else {
+                binding.viewLoading.setVisibility(View.GONE);
+                binding.scrollview.setVisibility(View.VISIBLE);
+                setData(items);
             }
         });
     }
 
-    public void getProfilLahan() {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelProfilLahan> dataPL = apiInterface.getDataProfilLahan();
-        dataPL.enqueue(new Callback<ModelProfilLahan>() {
-            @Override
-            public void onResponse(Call<ModelProfilLahan> call, Response<ModelProfilLahan> response) {
-                modelProfilLahan = response.body();
-                if (response.body()!=null){
-                    for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
-                        try {
-                            if (PreferenceUtils.getIdAkun(getApplicationContext())
-                                    .equalsIgnoreCase(modelProfilLahan.getData().get(i).getIdUser())) {
-                                listProfilLahan.add(modelProfilLahan.getData().get(i));
-                            }
-                        } catch (Exception e){ }
-                    }
-                    if (listProfilLahan!=null&&listProfilLahan.size()>0){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                binding.scrollview.setVisibility(View.VISIBLE);
-                                setData();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
-                            }
-                        });
-                    }
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            binding.viewLoading.setVisibility(View.GONE);
-                            binding.frameDataNotFound.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelProfilLahan> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //binding.viewLoading.setVisibility(View.GONE);
-                        Toast.makeText(ListProfileLahan.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
-            }
-        });
-    }
-
-    public void setData(){
-        itemList = new AdapterListProfilLahan(listProfilLahan);
+    public void setData(List<DatumProfilLahan> items)
+    {
+        itemList = new AdapterListProfilLahan(items);
         binding.rvProfilLahan.setLayoutManager(new LinearLayoutManager(ListProfileLahan.this));
         binding.rvProfilLahan.setAdapter(itemList);
         binding.rvProfilLahan.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvProfilLahan,
@@ -232,13 +96,12 @@ public class ListProfileLahan extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListProfileLahan.this, DetailProfilLahan.class);
-                        a.putExtra("idProfilLahan", listProfilLahan.get(position).getIdProfileTanah());
+                        a.putExtra("idProfilLahan", items.get(position).getIdProfileTanah());
                         startActivity(a);
                     }
-                    @Override
-                    public void onLongItemClick(View view, int position) {
 
-                    }
+                    @Override
+                    public void onLongItemClick(View view, int position) { }
                 }));
     }
 

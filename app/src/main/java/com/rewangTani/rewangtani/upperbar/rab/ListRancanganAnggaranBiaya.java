@@ -1,31 +1,30 @@
 package com.rewangTani.rewangtani.upperbar.rab;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRAB;
-import com.rewangTani.rewangtani.ui.home.Home;
-import com.rewangTani.rewangtani.databinding.UpperbarRabListRabBinding;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.UpperbarRabListRabBinding;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,28 +54,14 @@ public class ListRancanganAnggaranBiaya extends AppCompatActivity {
             }
         });
 
-        binding.btnSt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ListRancanganAnggaranBiaya.this);
-                builder.setMessage("Apa yang ingin anda perbarui ?")
-                        .setCancelable(true)
-                        .setPositiveButton("Proses Tanam", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToST();
-                            }
-                        })
-
-                        .setNegativeButton("Kendala Pertumbuhan", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToKP();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+        binding.btnSt.setOnClickListener( v -> {
+            Utils.showCustomAlertDialogTwoCustomTextButtons(
+                    ListRancanganAnggaranBiaya.this,
+                    getString(R.string.confirm_page_st),
+                    okButton -> goToST(),
+                    cancelButton -> goToKP(),
+                    getString(R.string.page_pt),
+                    getString(R.string.page_kp));
         });
 
         binding.btnPanen.setOnClickListener(new View.OnClickListener() {

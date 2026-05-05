@@ -1,6 +1,5 @@
 package com.rewangTani.rewangtani.upperbar.panen;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,27 +8,27 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListPanen;
-import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.UpperbarPListPanenBinding;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.DatumPanen;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.ModelPanen;
-import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
+import com.rewangTani.rewangtani.utility.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,28 +72,14 @@ public class ListPanen extends AppCompatActivity {
             }
         });
 
-        binding.btnSt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ListPanen.this);
-                builder.setMessage("Apa yang ingin anda perbarui ?")
-                        .setCancelable(true)
-                        .setPositiveButton("Proses Tanam", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToST();
-                            }
-                        })
-
-                        .setNegativeButton("Kendala Pertumbuhan", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToKP();
-                            }
-                        });
-                AlertDialog alertDialog =builder.create();
-                alertDialog.show();
-            }
+        binding.btnSt.setOnClickListener( v -> {
+            Utils.showCustomAlertDialogTwoCustomTextButtons(
+                    ListPanen.this,
+                    getString(R.string.confirm_page_st),
+                    okButton -> goToST(),
+                    cancelButton -> goToKP(),
+                    getString(R.string.page_pt),
+                    getString(R.string.page_kp));
         });
 
         binding.btnRab.setOnClickListener(new View.OnClickListener() {

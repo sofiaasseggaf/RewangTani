@@ -1,189 +1,89 @@
 package com.rewangTani.rewangtani.upperbar.rencanatanam;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterupperbar.AdapterListRencanaTanam;
-import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.databinding.UpperbarRtListRencanaTanamBinding;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.rencanatanam.ModelRencanaTanam;
+import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
+import com.rewangTani.rewangtani.utility.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class ListRencanaTanam extends AppCompatActivity {
+public class ListRencanaTanam extends AppCompatActivity
+{
 
     UpperbarRtListRencanaTanamBinding binding;
+    private HomeViewModel viewModel;
     static ListRencanaTanam classListRencanaTanam = new ListRencanaTanam();
     AdapterListRencanaTanam itemList;
-    ModelRencanaTanam modelRencanaTanam;
     DatumRencanaTanam datumRencanaTanam;
-    List<DatumRencanaTanam> listRencanaTanam = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         initializeNewRencanaTanam();
-        getData();
-
-
-        binding.btnTambah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToInputRencanaTanam();
-            }
-        });
-
-        binding.btnSt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ListRencanaTanam.this);
-                builder.setMessage("Apa yang ingin anda perbarui ?")
-                        .setCancelable(true)
-                        .setPositiveButton("Proses Tanam", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToST();
-                            }
-                        })
-
-                        .setNegativeButton("Kendala Pertumbuhan", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                goToKP();
-                            }
-                        });
-                AlertDialog alertDialog =builder.create();
-                alertDialog.show();
-            }
-        });
-
-        binding.btnPanen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPanen();
-            }
-        });
-
-        binding.btnRab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToRAB();
-            }
-        });
-
+        initEvent();
+        initObserver();
     }
 
+    private void initEvent()
+    {
 
-    private void getData(){
-        binding.viewLoading.setVisibility(View.VISIBLE);
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int count = 0;
-            @Override
-            public void run() {
-                count++;
-                if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
-                if (count == 3)
-                    count = 0;
-                handler.postDelayed(this, 1500);
-            }
-        };
-        handler.postDelayed(runnable, 1000);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getRencanaTanam();
-            }
-        }).start();
+        binding.btnTambah.setOnClickListener( v -> goToInputRencanaTanam() );
+        binding.btnPanen.setOnClickListener( v -> goToPanen() );
+        binding.btnRab.setOnClickListener( v -> goToRAB() );
+        binding.btnSt.setOnClickListener( v -> {
+            Utils.showCustomAlertDialogTwoCustomTextButtons(
+                    ListRencanaTanam.this,
+                    getString(R.string.confirm_page_st),
+                    okButton -> goToST(),
+                    cancelButton -> goToKP(),
+                    getString(R.string.page_pt),
+                    getString(R.string.page_kp));
+        });
     }
 
-    public void getRencanaTanam() {
-        String idProfil = PreferenceUtils.getIdProfil(getApplicationContext());
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanam();
-        dataRT.enqueue(new Callback<ModelRencanaTanam>() {
-            @Override
-            public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
-                modelRencanaTanam = response.body();
-                if (response.body()!=null){
-                    for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
-//                        listRencanaTanam.add(modelRencanaTanam.getData().get(i));
-                        try {
-                            if (PreferenceUtils.getIdAkun(getApplicationContext())
-                                    .equalsIgnoreCase(modelRencanaTanam.getData().get(i).getIdUser())) {
-                                listRencanaTanam.add(modelRencanaTanam.getData().get(i));
-                            }
-                        } catch (Exception e){ }
-                    }
-                    if (listRencanaTanam.size()>0){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                binding.scrollView.setVisibility(View.VISIBLE);
-                                setData();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                binding.frameDataNotFound.setVisibility(View.VISIBLE);
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelRencanaTanam> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        binding.frameLayout.setVisibility(View.GONE);
-                        Toast.makeText(ListRencanaTanam.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
+    private void initObserver()
+    {
+
+        viewModel.getAllRencanaTanamById().observe(this, items ->
+        {
+            if (items == null || items.isEmpty()) {
+                binding.scrollView.setVisibility(View.GONE);
+                binding.frameDataNotFound.setVisibility(View.VISIBLE);
+            } else {
+                binding.frameDataNotFound.setVisibility(View.GONE);
+                binding.scrollView.setVisibility(View.VISIBLE);
+                setData(items);
             }
         });
     }
 
-    public void setData(){
-        itemList = new AdapterListRencanaTanam(listRencanaTanam);
+    public void setData(List<DatumRencanaTanam> items)
+    {
+        itemList = new AdapterListRencanaTanam(items);
         binding.rvRencanaTanam.setLayoutManager(new LinearLayoutManager(ListRencanaTanam.this));
         binding.rvRencanaTanam.setAdapter(itemList);
         binding.rvRencanaTanam.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvRencanaTanam,
@@ -191,13 +91,12 @@ public class ListRencanaTanam extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListRencanaTanam.this, DetailRencanaTanamNonEditable.class);
-                        a.putExtra("idRencanaTanam", listRencanaTanam.get(position).getIdRencanaTanam());
+                        a.putExtra("idRencanaTanam", items.get(position).getIdRencanaTanam());
                         startActivity(a);
                     }
-                    @Override
-                    public void onLongItemClick(View view, int position) {
 
-                    }
+                    @Override
+                    public void onLongItemClick(View view, int position) { }
                 }));
     }
 
