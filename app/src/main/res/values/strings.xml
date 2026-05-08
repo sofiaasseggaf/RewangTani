@@ -10,10 +10,12 @@
     <!--Dialog Text-->
     <string name="txt_dialog_msg_profile_lahan">Buat profil lahan terlebih dahulu</string>
     <string name="txt_dialog_msg_lengkapi_data_profile">Lengkapi Data Profil Terlebih Dahulu</string>
+    <string name="txt_dialog_msg_rencana_tanam">uat rencana tanam terlebih dahulu</string>
 
     <!-- Confirmation Text-->
     <string name="confirm_exit">Anda mau menutup aplikasi ?</string>
     <string name="confirm_batal_input_rt">Batal Input Rencana Tanam ?</string>
+    <string name="confirm_batal_input_st">Batal input sudah tanam ?</string>
     <string name="confirm_batal_tambah_pl">Batal Tambah Profil Lahan ?</string>
     <string name="confirm_batal_tambah_panen">Batal tambah panen ?</string>
     <string name="confirm_batal_tambah_produk">Batal tambah produk ?</string>
