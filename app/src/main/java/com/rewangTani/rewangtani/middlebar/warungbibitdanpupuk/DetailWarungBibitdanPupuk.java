@@ -85,6 +85,8 @@ public class DetailWarungBibitdanPupuk extends AppCompatActivity
             viewModel.addToCart(dataBppById.getData().getIdProduk());
             Toast.makeText(this, "Menambahkan item ke keranjang", Toast.LENGTH_SHORT).show();
         });
+
+        binding.btnBack.setOnClickListener( v -> goToListWarungPupuk() );
     }
 
     public void getData(String id)

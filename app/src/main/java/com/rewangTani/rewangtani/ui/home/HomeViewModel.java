@@ -10,7 +10,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DraftRencanaTanam;
-import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.DraftRencanaTanamDao;
 import com.rewangTani.rewangtani.data.repository.MasterRencanaTanamRepo;
@@ -34,7 +33,7 @@ public class HomeViewModel extends AndroidViewModel
     private ProfileRepo profileRepo;
 
     private LiveData<List<DatumRencanaTanam>> rencanaTanams;
-    private LiveData<List<DatumSudahTanam>> sudahTanams;
+    private LiveData<List<DatumProfil>> profiles;
     private LiveData<List<DatumProfilLahan>> profilLahans;
 
     public MutableLiveData<Boolean> profileLengkap = new MutableLiveData<>();
@@ -54,6 +53,7 @@ public class HomeViewModel extends AndroidViewModel
         masterRencanaTanamRepo = new MasterRencanaTanamRepo(application);
 
         rencanaTanams = tanamRepo.getAllRencanaTanam();
+        profiles = profileRepo.getAllProfiles();
         profilLahans = profileLahanRepo.getAllProfilLahan();
 
         draftRencanaTanamDao = RewangTaniDB.getInstance(application).draftDao();

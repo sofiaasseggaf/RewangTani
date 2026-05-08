@@ -38,14 +38,16 @@ public class ChatService extends Service {
         startForeground(Global.CHAT_NOTIFICATION_ID, chatChannelNotification());
         String idProfile = PreferenceUtils.getIdProfil(this);
 
-        ArrayList<String> inboxIds = intent.getStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS);
-        if ( inboxIds != null && !inboxIds.isEmpty() )
+        if ( intent.getStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS) != null )
         {
-            stompClient.connect();
-
-            for ( String id : inboxIds )
+            ArrayList<String> inboxIds = intent.getStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS);
+            if ( inboxIds != null && !inboxIds.isEmpty() )
             {
-                String topicDestination = SUBSCRIBE_TOPIC + id;
+                stompClient.connect();
+
+                for ( String id : inboxIds )
+                {
+                    String topicDestination = SUBSCRIBE_TOPIC + id;
 //                stompClient.topic(topicDestination)
 //                        .subscribeOn(Schedulers.io())
 //                        .observeOn(AndroidSchedulers.mainThread())
@@ -60,9 +62,9 @@ public class ChatService extends Service {
 //                            }
 //                        }, throwable -> {
 //                        });
+                }
             }
         }
-
         return START_STICKY;
     }
 

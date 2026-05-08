@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.entity.product.CartItemUI;
 import com.rewangTani.rewangtani.ui.keranjang.KeranjangViewModel;
+import com.rewangTani.rewangtani.utility.TextUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -53,8 +54,8 @@ public class AdapterKeranjang extends RecyclerView.Adapter<RecyclerView.ViewHold
         CartItemUI item = keranjangList.get(position);
 
         ((Penampung) holder).namaToko.setText(item.profile.getNamaDepan());
-        ((Penampung) holder).namaProduk.setText(item.product.getIdProduk());
-        ((Penampung) holder).biayaProduk.setText(String.valueOf(item.product.getHargaProduk()));
+        ((Penampung) holder).namaProduk.setText(item.productName);
+        ((Penampung) holder).biayaProduk.setText(TextUtil.checkDesimal(String.valueOf(item.product.getHargaProduk())));
         ((Penampung) holder).jmlPesanan.setText(String.valueOf(item.cart.quantity));
         ((Penampung)holder).checkBox.setImageResource(checkCheckboxVisibility(item));
         ((Penampung)holder).btnAdd.setOnClickListener(v ->

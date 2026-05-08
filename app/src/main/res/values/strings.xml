@@ -26,6 +26,8 @@
     <string name="confirm_tambah_rt">Simpan rencana tanam ?</string>
     <string name="confirm_tambah_st">"Simpan sudah tanam ?"</string>
 
+    <string name="confirm_delete_item">Anda yakin ingin menghapus barang ini dari keranjang ?</string>
+
     <string name="confirm_page_st">Apa yang ingin anda perbarui ?</string>
     <string name="confirm_lengkapi_data_profile">Lengkapi Data Profil</string>
     <string name="confirm_back">"Kembali</string>

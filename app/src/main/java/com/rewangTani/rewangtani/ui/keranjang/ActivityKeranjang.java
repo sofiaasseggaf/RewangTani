@@ -14,7 +14,9 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterKeranjang;
 import com.rewangTani.rewangtani.databinding.BottombarKeranjangBinding;
 import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.FakePaymentActivity;
+import com.rewangTani.rewangtani.utility.TextUtil;
 
 public class ActivityKeranjang extends AppCompatActivity
 {
@@ -66,10 +68,21 @@ public class ActivityKeranjang extends AppCompatActivity
         });
 
         viewModel.getTotalPrice().observe(this, total -> {
-            binding.txtTotal.setText("Rp " + total);
-            binding.txtTotalHarga.setText("Rp " + total);
+            binding.txtTotal.setText("Rp " + TextUtil.checkDesimal(String.valueOf(total)));
+            binding.txtTotalHarga.setText("Rp " + TextUtil.checkDesimal(String.valueOf(total)));
         });
 
+        viewModel.showDeleteDialogTrigger.observe(this, productId -> {
+            if (productId != null) {
+                DialogUtil.showCustomAlertDialog(
+                        ActivityKeranjang.this,
+                        getString(R.string.confirm_delete_item),
+                        okButton -> { viewModel.confirmDelete(productId); }
+                );
+
+                viewModel.showDeleteDialogTrigger.setValue(null);
+            }
+        });
 
     }
 

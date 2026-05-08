@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
@@ -19,6 +20,7 @@ import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPestisidaBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.data.entity.warungbpp.DataBppById;
+import com.rewangTani.rewangtani.ui.keranjang.KeranjangViewModel;
 import com.rewangTani.rewangtani.utility.ChatUtils;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
@@ -39,6 +41,7 @@ import retrofit2.Response;
 public class DetailWarungPestisida extends AppCompatActivity {
 
     MiddlebarDetailWarungPestisidaBinding binding;
+    private KeranjangViewModel viewModel;
     DataBppById dataBppById;
     ModelProfilById modelProfilById;
     DecimalFormat formatter;
@@ -48,6 +51,7 @@ public class DetailWarungPestisida extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.middlebar_detail_warung_pestisida);
+        viewModel = new ViewModelProvider(this).get(KeranjangViewModel.class);
         chatUtils = new ChatUtils(this);
 
         Intent intent = getIntent();
@@ -75,6 +79,13 @@ public class DetailWarungPestisida extends AppCompatActivity {
                 }
             }
         });
+
+        binding.btnAddToCart.setOnClickListener( v -> {
+            viewModel.addToCart(dataBppById.getData().getIdProduk());
+            Toast.makeText(this, "Menambahkan item ke keranjang", Toast.LENGTH_SHORT).show();
+        });
+
+        binding.btnBack.setOnClickListener( v -> goToListWarungTenagaPestisida() );
     }
 
     public void getData(String id){

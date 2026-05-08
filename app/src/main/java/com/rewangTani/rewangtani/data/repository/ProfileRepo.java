@@ -35,7 +35,7 @@ public class ProfileRepo {
         apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
     }
 
-    public LiveData<List<DatumProfil>> loadProfiles() {
+    public LiveData<List<DatumProfil>> getAllProfiles() {
         refreshFromApi();
 //        refreshDataProfileFromApi();
         return profilDao.getAllProfiles();

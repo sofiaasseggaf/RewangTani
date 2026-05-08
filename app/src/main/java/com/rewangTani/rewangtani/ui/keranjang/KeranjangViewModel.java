@@ -49,12 +49,14 @@ public class KeranjangViewModel extends AndroidViewModel
     public LiveData<List<CartWithProduct>> cartItems;
     private final MediatorLiveData<Integer> totalPrice = new MediatorLiveData<>();
     MediatorLiveData<List<CartItemUI>> cartUI = new MediatorLiveData<>();
+    public MutableLiveData<String> showDeleteDialogTrigger = new MutableLiveData<>();
 
     public KeranjangViewModel(@NonNull Application application)
     {
         super(application);
 
         productRepo = new ProdukRepo(application);
+
         keranjangDao = RewangTaniDB.getInstance(application).keranjangDao();
         profilDao = RewangTaniDB.getInstance(application).profilDao();
         warungBppDao = RewangTaniDB.getInstance(application).warungBppDao();
@@ -62,6 +64,7 @@ public class KeranjangViewModel extends AndroidViewModel
         warungTenagaKerjaDao = RewangTaniDB.getInstance(application).warungTenagaKerjaDao();
 
         productRepo.getProducts();
+
         cartItems = keranjangDao.getAllCarts();
         productResolver = new ProductResolver(warungBppDao, warungSewaMesinDao, warungTenagaKerjaDao);
 
@@ -156,9 +159,13 @@ public class KeranjangViewModel extends AndroidViewModel
             if (qty > 1) {
                 keranjangDao.decrease(productId);
             } else {
-                keranjangDao.delete(productId);
+                showDeleteDialogTrigger.postValue(productId);
             }
         });
+    }
+
+    public void confirmDelete(String productId) {
+        executor.execute(() -> keranjangDao.delete(productId));
     }
 
     public void updateIsChecked(String productId, boolean isChecked)
