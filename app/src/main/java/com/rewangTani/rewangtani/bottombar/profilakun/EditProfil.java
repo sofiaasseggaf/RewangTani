@@ -21,15 +21,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.BottombarPaEditprofilBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.BottombarPaEditprofilBinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.statuspekerja.ModelStatusPekerja;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
@@ -1087,23 +1088,10 @@ public class EditProfil extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal Edit Profil ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToBerandaProfil();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        DialogUtil.showCustomAlertDialog(
+                EditProfil.this,
+                "Batal edit profil ?",
+                okButton -> { goToBerandaProfil();}
+        );
     }
 }

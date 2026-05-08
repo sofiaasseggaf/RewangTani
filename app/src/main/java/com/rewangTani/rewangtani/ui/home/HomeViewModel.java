@@ -109,9 +109,9 @@ public class HomeViewModel extends AndroidViewModel
             DatumProfil modelProfilById = profileRepo.getMyProfile();
             if ( modelProfilById != null )
             {
-                if (modelProfilById.getTelepon() != null && modelProfilById.getNik() != null &&
-                        modelProfilById.getIdAlamat() != null && modelProfilById.getAlamat() != null &&
-                        modelProfilById.getGender() != null && modelProfilById.getTglLahir() != null) {
+                if (!modelProfilById.getTelepon().equalsIgnoreCase("") && !modelProfilById.getNik().equalsIgnoreCase("") &&
+                        !modelProfilById.getIdAlamat().equalsIgnoreCase("") && !modelProfilById.getAlamat().equalsIgnoreCase("") &&
+                        !modelProfilById.getGender().equalsIgnoreCase("") && !modelProfilById.getTglLahir().equalsIgnoreCase("")) {
                     profileLengkap.postValue(true);
                 } else {
                     profileLengkap.postValue(false);

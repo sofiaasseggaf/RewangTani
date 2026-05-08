@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="24dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgCheck"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/ic_check_circle"
         android:scaleType="centerInside"
         android:alpha="0"
@@ -21,7 +30,7 @@
         android:id="@+id/txtSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Payment Successful"
+        android:text="Pembayaran Berhasil"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginTop="24dp"
@@ -31,17 +40,31 @@
         android:id="@+id/txtDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thank you for your purchase!"
+        android:text="Terima kasih sudah membeli !"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:alpha="0"/>
 
-    <Button
+    <RelativeLayout
         android:id="@+id/btnDone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:layout_marginTop="32dp"
-        android:alpha="0"/>
+        android:layout_height="50dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/frame_button_dark_green_radius"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="SELESAI"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
 </LinearLayout>

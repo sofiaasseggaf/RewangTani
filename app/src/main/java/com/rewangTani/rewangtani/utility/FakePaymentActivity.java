@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +16,7 @@ import com.rewangTani.rewangtani.R;
 
 public class FakePaymentActivity extends AppCompatActivity {
 
-    private Button btnPay;
+    private RelativeLayout btnPay;
     private ProgressBar progressBar;
     private RadioGroup radioGroup;
     private TextView txtTotal;
@@ -24,7 +24,7 @@ public class FakePaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fake_paymeny);
+        setContentView(R.layout.activity_payment);
 
         String a = getIntent().getStringExtra("Harga");
 
@@ -33,7 +33,7 @@ public class FakePaymentActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         radioGroup = findViewById(R.id.radioGroupPayment);
 
-        txtTotal.setText("Total = " + a);
+        txtTotal.setText(a);
         btnPay.setOnClickListener(v -> startFakePayment());
     }
 
@@ -42,7 +42,7 @@ public class FakePaymentActivity extends AppCompatActivity {
         int selectedId = radioGroup.getCheckedRadioButtonId();
 
         if (selectedId == -1) {
-            Toast.makeText(this, "Please select a payment method", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tolong pilih metode pembayaran", Toast.LENGTH_SHORT).show();
             return;
         }
 

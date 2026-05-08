@@ -1126,7 +1126,6 @@ public class TambahWarungku extends AppCompatActivity {
         jsonParams.put("foto", "");
         jsonParams.put("kota", binding.kotaProdukPupuk.getText().toString());
         jsonParams.put("jmlProduk", binding.jumlahProdukPupuk.getText().toString());
-        jsonParams.put("jmlTerjual", 0);
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -1493,7 +1492,6 @@ public class TambahWarungku extends AppCompatActivity {
         jsonParams.put("foto", "");
         jsonParams.put("kota", binding.kotaProdukPestisida.getText().toString());
         jsonParams.put("jmlProduk", binding.jumlahProdukPestisida.getText().toString());
-        jsonParams.put("jmlTerjual", 0);
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -2224,7 +2222,6 @@ public class TambahWarungku extends AppCompatActivity {
         jsonParams.put("foto", "");
         jsonParams.put("kota", binding.kotaProdukTenagaKerja.getText().toString());
         jsonParams.put("jmlProduk", "0");
-        jsonParams.put("jmlTerjual", 0);
 
         RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),
                 (new JSONObject(jsonParams)).toString());
@@ -2583,10 +2580,13 @@ public class TambahWarungku extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        DialogUtil.showCustomAlertDialog(
-                TambahWarungku.this,
-                getString(R.string.confirm_batal_tambah_produk),
-                okButton -> goToBeranda() );
+        if ( binding.viewLoading.getVisibility() == View.GONE )
+        {
+            DialogUtil.showCustomAlertDialog(
+                    TambahWarungku.this,
+                    getString(R.string.confirm_batal_tambah_produk),
+                    okButton -> goToBeranda() );
+        }
     }
 
 }

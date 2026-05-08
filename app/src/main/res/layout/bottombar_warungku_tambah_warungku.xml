@@ -1701,12 +1701,27 @@
                     android:id="@+id/textLoading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="100dp"
+                    android:layout_above="@id/txt_tunggu"
+                    android:text="tunggu sebentar ya ."
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/dark_green"
                     android:textSize="22sp"/>
+
+                <TextView
+                    android:id="@+id/txt_tunggu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="80dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:layout_marginHorizontal="48dp"
+                    android:text="ukuran foto yang cukup besar\nmempengaruhi lamanya waktu\nmengirim data warung"
+                    android:fontFamily="@font/inter_regular"
+                    android:textColor="@color/dark_green"
+                    android:textSize="16sp"/>
 
             </RelativeLayout>
 

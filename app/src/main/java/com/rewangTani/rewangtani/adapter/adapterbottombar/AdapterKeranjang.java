@@ -110,9 +110,9 @@ public class AdapterKeranjang extends RecyclerView.Adapter<RecyclerView.ViewHold
     {
         if (item.cart.isChecked)
         {
-            return R.drawable.ic_checkbox_unchecked;
-        } else {
             return R.drawable.ic_checkbox_checked;
+        } else {
+            return R.drawable.ic_checkbox_unchecked;
         }
     }
 }

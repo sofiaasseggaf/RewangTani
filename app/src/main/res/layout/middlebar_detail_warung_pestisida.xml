@@ -33,13 +33,14 @@
                 android:layout_marginLeft="40dp"
                 android:background="@drawable/ic_arrow_left" />
 
-            <ImageButton
+<!--            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="40dp"
-                android:background="@drawable/ic_cart" />
+                android:background="@drawable/ic_cart" />-->
+
         </RelativeLayout>
 
         <RelativeLayout

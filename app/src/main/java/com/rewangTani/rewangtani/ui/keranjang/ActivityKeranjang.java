@@ -44,9 +44,17 @@ public class ActivityKeranjang extends AppCompatActivity
     {
 
         binding.btnMetodePengiriman.setOnClickListener( v -> {
-            Intent intent = new Intent(this, FakePaymentActivity.class);
-            intent.putExtra("Harga", binding.txtTotal.getText().toString());
-            startActivity(intent);
+            String total = binding.txtTotal.getText().toString();
+            if ( !total.equalsIgnoreCase("Rp 0") )
+            {
+                Intent intent = new Intent(this, FakePaymentActivity.class);
+                intent.putExtra("Harga", binding.txtTotal.getText().toString());
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(this, "Tidak ada transaksi untuk di proses", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

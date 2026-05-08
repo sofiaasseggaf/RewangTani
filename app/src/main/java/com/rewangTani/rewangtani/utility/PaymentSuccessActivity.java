@@ -3,8 +3,8 @@ package com.rewangTani.rewangtani.utility;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,7 @@ public class PaymentSuccessActivity extends AppCompatActivity {
 
     private ImageView imgCheck;
     private TextView txtSuccess, txtDesc;
-    private Button btnDone;
+    private RelativeLayout btnDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +67,14 @@ public class PaymentSuccessActivity extends AppCompatActivity {
                 .setStartDelay(700)
                 .setDuration(400)
                 .start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent a = new Intent(this, Home.class);
+        startActivity(a);
+        finish();
     }
 }

@@ -14,7 +14,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginTop="15dp"
         android:layout_height="125dp"
-        android:background="@drawable/img_event"
+        android:background="@drawable/bg_chat_gray"
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop" />

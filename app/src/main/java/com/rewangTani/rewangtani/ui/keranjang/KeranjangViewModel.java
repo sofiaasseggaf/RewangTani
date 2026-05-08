@@ -73,7 +73,7 @@ public class KeranjangViewModel extends AndroidViewModel
             int total = 0;
             if (list != null) {
                 for (CartWithProduct item : list) {
-                    if (item.product != null) {
+                    if (item.product != null && item.keranjangLocal.isChecked) {
                         total += item.product.getHargaProduk() * item.keranjangLocal.quantity;
                     }
                 }

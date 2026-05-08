@@ -16,6 +16,7 @@ import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DraftRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
 import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
@@ -26,6 +27,7 @@ import com.rewangTani.rewangtani.data.local.dao.ProdukDao;
 import com.rewangTani.rewangtani.data.local.dao.ProfilDao;
 import com.rewangTani.rewangtani.data.local.dao.ProfilLahanDao;
 import com.rewangTani.rewangtani.data.local.dao.RencanaTanamDao;
+import com.rewangTani.rewangtani.data.local.dao.SudahTanamDao;
 import com.rewangTani.rewangtani.data.local.dao.WarungBppDao;
 import com.rewangTani.rewangtani.data.local.dao.WarungSewaMesinDao;
 import com.rewangTani.rewangtani.data.local.dao.WarungTenagaKerjaDao;
@@ -38,13 +40,14 @@ import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
                 DatumProfilLahan.class,
                 DatumRencanaTanam.class,
                 DraftRencanaTanam.class,
+                DatumSudahTanam.class,
                 DatumProduk.class,
                 DatumKeranjangLocal.class,
                 DatumBpp.class,
                 DatumSewaMesin.class,
                 DatumTenagaKerja.class
         },
-        version = 1,
+        version = 3,
         exportSchema = false
 )
 public abstract class RewangTaniDB extends RoomDatabase
@@ -55,6 +58,7 @@ public abstract class RewangTaniDB extends RoomDatabase
         public abstract ProfilLahanDao profilLahanDao();
         public abstract RencanaTanamDao rencanaTanamDao();
         public abstract DraftRencanaTanamDao draftDao();
+        public abstract SudahTanamDao sudahTanamDao();
         public abstract ProdukDao produkDao();
         public abstract KeranjangDao keranjangDao();
         public abstract WarungBppDao warungBppDao();

@@ -3,7 +3,6 @@ package com.rewangTani.rewangtani.ui.profilelahan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -20,8 +19,8 @@ import com.rewangTani.rewangtani.databinding.BottombarPlListProfileLahanBinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.home.HomeViewModel;
-import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
 import java.util.List;
 
@@ -59,7 +58,6 @@ public class ListProfileLahan extends AppCompatActivity
 
         viewModel.profileLengkap.observe(this, isLengkap ->
         {
-            Toast.makeText(this, "profile lengkap ? = " + isLengkap, Toast.LENGTH_SHORT).show();
             if (isLengkap) {
                 goToTambahPL();
             } else {
@@ -72,7 +70,6 @@ public class ListProfileLahan extends AppCompatActivity
                         getString(R.string.confirm_lengkapi_data_profile),
                         getString(R.string.confirm_back));
             }
-
         });
 
         viewModel.getAllProfileLahanById().observe(this, items ->
@@ -82,6 +79,7 @@ public class ListProfileLahan extends AppCompatActivity
                 binding.frameDataNotFound.setVisibility(View.VISIBLE);
             } else {
                 binding.viewLoading.setVisibility(View.GONE);
+                binding.frameDataNotFound.setVisibility(View.GONE);
                 binding.scrollview.setVisibility(View.VISIBLE);
                 setData(items);
             }
