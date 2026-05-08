@@ -40,7 +40,7 @@ import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOut
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.model.modelnoneditable.subkategoriharga.ModelSubKategoriHarga;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ResponseRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.ModelSudahTanam;
 import com.rewangTani.rewangtani.data.entity.warungbpp.DataBppById;
 import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
 import com.rewangTani.rewangtani.data.entity.warungsewamesin.DataSewaMesinById;
@@ -166,9 +166,6 @@ public interface APIInterfacesRest {
 
     @GET("sudah-tanam/read")
     Call<ModelSudahTanam> getDataSudahTanam();
-
-    @GET("sudah-tanam/readbyrencanatanam")
-    Call<ModelSudahTanam> getDataSudahTanamByRTid(@Query("idRencanaTanam") String idRencanaTanam);
 
     @POST("sudah-tanam/create")
     Call<ResponseBody> sendDataSudahTanam(

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.rewangTani.rewangtani.R;
@@ -20,9 +21,10 @@ import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.UpperbarStListSudahTanamBinding;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.ModelSudahTanam;
 import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
@@ -39,9 +41,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListSudahTanam extends AppCompatActivity {
+public class ListSudahTanam extends AppCompatActivity
+{
 
     UpperbarStListSudahTanamBinding binding;
+    private HomeViewModel viewModel;
     static ListSudahTanam classListSudahTanam = new ListSudahTanam();
     AdapterListSudahTanam itemList;
     ModelSudahTanam modelSudahTanam;
@@ -55,12 +59,22 @@ public class ListSudahTanam extends AppCompatActivity {
     List<DatumRencanaTanam> listNewRencanaTanam = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_list_sudah_tanam);
 
-        getData();
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_list_sudah_tanam);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        initEvent();
+        initObserver();
+
+//        getData();
         initializeNewSudahTanam();
+    }
+
+    private void initEvent()
+    {
 
         binding.btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +113,26 @@ public class ListSudahTanam extends AppCompatActivity {
                 goToRAB();
             }
         });
+    }
 
+    private void initObserver()
+    {
+
+        viewModel.fetchAllTanamData(((listRencanaTanam, listSudahTanam) ->
+        {
+            if (listRencanaTanam == null || listSudahTanam == null || listRencanaTanam.isEmpty() || listSudahTanam.isEmpty())
+            {
+                binding.scrollView.setVisibility(View.GONE);
+                binding.frameDataNotFound.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                binding.frameDataNotFound.setVisibility(View.GONE);
+                binding.scrollView.setVisibility(View.VISIBLE);
+                setData(listSudahTanam);
+            }
+
+        }));
     }
 
     public void getData() {
@@ -291,7 +324,7 @@ public class ListSudahTanam extends AppCompatActivity {
                 public void run() {
                     binding.viewLoading.setVisibility(View.GONE);
                     binding.scrollView.setVisibility(View.VISIBLE);
-                    setData();
+//                    setData();
                 }
             });
         } else {
@@ -360,8 +393,9 @@ public class ListSudahTanam extends AppCompatActivity {
         return classListSudahTanam;
     }
 
-    public void setData() {
-        itemList = new AdapterListSudahTanam(listNewSudahTanam, listNewRencanaTanam);
+    public void setData(List<DatumSudahTanam> listSudahTanam)
+    {
+        itemList = new AdapterListSudahTanam(listSudahTanam);
         binding.rvSudahTanam.setLayoutManager(new LinearLayoutManager(ListSudahTanam.this));
         binding.rvSudahTanam.setAdapter(itemList);
         binding.rvSudahTanam.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), binding.rvSudahTanam,
@@ -369,7 +403,7 @@ public class ListSudahTanam extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListSudahTanam.this, UpdateSudahTanamRT.class);
-                        a.putExtra("idRencanaTanam", listNewRencanaTanam.get(position).getIdRencanaTanam());
+                        a.putExtra("idRencanaTanam", listSudahTanam.get(position).getIdRencanaTanam().substring(0, 36));
                         startActivity(a);
                     }
 

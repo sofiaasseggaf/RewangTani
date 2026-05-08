@@ -10,19 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 
 import java.util.List;
 
 public class AdapterListSudahTanam extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<DatumSudahTanam> dataItemList;
-    List<DatumRencanaTanam> dataRT;
 
-    public AdapterListSudahTanam(List<DatumSudahTanam> dataItemList, List<DatumRencanaTanam> dataRT) {
+    public AdapterListSudahTanam(List<DatumSudahTanam> dataItemList) {
         this.dataItemList = dataItemList;
-        this.dataRT = dataRT;
     }
 
     @NonNull
@@ -36,7 +33,7 @@ public class AdapterListSudahTanam extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         // id rencana tanam, nanti diganti nama rencana tanam
-        ((Penampung)holder).nama.setText(dataRT.get(position).getNamaRencanaTanam());
+        ((Penampung)holder).nama.setText(dataItemList.get(position).getIdRencanaTanam().substring(37));
     }
 
     @Override

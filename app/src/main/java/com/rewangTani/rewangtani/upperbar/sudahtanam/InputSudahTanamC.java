@@ -9,8 +9,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamCBinding;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
-import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 public class InputSudahTanamC extends AppCompatActivity {

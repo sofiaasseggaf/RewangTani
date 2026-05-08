@@ -77,7 +77,7 @@ public class InputRencanaTanamE extends AppCompatActivity
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 DialogUtil.showCustomAlertDialog(
                         InputRencanaTanamE.this,
-                        "Simpan rencana tanam ?",
+                        getString(R.string.confirm_tambah_rt),
                         okButton -> saveLocalData());
 
 //                builder.setMessage("Simpan Rencana Tanam ?")

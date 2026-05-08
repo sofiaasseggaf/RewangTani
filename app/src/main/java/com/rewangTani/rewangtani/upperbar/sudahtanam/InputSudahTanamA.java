@@ -17,7 +17,7 @@ import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamABinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.DatumKomoditas;
 import com.rewangTani.rewangtani.model.modelnoneditable.varietas.DatumVarietas;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.utility.DialogUtil;
@@ -26,7 +26,8 @@ import com.rewangTani.rewangtani.utility.Global;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InputSudahTanamA extends AppCompatActivity {
+public class InputSudahTanamA extends AppCompatActivity
+{
 
     UpperbarStInputSudahTanamABinding binding;
     private HomeViewModel viewModel;
@@ -34,7 +35,7 @@ public class InputSudahTanamA extends AppCompatActivity {
     List<DatumKomoditas> komoditasList;
     List<DatumVarietas> varietasList;
     DatumRencanaTanam datumRencanaTanam;
-    String namaRT, namaPL, namaK, namaV, idSistemIrigasi;
+    String namaRT, idSistemIrigasi;
     boolean isWithPompa;
 
     @Override
@@ -47,7 +48,6 @@ public class InputSudahTanamA extends AppCompatActivity {
 
         initEvent();
         initObserver();
-
     }
 
     private void initEvent()
@@ -137,8 +137,7 @@ public class InputSudahTanamA extends AppCompatActivity {
         {
             if(komoditas.getIdKomoditas().equalsIgnoreCase(datumRencanaTanam.getIdKomoditas()))
             {
-                namaK = komoditas.getNamaKomoditas();
-                binding.txtKomoditas.setText(namaK);
+                binding.txtKomoditas.setText(komoditas.getNamaKomoditas());
             }
         }
 
@@ -146,8 +145,7 @@ public class InputSudahTanamA extends AppCompatActivity {
         {
             if(varietas.getIdVarietas().equalsIgnoreCase(datumRencanaTanam.getIdVarietas()))
             {
-                namaV = varietas.getNamaVarietas();
-                binding.txtVarietas.setText(namaV);
+                binding.txtVarietas.setText(varietas.getNamaVarietas());
             }
         }
     }

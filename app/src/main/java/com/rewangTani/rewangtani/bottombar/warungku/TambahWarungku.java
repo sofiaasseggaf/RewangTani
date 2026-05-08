@@ -24,7 +24,6 @@ import androidx.databinding.DataBindingUtil;
 
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
-import com.kosalgeek.android.photoutil.ImageBase64;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
@@ -38,10 +37,11 @@ import com.rewangTani.rewangtani.databinding.BottombarWarungkuTambahWarungkuBind
 import com.rewangTani.rewangtani.model.modelphoto.DataPhotoById;
 import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
+import com.rewangTani.rewangtani.utility.PhotoUtil;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
-import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -491,7 +491,7 @@ public class TambahWarungku extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == Global.CAMERA_REQUEST) {
                 bitmap = (Bitmap) data.getExtras().get("data");
-                encodedImage = ImageBase64.encode(bitmap);
+                encodedImage = PhotoUtil.getScaledBase64(bitmap);
                 if (!encodedImage.equalsIgnoreCase("")) {
                     addPhoto(encodedImage);
                 } else {
@@ -504,7 +504,7 @@ public class TambahWarungku extends AppCompatActivity {
                 try {
                     inputStream = getContentResolver().openInputStream(uri);
                     bitmap = BitmapFactory.decodeStream(inputStream);
-                    encodedImage = ImageBase64.encode(bitmap);
+                    encodedImage = PhotoUtil.getScaledBase64(bitmap);
                     if (!encodedImage.equalsIgnoreCase("")) {
                         addPhoto(encodedImage);
                     } else {

@@ -1,6 +1,5 @@
 package com.rewangTani.rewangtani.upperbar.sudahtanam;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,12 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamFBinding;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamFBinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.obat.ModelObat;
 import com.rewangTani.rewangtani.model.modelnoneditable.obat.ResponseSendObat;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 import org.json.JSONObject;
@@ -86,23 +86,10 @@ public class InputSudahTanamF extends AppCompatActivity {
 
         binding.btnSimpan.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Simpan Sudah Tanam ?")
-                    .setCancelable(false)
-                    .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            saveLocalData(false, "");
-                        }
-                    })
-
-                    .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int i) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
+            DialogUtil.showCustomAlertDialog(
+                    InputSudahTanamF.this,
+                    getString(R.string.confirm_tambah_st),
+                    okButton -> saveLocalData(false, ""));
         });
 
     }

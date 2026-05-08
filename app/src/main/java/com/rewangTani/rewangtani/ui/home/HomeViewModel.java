@@ -10,12 +10,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DraftRencanaTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.DraftRencanaTanamDao;
 import com.rewangTani.rewangtani.data.repository.MasterRencanaTanamRepo;
 import com.rewangTani.rewangtani.data.repository.ProfileLahanRepo;
 import com.rewangTani.rewangtani.data.repository.ProfileRepo;
-import com.rewangTani.rewangtani.data.repository.RencanaTanamRepo;
+import com.rewangTani.rewangtani.data.repository.TanamRepo;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.utility.DraftRencanaTanamManager;
 
@@ -28,11 +29,12 @@ public class HomeViewModel extends AndroidViewModel
 {
 
     private MasterRencanaTanamRepo masterRencanaTanamRepo;
-    private RencanaTanamRepo rencanaTanamRepo;
+    private TanamRepo tanamRepo;
     private ProfileLahanRepo profileLahanRepo;
     private ProfileRepo profileRepo;
 
     private LiveData<List<DatumRencanaTanam>> rencanaTanams;
+    private LiveData<List<DatumSudahTanam>> sudahTanams;
     private LiveData<List<DatumProfilLahan>> profilLahans;
 
     public MutableLiveData<Boolean> profileLengkap = new MutableLiveData<>();
@@ -47,11 +49,11 @@ public class HomeViewModel extends AndroidViewModel
         super(application);
 
         profileRepo = new ProfileRepo(application);
-        rencanaTanamRepo = new RencanaTanamRepo(application);
+        tanamRepo = new TanamRepo(application);
         profileLahanRepo = new ProfileLahanRepo(application);
         masterRencanaTanamRepo = new MasterRencanaTanamRepo(application);
 
-        rencanaTanams = rencanaTanamRepo.getAllRencanaTanam();
+        rencanaTanams = tanamRepo.getAllRencanaTanam();
         profilLahans = profileLahanRepo.getAllProfilLahan();
 
         draftRencanaTanamDao = RewangTaniDB.getInstance(application).draftDao();
@@ -93,6 +95,11 @@ public class HomeViewModel extends AndroidViewModel
     public void fetchAllRencanaTanamData(MasterRencanaTanamRepo.Callback callback)
     {
         masterRencanaTanamRepo.loadAll(callback);
+    }
+
+    public void fetchAllTanamData(TanamRepo.TanamCallback callback)
+    {
+        tanamRepo.loadAll(callback);
     }
 
     public void cekKelengkapanProfile()

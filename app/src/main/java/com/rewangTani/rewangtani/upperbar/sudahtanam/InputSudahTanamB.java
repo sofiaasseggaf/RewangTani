@@ -14,7 +14,7 @@ import com.rewangTani.rewangtani.databinding.UpperbarStInputSudahTanamBBinding;
 import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
 import com.rewangTani.rewangtani.utility.NumberTextWatcher;
 
 import java.text.DecimalFormat;

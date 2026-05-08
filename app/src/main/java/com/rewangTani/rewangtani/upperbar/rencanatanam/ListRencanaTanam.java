@@ -29,9 +29,7 @@ public class ListRencanaTanam extends AppCompatActivity
 
     UpperbarRtListRencanaTanamBinding binding;
     private HomeViewModel viewModel;
-    static ListRencanaTanam classListRencanaTanam = new ListRencanaTanam();
     AdapterListRencanaTanam itemList;
-    DatumRencanaTanam datumRencanaTanam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,7 +39,6 @@ public class ListRencanaTanam extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.upperbar_rt_list_rencana_tanam);
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-//        initializeNewRencanaTanam();
         initEvent();
         initObserver();
     }

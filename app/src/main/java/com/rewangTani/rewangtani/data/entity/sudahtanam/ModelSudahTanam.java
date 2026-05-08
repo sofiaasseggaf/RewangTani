@@ -1,5 +1,5 @@
 
-package com.rewangTani.rewangtani.model.modelupperbar.sudahtanam;
+package com.rewangTani.rewangtani.data.entity.sudahtanam;
 
 import android.os.Parcelable;
 

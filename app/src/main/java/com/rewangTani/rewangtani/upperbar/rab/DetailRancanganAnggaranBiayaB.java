@@ -17,8 +17,8 @@ import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.UpperbarRabDetailRabBBinding;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.ModelSudahTanam;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
 
 import java.text.DecimalFormat;

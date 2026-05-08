@@ -1,428 +1,110 @@
 package com.rewangTani.rewangtani.upperbar.sudahtanam;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.databinding.UpperbarStUpdateSudahTanamABinding;
-import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
-import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
-import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
-import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.ModelKomoditas;
-import com.rewangTani.rewangtani.model.modelnoneditable.varietas.ModelVarietas;
-import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
-import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.DatumSudahTanam;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.DatumSudahTanam;
+import com.rewangTani.rewangtani.databinding.UpperbarStUpdateSudahTanamABinding;
+import com.rewangTani.rewangtani.model.modelnoneditable.komoditas.DatumKomoditas;
+import com.rewangTani.rewangtani.model.modelnoneditable.varietas.DatumVarietas;
+import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
+import com.rewangTani.rewangtani.ui.home.HomeViewModel;
+import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.Global;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class UpdateSudahTanamRT extends AppCompatActivity {
+public class UpdateSudahTanamRT extends AppCompatActivity
+{
 
     UpperbarStUpdateSudahTanamABinding binding;
-    ModelRencanaTanam modelRencanaTanam;
-    DatumRencanaTanam dataRencanaTanam;
-    ModelProfilLahan modelProfilLahan;
-    ModelKomoditas modelKomoditas;
-    ModelVarietas modelVarietas;
-    ModelAkun modelAkun;
-    List<DatumAkun> listAkunwithToken = new ArrayList<>();
-    ModelProfilAkun modelProfilAkun;
-    List<String> listIDAkunwithAlamat = new ArrayList<>();
-    List<String> listToken = new ArrayList<String>();
-    String namaRT, idRT, namaPL, idPL, namaKomoditas, idK, namaVarietas, idV;
-    String tipeSIa, tipeSIb, tipeSIc, idSistemIrigasi;
-    DecimalFormat formatter;
+    private HomeViewModel viewModel;
+    DatumRencanaTanam datumRencanaTanam;
+    String namaRT, idSistemIrigasi;
     boolean isWithPompa;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_update_sudah_tanam_a);
 
+        binding = DataBindingUtil.setContentView(this, R.layout.upperbar_st_update_sudah_tanam_a);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+
+        initEvent();
+        initObserver();
+    }
+
+    private void initEvent()
+    {
+
+        binding.btnSelanjutnya.setOnClickListener( v -> {
+            if ( datumRencanaTanam != null ) {
+                saveLocalData();
+            } else {
+                Toast.makeText(UpdateSudahTanamRT.this, "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void initObserver()
+    {
         Intent intent = getIntent();
         String idRencanaTanam = intent.getStringExtra("idRencanaTanam");
 
-        getData(idRencanaTanam);
+        viewModel.fetchAllRencanaTanamData((listRencanaTanamFetched, listProfileLahanFetched,
+                                            listKomoditasFetched, listVarietasFetched) ->
+        {
 
-        formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-        DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
-        symbols.setGroupingSeparator('.');
-        symbols.setDecimalSeparator('.');
-        formatter = new DecimalFormat("###,###.##", symbols);
-
-        binding.btnSelanjutnya.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (idRT!=null && idPL!=null && idK!=null && idV!=null) {
-                    saveLocalData();
-                } else {
-                    Toast.makeText(UpdateSudahTanamRT.this, "Data Tidak Ditemukan", Toast.LENGTH_LONG).show();
+            runOnUiThread(() ->
+            {
+                for (DatumRencanaTanam rencanaTanam : listRencanaTanamFetched) {
+                    if (rencanaTanam.getIdRencanaTanam().equalsIgnoreCase(idRencanaTanam)) {
+                        binding.txtRencanaTanam.setText(rencanaTanam.getNamaRencanaTanam());
+                        datumRencanaTanam = rencanaTanam;
+                    }
                 }
-            }
-        });
 
-    }
+                if (datumRencanaTanam != null) {
+                    for (DatumProfilLahan profilLahan : listProfileLahanFetched) {
+                        if(profilLahan.getIdProfileTanah().equalsIgnoreCase(datumRencanaTanam.getIdProfilTanah())) {
+                            idSistemIrigasi = profilLahan.getIdSistemIrigasi();
+                            binding.txtProfilLahan.setText(profilLahan.getNamaProfilTanah());
 
-    public void getData(String idRencanaTanam){
-        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
-        final Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            int count = 0;
-            @Override
-            public void run() {
-                count++;
-                if (count == 1) {
-                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-                else if (count == 2) {
-                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-                else if (count == 3) {
-                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
-                if (count == 3)
-                    count = 0;
-                handler.postDelayed(this, 1500);
-            }
-        };
-        handler.postDelayed(runnable, 1000);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getRencanaTanam(idRencanaTanam);
-            }
-        }).start();
-    }
-
-    public void getRencanaTanam(String idRencanaTanam) {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelRencanaTanam> dataRT = apiInterface.getDataRencanaTanam();
-        dataRT.enqueue(new Callback<ModelRencanaTanam>() {
-            @Override
-            public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
-                modelRencanaTanam = response.body();
-                if (response.body()!=null){
-                    try{
-                        for (int i = 0; i < modelRencanaTanam.getTotalData(); i++) {
-                            String idrt = modelRencanaTanam.getData().get(i).getIdRencanaTanam();
-                            if (idRencanaTanam.equalsIgnoreCase(idrt)) {
-                                namaRT = modelRencanaTanam.getData().get(i).getNamaRencanaTanam();
-                                idRT = modelRencanaTanam.getData().get(i).getIdRencanaTanam();
-                                idPL = modelRencanaTanam.getData().get(i).getIdProfilTanah();
-                                idK = modelRencanaTanam.getData().get(i).getIdKomoditas();
-                                idV = modelRencanaTanam.getData().get(i).getIdVarietas();
-                                dataRencanaTanam = modelRencanaTanam.getData().get(i);
-                            }
-                        }
-                        if (dataRencanaTanam!=null){
-                            getDataProfilLahan();
-                        } else {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                    Toast.makeText(UpdateSudahTanamRT.this, "Data rencana tanam tidak ada", Toast.LENGTH_LONG).show();
-                                    call.cancel();
+                            for (DatumKomoditas komoditas : listKomoditasFetched) {
+                                if(komoditas.getIdKomoditas().equalsIgnoreCase(datumRencanaTanam.getIdKomoditas())) {
+                                    binding.txtKomoditas.setText(komoditas.getNamaKomoditas());
                                 }
-                            });
-                        }
-                    } catch (Exception e){ }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelRencanaTanam> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanamRT.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
-            }
-        });
-    }
-
-    public void getDataProfilLahan() {
-
-        // sumur bor
-        tipeSIa = "10a9631e-6add-459e-b7e2-aed3a0c907df";
-        // permukaan
-        tipeSIb = "26b145d3-632b-4f59-8571-b85a993169b3";
-        // tadah hujan
-        tipeSIc = "570ca522-6cca-4c9a-9b83-adc7d3cc0389";
-
-
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelProfilLahan> dataPL = apiInterface.getDataProfilLahan();
-        dataPL.enqueue(new Callback<ModelProfilLahan>() {
-            @Override
-            public void onResponse(Call<ModelProfilLahan> call, Response<ModelProfilLahan> response) {
-                modelProfilLahan = response.body();
-                if (response.body()!=null){
-                    for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
-                        try {
-                            if (modelProfilLahan.getData().get(i).getIdProfileTanah().equalsIgnoreCase(dataRencanaTanam.getIdProfilTanah())) {
-                                namaPL = modelProfilLahan.getData().get(i).getNamaProfilTanah();
-                                idSistemIrigasi = modelProfilLahan.getData().get(i).getIdSistemIrigasi().toString();
                             }
-                        } catch (Exception e){ }
-                    }
-                    if (!namaPL.equalsIgnoreCase("")){
-                        getDataAkun();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanamRT.this, "Data profil lahan tidak ada", Toast.LENGTH_LONG).show();
-                                call.cancel();
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelProfilLahan> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanamRT.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                                call.cancel();
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    }
 
-    public void getDataAkun(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelAkun> data = apiInterface.getDataAkun();
-        data.enqueue(new Callback<ModelAkun>() {
-            @Override
-            public void onResponse(Call<ModelAkun> call, Response<ModelAkun> response) {
-                modelAkun = response.body();
-                if (response.body() != null) {
-                    for (int i=0; i<modelAkun.getTotalData(); i++){
-                        if (modelAkun.getData().get(i).getToken()!=null){
-                            listAkunwithToken.add(modelAkun.getData().get(i));
-//                            listToken.add(modelAkun.getData().get(i).getToken());
-                        }
-                    }
-                    if (listAkunwithToken!=null){
-                        getDataAlamat();
-                    } else {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-//                                Toast.makeText(UpdateSudahTanamA.this, "Data token tidak ditemukan", Toast.LENGTH_SHORT).show();
-//                                setFieldSistemIrigasi();
-//
-//                            }
-//                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelAkun> call, Throwable t) {
-                Toast.makeText(UpdateSudahTanamRT.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                call.cancel();
-            }
-        });
-    }
-
-    private void getDataAlamat(){
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelProfilAkun> dataProfilAkun = apiInterface.getDataProfilAkun();
-        dataProfilAkun.enqueue(new Callback<ModelProfilAkun>() {
-            @Override
-            public void onResponse(Call<ModelProfilAkun> call, Response<ModelProfilAkun> response) {
-                modelProfilAkun = response.body();
-                if (response.body()!=null){
-                    String idAlamat = PreferenceUtils.getIdAlamat(getApplicationContext());
-                    try{
-                        for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
-                            if(modelProfilAkun.getData().get(i).getIdAlamat()!=null){
-                                if(modelProfilAkun.getData().get(i).getIdAlamat().equalsIgnoreCase(idAlamat)){
-                                    listIDAkunwithAlamat.add(modelProfilAkun.getData().get(i).getIdAkun());
+                            for (DatumVarietas varietas : listVarietasFetched) {
+                                if(varietas.getIdVarietas().equalsIgnoreCase(datumRencanaTanam.getIdVarietas())) {
+                                    binding.txtVarietas.setText(varietas.getNamaVarietas());
                                 }
                             }
                         }
-                        if (listIDAkunwithAlamat.size()>0){
-                            for (int a=0; a<listAkunwithToken.size(); a++){
-                                for (int j=0; j<listIDAkunwithAlamat.size(); j++){
-                                    if(listAkunwithToken.get(a).getIdAkun().equalsIgnoreCase(listIDAkunwithAlamat.get(j))){
-                                        listToken.add(listAkunwithToken.get(a).getToken());
-                                    }
-                                }
-                            }
-                        }
-
-                        if (listToken.size()>0){
-                            for (int a=0; a<modelAkun.getTotalData(); a++){
-                                for (int b=0; b>listToken.size(); b++){
-                                    if (modelAkun.getData().get(a).getIdAkun().equalsIgnoreCase(PreferenceUtils.getIdAkun(getApplicationContext()))){
-                                        String thistoken = modelAkun.getData().get(a).getToken();
-                                        if (listToken.get(b).equalsIgnoreCase(thistoken)){
-                                            listToken.remove(listToken.get(b));
-                                        }
-                                    }
-                                }
-                            }
-                            if (listToken.size()>0){
-                                getDataKomoditas();
-                            }
-                        } else {
-                            getDataKomoditas();
-                        }
-
-                    } catch (Exception e){ }
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                            Toast.makeText(UpdateSudahTanamRT.this, "Data Alamat Tidak Ditemukan", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelProfilAkun> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanamRT.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
                     }
-                });
-
-            }
+                }
+            });
         });
     }
 
-    public void getDataKomoditas() {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelKomoditas> dataK = apiInterface.getDataKomoditas();
-        dataK.enqueue(new Callback<ModelKomoditas>() {
-            @Override
-            public void onResponse(Call<ModelKomoditas> call, Response<ModelKomoditas> response) {
-                modelKomoditas = response.body();
-                if (response.body()!=null){
-                    for (int i = 0; i < modelKomoditas.getTotalData(); i++) {
-                        try {
-                            if (modelKomoditas.getData().get(i).getIdKomoditas().equalsIgnoreCase(dataRencanaTanam.getIdKomoditas())) {
-                                namaKomoditas = modelKomoditas.getData().get(i).getNamaKomoditas(); }
-                        } catch (Exception e){ }
-                    }
-                    if (!namaKomoditas.equalsIgnoreCase("")){
-                        getDataVarietas();
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanamRT.this, "Data komoditas tidak ada", Toast.LENGTH_LONG).show();
-                                call.cancel();
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelKomoditas> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanamRT.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
-            }
-        });
-    }
+    private void saveLocalData()
+    {
 
-    public void getDataVarietas() {
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelVarietas> dataV = apiInterface.getDataVarietas();
-        dataV.enqueue(new Callback<ModelVarietas>() {
-            @Override
-            public void onResponse(Call<ModelVarietas> call, Response<ModelVarietas> response) {
-                modelVarietas = response.body();
-                if (response.body()!=null){
-                    for (int i = 0; i < modelVarietas.getTotalData(); i++) {
-                        try {
-                            if (modelVarietas.getData().get(i).getIdVarietas().equalsIgnoreCase(dataRencanaTanam.getIdVarietas())) {
-                                namaVarietas = modelVarietas.getData().get(i).getNamaVarietas(); }
-                        } catch (Exception e){ }
-                    }
-                    if (!namaVarietas.equalsIgnoreCase("")){
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                setData();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                                Toast.makeText(UpdateSudahTanamRT.this, "Data varietas tidak ada", Toast.LENGTH_LONG).show();
-                                call.cancel();
-                            }
-                        });
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ModelVarietas> call, Throwable t) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
-                        Toast.makeText(UpdateSudahTanamRT.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                        call.cancel();
-                    }
-                });
-            }
-        });
+        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(Global.SI_B_PERMUKAAN);
+
+        DatumSudahTanam datumSudahTanam = new DatumSudahTanam(datumRencanaTanam.getIdRencanaTanam(), datumRencanaTanam.getIdProfilTanah(), "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
+        ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);
+        moveToB();
     }
 
     public void setData() {
-        binding.txtRencanaTanam.setText(namaRT);
-        binding.txtProfilLahan.setText(namaPL);
-        binding.txtKomoditas.setText(namaKomoditas);
-        binding.txtVarietas.setText(namaVarietas);
         /*
         String a = checkDesimal(dataRencanaTanam.getIdBiayaBuruhTanam());
         txt_buruh_tanam2.setText("Biaya Sebelumnya : Rp. "+a);
@@ -476,15 +158,6 @@ public class UpdateSudahTanamRT extends AppCompatActivity {
 */
     }
 
-    private void saveLocalData() {
-
-        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(tipeSIb);
-
-        DatumSudahTanam datumSudahTanam = new DatumSudahTanam(idRT, idPL, "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
-        ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);
-        moveToB();
-    }
-
     public void moveToB(){
         Intent a = new Intent(UpdateSudahTanamRT.this, InputSudahTanamB.class);
         startActivity(a);
@@ -500,24 +173,14 @@ public class UpdateSudahTanamRT extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Batal update sudah tanam ?")
-                .setCancelable(false)
-                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        goToListST();
-                    }
-                })
-
-                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int i) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog =builder.create();
-        alertDialog.show();
+    public void onBackPressed()
+    {
+        DialogUtil.showCustomAlertDialog(
+                UpdateSudahTanamRT.this,
+                getString(R.string.confirm_batal_input_st),
+                okButton -> {
+                    viewModel.clearDraftRencanaTanam();
+                    goToListST();
+                } );
     }
 }

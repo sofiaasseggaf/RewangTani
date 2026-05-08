@@ -1,11 +1,16 @@
 
-package com.rewangTani.rewangtani.model.modelupperbar.sudahtanam;
+package com.rewangTani.rewangtani.data.entity.sudahtanam;
 
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "sudah_tanam")
 public class DatumSudahTanam implements Parcelable
 {
 
@@ -21,6 +26,8 @@ public class DatumSudahTanam implements Parcelable
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idSudahTanam")
     @Expose
     private String idSudahTanam;

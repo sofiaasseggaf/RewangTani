@@ -21,7 +21,7 @@ import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.model.modelupperbar.outputrencanatanam.ModelOutputRencanaTanam;
 import com.rewangTani.rewangtani.model.modelupperbar.panen.ModelPanen;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.ModelRencanaTanam;
-import com.rewangTani.rewangtani.model.modelupperbar.sudahtanam.ModelSudahTanam;
+import com.rewangTani.rewangtani.data.entity.sudahtanam.ModelSudahTanam;
 import com.rewangTani.rewangtani.data.entity.warungbpp.ModelBpp;
 import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
