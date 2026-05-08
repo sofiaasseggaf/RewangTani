@@ -12,6 +12,8 @@ import com.rewangTani.rewangtani.data.entity.rencanatanam.DatumRencanaTanam;
 import com.rewangTani.rewangtani.data.entity.rencanatanam.DraftRencanaTanam;
 import com.rewangTani.rewangtani.data.local.RewangTaniDB;
 import com.rewangTani.rewangtani.data.local.dao.DraftRencanaTanamDao;
+import com.rewangTani.rewangtani.data.local.dao.InboxDao;
+import com.rewangTani.rewangtani.data.repository.ChatRepo;
 import com.rewangTani.rewangtani.data.repository.MasterRencanaTanamRepo;
 import com.rewangTani.rewangtani.data.repository.ProfileLahanRepo;
 import com.rewangTani.rewangtani.data.repository.ProfileRepo;
@@ -29,19 +31,19 @@ public class HomeViewModel extends AndroidViewModel
 
     private MasterRencanaTanamRepo masterRencanaTanamRepo;
     private TanamRepo tanamRepo;
+    private ChatRepo chatRepo;
     private ProfileLahanRepo profileLahanRepo;
     private ProfileRepo profileRepo;
-
     private LiveData<List<DatumRencanaTanam>> rencanaTanams;
     private LiveData<List<DatumProfil>> profiles;
     private LiveData<List<DatumProfilLahan>> profilLahans;
-
     public MutableLiveData<Boolean> profileLengkap = new MutableLiveData<>();
     private final Executor executor = Executors.newSingleThreadExecutor();
-
     private final DraftRencanaTanamDao draftRencanaTanamDao;
+    private final InboxDao inboxDao;
     private final DraftRencanaTanamManager draftRencanaTanamManager;
     private final LiveData<DraftRencanaTanam> draftRencanaTanamLiveData;
+    private final MutableLiveData<Integer> unreadInboxes = new MutableLiveData<>();
 
     public HomeViewModel(@NonNull Application application)
     {
@@ -49,12 +51,15 @@ public class HomeViewModel extends AndroidViewModel
 
         profileRepo = new ProfileRepo(application);
         tanamRepo = new TanamRepo(application);
+        chatRepo = new ChatRepo(application);
         profileLahanRepo = new ProfileLahanRepo(application);
         masterRencanaTanamRepo = new MasterRencanaTanamRepo(application);
 
         rencanaTanams = tanamRepo.getAllRencanaTanam();
         profiles = profileRepo.getAllProfiles();
         profilLahans = profileLahanRepo.getAllProfilLahan();
+
+        inboxDao = RewangTaniDB.getInstance(application).inboxDao();
 
         draftRencanaTanamDao = RewangTaniDB.getInstance(application).draftDao();
         draftRencanaTanamManager = new DraftRencanaTanamManager(draftRencanaTanamDao);
@@ -150,6 +155,16 @@ public class HomeViewModel extends AndroidViewModel
                 d.luasLahan,
                 d.potensiHasilVarietas
         );
+    }
+
+    public LiveData<Integer> getUnreadInboxes()
+    {
+        return chatRepo.getUnreadCount();
+    }
+
+    public void triggerSync(String myId)
+    {
+        chatRepo.loadAndSyncInbox(myId);
     }
 
 }

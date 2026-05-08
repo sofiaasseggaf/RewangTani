@@ -13,6 +13,7 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
 
+import java.util.Collections;
 import java.util.List;
 
 import hu.akarnokd.rxjava3.bridge.RxJavaBridge;
@@ -148,6 +149,15 @@ public class WebSocketManager {
             public void onResponse(Call<List<ChatRequest>> call, Response<List<ChatRequest>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<ChatRequest> chatHistory = response.body();
+
+                        Collections.sort(chatHistory, (o1, o2) -> {
+                            String d1 = o1.getSentAt();
+                            Log.i("SOFIA", "d1 = " + d1);
+                            String d2 = o2.getSentAt();
+                            Log.i("SOFIA", "d2 = " + d2);
+                            return d1.compareTo(d2);
+                        });
+
                     if (messageListener != null) {
                         messageListener.onAllChatDataReceived(chatHistory);
                     }

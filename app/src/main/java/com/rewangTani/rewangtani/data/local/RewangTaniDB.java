@@ -11,6 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
+import com.rewangTani.rewangtani.data.entity.inbox.DatumInbox;
 import com.rewangTani.rewangtani.data.entity.product.DatumKeranjangLocal;
 import com.rewangTani.rewangtani.data.entity.product.DatumProduk;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
@@ -22,6 +23,7 @@ import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.data.local.dao.AkunDao;
 import com.rewangTani.rewangtani.data.local.dao.DraftRencanaTanamDao;
+import com.rewangTani.rewangtani.data.local.dao.InboxDao;
 import com.rewangTani.rewangtani.data.local.dao.KeranjangDao;
 import com.rewangTani.rewangtani.data.local.dao.ProdukDao;
 import com.rewangTani.rewangtani.data.local.dao.ProfilDao;
@@ -45,9 +47,10 @@ import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
                 DatumKeranjangLocal.class,
                 DatumBpp.class,
                 DatumSewaMesin.class,
-                DatumTenagaKerja.class
+                DatumTenagaKerja.class,
+                DatumInbox.class
         },
-        version = 3,
+        version = 4,
         exportSchema = false
 )
 public abstract class RewangTaniDB extends RoomDatabase
@@ -64,7 +67,7 @@ public abstract class RewangTaniDB extends RoomDatabase
         public abstract WarungBppDao warungBppDao();
         public abstract WarungSewaMesinDao warungSewaMesinDao();
         public abstract WarungTenagaKerjaDao warungTenagaKerjaDao();
-
+        public abstract InboxDao inboxDao();
 
         public static RewangTaniDB getInstance(Context context) {
                 if (INSTANCE == null) {

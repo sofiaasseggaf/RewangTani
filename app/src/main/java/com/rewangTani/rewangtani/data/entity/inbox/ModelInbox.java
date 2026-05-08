@@ -1,5 +1,5 @@
 
-package com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox;
+package com.rewangTani.rewangtani.data.entity.inbox;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

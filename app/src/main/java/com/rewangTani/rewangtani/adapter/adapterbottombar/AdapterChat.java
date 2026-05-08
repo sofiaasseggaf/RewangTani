@@ -35,7 +35,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ChatViewHolder
         ChatRequest chatMessage = chatMessages.get(position);
 //        holder.messageTextView.setText(chatMessage.getText());
 
-        holder.time.setText(chatMessage.getSentAt());
+        String cleanTime = chatMessage.getSentAt().substring(11, 16);
+        holder.time.setText(cleanTime);
         holder.lastText.setText(chatMessage.getText());
 
         String idProfile = PreferenceUtils.getIdProfil(context);

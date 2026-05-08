@@ -1,11 +1,16 @@
 
-package com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox;
+package com.rewangTani.rewangtani.data.entity.inbox;
+
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
+@Entity(tableName = "inbox")
 public class DatumInbox implements Serializable {
 
     @SerializedName("createdBy")
@@ -20,6 +25,8 @@ public class DatumInbox implements Serializable {
     @SerializedName("updatedDate")
     @Expose
     private String updatedDate;
+    @PrimaryKey
+    @NonNull
     @SerializedName("idInbox")
     @Expose
     private String idInbox;

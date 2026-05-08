@@ -39,8 +39,8 @@ import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitda
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.DatumInbox;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox.ModelInbox;
+import com.rewangTani.rewangtani.data.entity.inbox.DatumInbox;
+import com.rewangTani.rewangtani.data.entity.inbox.ModelInbox;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.service.ChatService;
@@ -222,6 +222,11 @@ public class Home extends AppCompatActivity
     private void initObserver()
     {
 
+        viewModel.getUnreadInboxes().observe(this, count -> {
+            if (count != null) {
+                binding.notificationTick.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     private void initListener()
@@ -592,6 +597,15 @@ public class Home extends AppCompatActivity
             finish();
             finishAffinity();
         });
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        String myId = PreferenceUtils.getIdProfil(this);
+        viewModel.triggerSync(myId);
     }
 
     @Override

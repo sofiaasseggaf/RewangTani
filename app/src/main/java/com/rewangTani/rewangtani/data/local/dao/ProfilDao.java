@@ -17,6 +17,9 @@ public interface ProfilDao
     @Query("SELECT * FROM profil")
     LiveData<List<DatumProfil>> getAllProfiles();
 
+    @Query("SELECT * FROM profil")
+    List<DatumProfil>   getAllProfilesLocal();
+
     @Query("SELECT * FROM profil WHERE idProfile = :idProfile LIMIT 1")
     DatumProfil getMyProfile(String idProfile);
 

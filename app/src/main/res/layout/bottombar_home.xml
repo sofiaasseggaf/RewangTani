@@ -542,29 +542,39 @@
                     android:textSize="10sp" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/btnPesan"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <ImageView
+                    android:id="@+id/imgPesan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:background="@drawable/ic_pesan_off" />
 
+                <RelativeLayout
+                    android:id="@+id/notificationTick"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_alignRight="@id/imgPesan"
+                    android:background="@drawable/dot_selected"/>
+
                 <TextView
+                    android:id="@+id/txtPesan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/inter_medium"
                     android:text="Pesan"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
                     android:textAlignment="center"
                     android:textColor="@color/chatGrey"
                     android:textSize="10sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/btnAkun"

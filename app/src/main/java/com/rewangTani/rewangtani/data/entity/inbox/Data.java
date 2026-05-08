@@ -1,5 +1,5 @@
 
-package com.rewangTani.rewangtani.model.modelchatdaninbox.modelinbox;
+package com.rewangTani.rewangtani.data.entity.inbox;
 
 import java.io.Serializable;
 import android.os.Parcelable;
