@@ -21,6 +21,7 @@ import com.rewangTani.rewangtani.model.wilayah.Village;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -59,7 +60,12 @@ public class ProfileLahanRepo
             public void onResponse(Call<ModelProfilLahan> call, Response<ModelProfilLahan> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     new Thread(() -> {
-                        List<DatumProfilLahan> profilLahans = response.body().getData();
+                        List<DatumProfilLahan> profilLahans = new ArrayList<>();
+                        for (DatumProfilLahan profilLahan : response.body().getData()) {
+                            if (profilLahan.getIdUser().equalsIgnoreCase(idAkun)) {
+                                profilLahans.add(profilLahan);
+                            }
+                        }
                         long now = System.currentTimeMillis();
                         for (DatumProfilLahan p : profilLahans) {
                             p.lastUpdated = now;

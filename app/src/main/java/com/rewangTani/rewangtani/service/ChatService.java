@@ -1,6 +1,8 @@
 package com.rewangTani.rewangtani.service;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -10,82 +12,74 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.utility.Global;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.data.entity.inbox.DatumInbox;
+import com.rewangTani.rewangtani.data.local.RewangTaniDB;
+import com.rewangTani.rewangtani.data.local.dao.InboxDao;
+import com.rewangTani.rewangtani.utility.WebSocketManager;
 
-import java.util.ArrayList;
-
-import ua.naiksoftware.stomp.Stomp;
-import ua.naiksoftware.stomp.StompClient;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class ChatService extends Service {
 
-    private StompClient stompClient;
-    private static final String WEBSOCKET_URL = "ws://167.172.72.217:8080/ws";
-    private static final String SUBSCRIBE_TOPIC = "/topic/private/"; // Replace with your subscription topic
+    private static final String CHANNEL_ID = "ChatNotifications";
+    private WebSocketManager webSocketManager;
+    private InboxDao inboxDao;
+    private final Executor executor = Executors.newSingleThreadExecutor();
+
+//    private StompClient stompClient;
+//    private static final String WEBSOCKET_URL = "ws://167.172.72.217:8080/ws";
+//    private static final String SUBSCRIBE_TOPIC = "/topic/private/"; // Replace with your subscription topic
 
     @Override
     public void onCreate()
     {
         super.onCreate();
-        stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, WEBSOCKET_URL);
+        createNotificationChannel();
+        startForeground(1, getNotification("Chat is active"));
+
+        RewangTaniDB db = RewangTaniDB.getInstance(this);
+        inboxDao = db.inboxDao();
+
+        webSocketManager = WebSocketManager.getInstance(this);
+        webSocketManager.init();
+        webSocketManager.connect();
+
+        subscribeToAll();
+    }
+
+    private void subscribeToAll()
+    {
+        executor.execute(() -> {
+            List<DatumInbox> list = inboxDao.getAllInboxLocal();
+            for (DatumInbox inbox : list) {
+                webSocketManager.subscribeToInbox(inbox.getIdInbox());
+            }
+        });
     }
 
     @Override
     public int onStartCommand( @NonNull Intent intent, int flags, int startId )
     {
-
-        startForeground(Global.CHAT_NOTIFICATION_ID, chatChannelNotification());
-        String idProfile = PreferenceUtils.getIdProfil(this);
-
-        if ( intent.getStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS) != null )
-        {
-            ArrayList<String> inboxIds = intent.getStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS);
-            if ( inboxIds != null && !inboxIds.isEmpty() )
-            {
-                stompClient.connect();
-
-                for ( String id : inboxIds )
-                {
-                    String topicDestination = SUBSCRIBE_TOPIC + id;
-//                stompClient.topic(topicDestination)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(message -> {
-//                            Gson gson = new Gson();
-//                            ChatRequest receivedMessage = gson.fromJson(message.getPayload(), ChatRequest.class);
-//                            if ( !receivedMessage.getIdSender().equalsIgnoreCase(idProfile) )
-//                            {
-//                                startForeground(Global.CHAT_NOTIFICATION_ID, chatNotification(receivedMessage.getText()));
-//                                Intent a = new Intent(Global.INTENT_ACTION_REFRESH_INBOX);
-//                                LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(a);
-//                            }
-//                        }, throwable -> {
-//                        });
-                }
-            }
-        }
         return START_STICKY;
     }
 
-    private Notification chatNotification( String message )
+    private void createNotificationChannel()
     {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this, Global.CHAT_CHANNEL)
-                        .setContentTitle("Chat")
-                        .setContentText(message)
-                        .setSmallIcon(R.drawable.ic_chat);
-        return builder.build();
+        NotificationChannel serviceChannel = new NotificationChannel(
+                CHANNEL_ID, "Chat Service Channel", NotificationManager.IMPORTANCE_LOW);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        if (manager != null) manager.createNotificationChannel(serviceChannel);
     }
 
-    private Notification chatChannelNotification()
+    private Notification getNotification(String content)
     {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this, Global.CHAT_CHANNEL)
-                        .setContentTitle("Rewang Tani")
-                        .setContentText("Foreground service for chat")
-                        .setSmallIcon(R.drawable.ic_chat);
-        return builder.build();
+        return new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Rewang Tani")
+                .setContentText(content)
+                .setSmallIcon(R.drawable.ic_chat)
+                .build();
     }
 
     @Nullable

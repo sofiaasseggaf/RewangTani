@@ -1,20 +1,29 @@
 package com.rewangTani.rewangtani.utility;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 import com.google.gson.Gson;
+import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
+import com.rewangTani.rewangtani.data.local.RewangTaniDB;
+import com.rewangTani.rewangtani.data.local.dao.InboxDao;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import hu.akarnokd.rxjava3.bridge.RxJavaBridge;
 import io.reactivex.rxjava3.core.Flowable;
@@ -34,17 +43,33 @@ public class WebSocketManager {
     private static final String WEBSOCKET_URL = "ws://167.172.72.217:8080/ws"; // Replace with your WebSocket URL
     private static final String SUBSCRIBE_TOPIC = "/topic/private/"; // Replace with your subscription topic
     private static final String SEND_ENDPOINT = "/app/sendMessage"; // Replace with your backend's send endpoint
+    private static WebSocketManager instance;
     private StompClient stompClient;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final Gson gson = new Gson();
-    private final OnMessageReceivedListener messageListener;
+    private OnMessageReceivedListener messageListener;
     public static final String CHANNEL_ID = "serviceChannel";
     private final Context context;
+    private InboxDao inboxDao;
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
-    public WebSocketManager( OnMessageReceivedListener listener, Context context )
+    public WebSocketManager( Context context )
     {
-        this.messageListener = listener;
+        RewangTaniDB db = RewangTaniDB.getInstance(context);
+
         this.context = context.getApplicationContext();
+        this.inboxDao = db.inboxDao();
+    }
+
+    public static synchronized WebSocketManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new WebSocketManager(context.getApplicationContext());
+        }
+        return instance;
+    }
+
+    public void setListener(OnMessageReceivedListener listener) {
+        this.messageListener = listener;
     }
 
     public void init() {
@@ -94,7 +119,7 @@ public class WebSocketManager {
 
     public void subscribeToInbox( String inboxId )
     {
-        compositeDisposable.clear();
+//        compositeDisposable.clear();
         String destination = SUBSCRIBE_TOPIC + inboxId;
 
         Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -103,6 +128,7 @@ public class WebSocketManager {
 
                     StompMessage message = (StompMessage) messageObj;
                     String payload = message.getPayload();
+                    handleGlobalNotification(payload);
 
                     try {
 
@@ -123,6 +149,18 @@ public class WebSocketManager {
         compositeDisposable.add(disposable);
     }
 
+    private void handleGlobalNotification(String payload)
+    {
+        ChatRequest chatRequest = new Gson().fromJson(payload, ChatRequest.class);
+        executor.execute(() -> {
+            inboxDao.updateIsChecked(chatRequest.getIdInbox());
+        });
+
+        if (messageListener == null) {
+            showStatusBarNotification(chatRequest.getText());
+        }
+    }
+
     public void sendMessage(ChatRequest chatMessage) {
         String jsonMessage = gson.toJson(chatMessage);
         Disposable sendSubscription = RxJavaBridge
@@ -140,7 +178,6 @@ public class WebSocketManager {
         compositeDisposable.add(sendSubscription);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void requestChatData(String idInbox) {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<List<ChatRequest>> datachat = apiInterface.getChatHistory(idInbox);
@@ -167,6 +204,24 @@ public class WebSocketManager {
             public void onFailure(Call<List<ChatRequest>> call, Throwable t) {
             }
         });
+    }
+
+    private void showStatusBarNotification(String message)
+    {
+        Intent intent = new Intent(context, Inbox.class); // Or Chat.class
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = new NotificationCompat.Builder(context, "ChatNotifications")
+                .setContentTitle("New Chat")
+                .setContentText(message)
+                .setSmallIcon(R.drawable.icon_logo_alert)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build();
+
+        notificationManager.notify(1, notification);
     }
 
     public void disconnect() {

@@ -1,7 +1,15 @@
 package com.rewangTani.rewangtani.utility;
 
+import android.app.Activity;
 import android.widget.EditText;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -18,7 +26,8 @@ public class TextUtil
         return input.getText().toString().replaceAll("[^0-9]", "");
     }
 
-    public static String checkDesimal(String a){
+    public static String checkDesimal(String a)
+    {
 
         formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
         DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
@@ -59,5 +68,61 @@ public class TextUtil
             return "0";
         }
     }
+
+
+    public interface TranslationCallback {
+        void onTranslationSuccess(String translatedText);
+        void onTranslationError(Exception e);
+    }
+
+    public static void translateText(Activity activity, String text, TranslationCallback callback)
+    {
+        new Thread(() -> {
+            HttpURLConnection urlConnection = null;
+            try {
+                String urlString = "https://api.mymemory.translated.net/get?q="
+                        + URLEncoder.encode(text, "UTF-8")
+                        + "&langpair="
+                        + URLEncoder.encode("en|id", "UTF-8");
+
+                URL url = new URL(urlString);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(5000);
+
+                int responseCode = urlConnection.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK)
+                {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder responseStr = new StringBuilder();
+                    String inputLine;
+                    while ((inputLine = in.readLine()) != null) {
+                        responseStr.append(inputLine);
+                    }
+                    in.close();
+
+                    JSONObject jsonResponse = new JSONObject(responseStr.toString());
+                    String translated = jsonResponse.getJSONObject("responseData").getString("translatedText");
+                    activity.runOnUiThread(() -> callback.onTranslationSuccess(translated));
+                }
+                else
+                {
+                    activity.runOnUiThread(() -> callback.onTranslationError(new Exception("Server returned code: " + responseCode)));
+                }
+            }
+            catch (Exception e)
+            {
+                activity.runOnUiThread(() -> callback.onTranslationError(e));
+            }
+            finally
+            {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+            }
+        }).start();
+    }
+
 
 }

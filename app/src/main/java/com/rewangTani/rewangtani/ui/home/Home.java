@@ -1,18 +1,17 @@
 package com.rewangTani.rewangtani.ui.home;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,8 +21,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.rewangTani.rewangtani.R;
@@ -31,67 +28,50 @@ import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterHomeImageCarous
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarHomeBinding;
 import com.rewangTani.rewangtani.middlebar.Blog;
 import com.rewangTani.rewangtani.middlebar.warungbibitdanpupuk.ListWarungBibitdanPupuk;
 import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
-import com.rewangTani.rewangtani.data.entity.inbox.DatumInbox;
-import com.rewangTani.rewangtani.data.entity.inbox.ModelInbox;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.service.ChatService;
 import com.rewangTani.rewangtani.ui.keranjang.ActivityKeranjang;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
-import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
 import com.rewangTani.rewangtani.upperbar.rencanatanam.ListRencanaTanam;
 import com.rewangTani.rewangtani.upperbar.sudahtanam.ListSudahTanam;
-import com.rewangTani.rewangtani.utility.Global;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.Global;
+import com.rewangTani.rewangtani.utility.LocationHelper;
+import com.rewangTani.rewangtani.utility.NavigationManager;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
+import com.rewangTani.rewangtani.utility.TextUtil;
+import com.rewangTani.rewangtani.utility.WebSocketManager;
 import com.squareup.picasso.Picasso;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import retrofit2.Call;
-import retrofit2.Callback;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Home extends AppCompatActivity
 {
 
     BottombarHomeBinding binding;
     private HomeViewModel viewModel;
-    int PERMISSION_CODE = 1;
-    Double lat = 0.0;
-    Double longt = 0.0;
-    String translated;
-    HttpResponse hr;
-
     private AdapterHomeImageCarousel adapterHomeImageCarousel;
     private final int[] imageIds = {R.drawable.img_event, R.drawable.event1, R.drawable.event2};
     private ImageView[] dots;
+    private WebSocketManager webSocketManager;
+    LocationListener locationListener;
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate( Bundle savedInstanceState )
@@ -103,9 +83,9 @@ public class Home extends AppCompatActivity
         initLayout();
         initEvent();
         initObserver();
+        initChatService();
         initListener();
-        getLoc();
-        getInboxParticipant();
+        checkLocationPermission();
     }
 
     private void initLayout()
@@ -122,101 +102,32 @@ public class Home extends AppCompatActivity
     private void initEvent()
     {
 
-        binding.viewPager.setOnClickListener(v -> goToBlog() );
-        binding.btnRencanaTanam.setOnClickListener( v -> goToRencanaTanam() );
+        binding.viewPager.setOnClickListener(v -> NavigationManager.startActivity(this, Blog.class) );
+        binding.btnCart.setOnClickListener(v -> NavigationManager.startActivity(this, ActivityKeranjang.class) );
+        binding.btnRencanaTanam.setOnClickListener( v -> NavigationManager.startActivity(this, ListRencanaTanam.class) );
+        binding.btnHasilPanen.setOnClickListener( v -> NavigationManager.startActivity(this, ListPanen.class) );
+        binding.btnRencanaBiaya.setOnClickListener( v -> NavigationManager.startActivity(this, ListRancanganAnggaranBiaya.class) );
 
-        binding.btnCart.setOnClickListener(v -> {
-            goToKeranjang();
-        });
+        binding.btnInfo.setOnClickListener( v -> NavigationManager.startActivity(this, BerandaInfoPeringatanCuaca.class) );
+        binding.btnWarungSewaMesin.setOnClickListener( v -> NavigationManager.startActivity(this, ListWarungSewaMesin.class) );
+        binding.btnWarungPupuk.setOnClickListener( v -> NavigationManager.startActivity(this, ListWarungBibitdanPupuk.class) );
+        binding.btnWarungBibit.setOnClickListener( v -> NavigationManager.startActivity(this, ListWarungBibitdanPupuk.class) );
+        binding.btnWarungPestisida.setOnClickListener( v -> NavigationManager.startActivity(this, ListWarungPestisida.class) );
+        binding.btnWarungTenagaKerja.setOnClickListener( v -> NavigationManager.startActivity(this, ListWarungTenagaKerja.class) );
 
-        binding.btnHasilPanen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToPanen();
-            }
-        });
-
-        binding.btnRencanaBiaya.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToRAB();
-            }
-        });
-
-        binding.btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToInfo();
-            }
-        });
-
-        binding.btnWarungTenagaKerja.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToWarungTK();
-            }
-        });
-
-        binding.btnWarungSewaMesin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToWarungSM();
-            }
-        });
-
-        binding.btnWarungPupuk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToWarungPupuk();
-            }
-        });
-
-        binding.btnWarungBibit.setOnClickListener(v -> {
-            goToWarungPupuk();
-        });
-
-        binding.btnWarungPestisida.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToWarungPestisida();
-            }
-        });
-
-        binding.btnWarungku.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToWarungku();
-            }
-        });
-
-        binding.btnLahan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToProfilLahan();
-            }
-        });
-
-        binding.btnPesan.setOnClickListener(v -> {
-            goToPesan();
-        });
-
-        binding.btnAkun.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goToProfilAkun();
-            }
-        });
-
+        binding.btnPesan.setOnClickListener( v -> NavigationManager.startActivity(this, Inbox.class) );
+        binding.btnAkun.setOnClickListener( v -> NavigationManager.startActivity(this, BerandaProfile.class) );
+        binding.btnLahan.setOnClickListener( v -> NavigationManager.startActivity(this, ListProfileLahan.class) );
+        binding.btnWarungku.setOnClickListener( v -> NavigationManager.startActivity(this, PesananWarungku.class) );
         binding.btnSudahTanam.setOnClickListener( v -> {
             DialogUtil.showCustomAlertDialogTwoCustomTextButtons(
                     Home.this,
                     getString(R.string.confirm_page_st),
-                    okButton -> goToSudahTanam(),
-                    cancelButton -> gotoKendalaPertumbuhan(),
+                    okButton -> NavigationManager.startActivity(Home.this, ListSudahTanam.class),
+                    cancelButton -> NavigationManager.startActivity(Home.this, ListKendalaPertumbuhan.class),
                     getString(R.string.page_pt),
                     getString(R.string.page_kp));
         });
-
     }
 
     private void initObserver()
@@ -225,8 +136,18 @@ public class Home extends AppCompatActivity
         viewModel.getUnreadInboxes().observe(this, count -> {
             if (count != null) {
                 binding.notificationTick.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+                binding.txtInbox.setText(String.valueOf(count));
+            } else {
+                binding.notificationTick.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void initChatService()
+    {
+
+        Intent serviceIntent = new Intent(this, ChatService.class);
+        ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     private void initListener()
@@ -240,7 +161,7 @@ public class Home extends AppCompatActivity
             @Override
             public void onPageSelected(int position) {
                 addDotsIndicator(position);
-                //goToBlog();
+//                NavigationManager.startActivity(Home.this, Blog.class);
             }
 
             @Override
@@ -249,52 +170,101 @@ public class Home extends AppCompatActivity
         });
     }
 
-    public void getLoc()
+    private void checkLocationPermission()
     {
-        if (ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+
+        if (ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_FINE_LOCATION) ==
                 PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
+                ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED)
+        {
+            startLocationListener();
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(Home.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, Global.LOCATION_PERMISSION_CODE);
+        }
+    }
+
+    private void startLocationListener()
+    {
+
+        if (ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(Home.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
 
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);   //default
-        criteria.setCostAllowed(false);
-        String bestProvider = locationManager.getBestProvider(criteria, false);
-        Location location = locationManager.getLastKnownLocation(bestProvider);
-
-        if (location == null) {
-            Location location2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location2 != null) {
-                lat = location.getLatitude();
-                longt = location.getLongitude();
-                if (lat != 0.0 && longt != 0.0 && lat != null && longt != null) {
-                    setData();
-                } else {
-                    getLoc();
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                if (location.getLatitude() != 0.0 && location.getLongitude() != 0.0) {
+                    getDataWeather(location.getLatitude(), location.getLongitude());
                 }
             }
-        } else if (location != null) {
-            lat = location.getLatitude();
-            longt = location.getLongitude();
-            if (lat != 0.0 && longt != 0.0 && lat != null && longt != null) {
-                setData();
-            } else {
-                getLoc();
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {}
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {}
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+        };
+
+        LocationHelper.getLastKnownLocation(Home.this, locationListener, new LocationHelper.LocationResultCallback() {
+            @Override
+            public void onLocationFound(double lat, double lon)
+            {
+                getDataWeather(lat, lon);
             }
-        } else {
-            getLoc();
 
-        }
+            @Override
+            public void onLocationFailed()
+            {
+                Toast.makeText(Home.this, "Could not find location.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    public void setData() {
-        getDataWeather(lat, longt);
+    public void getDataWeather(Double a, Double b)
+    {
+        String url = Global.WEATHER_API_URL + a + "," + b;
+        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                SimpleDateFormat formatIncoming = new SimpleDateFormat("EEEE, dd MMMM y", new Locale("id"));
+                TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
+                formatIncoming.setTimeZone(tz);
+                binding.txtDate.setText(formatIncoming.format(new Date()));
+                String temp = response.getJSONObject("current").getString("temp_c");
+                String txtTemperature = temp + " C";
+                binding.txtTemp.setText(txtTemperature);
+                String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
+                String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
+                Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
+                String city = response.getJSONObject("location").getString("name");
+                binding.txtCity.setText(city);
+
+                TextUtil.translateText(this, cond, new TextUtil.TranslationCallback() {
+                    @Override
+                    public void onTranslationSuccess(String translatedText) {
+                        binding.txtTempDesc.setText(translatedText);
+                    }
+                    @Override
+                    public void onTranslationError(Exception e) {
+                        Toast.makeText(Home.this, cond + " - Translation Error", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }, error -> Toast.makeText(Home.this, "Weather Error", Toast.LENGTH_SHORT).show());
+
+        requestQueue.add(jsonObjectRequest);
     }
 
-    private void addDotsIndicator(int position) {
+    private void addDotsIndicator(int position)
+    {
         dots = new ImageView[imageIds.length];
         binding.layoutDots.removeAllViews();
 
@@ -312,282 +282,18 @@ public class Home extends AppCompatActivity
         }
     }
 
-    public void getDataWeather(Double a, Double b) {
-        String url = "http://api.weatherapi.com/v1/current.json?key=14e35e2d6e264c6198c163938222104&q=" + a + "," + b;
-        RequestQueue requestQueue = Volley.newRequestQueue(Home.this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    SimpleDateFormat formatIncoming = new SimpleDateFormat("EEEE, dd MMMM y", new Locale("id"));
-                    TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
-                    formatIncoming.setTimeZone(tz);
-                    binding.txtDate.setText(formatIncoming.format(new Date()));
-                    String temp = response.getJSONObject("current").getString("temp_c");
-                    binding.txtTemp.setText(temp + " C");
-                    String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
-                    translate(cond);
-                    String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
-                    Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
-                    String city = response.getJSONObject("location").getString("name");
-                    binding.txtCity.setText(city);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Home.this, "Weather Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    public void translate( String text )
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
-        new Thread(new Runnable() {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    String url = "https://api.mymemory.translated.net/get?q="
-                            + URLEncoder.encode(text, "UTF-8")
-                            + "&langpair="
-                            + URLEncoder.encode("en|id", "UTF-8");
-                    HttpClient hc = new DefaultHttpClient();
-                    HttpGet hg = new HttpGet(url);
-                    hr = hc.execute(hg);
-                    if ( hr.getStatusLine().getStatusCode() == HttpStatus.SC_OK )
-                    {
-                        JSONObject response = new JSONObject(EntityUtils.toString(hr.getEntity()));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    translated = response.getJSONObject("responseData").getString("translatedText");
-                                    binding.txtTempDesc.setText(translated);
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        });
-                    }
-                }
-                catch ( Exception e )
-                {
-                    e.printStackTrace();
-                    // insert LOG
-                }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == Global.LOCATION_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationListener();
+            } else {
+                Toast.makeText(this, "Location Permission Denied", Toast.LENGTH_SHORT).show();
             }
-        }).start();
-    }
-
-    private void getInboxParticipant()
-    {
-        List<DatumInboxParticipant> listInboxParticipant = new ArrayList<>();
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelInboxParticipant> dataRT = apiInterface.getDataInboxParticipant();
-        dataRT.enqueue(new Callback<ModelInboxParticipant>()
-        {
-            @Override
-            public void onResponse( Call<ModelInboxParticipant> call, retrofit2.Response<ModelInboxParticipant> response )
-            {
-                ModelInboxParticipant modelInboxParticipant = response.body();
-                String idProfile = PreferenceUtils.getIdProfil(getApplicationContext());
-
-                if ( response.body() != null )
-                {
-                    for ( int i = 0; i < modelInboxParticipant.getTotalData(); i++ )
-                    {
-                        try
-                        {
-                            if ( idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilA()) ||
-                                    idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilB()) )
-                            {
-                                listInboxParticipant.add(modelInboxParticipant.getData().get(i));
-                            }
-                        }
-                        catch ( Exception e ) { }
-                    }
-
-                    if ( listInboxParticipant.size() > 0 )
-                    {
-                        getInbox(listInboxParticipant);
-                    }
-                }
-            }
-            @Override
-            public void onFailure( Call<ModelInboxParticipant> call, Throwable t )
-            { }
-        });
-    }
-
-    private void getInbox(List<DatumInboxParticipant> listInboxParticipant)
-    {
-        List<DatumInbox> listInbox = new ArrayList<>();
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelInbox> dataRT = apiInterface.getDataInbox();
-        dataRT.enqueue(new Callback<ModelInbox>()
-        {
-            @Override
-            public void onResponse( Call<ModelInbox> call, retrofit2.Response<ModelInbox> response )
-            {
-                ModelInbox modelInbox = response.body();
-                if ( response.body() != null )
-                {
-                    for ( int i = 0; i < modelInbox.getTotalData(); i++ )
-                    {
-                        for ( int j = 0; j < listInboxParticipant.size(); j++ )
-                        {
-                            try
-                            {
-                                if ( modelInbox.getData().get(i).getIdInboxParticipant().equalsIgnoreCase(listInboxParticipant.get(j).getIdInboxParticipant()) )
-                                {
-                                    listInbox.add(modelInbox.getData().get(i));
-                                }
-                            }
-                            catch ( Exception e ) { }
-                        }
-                    }
-
-                    if ( listInbox.size() > 0 )
-                    {
-                        ArrayList<String> inboxIds = new ArrayList<>();
-                        for ( DatumInbox inbox : listInbox )
-                        {
-                            inboxIds.add(inbox.getIdInbox());
-                        }
-
-                        startService(inboxIds);
-//                        if ( inboxIds.size() > 0 )
-//                        {
-//                            startService(inboxIds);
-//                        }
-                    }
-                }
-            }
-            @Override
-            public void onFailure( Call<ModelInbox> call, Throwable t )
-            { }
-        });
-    }
-
-    public void startService(ArrayList<String> listIdInbox)
-    {
-        Intent serviceIntent = new Intent(this, ChatService.class);
-        serviceIntent.putStringArrayListExtra(Global.INTENT_EXTRA_INBOX_IDS, listIdInbox);
-        ContextCompat.startForegroundService(this, serviceIntent);
-    }
-
-    public void goToRencanaTanam() {
-        Intent a = new Intent(Home.this, ListRencanaTanam.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToSudahTanam() {
-        Intent a = new Intent(Home.this, ListSudahTanam.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void gotoKendalaPertumbuhan() {
-        Intent a = new Intent(Home.this, ListKendalaPertumbuhan.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToPanen() {
-        Intent a = new Intent(Home.this, ListPanen.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToRAB() {
-        Intent a = new Intent(Home.this, ListRancanganAnggaranBiaya.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToInfo() {
-        Intent a = new Intent(Home.this, BerandaInfoPeringatanCuaca.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToTambahInfo() {
-        Intent a = new Intent(Home.this, TambahInfoPeringatanCuaca.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToWarungTK() {
-        Intent a = new Intent(Home.this, ListWarungTenagaKerja.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToWarungSM() {
-        Intent a = new Intent(Home.this, ListWarungSewaMesin.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToWarungPupuk() {
-        Intent a = new Intent(Home.this, ListWarungBibitdanPupuk.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToWarungPestisida() {
-        Intent a = new Intent(Home.this, ListWarungPestisida.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToBeranda() {
-        Intent a = new Intent(Home.this, Home.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToWarungku() {
-        Intent a = new Intent(Home.this, PesananWarungku.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToPesan() {
-        Intent a = new Intent(Home.this, Inbox.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToProfilLahan() {
-        Intent a = new Intent(Home.this, ListProfileLahan.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToProfilAkun() {
-        Intent a = new Intent(Home.this, BerandaProfile.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToBlog() {
-        Intent a = new Intent(Home.this, Blog.class);
-        startActivity(a);
-        finish();
-    }
-
-    public void goToKeranjang() {
-        Intent a = new Intent(Home.this, ActivityKeranjang.class);
-        startActivity(a);
-        finish();
+        }
     }
 
     public void onBackPressed()
@@ -609,7 +315,9 @@ public class Home extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause()
+    {
+        super.onPause();
+        LocationHelper.stopLocationUpdates(this, locationListener);
     }
 }

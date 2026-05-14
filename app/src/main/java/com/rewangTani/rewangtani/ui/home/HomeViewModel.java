@@ -167,4 +167,9 @@ public class HomeViewModel extends AndroidViewModel
         chatRepo.loadAndSyncInbox(myId);
     }
 
+    public void fetchAllChat(String id, ChatRepo.ChatDataCallback callback)
+    {
+        chatRepo.loadChatData(id, callback);
+    }
+
 }

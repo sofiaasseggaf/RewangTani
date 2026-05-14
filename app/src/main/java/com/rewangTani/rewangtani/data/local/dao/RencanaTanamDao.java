@@ -15,10 +15,10 @@ public interface RencanaTanamDao
 {
 
     @Query("SELECT * FROM rencana_tanam")
-    LiveData<List<DatumRencanaTanam>> getAllRencanaTanam(); // all rt belong to user only
+    LiveData<List<DatumRencanaTanam>> getAllRencanaTanam();
 
     @Query("SELECT * FROM rencana_tanam")
-    List<DatumRencanaTanam> getAllRencanaTanamLocal(); // all rt belong to user only
+    List<DatumRencanaTanam> getAllRencanaTanamLocal();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<DatumRencanaTanam> rencanaTanams);

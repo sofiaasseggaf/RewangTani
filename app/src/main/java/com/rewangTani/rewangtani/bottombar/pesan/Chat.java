@@ -1,24 +1,24 @@
 package com.rewangTani.rewangtani.bottombar.pesan;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterChat;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarPesanChatBinding;
 import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
 import com.rewangTani.rewangtani.utility.Global;
+import com.rewangTani.rewangtani.utility.NavigationManager;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.WebSocketManager;
 
@@ -43,7 +43,6 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
     private final List<ChatRequest> chatList = new ArrayList<>();
     private final List<ChatRequest> chatMessages = new ArrayList<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,22 +57,17 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         binding.rvChat.setLayoutManager(new LinearLayoutManager(this));
         binding.rvChat.setAdapter(adapterChat);
 
-        webSocketManager = new WebSocketManager(this, this);
-        webSocketManager.init();
-        webSocketManager.connect();
-        webSocketManager.subscribeToInbox(inboxId);
+        // Use the existing manager
+        webSocketManager = WebSocketManager.getInstance(this);
+        webSocketManager.setListener(this);
 
-        if ( inboxId != null )
-        {
-            if ( !inboxId.equalsIgnoreCase("") )
-            {
+        if ( inboxId != null ) {
+            if ( !inboxId.equalsIgnoreCase("") ) {
                 webSocketManager.requestChatData(inboxId);
             }
         }
 
-        binding.btnBack.setOnClickListener(v -> {
-            goToInbox();
-        });
+        binding.btnBack.setOnClickListener( v -> NavigationManager.startActivity(this, Inbox.class) );
 
         binding.btnSend.setOnClickListener(v -> {
             String message = binding.txtChat.getText().toString().trim();
@@ -93,6 +87,7 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
 
     @Override
     public void onNewMessageReceived(String message) {
+        Log.i("SOFIA", "Chat - onMsgeReceve - " + message);
         ChatRequest chatRequest = new Gson().fromJson(message, ChatRequest.class);
         chatMessages.add(chatRequest);
         binding.rvChat.scrollToPosition(chatMessages.size() - 1);
@@ -106,11 +101,14 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         binding.rvChat.scrollToPosition(adapterChat.getItemCount() - 1);
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendMessage(String message, String inboxId) {
         String idProfile = PreferenceUtils.getIdProfil(this);
         ChatRequest chatRequest = new ChatRequest(inboxId, idProfile, message, LocalDateTime.now().toString(), "N");
+        // 2. UPDATE LOCAL UI IMMEDIATELY (The missing piece)
+//        chatMessages.add(chatRequest);
+//        adapterChat.notifyItemInserted(chatMessages.size() - 1);
+//        binding.rvChat.scrollToPosition(chatMessages.size() - 1);
+
         webSocketManager.sendMessage(chatRequest);
         binding.txtChat.setText("");
         udpateInbox(inboxId, message);
@@ -148,16 +146,16 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         });
     }
 
-    private void goToInbox()
+    @Override
+    public void onBackPressed()
     {
-        Intent intent = new Intent(Chat.this, Inbox.class);
-        startActivity(intent);
-        finish();
+        super.onBackPressed();
+        NavigationManager.startActivity(this, Inbox.class);
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        goToInbox();
+    protected void onDestroy() {
+        super.onDestroy();
+        webSocketManager.setListener(null);
     }
 }

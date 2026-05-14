@@ -560,7 +560,14 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_alignRight="@id/imgPesan"
-                    android:background="@drawable/dot_selected"/>
+                    android:background="@drawable/ic_circle_green">
+                    <TextView
+                        android:id="@+id/txtInbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:textSize="8sp"/>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/txtPesan"

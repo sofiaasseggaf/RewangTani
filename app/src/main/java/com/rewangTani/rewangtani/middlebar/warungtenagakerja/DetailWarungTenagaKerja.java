@@ -86,6 +86,8 @@ public class DetailWarungTenagaKerja extends AppCompatActivity {
         });
 
         binding.btnBack.setOnClickListener( v -> goToListWarungTenagaKerja() );
+
+        binding.btnBeliLangsung.setOnClickListener( v -> Toast.makeText(this, "Fitur dalam perbaikan", Toast.LENGTH_SHORT).show() );
     }
 
     public void getData(String id){

@@ -14,6 +14,7 @@ import com.rewangTani.rewangtani.data.local.dao.RencanaTanamDao;
 import com.rewangTani.rewangtani.data.local.dao.SudahTanamDao;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -68,7 +69,13 @@ public class TanamRepo
             public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     new Thread(() -> {
-                        List<DatumRencanaTanam> rencanaTanams = response.body().getData();
+                        List<DatumRencanaTanam> rencanaTanams = new ArrayList<>();
+                        for (DatumRencanaTanam rencanaTanam : response.body().getData()) {
+                            if (rencanaTanam.getIdProfil().equalsIgnoreCase(idProfil)) {
+                                rencanaTanams.add(rencanaTanam );
+                            }
+                        }
+
                         long now = System.currentTimeMillis();
                         for (DatumRencanaTanam p : rencanaTanams) {
                             p.lastUpdated = now;
@@ -130,19 +137,26 @@ public class TanamRepo
             }
 
             String idProfil = PreferenceUtils.getIdProfil(context);
+            datumRencanaTanamList = new ArrayList<>();
+            datumSudahTanamList = new ArrayList<>();
+
             apiInterface.getDataRencanaTanamByProfilId(idProfil).enqueue(new retrofit2.Callback<ModelRencanaTanam>() {
                 @Override
                 public void onResponse(Call<ModelRencanaTanam> call, Response<ModelRencanaTanam> response) {
                     if (response.body() != null) {
-                        datumRencanaTanamList = response.body().getData();
                         new Thread(() -> {
-                            List<DatumRencanaTanam> rencanaTanams = response.body().getData();
+                            for (DatumRencanaTanam rencanaTanam : response.body().getData()) {
+                                if (rencanaTanam.getIdProfil().equalsIgnoreCase(idProfil)) {
+                                    datumRencanaTanamList.add(rencanaTanam );
+                                }
+                            }
+
                             long now = System.currentTimeMillis();
-                            for (DatumRencanaTanam p : rencanaTanams) {
+                            for (DatumRencanaTanam p : datumRencanaTanamList) {
                                 p.lastUpdated = now;
                             }
                             rencanaTanamDao.deleteAll();
-                            rencanaTanamDao.insertAll(rencanaTanams);
+                            rencanaTanamDao.insertAll(datumRencanaTanamList);
                         }).start();
                     }
 
@@ -150,15 +164,13 @@ public class TanamRepo
                         @Override
                         public void onResponse(Call<ModelSudahTanam> call, Response<ModelSudahTanam> response) {
                             if (response.body() != null) {
-                                datumSudahTanamList = response.body().getData();
                                 new Thread(() -> {
-                                    List<DatumSudahTanam> sudahTanams = response.body().getData();
                                     sudahTanamDao.deleteAll();
-                                    sudahTanamDao.insertAll(sudahTanams);
+                                    sudahTanamDao.insertAll(response.body().getData());
                                 }).start();
 
                                 List<DatumSudahTanam> sudahTanamList = new ArrayList<>();
-                                for (DatumSudahTanam sudahTanam : datumSudahTanamList) {
+                                for (DatumSudahTanam sudahTanam : response.body().getData()) {
                                     for (DatumRencanaTanam rencanaTanam : datumRencanaTanamList) {
                                         if (rencanaTanam.getIdRencanaTanam()
                                                 .equalsIgnoreCase(sudahTanam.getIdRencanaTanam())) {
@@ -175,7 +187,7 @@ public class TanamRepo
                                                 (existing, replacement) -> existing // Keep first if IDs are duplicate
                                         ));
 
-                                List<DatumSudahTanam> sudahTanamListFiltered = datumSudahTanamList.stream()
+                                datumSudahTanamList = sudahTanamList.stream()
                                         .filter(st -> nameMap.containsKey(st.getIdRencanaTanam())) // Only keep if exists in Rencana
                                         .collect(Collectors.toMap(
                                                 DatumSudahTanam::getIdRencanaTanam,
@@ -193,7 +205,7 @@ public class TanamRepo
 
                                 callback.onLoaded(
                                         datumRencanaTanamList,
-                                        sudahTanamListFiltered
+                                        datumSudahTanamList
                                 );
                             }
                         }

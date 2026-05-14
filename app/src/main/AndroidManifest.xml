@@ -268,10 +268,7 @@
 
         <service
             android:name=".service.ChatService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="dataSync">
-        </service>
+            android:foregroundServiceType="dataSync" />
 <!--        <service-->
 <!--            android:name=".utility.MyFirebaseMessagingService"-->
 <!--            android:exported="false">-->

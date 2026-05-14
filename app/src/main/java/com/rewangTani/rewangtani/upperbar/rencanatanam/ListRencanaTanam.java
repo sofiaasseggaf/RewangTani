@@ -95,53 +95,6 @@ public class ListRencanaTanam extends AppCompatActivity
                 }));
     }
 
-//    public DatumRencanaTanam getDatumRencanaTanam() {
-//        return datumRencanaTanam;
-//    }
-
-//    public void initializeNewRencanaTanam() {
-//        this.datumRencanaTanam = new DatumRencanaTanam("", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", false, "", "");
-//    }
-
-//    public void setDetailRencanaTanam(Context context, DatumRencanaTanam data){
-//        if (datumRencanaTanam == null) {
-//            initializeNewRencanaTanam();
-//        }
-//
-//        datumRencanaTanam.setIdUser(PreferenceUtils.getIdAkun(context));
-//        datumRencanaTanam.setIdProfil(PreferenceUtils.getIdProfil(context));
-//        if (!data.getNamaRencanaTanam().equalsIgnoreCase("")){ datumRencanaTanam.setNamaRencanaTanam(data.getNamaRencanaTanam()); }
-//        if (!data.getIdProfilTanah().equalsIgnoreCase("")){ datumRencanaTanam.setIdProfilTanah(data.getIdProfilTanah()); }
-//        if (!data.getIdKomoditas().equalsIgnoreCase("")){ datumRencanaTanam.setIdKomoditas(data.getIdKomoditas()); }
-//        if (!data.getIdVarietas().equalsIgnoreCase("")){ datumRencanaTanam.setIdVarietas(data.getIdVarietas()); }
-//        if (!data.getIdBiayaBuruhTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhTanam(data.getIdBiayaBuruhTanam()); }
-//        if (!data.getIdBiayaBuruhBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhBajak(data.getIdBiayaBuruhBajak()); }
-//        if (!data.getIdBiayaBuruhSemprot().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhSemprot(data.getIdBiayaBuruhSemprot()); }
-//        if (!data.getIdBiayaBuruhMenyiangirumput().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhMenyiangirumput(data.getIdBiayaBuruhMenyiangirumput()); }
-//        if (!data.getIdBiayaBuruhGalangan().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhGalangan(data.getIdBiayaBuruhGalangan()); }
-//        if (!data.getIdBiayaBuruhPupuk().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPupuk(data.getIdBiayaBuruhPupuk()); }
-//        if (!data.getIdBiayaBuruhPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayaBuruhPanen(data.getIdBiayaBuruhPanen()); }
-//        if (!data.getIdSewaMesinBajak().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinBajak(data.getIdSewaMesinBajak()); }
-//        if (!data.getIdSewaMesinTanam().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinTanam(data.getIdSewaMesinTanam()); }
-//        if (!data.getIdSewaMesinPanen().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewaMesinPanen(data.getIdSewaMesinPanen()); }
-//        if (!data.getIdSewamesinPompa().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompa(data.getIdSewamesinPompa()); }
-//        if (!data.getIdSewamesinPompaBbm().equalsIgnoreCase("")){ datumRencanaTanam.setIdSewamesinPompaBbm(data.getIdSewamesinPompaBbm()); }
-//        if (!data.getIdBiayabibitLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitLocalHet(data.getIdBiayabibitLocalHet()); }
-//        if (!data.getIdBiayabibitSubsidi().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayabibitSubsidi(data.getIdBiayabibitSubsidi()); }
-//        if (!data.getIdBiayapupukKimiaLocalHet().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaLocalHet(data.getIdBiayapupukKimiaLocalHet()); }
-//        if (!data.getIdBiayapupukKimiaPhonska().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaPhonska(data.getIdBiayapupukKimiaPhonska()); }
-//        if (!data.getIdBiayapupukOrganik().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukOrganik(data.getIdBiayapupukOrganik()); }
-//        if (!data.getIdBiayapupukKimiaUrea().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaUrea(data.getIdBiayapupukKimiaUrea()); }
-//        if (!data.getIdBiayapupukKimiaFosfat().equalsIgnoreCase("")){ datumRencanaTanam.setIdBiayapupukKimiaFosfat(data.getIdBiayapupukKimiaFosfat()); }
-//        datumRencanaTanam.setWithPompa(data.isWithPompa());
-//        datumRencanaTanam.setLuasLahan(data.getLuasLahan());
-//        datumRencanaTanam.setPotensiHasilVarietas(data.getPotensiHasilVarietas());
-//    }
-
-//    public static ListRencanaTanam getInstance() {
-//        return classListRencanaTanam;
-//    }
-
     public void goToInputRencanaTanam(){
         Intent a = new Intent(ListRencanaTanam.this, InputRencanaTanamA.class);
         startActivity(a);

@@ -86,6 +86,9 @@ public class DetailWarungPestisida extends AppCompatActivity {
         });
 
         binding.btnBack.setOnClickListener( v -> goToListWarungTenagaPestisida() );
+
+        binding.btnBeliLangsung.setOnClickListener( v -> Toast.makeText(this, "Fitur dalam perbaikan", Toast.LENGTH_SHORT).show() );
+
     }
 
     public void getData(String id){
