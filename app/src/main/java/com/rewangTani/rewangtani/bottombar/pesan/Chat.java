@@ -24,7 +24,9 @@ import com.rewangTani.rewangtani.utility.WebSocketManager;
 
 import org.json.JSONObject;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +53,8 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
         Intent intent = getIntent();
         String inboxId = intent.getStringExtra(Global.ID_INBOX);
         String inboxNama = intent.getStringExtra(Global.NAMA_INBOX);
+        boolean isChatImmidiately = intent.getBooleanExtra(Global.START_CHAT_IMMIDIATELY, false);
+        String namaProduk = intent.getStringExtra(Global.NAMA_PRODUK);
 
         binding.namaProfile.setText(inboxNama);
         adapterChat = new AdapterChat(chatMessages, this);
@@ -65,6 +69,12 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
             if ( !inboxId.equalsIgnoreCase("") ) {
                 webSocketManager.requestChatData(inboxId);
             }
+        }
+
+        if (isChatImmidiately)
+        {
+            String txtMsg = "Halo\nSaya ingin bertanya tentang produk anda : " + namaProduk + ".";
+            sendMessage(txtMsg, inboxId);
         }
 
         binding.btnBack.setOnClickListener( v -> NavigationManager.startActivity(this, Inbox.class) );
@@ -89,7 +99,15 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
     public void onNewMessageReceived(String message) {
         Log.i("SOFIA", "Chat - onMsgeReceve - " + message);
         ChatRequest chatRequest = new Gson().fromJson(message, ChatRequest.class);
+
+        // 🔥 IGNORE CHAT MILIK SENDIRI
+        String myId = PreferenceUtils.getIdProfil(this);
+        if (chatRequest.getIdSender().equalsIgnoreCase(myId)) {
+            return;
+        }
+
         chatMessages.add(chatRequest);
+        adapterChat.notifyItemInserted(chatMessages.size() - 1);
         binding.rvChat.scrollToPosition(chatMessages.size() - 1);
     }
 
@@ -97,17 +115,24 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
     public void onAllChatDataReceived(List<ChatRequest> chatRequests) {
         chatMessages.clear();
         chatMessages.addAll(chatRequests);
+        adapterChat.notifyDataSetChanged();
         binding.rvChat.setNestedScrollingEnabled(false);
         binding.rvChat.scrollToPosition(adapterChat.getItemCount() - 1);
     }
 
-    private void sendMessage(String message, String inboxId) {
+    private void sendMessage(String message, String inboxId)
+    {
         String idProfile = PreferenceUtils.getIdProfil(this);
-        ChatRequest chatRequest = new ChatRequest(inboxId, idProfile, message, LocalDateTime.now().toString(), "N");
-        // 2. UPDATE LOCAL UI IMMEDIATELY (The missing piece)
-//        chatMessages.add(chatRequest);
-//        adapterChat.notifyItemInserted(chatMessages.size() - 1);
-//        binding.rvChat.scrollToPosition(chatMessages.size() - 1);
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        String sentAt = now.format(formatter);
+
+        ChatRequest chatRequest = new ChatRequest(inboxId, idProfile, message, sentAt, "N");
+
+        // 🔥 INSERT LOKAL DULU
+        chatMessages.add(chatRequest);
+        adapterChat.notifyItemInserted(chatMessages.size() - 1);
+        binding.rvChat.scrollToPosition(chatMessages.size() - 1);
 
         webSocketManager.sendMessage(chatRequest);
         binding.txtChat.setText("");

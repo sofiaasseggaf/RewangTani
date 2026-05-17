@@ -36,6 +36,8 @@ public class Global
 
     public static String ID_INBOX = "ID_INBOX";
     public static String NAMA_INBOX = "NAMA_INBOX";
+    public static String START_CHAT_IMMIDIATELY = "START_CHAT_IMMIDIATELY";
+    public static String NAMA_PRODUK = "NAMA_PRODUK";
     public static String INTENT_EXTRA_INBOX_IDS = "INTENT_EXTRA_INBOX_ID";
     public static String INTENT_ACTION_REFRESH_INBOX = "INTENT_ACTION_REFRESH_INBOX";
 

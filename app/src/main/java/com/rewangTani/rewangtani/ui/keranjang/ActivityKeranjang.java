@@ -47,6 +47,12 @@ public class ActivityKeranjang extends AppCompatActivity
             String total = binding.txtTotal.getText().toString();
             if ( !total.equalsIgnoreCase("Rp 0") )
             {
+
+                for (String id : viewModel.getCheckedItemId().getValue())
+                {
+                    viewModel.confirmDelete(id);
+                }
+
                 Intent intent = new Intent(this, FakePaymentActivity.class);
                 intent.putExtra("Harga", binding.txtTotal.getText().toString());
                 startActivity(intent);

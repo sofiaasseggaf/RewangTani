@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -12,16 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
-import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPestisidaBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
 import com.rewangTani.rewangtani.data.entity.warungbpp.DataBppById;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.MiddlebarDetailWarungPestisidaBinding;
 import com.rewangTani.rewangtani.ui.keranjang.KeranjangViewModel;
 import com.rewangTani.rewangtani.utility.ChatUtils;
+import com.rewangTani.rewangtani.utility.FakePaymentActivity;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
@@ -75,7 +75,7 @@ public class DetailWarungPestisida extends AppCompatActivity {
                 }
                 else
                 {
-                    chatUtils.goToInbox(idProfile, modelProfilById.getData().getIdProfile(), modelProfilById.getData().getNamaDepan());
+                    chatUtils.goToInbox(idProfile, modelProfilById.getData().getIdProfile(), modelProfilById.getData().getNamaDepan(), dataBppById.getData().getNamaProduk());
                 }
             }
         });
@@ -87,7 +87,11 @@ public class DetailWarungPestisida extends AppCompatActivity {
 
         binding.btnBack.setOnClickListener( v -> goToListWarungTenagaPestisida() );
 
-        binding.btnBeliLangsung.setOnClickListener( v -> Toast.makeText(this, "Fitur dalam perbaikan", Toast.LENGTH_SHORT).show() );
+        binding.btnBeliLangsung.setOnClickListener( v -> {
+            Intent a = new Intent(this, FakePaymentActivity.class);
+            a.putExtra("Harga", String.valueOf(dataBppById.getData().getHargaProduk()));
+            startActivity(a);
+        } );
 
     }
 
@@ -190,7 +194,6 @@ public class DetailWarungPestisida extends AppCompatActivity {
         if ( dataBppById.getData().getIdFoto() != null )
         {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + dataBppById.getData().getIdFoto();
-            Log.i("SOFIA", "DetailWarungBIBITPUPUK - setData() - uri = " + imageUri);
             SwipeablePhotosAdapter swipeablePhotosAdapter = new SwipeablePhotosAdapter(this, imageUri);
             binding.viewPager.setAdapter(swipeablePhotosAdapter);
         }

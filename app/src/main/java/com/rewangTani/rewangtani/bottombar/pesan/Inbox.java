@@ -20,7 +20,6 @@ import com.rewangTani.rewangtani.adapter.adapterbottombar.AdapterInbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.data.entity.inbox.DatumInbox;
-import com.rewangTani.rewangtani.data.entity.inbox.ModelInbox;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
@@ -28,7 +27,6 @@ import com.rewangTani.rewangtani.data.repository.ChatRepo;
 import com.rewangTani.rewangtani.databinding.BottombarPesanInboxBinding;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelchat.DatumChat;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
-import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
@@ -38,7 +36,6 @@ import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,11 +50,6 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
 
     BottombarPesanInboxBinding binding;
     HomeViewModel viewModel;
-    ModelInboxParticipant modelInboxParticipant;
-    List<DatumInboxParticipant> listInboxParticipant = new ArrayList<>();
-    List<DatumProfil> listProfil = new ArrayList<>();
-    ModelInbox modelInbox;
-    List<DatumInbox> listInbox = new ArrayList<>();
     AdapterInbox itemList;
 
     private final BroadcastReceiver chatReceiver = new BroadcastReceiver() {
@@ -132,224 +124,11 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
         });
     }
 
-//    private void getData()
-//    {
-//        findViewById(R.id.viewLoading).setVisibility(View.VISIBLE);
-//        final Handler handler = new Handler();
-//        Runnable runnable = new Runnable()
-//        {
-//            int count = 0;
-//            @Override
-//            public void run() {
-//                count++;
-//                if (count == 1) {
-//                    binding.textLoading.setText("Tunggu sebentar ya ."); }
-//                else if (count == 2) {
-//                    binding.textLoading.setText("Tunggu sebentar ya . ."); }
-//                else if (count == 3) {
-//                    binding.textLoading.setText("Tunggu sebentar ya . . ."); }
-//                if (count == 3)
-//                    count = 0;
-//                handler.postDelayed(this, 1500);
-//            }
-//        };
-//        handler.postDelayed(runnable, 1000);
-//
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run()
-//            {
-//                getDataProfil();
-//            }
-//        }).start();
-//    }
-//
-//    public void getDataProfil()
-//    {
-//        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-//        final Call<ModelProfilAkun> dataProfilAkun = apiInterface.getDataProfilAkun();
-//        dataProfilAkun.enqueue(new Callback<ModelProfilAkun>()
-//        {
-//            @Override
-//            public void onResponse( Call<ModelProfilAkun> call, Response<ModelProfilAkun> response )
-//            {
-//                ModelProfilAkun modelProfilAkun = response.body();
-//                if (response.body() != null)
-//                {
-//                    listProfil.clear();
-//                    for ( int i = 0; i < modelProfilAkun.getTotalData(); i++ )
-//                    {
-//                        listProfil.add(modelProfilAkun.getData().get(i));
-//                    }
-//
-//                    if ( listProfil.size() > 0 )
-//                    {
-//                        getInboxParticipant();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure( Call<ModelProfilAkun> call, Throwable t )
-//            {
-//                runOnUiThread(new Runnable()
-//                {
-//                    @Override
-//                    public void run()
-//                    {
-//                        binding.viewLoading.setVisibility(View.GONE);
-//                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-//                        call.cancel();
-//                    }
-//                });
-//            }
-//        });
-//    }
-//
-//    private void getInboxParticipant()
-//    {
-//        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-//        final Call<ModelInboxParticipant> dataRT = apiInterface.getDataInboxParticipant();
-//        dataRT.enqueue(new Callback<ModelInboxParticipant>()
-//        {
-//            @Override
-//            public void onResponse( Call<ModelInboxParticipant> call, Response<ModelInboxParticipant> response )
-//            {
-//                modelInboxParticipant = response.body();
-//                String idProfile = PreferenceUtils.getIdProfil(getApplicationContext());
-//
-//                if ( response.body() != null )
-//                {
-//                    listInboxParticipant.clear();
-//                    for ( int i = 0; i < modelInboxParticipant.getTotalData(); i++ )
-//                    {
-//                        try
-//                        {
-//                            if ( idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilA()) ||
-//                            idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilB()) )
-//                            {
-//                                listInboxParticipant.add(modelInboxParticipant.getData().get(i));
-//                            }
-//                        }
-//                        catch ( Exception e ) { }
-//                    }
-//
-//                    if ( listInboxParticipant.size() > 0 )
-//                    {
-//                        getInbox();
-//                    }
-//                    else
-//                    {
-//                        runOnUiThread(new Runnable()
-//                        {
-//                            @Override
-//                            public void run()
-//                            {
-//                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-//                                Toast.makeText(Inbox.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onFailure( Call<ModelInboxParticipant> call, Throwable t )
-//            {
-//                runOnUiThread(new Runnable()
-//                {
-//                    @Override
-//                    public void run()
-//                    {
-//                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
-//                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-//                        call.cancel();
-//                    }
-//                });
-//            }
-//        });
-//    }
-//
-//    private void getInbox()
-//    {
-//        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-//        final Call<ModelInbox> dataRT = apiInterface.getDataInbox();
-//        dataRT.enqueue(new Callback<ModelInbox>()
-//        {
-//            @Override
-//            public void onResponse( Call<ModelInbox> call, Response<ModelInbox> response )
-//            {
-//                modelInbox = response.body();
-//
-//                if ( response.body() != null )
-//                {
-//                    listInbox.clear();
-//                    for ( int i = 0; i < modelInbox.getTotalData(); i++ )
-//                    {
-//                        for ( int j = 0; j < listInboxParticipant.size(); j++ )
-//                        {
-//                            try
-//                            {
-//                                if ( modelInbox.getData().get(i).getIdInboxParticipant().equalsIgnoreCase(listInboxParticipant.get(j).getIdInboxParticipant()) )
-//                                {
-//                                    listInbox.add(modelInbox.getData().get(i));
-//                                }
-//                            }
-//                            catch ( Exception e ) { }
-//                        }
-//                    }
-//
-//                    if ( listInbox.size() > 0 )
-//                    {
-//                        runOnUiThread(new Runnable()
-//                        {
-//                            @Override
-//                            public void run()
-//                            {
-//                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-//                                setData();
-//                            }
-//                        });
-//                    }
-//                    else
-//                    {
-//                        runOnUiThread(new Runnable()
-//                        {
-//                            @Override
-//                            public void run()
-//                            {
-//                                findViewById(R.id.viewLoading).setVisibility(View.GONE);
-//                                Toast.makeText(Inbox.this, "Anda belum memiliki pesan", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onFailure( Call<ModelInbox> call, Throwable t )
-//            {
-//                runOnUiThread(new Runnable()
-//                {
-//                    @Override
-//                    public void run()
-//                    {
-//                        findViewById(R.id.viewLoading).setVisibility(View.GONE);
-//                        Toast.makeText(Inbox.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-//                        call.cancel();
-//                    }
-//                });
-//            }
-//        });
-//    }
-//
-//    private void setData()
-//    {
-//        itemList = new AdapterInbox(listInbox, listProfil, listInboxParticipant, this, this);
-//        binding.rvInbox.setLayoutManager(new LinearLayoutManager(Inbox.this));
-//        binding.rvInbox.setAdapter(itemList);
-//    }
-
     private void updateReadFlag( DatumInbox datumInbox )
     {
+
+        viewModel.updateIsReadStatus(datumInbox.getIdInbox());
+
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
 

@@ -56,7 +56,7 @@ public class PesananWarungku extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_warungku_pesananwarungku);
 
-        getData();
+//        getData();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +153,9 @@ public class PesananWarungku extends AppCompatActivity {
             @Override
             public void onResponse(Call<ModelProfilById> call, Response<ModelProfilById> response) {
                 modelProfilById = response.body();
+                if ( modelProfilById == null )
+                    return;
+
                 if (modelProfilById.getData().getTelepon() != null && modelProfilById.getData().getNik() != null &&
                         modelProfilById.getData().getIdAlamat() != null && modelProfilById.getData().getAlamat() != null &&
                         modelProfilById.getData().getGender() != null && modelProfilById.getData().getTglLahir() != null) {

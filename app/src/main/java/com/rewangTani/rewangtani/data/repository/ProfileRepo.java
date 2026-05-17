@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.data.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -63,7 +62,6 @@ public class ProfileRepo {
                         long now = System.currentTimeMillis();
                         for (DatumProfil p : accounts) {
                             p.lastUpdated = now;
-                            Log.i("SOFIA", "ProfilRepo - now = " + response.body().getTotalData());
                         }
 
                         profilDao.deleteAll();

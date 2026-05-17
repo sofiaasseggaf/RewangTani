@@ -52,6 +52,8 @@ public class WebSocketManager {
     private final Context context;
     private InboxDao inboxDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
+    private int reconnectAttempts = 0;
+    private final Handler reconnectHandler = new Handler(Looper.getMainLooper());
 
     public WebSocketManager( Context context )
     {
@@ -77,6 +79,7 @@ public class WebSocketManager {
         if (stompClient == null) {
 
             stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, WEBSOCKET_URL);
+            stompClient.withClientHeartbeat(10000).withServerHeartbeat(10000);
 
             Flowable<LifecycleEvent> v3Lifecycle = RxJavaBridge.toV3Flowable(stompClient.lifecycle());
 
@@ -91,10 +94,14 @@ public class WebSocketManager {
 
                             case ERROR:
                                 Log.e(TAG, "❌ WebSocket ERROR", eventObj.getException());
+                                // Wait 5 seconds and try to reconnect
+                                new Handler(Looper.getMainLooper()).postDelayed(this::reconnectWebSocket, 5000);
                                 break;
 
                             case CLOSED:
                                 Log.d(TAG, "🔌 WebSocket CLOSED");
+                                // Wait 5 seconds and try to reconnect
+                                new Handler(Looper.getMainLooper()).postDelayed(this::reconnectWebSocket, 5000);
                                 break;
 
                             case FAILED_SERVER_HEARTBEAT:
@@ -115,6 +122,28 @@ public class WebSocketManager {
         if (stompClient != null) {
             stompClient.connect();
         }
+    }
+
+    private void reconnectWebSocket() {
+        // 1. Clean up existing connection
+        if (stompClient != null) {
+            stompClient.disconnect();
+            stompClient = null;
+        }
+
+        // 2. Clear previous disposables
+        compositeDisposable.clear();
+
+        // 3. Optional: Add exponential delay (e.g., 2s, 4s, 8s...)
+        // so you don't overwhelm the server
+        long delay = Math.min(reconnectAttempts * 2000L, 30000L); // Max 30s delay
+
+        Log.d(TAG, "Reconnecting in " + (delay/1000) + " seconds...");
+
+        reconnectHandler.postDelayed(() -> {
+            init(); // This is the method containing your Stomp.over(...) code
+            reconnectAttempts++;
+        }, delay);
     }
 
     public void subscribeToInbox( String inboxId )
@@ -189,9 +218,7 @@ public class WebSocketManager {
 
                         Collections.sort(chatHistory, (o1, o2) -> {
                             String d1 = o1.getSentAt();
-                            Log.i("SOFIA", "d1 = " + d1);
                             String d2 = o2.getSentAt();
-                            Log.i("SOFIA", "d2 = " + d2);
                             return d1.compareTo(d2);
                         });
 

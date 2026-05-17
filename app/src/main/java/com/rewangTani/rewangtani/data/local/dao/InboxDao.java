@@ -24,11 +24,14 @@ public interface InboxDao
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<DatumInbox> inboxes);
 
-    @Query("SELECT COUNT(*) FROM inbox WHERE readFlag = 'N'")
-    LiveData<Integer> observeUnreadInbox();
+    @Query("SELECT COUNT(*) FROM inbox WHERE readFlag = 'N' AND lastSender != :profileId")
+    LiveData<Integer> observeUnreadInbox(String profileId);
 
     @Query("UPDATE inbox SET readFlag = 'N' WHERE idInbox = :id")
     void updateIsChecked(String id);
+
+    @Query("UPDATE inbox SET readFlag = 'Y' WHERE idInbox = :id")
+    void updateIsRead(String id);
 
     @Query("DELETE FROM inbox")
     void deleteAll();

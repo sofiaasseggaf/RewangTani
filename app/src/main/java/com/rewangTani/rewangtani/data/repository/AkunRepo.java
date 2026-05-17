@@ -1,18 +1,17 @@
 package com.rewangTani.rewangtani.data.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.rewangTani.rewangtani.data.local.RewangTaniDB;
-import com.rewangTani.rewangtani.data.local.dao.AkunDao;
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
 import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.local.RewangTaniDB;
+import com.rewangTani.rewangtani.data.local.dao.AkunDao;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.List;
@@ -94,7 +93,6 @@ public class AkunRepo
                         long now = System.currentTimeMillis();
                         for (DatumAkun p : accounts) {
                             p.lastUpdated = now;
-                            Log.i("SOFIA", "AkunRepo - now = " + response.body().getTotalData());
                         }
 
                         akunDao.deleteAll();

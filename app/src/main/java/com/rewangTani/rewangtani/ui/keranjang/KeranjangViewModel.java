@@ -48,6 +48,7 @@ public class KeranjangViewModel extends AndroidViewModel
     public MutableLiveData<String> errorMessage = new MutableLiveData<>();
     public LiveData<List<CartWithProduct>> cartItems;
     private final MediatorLiveData<Integer> totalPrice = new MediatorLiveData<>();
+    private final MediatorLiveData<List<String>> listCheckedItem = new MediatorLiveData<>();
     MediatorLiveData<List<CartItemUI>> cartUI = new MediatorLiveData<>();
     public MutableLiveData<String> showDeleteDialogTrigger = new MutableLiveData<>();
 
@@ -71,15 +72,19 @@ public class KeranjangViewModel extends AndroidViewModel
         totalPrice.addSource(cartItems, list ->
         {
             int total = 0;
+            List<String> stringList = new ArrayList<>();
             if (list != null) {
                 for (CartWithProduct item : list) {
                     if (item.product != null && item.keranjangLocal.isChecked) {
                         total += item.product.getHargaProduk() * item.keranjangLocal.quantity;
+                        stringList.add(item.product.idProduk);
                     }
                 }
             }
 
+            listCheckedItem.setValue(stringList);
             totalPrice.setValue(total);
+
         });
 
 
@@ -183,6 +188,11 @@ public class KeranjangViewModel extends AndroidViewModel
     public LiveData<Integer> getTotalPrice()
     {
         return totalPrice;
+    }
+
+    public LiveData<List<String>> getCheckedItemId()
+    {
+        return listCheckedItem;
     }
 
 }

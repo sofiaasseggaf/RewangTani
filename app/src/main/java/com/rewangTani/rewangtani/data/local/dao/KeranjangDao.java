@@ -33,7 +33,7 @@ public interface KeranjangDao
     void updateIsChecked(String id, boolean check);
 
     @Query("DELETE FROM keranjang WHERE productId = :id")
-        void delete(String id);
+    void delete(String id);
 
     @Query("SELECT EXISTS(SELECT 1 FROM keranjang WHERE productId = :id)")
     boolean isExist(String id);

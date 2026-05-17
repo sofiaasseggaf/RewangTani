@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.data.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -69,7 +68,6 @@ public class ProfileLahanRepo
                         long now = System.currentTimeMillis();
                         for (DatumProfilLahan p : profilLahans) {
                             p.lastUpdated = now;
-                            Log.i("SOFIA", "ProfileLahanRepo - now = " + response.body().getTotalData());
                         }
 
                         profilLahanDao.deleteAll();

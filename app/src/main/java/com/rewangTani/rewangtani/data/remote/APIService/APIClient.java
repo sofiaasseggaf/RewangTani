@@ -62,9 +62,10 @@ public class APIClient {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .addInterceptor(logging)
-                .connectTimeout(20, TimeUnit.SECONDS)
+                .pingInterval(10, TimeUnit.SECONDS) // Keep the TCP connection alive
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(0, TimeUnit.SECONDS)
                 .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS, ConnectionSpec.CLEARTEXT))
                 //.connectionSpecs(Collections.singletonList(spec))
                 .build();

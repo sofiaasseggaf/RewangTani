@@ -157,9 +157,9 @@ public class HomeViewModel extends AndroidViewModel
         );
     }
 
-    public LiveData<Integer> getUnreadInboxes()
+    public LiveData<Integer> getUnreadInboxes(String idProfile)
     {
-        return chatRepo.getUnreadCount();
+        return chatRepo.getUnreadCount(idProfile);
     }
 
     public void triggerSync(String myId)
@@ -170,6 +170,13 @@ public class HomeViewModel extends AndroidViewModel
     public void fetchAllChat(String id, ChatRepo.ChatDataCallback callback)
     {
         chatRepo.loadChatData(id, callback);
+    }
+
+    public void updateIsReadStatus(String id)
+    {
+        executor.execute(() -> {
+            inboxDao.updateIsRead(id);
+        });
     }
 
 }

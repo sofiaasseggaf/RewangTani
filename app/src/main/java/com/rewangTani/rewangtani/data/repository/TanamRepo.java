@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.data.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -14,7 +13,6 @@ import com.rewangTani.rewangtani.data.local.dao.RencanaTanamDao;
 import com.rewangTani.rewangtani.data.local.dao.SudahTanamDao;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -79,7 +77,6 @@ public class TanamRepo
                         long now = System.currentTimeMillis();
                         for (DatumRencanaTanam p : rencanaTanams) {
                             p.lastUpdated = now;
-                            Log.i("SOFIA", "AkunRepo - now = " + response.body().getTotalData());
                         }
 
                         rencanaTanamDao.deleteAll();

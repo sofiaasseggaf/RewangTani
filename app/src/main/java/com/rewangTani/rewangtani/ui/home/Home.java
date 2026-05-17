@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -86,6 +87,13 @@ public class Home extends AppCompatActivity
         initChatService();
         initListener();
         checkLocationPermission();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
     }
 
     private void initLayout()
@@ -132,8 +140,8 @@ public class Home extends AppCompatActivity
 
     private void initObserver()
     {
-
-        viewModel.getUnreadInboxes().observe(this, count -> {
+        String myId = PreferenceUtils.getIdProfil(this);
+        viewModel.getUnreadInboxes(myId).observe(this, count -> {
             if (count != null) {
                 binding.notificationTick.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
                 binding.txtInbox.setText(String.valueOf(count));

@@ -33,7 +33,7 @@ public class ChatUtils {
         ChatUtils.context = context;
     }
 
-    public void createInboxParticipant(String idProfile, String idOther, String namaOther)
+    public void createInboxParticipant(String idProfile, String idOther, String namaOther, String namaProduk)
     {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
@@ -56,7 +56,7 @@ public class ChatUtils {
                             String idInboxParticipant = responseInboxParticipant.getData().getIdInboxParticipant();
                             if ( idInboxParticipant != null )
                             {
-                                createInbox(idProfile, idInboxParticipant, namaOther);
+                                createInbox(idProfile, idInboxParticipant, namaOther, namaProduk);
                             }
                         } catch (Exception e) {
                         }
@@ -73,7 +73,7 @@ public class ChatUtils {
         });
     }
 
-    public void createInbox(String idProfile, String idInboxParticipant, String namaOther)
+    public void createInbox(String idProfile, String idInboxParticipant, String namaOther, String namaProduk)
     {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         Map<String, Object> jsonParams = new ArrayMap<>();
@@ -100,6 +100,8 @@ public class ChatUtils {
                                 Intent intent = new Intent(context, Chat.class);
                                 intent.putExtra(Global.ID_INBOX, idInbox);
                                 intent.putExtra(Global.NAMA_INBOX, namaOther);
+                                intent.putExtra(Global.START_CHAT_IMMIDIATELY, true);
+                                intent.putExtra(Global.NAMA_PRODUK, namaProduk);
                                 context.startActivity(intent);
                             }
                         } catch (Exception e) {
@@ -118,7 +120,7 @@ public class ChatUtils {
 
     }
 
-    public void goToInbox(String idProfile, String idOther, String namaOther)
+    public void goToInbox(String idProfile, String idOther, String namaOther, String namaProduk)
     {
         List<DatumInboxParticipant> listInboxParticipant = new ArrayList<>();
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
@@ -136,8 +138,11 @@ public class ChatUtils {
                     {
                         try
                         {
-                            if ( idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilA()) ||
-                                    idProfile.equalsIgnoreCase(modelInboxParticipant.getData().get(i).getIdProfilB()) )
+                            String idA = modelInboxParticipant.getData().get(i).getIdProfilA();
+                            String idB = modelInboxParticipant.getData().get(i).getIdProfilB();
+                            boolean isMatch = (idProfile.equalsIgnoreCase(idA) && idOther.equalsIgnoreCase(idB)) ||
+                                            (idProfile.equalsIgnoreCase(idB) && idOther.equalsIgnoreCase(idA));
+                            if (isMatch)
                             {
                                 listInboxParticipant.add(modelInboxParticipant.getData().get(i));
                             }
@@ -145,14 +150,13 @@ public class ChatUtils {
                         catch ( Exception e ) { }
                     }
 
-                    if ( listInboxParticipant.size() > 0 )
+                    if (!listInboxParticipant.isEmpty())
                     {
-                        getDataInbox(idProfile, idOther, namaOther, listInboxParticipant);
-
+                        getDataInbox(idProfile, idOther, namaOther, listInboxParticipant, namaProduk);
                     }
                     else
                     {
-                        createInboxParticipant(idProfile, idOther, namaOther);
+                        createInboxParticipant(idProfile, idOther, namaOther, namaProduk);
                     }
                 }
             }
@@ -162,7 +166,7 @@ public class ChatUtils {
         });
     }
 
-    private void getDataInbox(String idProfile, String idOther, String namaOther, List<DatumInboxParticipant> listInboxParticipant)
+    private void getDataInbox(String idProfile, String idOther, String namaOther, List<DatumInboxParticipant> listInboxParticipant, String namaProduk)
     {
         List<DatumInbox> listInbox = new ArrayList<>();
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
@@ -186,6 +190,8 @@ public class ChatUtils {
                                 Intent intent = new Intent(context, Chat.class);
                                 intent.putExtra(Global.ID_INBOX, modelInbox.getData().get(i).getIdInbox());
                                 intent.putExtra(Global.NAMA_INBOX, namaOther);
+                                intent.putExtra(Global.START_CHAT_IMMIDIATELY, true);
+                                intent.putExtra(Global.NAMA_PRODUK, namaProduk);
                                 context.startActivity(intent);
                             }
                         }
@@ -193,7 +199,7 @@ public class ChatUtils {
 
                     if ( !isIntent )
                     {
-                        createInboxParticipant(idProfile, idOther, namaOther);
+                        createInboxParticipant(idProfile, idOther, namaOther, namaProduk);
                     }
                 }
             }

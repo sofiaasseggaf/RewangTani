@@ -132,9 +132,9 @@ public class ChatRepo
         });
     }
 
-    public LiveData<Integer> getUnreadCount()
+    public LiveData<Integer> getUnreadCount(String idProfile)
     {
-        return inboxDao.observeUnreadInbox();
+        return inboxDao.observeUnreadInbox(idProfile);
     }
 
     public void loadChatData(String myId, ChatDataCallback callback)

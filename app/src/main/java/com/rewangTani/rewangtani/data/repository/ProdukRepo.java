@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.data.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -76,7 +75,6 @@ public class ProdukRepo
                         long now = System.currentTimeMillis();
                         for (DatumProduk p : accounts) {
                             p.lastUpdated = now;
-                            Log.i("SOFIA", "ProdukRepo - now = " + response.body().getTotalData());
                         }
 
                         produkDao.deleteAll();

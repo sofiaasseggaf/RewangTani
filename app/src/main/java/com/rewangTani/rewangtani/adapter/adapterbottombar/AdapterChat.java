@@ -6,12 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.model.chatrequest.ChatRequest;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ChatViewHolder> {
@@ -34,9 +39,14 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ChatViewHolder
     public void onBindViewHolder(ChatViewHolder holder, int position) {
         ChatRequest chatMessage = chatMessages.get(position);
 //        holder.messageTextView.setText(chatMessage.getText());
+        LocalDateTime ldt = LocalDateTime.parse(chatMessage.getSentAt());
+        ZonedDateTime utcTime = ldt.atZone(ZoneId.of("UTC"));
+        ZonedDateTime jakartaTime = utcTime.withZoneSameInstant(ZoneId.of("GMT+7"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String result = jakartaTime.format(formatter);
 
-        String cleanTime = chatMessage.getSentAt().substring(11, 16);
-        holder.time.setText(cleanTime);
+//        String cleanTime = chatMessage.getSentAt().substring(11, 16);
+        holder.time.setText(result);
         holder.lastText.setText(chatMessage.getText());
 
         String idProfile = PreferenceUtils.getIdProfil(context);
