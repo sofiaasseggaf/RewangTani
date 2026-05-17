@@ -78,6 +78,7 @@ public class Keluar extends AppCompatActivity {
         PreferenceUtils.saveNamaBelakang("", getApplicationContext());
         PreferenceUtils.saveIDPhoto("", getApplicationContext());
         PreferenceUtils.saveIDGoogle("", getApplicationContext());
+//        RewangTaniDB.getInstance(this).clearAllTables();
         gotoSplashScreen();
     }
 

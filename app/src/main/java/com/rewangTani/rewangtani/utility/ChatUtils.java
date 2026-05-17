@@ -95,7 +95,7 @@ public class ChatUtils {
                     if (rawResponse.body() != null) {
                         ResponseInbox responseInbox = rawResponse.body();
                         try {
-                            String idInbox = responseInbox.getData().getIdInboxParticipant();
+                            String idInbox = responseInbox.getData().getIdInbox();
                             if (idInbox != null) {
                                 Intent intent = new Intent(context, Chat.class);
                                 intent.putExtra(Global.ID_INBOX, idInbox);

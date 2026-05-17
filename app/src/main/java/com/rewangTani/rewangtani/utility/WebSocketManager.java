@@ -37,7 +37,8 @@ import ua.naiksoftware.stomp.StompClient;
 import ua.naiksoftware.stomp.dto.LifecycleEvent;
 import ua.naiksoftware.stomp.dto.StompMessage;
 
-public class WebSocketManager {
+public class WebSocketManager
+{
 
     private static final String TAG = "WebSocketManager";
     private static final String WEBSOCKET_URL = "ws://167.172.72.217:8080/ws"; // Replace with your WebSocket URL
@@ -90,21 +91,36 @@ public class WebSocketManager {
 
                             case OPENED:
                                 Log.d(TAG, "✅ WebSocket OPENED");
+                                if (messageListener != null) {
+                                    messageListener.onSocketConnected();
+                                }
+
                                 break;
 
                             case ERROR:
                                 Log.e(TAG, "❌ WebSocket ERROR", eventObj.getException());
+                                if (messageListener != null) {
+                                    messageListener.onSocketError(
+                                            eventObj.getException().getMessage()
+                                    );
+                                }
                                 // Wait 5 seconds and try to reconnect
                                 new Handler(Looper.getMainLooper()).postDelayed(this::reconnectWebSocket, 5000);
                                 break;
 
                             case CLOSED:
                                 Log.d(TAG, "🔌 WebSocket CLOSED");
+                                if (messageListener != null) {
+                                    messageListener.onSocketDisconnected();
+                                }
                                 // Wait 5 seconds and try to reconnect
                                 new Handler(Looper.getMainLooper()).postDelayed(this::reconnectWebSocket, 5000);
                                 break;
 
                             case FAILED_SERVER_HEARTBEAT:
+                                if (messageListener != null) {
+                                    messageListener.onSocketReconnecting();
+                                }
                                 Log.e(TAG, "💔 HEARTBEAT FAILED");
                                 break;
                         }
@@ -192,6 +208,7 @@ public class WebSocketManager {
 
     public void sendMessage(ChatRequest chatMessage) {
         String jsonMessage = gson.toJson(chatMessage);
+        Log.i("SOFIA", "sendMessage - inbox = " + chatMessage.getIdInbox());
         Disposable sendSubscription = RxJavaBridge
                 .toV3Completable(stompClient.send(SEND_ENDPOINT, jsonMessage)) // 🔥 convert
                 .subscribe(() -> {
@@ -262,6 +279,10 @@ public class WebSocketManager {
     public interface OnMessageReceivedListener {
         void onNewMessageReceived(String message);
         void onAllChatDataReceived(List<ChatRequest> chatRequests);
+        void onSocketConnected();
+        void onSocketDisconnected();
+        void onSocketError(String error);
+        void onSocketReconnecting();
     }
 
 }

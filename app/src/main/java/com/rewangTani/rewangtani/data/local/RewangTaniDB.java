@@ -35,6 +35,8 @@ import com.rewangTani.rewangtani.data.local.dao.WarungSewaMesinDao;
 import com.rewangTani.rewangtani.data.local.dao.WarungTenagaKerjaDao;
 import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 
+import java.util.concurrent.Executors;
+
 @Database(
         entities = {
                 DatumAkun.class,
@@ -87,8 +89,22 @@ public abstract class RewangTaniDB extends RoomDatabase
         }
 
         @Override
-        public void clearAllTables() {
-
+        public void clearAllTables()
+        {
+                Executors.newSingleThreadExecutor().execute(() -> {
+                        akunDao().deleteAll();
+                        profilDao().deleteAll();
+                        profilLahanDao().deleteAll();
+                        rencanaTanamDao().deleteAll();
+                        draftDao().clearDraft();
+                        sudahTanamDao().deleteAll();
+                        produkDao().deleteAll();
+                        keranjangDao().deleteAll();
+                        warungBppDao().deleteAll();
+                        warungSewaMesinDao().deleteAll();
+                        warungTenagaKerjaDao().deleteAll();
+                        inboxDao().deleteAll();
+                });
         }
 
         @NonNull

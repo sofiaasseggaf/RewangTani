@@ -113,11 +113,35 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
 
     @Override
     public void onAllChatDataReceived(List<ChatRequest> chatRequests) {
+        for (ChatRequest cr : chatRequests)
+        {
+            Log.i("SOFIA", "onAllChatDataReceived - inbox = " + cr.getIdInbox());
+        }
         chatMessages.clear();
         chatMessages.addAll(chatRequests);
         adapterChat.notifyDataSetChanged();
         binding.rvChat.setNestedScrollingEnabled(false);
         binding.rvChat.scrollToPosition(adapterChat.getItemCount() - 1);
+    }
+
+    @Override
+    public void onSocketConnected() {
+
+    }
+
+    @Override
+    public void onSocketDisconnected() {
+        Toast.makeText(this, "Jaringan terputus", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSocketError(String error) {
+        Toast.makeText(this, "Jaringan terputus", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSocketReconnecting() {
+        Toast.makeText(this, "Jaringan menghubungkan", Toast.LENGTH_LONG).show();
     }
 
     private void sendMessage(String message, String inboxId)
