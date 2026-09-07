@@ -6,15 +6,6 @@ plugins {
 
 android {
 
-//    signingConfigs{
-//        debug{buildscript
-//            keyAlias 'sofiaFreelance'
-//            keyPassword '12345678'
-//            storeFile file('C:/Users/Thinkpad/Documents/keystorefreelance.jks')
-//            storePassword '12345678'
-//        }
-//    }
-
     namespace "com.rewangTani.rewangtani"
     compileSdk 34
     buildToolsVersion "33.0.1"

@@ -208,7 +208,6 @@ public class WebSocketManager
 
     public void sendMessage(ChatRequest chatMessage) {
         String jsonMessage = gson.toJson(chatMessage);
-        Log.i("SOFIA", "sendMessage - inbox = " + chatMessage.getIdInbox());
         Disposable sendSubscription = RxJavaBridge
                 .toV3Completable(stompClient.send(SEND_ENDPOINT, jsonMessage)) // 🔥 convert
                 .subscribe(() -> {

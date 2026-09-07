@@ -3,7 +3,6 @@ package com.rewangTani.rewangtani.bottombar.pesan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.ArrayMap;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -97,7 +96,6 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
 
     @Override
     public void onNewMessageReceived(String message) {
-        Log.i("SOFIA", "Chat - onMsgeReceve - " + message);
         ChatRequest chatRequest = new Gson().fromJson(message, ChatRequest.class);
 
         // 🔥 IGNORE CHAT MILIK SENDIRI
@@ -113,10 +111,6 @@ public class Chat extends AppCompatActivity implements WebSocketManager.OnMessag
 
     @Override
     public void onAllChatDataReceived(List<ChatRequest> chatRequests) {
-        for (ChatRequest cr : chatRequests)
-        {
-            Log.i("SOFIA", "onAllChatDataReceived - inbox = " + cr.getIdInbox());
-        }
         chatMessages.clear();
         chatMessages.addAll(chatRequests);
         adapterChat.notifyDataSetChanged();

@@ -3,14 +3,13 @@ package com.rewangTani.rewangtani.utility;
 import android.content.Context;
 import android.content.Intent;
 import android.util.ArrayMap;
-import android.util.Log;
 
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.bottombar.pesan.Chat;
 import com.rewangTani.rewangtani.data.entity.inbox.DatumInbox;
 import com.rewangTani.rewangtani.data.entity.inbox.ModelInbox;
 import com.rewangTani.rewangtani.data.entity.inbox.ResponseInbox;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.DatumInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ModelInboxParticipant;
 import com.rewangTani.rewangtani.model.modelchatdaninbox.modelinboxparticipant.ResponseInboxParticipant;
@@ -49,7 +48,6 @@ public class ChatUtils {
             @Override
             public void onResponse(Call<ResponseInboxParticipant> call, retrofit2.Response<ResponseInboxParticipant> rawResponse) {
                 try {
-                    Log.d("SOFIA", String.valueOf(rawResponse.body()));
                     if (rawResponse.body() != null) {
                         ResponseInboxParticipant responseInboxParticipant = rawResponse.body();
                         try {
@@ -91,7 +89,6 @@ public class ChatUtils {
             @Override
             public void onResponse(Call<ResponseInbox> call, retrofit2.Response<ResponseInbox> rawResponse) {
                 try {
-                    Log.d("SOFIA", String.valueOf(rawResponse.body()));
                     if (rawResponse.body() != null) {
                         ResponseInbox responseInbox = rawResponse.body();
                         try {

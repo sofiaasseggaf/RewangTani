@@ -214,7 +214,6 @@ public class InputRencanaTanamE extends AppCompatActivity
             @Override
             public void onResponse(Call<ResponseRencanaTanam> call, retrofit2.Response<ResponseRencanaTanam> rawResponse) {
                 try {
-                    Log.d("SOFIA", String.valueOf(rawResponse.body()));
                     if (rawResponse.body() != null) {
                         ResponseRencanaTanam modelRencanaTanam = rawResponse.body();
                         try {

@@ -687,7 +687,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void sendDataAkun() {
-        Log.i("SOFIA", "send data akun");
         //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault());
         //String now = formatter.format(new Date());
 
@@ -708,7 +707,6 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     Log.d("tag", rawResponse.body().string());
                     if (rawResponse.body() != null) {
-                        Log.i("SOFIA", "come here ?");
                         getDataAkunAfterRegister();
                     } else {
                         runOnUiThread(new Runnable() {

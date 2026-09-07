@@ -2,17 +2,16 @@ package com.rewangTani.rewangtani.ui.register;
 
 import android.app.Application;
 import android.util.ArrayMap;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.rewangTani.rewangtani.data.repository.AkunRepo;
 import com.rewangTani.rewangtani.data.entity.akun.DatumAkun;
 import com.rewangTani.rewangtani.data.entity.akun.ModelAkun;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
+import com.rewangTani.rewangtani.data.repository.AkunRepo;
 
 import org.json.JSONObject;
 
@@ -60,7 +59,6 @@ public class RegisterViewModel extends AndroidViewModel
 
                 if (response.body() != null) {
                     cachedAkun = response.body();
-                    Log.i("SOFIA", "RegisterVM - cachedAkun = " + cachedAkun.getTotalData());
                 } else {
                     errorMessage.setValue("Data akun kosong");
                 }

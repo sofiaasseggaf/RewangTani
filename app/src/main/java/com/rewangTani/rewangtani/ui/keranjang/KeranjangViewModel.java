@@ -1,7 +1,6 @@
 package com.rewangTani.rewangtani.ui.keranjang;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -126,7 +125,6 @@ public class KeranjangViewModel extends AndroidViewModel
 
                 if (response.body() != null) {
                     cachedProducts = response.body();
-                    Log.i("SOFIA", "KeranjangVM - cachedProducts = " + cachedProducts.getTotalData());
                 } else {
                     errorMessage.setValue("Data products kosong");
                 }

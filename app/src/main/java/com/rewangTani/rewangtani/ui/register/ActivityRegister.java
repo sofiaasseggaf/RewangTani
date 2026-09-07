@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,9 +57,6 @@ public class ActivityRegister extends AppCompatActivity {
         initGoogleSign();
         observeViewModel();
 
-        viewModel.getAccounts().observe(this, acc -> {
-            Log.i("SOFIA", "size = " + acc.size());
-        });
     }
 
     private void initListener()
