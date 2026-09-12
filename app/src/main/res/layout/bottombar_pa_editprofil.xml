@@ -286,7 +286,7 @@
                         android:background="@drawable/triangle_upside_down" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <!--<RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="15dp"
@@ -312,7 +312,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/triangle_upside_down" />
-                </RelativeLayout>
+                </RelativeLayout>-->
 
                 <EditText
                     android:id="@+id/inputAlamat"
@@ -328,7 +328,7 @@
                     android:textColorHint="#919191"
                     android:textSize="11sp" />
 
-                <RelativeLayout
+                <!--<RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -354,7 +354,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/triangle_upside_down" />
-                </RelativeLayout>
+                </RelativeLayout>-->
 
                 <RelativeLayout
                     android:id="@+id/btnSimpan"

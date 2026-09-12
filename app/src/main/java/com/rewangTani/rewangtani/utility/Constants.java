@@ -37,7 +37,10 @@ public class Constants {
     public static String KEY_PL_KODEPOS = "kodepos";
 
 
-
+    public static final String KEY_ID_PROVINSI = "key_id_provinsi";
+    public static final String KEY_ID_KABUPATEN = "key_id_kabupaten";
+    public static final String KEY_ID_KECAMATAN = "key_id_kecamatan";
+    public static final String KEY_ID_KELURAHAN = "key_id_kelurahan";
 
     // --------------- DATA RENCANA TANAM SEMENTARA ---------------
 

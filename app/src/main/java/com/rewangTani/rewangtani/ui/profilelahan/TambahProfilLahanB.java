@@ -12,12 +12,11 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.rewangTani.rewangtani.R;
+import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanBBinding;
 import com.rewangTani.rewangtani.model.wilayah.City;
 import com.rewangTani.rewangtani.model.wilayah.District;
 import com.rewangTani.rewangtani.model.wilayah.Province;
 import com.rewangTani.rewangtani.model.wilayah.Village;
-import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanBBinding;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -28,10 +27,6 @@ public class TambahProfilLahanB extends FragmentActivity {
     private ProfileLahanViewModel viewModel;
     BottombarPlTambahProfilLahanBBinding binding;
     String idAlamat;
-    List<DatumAlamat> listAlamat = new ArrayList<>();
-    List<String> listKec = new ArrayList<String>();
-    List<String> listKel = new ArrayList<String>();
-    List<String> listkodepos = new ArrayList<String>();
 
     String provinsi, kabkota, kecamatan, kelurahan;
     Integer kodepos;
@@ -158,36 +153,6 @@ public class TambahProfilLahanB extends FragmentActivity {
             public void afterTextChanged(Editable editable) { }
         });
 
-/*        binding.spKodePos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.spKodePos.showDropDown();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-            }
-        });
-        binding.spKodePos.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (!binding.spKodePos.getText().toString().equalsIgnoreCase("")) {
-                    kodepos = Integer.valueOf(binding.spKodePos.getText().toString());
-                    for (int a=0; a<listAlamat.size(); a++){
-                        if (listAlamat.get(a).getKodepos().equals(kodepos)){
-                            idAlamat = listAlamat.get(a).getIdAlamat();
-                            break;
-                        }
-                    }
-                }
-            }
-        });*/
     }
 
     private void setDefaultSpinner()

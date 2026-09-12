@@ -2,7 +2,6 @@ package com.rewangTani.rewangtani.bottombar.profilakun;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.entity.profilakun.DatumProfil;
@@ -27,9 +27,12 @@ import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilAkun;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarPaEditprofilBinding;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.DatumAlamat;
-import com.rewangTani.rewangtani.model.modelnoneditable.alamat.ModelAlamat;
 import com.rewangTani.rewangtani.model.modelnoneditable.statuspekerja.ModelStatusPekerja;
+import com.rewangTani.rewangtani.model.wilayah.City;
+import com.rewangTani.rewangtani.model.wilayah.District;
+import com.rewangTani.rewangtani.model.wilayah.Province;
+import com.rewangTani.rewangtani.model.wilayah.Village;
+import com.rewangTani.rewangtani.ui.profilelahan.ProfileLahanViewModel;
 import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
@@ -51,18 +54,11 @@ import retrofit2.Response;
 public class EditProfil extends AppCompatActivity {
 
     BottombarPaEditprofilBinding binding;
+    private ProfileLahanViewModel viewModel;
     ModelProfilAkun modelProfilAkun;
     DatumProfil dataProfil;
-    ModelAlamat modelAlamat;
-    DatumAlamat dataAlamat;
     ModelStatusPekerja modelStatusPekerja;
     List<String> listStatusPekerja = new ArrayList<>();
-    List<DatumAlamat> listAlamat = new ArrayList<>();
-    List<String> listKabKota = new ArrayList<String>();
-    List<String> listKec = new ArrayList<String>();
-    List<String> listKel = new ArrayList<String>();
-    List<String> listkodepos = new ArrayList<String>();
-    List<String> listProvinsi = new ArrayList<String>();
     String provinsi, kabkota, kecamatan, kelurahan;
     String idAlamat = "";
     String idAlamat2 = "";
@@ -70,13 +66,18 @@ public class EditProfil extends AppCompatActivity {
     String status_pekerja = "";
     String[] gender;
     Calendar myCalendar;
-    ArrayAdapter<String> adapterProvinsi, adapterKabKota, adapterKec, adapterKel, adapterKodepos;
+    ArrayAdapter adapterProvinsi,
+            adapterKabKota,
+            adapterKec,
+            adapterKel;
     int testTelp, testNIK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pa_editprofil);
+        viewModel = new ViewModelProvider(this).get(ProfileLahanViewModel.class);
+
 
         myCalendar = Calendar.getInstance();
         getData();
@@ -109,7 +110,7 @@ public class EditProfil extends AppCompatActivity {
             }
         });
 
-        binding.spinnerStatusPekerja.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+/*        binding.spinnerStatusPekerja.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
@@ -124,300 +125,143 @@ public class EditProfil extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
+        });*/
+
+        binding.spinnerProvinsi.setOnClickListener(
+                view -> {
+                    binding.spinnerProvinsi.requestFocus();
+                    binding.spinnerProvinsi.showDropDown();
+                }
+        );
+
+        binding.spinnerKabKota.setOnClickListener(
+                view -> {
+                    binding.spinnerKabKota.requestFocus();
+                    binding.spinnerKabKota.showDropDown();
+                }
+        );
+
+        binding.spinnerKecamatan.setOnClickListener(
+                view -> {
+                    binding.spinnerKecamatan.requestFocus();
+                    binding.spinnerKecamatan.showDropDown();
+                }
+        );
+
+        binding.spinnerKelurahan.setOnClickListener(
+                view -> {
+                    binding.spinnerKelurahan.requestFocus();
+                    binding.spinnerKelurahan.showDropDown();
+                }
+        );
+
+        binding.spinnerProvinsi.setOnItemClickListener(
+                (parent, view, position, id) -> {
+
+            Province item = (Province) parent.getItemAtPosition(position);
+            provinsi = item.getName();
+
+            binding.spinnerKabKota.setText("");
+            binding.spinnerKecamatan.setText("");
+            binding.spinnerKelurahan.setText("");
+
+            binding.spinnerKabKota.setEnabled(false);
+            binding.spinnerKecamatan.setEnabled(false);
+            binding.spinnerKelurahan.setEnabled(false);
+
+            viewModel.loadKabupaten(item.getId());
+            PreferenceUtils.saveIdProvinsi(item.getId(), this);
         });
 
-        binding.spinnerProvinsi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.spinnerProvinsi.addTextChangedListener(
+                new TextWatcher() {
 
-                //rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKabKota.setEnabled(false);
-                binding.spinnerKabKota.setText("");
-                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKecamatan.setEnabled(false);
-                binding.spinnerKecamatan.setText("");
-                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKelurahan.setEnabled(false);
-                binding.spinnerKelurahan.setText("");
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
+                    @Override
+                    public void beforeTextChanged(
+                            CharSequence s,
+                            int start,
+                            int count,
+                            int after) {
 
-                binding.spinnerProvinsi.showDropDown();
-            }
-        });
-
-        binding.spinnerProvinsi.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    if (adapterProvinsi != null) {
-                        adapterProvinsi.getFilter().filter(charSequence);
-                    }
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                //rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKabKota.setEnabled(false);
-                binding.spinnerKabKota.setText("");
-                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKecamatan.setEnabled(false);
-                binding.spinnerKecamatan.setText("");
-                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKelurahan.setEnabled(false);
-                binding.spinnerKelurahan.setText("");
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                provinsi = binding.spinnerProvinsi.getText().toString();
-                listKabKota.clear();
-                for (int a = 0; a < listAlamat.size(); a++) {
-                    if (listAlamat.get(a).getProvinsi().equalsIgnoreCase(provinsi)) {
-                        listKabKota.add(listAlamat.get(a).getKota());
-                    }
-                }
-                if (listKabKota.size() > 0) {
-                    for (int i = 0; i < listKabKota.size(); i++) {
-                        for (int j = i + 1; j < listKabKota.size(); j++) {
-                            if (listKabKota.get(i).equalsIgnoreCase(listKabKota.get(j))) {
-                                listKabKota.remove(j);
-                                j--;
-                            }
+                        if (adapterProvinsi != null) {
+                            adapterProvinsi
+                                    .getFilter()
+                                    .filter(s);
                         }
                     }
 
-                    //rl_kab_kota.setBackgroundResource(R.drawable.bg_spinner);
-                    binding.spinnerKabKota.setEnabled(true);
-                    adapterKabKota = new ArrayAdapter<String>(
-                            EditProfil.this, R.layout.z_spinner_list, listKabKota);
-                    binding.spinnerKabKota.setThreshold(1);
-                    binding.spinnerKabKota.setAdapter(adapterKabKota);
-
-                }
-            }
-        });
-
-        binding.spinnerKabKota.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKecamatan.setEnabled(false);
-                binding.spinnerKecamatan.setText("");
-                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKelurahan.setEnabled(false);
-                binding.spinnerKelurahan.setText("");
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
-
-                binding.spinnerKabKota.showDropDown();
-            }
-        });
-
-        binding.spinnerKabKota.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    adapterKabKota.getFilter().filter(charSequence);
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                //rl_kec.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKecamatan.setEnabled(false);
-                binding.spinnerKecamatan.setText("");
-                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKelurahan.setEnabled(false);
-                binding.spinnerKelurahan.setText("");
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                kabkota = binding.spinnerKabKota.getText().toString();
-                listKec.clear();
-                for (int a = 0; a < listAlamat.size(); a++) {
-                    if (listAlamat.get(a).getKota().equalsIgnoreCase(kabkota)) {
-                        listKec.add(listAlamat.get(a).getKecamatan());
-                    }
-                }
-
-                if (listKec.size() > 0) {
-                    for (int i = 0; i < listKec.size(); i++) {
-                        for (int j = i + 1; j < listKec.size(); j++) {
-                            if (listKec.get(i).equalsIgnoreCase(listKec.get(j))) {
-                                listKec.remove(j);
-                                j--;
-                            }
-                        }
+                    @Override
+                    public void onTextChanged(
+                            CharSequence s,
+                            int start,
+                            int before,
+                            int count) {
                     }
 
-                    //rl_kec.setBackgroundResource(R.drawable.bg_spinner);
-                    binding.spinnerKecamatan.setEnabled(true);
-                    adapterKec = new ArrayAdapter<String>(
-                            EditProfil.this, R.layout.z_spinner_list, listKec);
-                    binding.spinnerKecamatan.setThreshold(1);
-                    binding.spinnerKecamatan.setAdapter(adapterKec);
-
-                }
-            }
-        });
-
-        binding.spinnerKecamatan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKelurahan.setEnabled(false);
-                binding.spinnerKelurahan.setText("");
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
-
-                binding.spinnerKecamatan.showDropDown();
-            }
-        });
-
-        binding.spinnerKecamatan.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    if (adapterKec != null) {
-                        adapterKec.getFilter().filter(charSequence);
-                    }
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                //rl_kel.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKelurahan.setEnabled(false);
-                binding.spinnerKelurahan.setText("");
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                kecamatan = binding.spinnerKecamatan.getText().toString();
-                listKel.clear();
-                for (int a = 0; a < listAlamat.size(); a++) {
-                    if (listAlamat.get(a).getKecamatan().equalsIgnoreCase(kecamatan)) {
-                        listKel.add(listAlamat.get(a).getKelurahan());
+                    @Override
+                    public void afterTextChanged(
+                            Editable s) {
                     }
                 }
+        );
 
-                if (listKel.size() > 0) {
-                    for (int i = 0; i < listKel.size(); i++) {
-                        for (int j = i + 1; j < listKel.size(); j++) {
-                            if (listKel.get(i).equalsIgnoreCase(listKel.get(j))) {
-                                listKel.remove(j);
-                                j--;
-                            }
-                        }
-                    }
+        binding.spinnerKabKota.setOnItemClickListener(
+                (parent, view, position, id) -> {
 
-                    //rl_kel.setBackgroundResource(R.drawable.bg_spinner);
-                    binding.spinnerKelurahan.setEnabled(true);
-                    adapterKel = new ArrayAdapter<String>(
-                            EditProfil.this, R.layout.z_spinner_list, listKel);
-                    binding.spinnerKelurahan.setThreshold(1);
-                    binding.spinnerKelurahan.setAdapter(adapterKel);
+                    City item =
+                            (City) parent.getItemAtPosition(position);
 
+                    kabkota = item.getName();
+
+                    binding.spinnerKecamatan.setText("");
+                    binding.spinnerKelurahan.setText("");
+
+                    binding.spinnerKecamatan.setEnabled(false);
+                    binding.spinnerKelurahan.setEnabled(false);
+
+                    viewModel.loadKecamatan(item.getId());
+                    PreferenceUtils.saveIdKabupaten(item.getId(), this);
                 }
-            }
-        });
+        );
 
-        binding.spinnerKelurahan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        binding.spinnerKecamatan.setOnClickListener(
+                view -> binding.spinnerKecamatan.showDropDown()
+        );
 
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
+        binding.spinnerKecamatan.setOnItemClickListener(
+                (parent, view, position, id) -> {
 
-                binding.spinnerKelurahan.showDropDown();
-            }
-        });
+                    District item =
+                            (District) parent.getItemAtPosition(position);
 
-        binding.spinnerKelurahan.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                try {
-                    if (adapterKel != null) {
-                        adapterKel.getFilter().filter(charSequence);
-                    }
-                } catch (Exception e) {
+                    kecamatan = item.getName();
+
+                    binding.spinnerKelurahan.setText("");
+                    binding.spinnerKelurahan.setEnabled(false);
+
+                    viewModel.loadKelurahan(item.getId());
+                    PreferenceUtils.saveIdKecamatan(item.getId(), this);
                 }
-            }
+        );
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        binding.spinnerKelurahan.setOnClickListener(
+                view -> binding.spinnerKelurahan.showDropDown()
+        );
 
-                //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner_off);
-                binding.spinnerKodepos.setEnabled(false);
-                binding.spinnerKodepos.setText("");
-            }
+        binding.spinnerKelurahan.setOnItemClickListener(
+                (parent, view, position, id) -> {
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                kelurahan = binding.spinnerKelurahan.getText().toString();
-                for (int a = 0; a < listAlamat.size(); a++) {
-                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)) {
-                        idAlamat2 = listAlamat.get(a).getIdAlamat();
-                        break;
-                    }
+                    Village item =
+                            (Village) parent.getItemAtPosition(position);
+
+                    kelurahan = item.getName();
+
+                    idAlamat2 = item.getId();
+                    PreferenceUtils.saveIdKelurahan(item.getId(), this);
                 }
+        );
 
-
-                listkodepos.clear();
-                for (int a = 0; a < listAlamat.size(); a++) {
-                    if (listAlamat.get(a).getKelurahan().equalsIgnoreCase(kelurahan)) {
-                        listkodepos.add(listAlamat.get(a).getKodepos().toString());
-                    }
-                }
-
-                if (listkodepos.size() > 0) {
-
-                    for (int i = 0; i < listkodepos.size(); i++) {
-                        for (int j = i + 1; j < listkodepos.size(); j++) {
-                            if (listkodepos.get(i).equalsIgnoreCase(listkodepos.get(j))) {
-                                listkodepos.remove(j);
-                                j--;
-                            }
-                        }
-                    }
-
-                    //rl_kodepos.setBackgroundResource(R.drawable.bg_spinner);
-                    binding.spinnerKodepos.setEnabled(true);
-                    adapterKodepos = new ArrayAdapter<String>(
-                            EditProfil.this, R.layout.z_spinner_list, listkodepos);
-                    binding.spinnerKodepos.setThreshold(1);
-                    binding.spinnerKodepos.setAdapter(adapterKodepos);
-
-                }
-            }
-        });
-
-        binding.spinnerKodepos.setOnClickListener(new View.OnClickListener() {
+/*        binding.spinnerKodepos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 binding.spinnerKodepos.showDropDown();
@@ -426,7 +270,7 @@ public class EditProfil extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
-        });
+        });*/
 
         binding.inputTanggalLahir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -488,8 +332,11 @@ public class EditProfil extends AppCompatActivity {
                         for (int i = 0; i < modelProfilAkun.getTotalData(); i++) {
                             if (modelProfilAkun.getData().get(i).getIdProfile().equalsIgnoreCase(PreferenceUtils.getIdProfil(getApplicationContext()))) {
                                 dataProfil = modelProfilAkun.getData().get(i);
+                                idAlamat = dataProfil.getIdAlamat();
                                 if (dataProfil != null) {
-                                    getDataStatusPekerja();
+                                    setData();
+                                    loadAlamatBinderbyte();
+                                    binding.viewLoading.setVisibility(View.GONE);
                                 }
                             }
                         }
@@ -521,7 +368,7 @@ public class EditProfil extends AppCompatActivity {
         });
     }
 
-    public void getDataStatusPekerja() {
+   /* public void getDataStatusPekerja() {
         // masih di new thread
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelStatusPekerja> datasp = apiInterface.getStatusPekerja();
@@ -533,8 +380,12 @@ public class EditProfil extends AppCompatActivity {
                     for (int i = 0; i < modelStatusPekerja.getTotalData(); i++) {
                         listStatusPekerja.add(modelStatusPekerja.getData().get(i).getNamaStatusPekerja());
                     }
-                    if (listStatusPekerja != null) {
-                        getDataAlamat();
+                    if (!listStatusPekerja.isEmpty()) {
+                        setData();
+                        loadAlamatBinderbyte();
+
+                        // Don't block the whole Edit Profile page
+                        binding.viewLoading.setVisibility(View.GONE);
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -554,67 +405,209 @@ public class EditProfil extends AppCompatActivity {
                 call.cancel();
             }
         });
-    }
+    }*/
 
-    public void getDataAlamat() {
-        // masih di new thread
-        final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
-        final Call<ModelAlamat> data = apiInterface.getDataAlamat();
-        data.enqueue(new Callback<ModelAlamat>() {
-            @Override
-            public void onResponse(Call<ModelAlamat> call, Response<ModelAlamat> response) {
-                modelAlamat = response.body();
-                if (response.body() != null) {
-                    listAlamat.clear();
-                    for (int i = 0; i < modelAlamat.getTotalData(); i++) {
-                        listAlamat.add(modelAlamat.getData().get(i));
-                        listProvinsi.add(modelAlamat.getData().get(i).getProvinsi());
-                    }
-                    if (listAlamat != null && listProvinsi != null) {
-                        for (int i = 0; i < listProvinsi.size(); i++) {
-                            for (int j = i + 1; j < listProvinsi.size(); j++) {
-                                if (listProvinsi.get(i).equalsIgnoreCase(listProvinsi.get(j))) {
-                                    listProvinsi.remove(j);
-                                    j--;
-                                }
-                            }
-                        }
-                        if (dataProfil.getIdAlamat() != null) {
-                            if (!dataProfil.getIdAlamat().equalsIgnoreCase("")) {
-                                for (int a = 0; a < listAlamat.size(); a++) {
-                                    if (listAlamat.get(a).getIdAlamat().equalsIgnoreCase(dataProfil.getIdAlamat())) {
-                                        dataAlamat = listAlamat.get(a);
-                                        idAlamat = listAlamat.get(a).getIdAlamat();
-                                    }
-                                }
-                            }
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                setData();
-                            }
-                        });
-                    } else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                binding.viewLoading.setVisibility(View.GONE);
-                                Toast.makeText(EditProfil.this, "Data alamat tidak ditemukan", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+    private void loadAlamatBinderbyte() {
+
+        // =========================
+        // PROVINSI
+        // =========================
+        viewModel.provList.observe(this, provinces -> {
+
+            if (provinces == null || provinces.isEmpty()) {
+                return;
+            }
+
+            List<Province> listProvince = new ArrayList<>(provinces);
+
+            adapterProvinsi = new ArrayAdapter<>(
+                    EditProfil.this,
+                    R.layout.z_spinner_list,
+                    listProvince
+            );
+
+            binding.spinnerProvinsi.setAdapter(adapterProvinsi);
+            binding.spinnerProvinsi.setThreshold(1);
+
+            // Province sudah punya data -> enable
+            binding.spinnerProvinsi.setEnabled(true);
+
+            String savedProvinceId = PreferenceUtils.getIdProvinsi(this);
+
+            if (!savedProvinceId.equalsIgnoreCase("")) {
+
+                for (Province province : listProvince) {
+
+                    if (province.getId().equalsIgnoreCase(savedProvinceId)) {
+
+                        binding.spinnerProvinsi.setText(
+                                province.getName(),
+                                false
+                        );
+
+                        provinsi = province.getName();
+
+                        // Kabupaten, Kecamatan, Kelurahan
+                        // tetap disabled sampai data parent selesai dipilih/load
+                        binding.spinnerKabKota.setEnabled(false);
+                        binding.spinnerKecamatan.setEnabled(false);
+                        binding.spinnerKelurahan.setEnabled(false);
+
+                        viewModel.loadKabupaten(province.getId());
+
+                        break;
                     }
                 }
             }
+        });
 
-            @Override
-            public void onFailure(Call<ModelAlamat> call, Throwable t) {
-                binding.viewLoading.setVisibility(View.GONE);
-                Toast.makeText(EditProfil.this, "Terjadi Gangguan Koneksi", Toast.LENGTH_LONG).show();
-                call.cancel();
+
+        // =========================
+        // KABUPATEN / KOTA
+        // =========================
+        viewModel.kabList.observe(this, cities -> {
+
+            if (cities == null || cities.isEmpty()) {
+                return;
+            }
+
+            List<City> listCity = new ArrayList<>(cities);
+
+            adapterKabKota = new ArrayAdapter<>(
+                    EditProfil.this,
+                    R.layout.z_spinner_list,
+                    listCity
+            );
+
+            binding.spinnerKabKota.setAdapter(adapterKabKota);
+            binding.spinnerKabKota.setThreshold(1);
+
+            // Kabupaten sudah punya data -> enable
+            binding.spinnerKabKota.setEnabled(true);
+
+            String savedKabupatenId = PreferenceUtils.getIdKabupaten(this);
+
+            if (!savedKabupatenId.equalsIgnoreCase("")) {
+
+                for (City city : listCity) {
+
+                    if (city.getId().equalsIgnoreCase(savedKabupatenId)) {
+
+                        binding.spinnerKabKota.setText(
+                                city.getName(),
+                                false
+                        );
+
+                        kabkota = city.getName();
+
+                        viewModel.loadKecamatan(city.getId());
+
+                        break;
+                    }
+                }
             }
         });
+
+
+        // =========================
+        // KECAMATAN
+        // =========================
+        viewModel.kecList.observe(this, districts -> {
+
+            if (districts == null || districts.isEmpty()) {
+                return;
+            }
+
+            List<District> listDistrict = new ArrayList<>(districts);
+
+            adapterKec = new ArrayAdapter<>(
+                    EditProfil.this,
+                    R.layout.z_spinner_list,
+                    listDistrict
+            );
+
+            binding.spinnerKecamatan.setAdapter(adapterKec);
+            binding.spinnerKecamatan.setThreshold(1);
+
+            // Kecamatan sudah punya data -> enable
+            binding.spinnerKecamatan.setEnabled(true);
+
+            String savedKecamatanId = PreferenceUtils.getIdKecamatan(this);
+
+            if (!savedKecamatanId.equalsIgnoreCase("")) {
+
+                for (District district : listDistrict) {
+
+                    if (district.getId().equalsIgnoreCase(savedKecamatanId)) {
+
+                        binding.spinnerKecamatan.setText(
+                                district.getName(),
+                                false
+                        );
+
+                        kecamatan = district.getName();
+
+                        viewModel.loadKelurahan(district.getId());
+
+                        break;
+                    }
+                }
+            }
+        });
+
+
+        // =========================
+        // KELURAHAN
+        // =========================
+        viewModel.kelList.observe(this, villages -> {
+
+            if (villages == null || villages.isEmpty()) {
+                return;
+            }
+
+            List<Village> listVillages = new ArrayList<>(villages);
+
+            adapterKel = new ArrayAdapter<>(
+                    EditProfil.this,
+                    R.layout.z_spinner_list,
+                    listVillages
+            );
+
+            binding.spinnerKelurahan.setAdapter(adapterKel);
+            binding.spinnerKelurahan.setThreshold(1);
+
+            // Kelurahan sudah punya data -> enable
+            binding.spinnerKelurahan.setEnabled(true);
+
+            String savedKelurahanId = PreferenceUtils.getIdKelurahan(this);
+
+            if (!savedKelurahanId.equalsIgnoreCase("")) {
+
+                for (Village village : listVillages) {
+
+                    if (village.getId().equalsIgnoreCase(savedKelurahanId)) {
+
+                        binding.spinnerKelurahan.setText(
+                                village.getName(),
+                                false
+                        );
+
+                        kelurahan = village.getName();
+
+                        // ID alamat yang akan dikirim saat update
+                        idAlamat2 = village.getId();
+
+                        break;
+                    }
+                }
+            }
+        });
+
+
+        // =========================
+        // START LOAD PROVINSI
+        // =========================
+        viewModel.loadProvinsi();
     }
 
     public void setData() {
@@ -625,11 +618,10 @@ public class EditProfil extends AppCompatActivity {
         binding.inputTanggalLahir.setText(dataProfil.getTglLahir());
         binding.inputNoTelepon.setText(dataProfil.getTelepon());
         binding.inputNik.setText(dataProfil.getNik());
-        setSpinnerStatusPekerja();
-        //hideKeyboard(getParent());
+        setSpinnerJk();
     }
 
-    public void setSpinnerStatusPekerja() {
+/*    public void setSpinnerStatusPekerja() {
 
         ArrayAdapter<String> adapterStatusPekerja = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, listStatusPekerja);
         binding.spinnerStatusPekerja.setAdapter(adapterStatusPekerja);
@@ -645,7 +637,7 @@ public class EditProfil extends AppCompatActivity {
         }
 
         setSpinnerJk();
-    }
+    }*/
 
     public void setSpinnerJk() {
         gender = getResources().getStringArray(R.array.gender);
@@ -662,28 +654,6 @@ public class EditProfil extends AppCompatActivity {
                 jenis_kelamin = "p";
             }
         }
-
-        if (idAlamat.equalsIgnoreCase("")) {
-            setSpinnerProvinsi();
-        } else {
-            setdataSpinner();
-        }
-
-    }
-
-    public void setdataSpinner() {
-        binding.spinnerProvinsi.setText(dataAlamat.getProvinsi());
-        binding.spinnerKabKota.setText(dataAlamat.getKota());
-        binding.spinnerKecamatan.setText(dataAlamat.getKecamatan());
-        binding.spinnerKelurahan.setText(dataAlamat.getKelurahan());
-        binding.spinnerKodepos.setText(dataAlamat.getKodepos().toString());
-        setSpinnerProvinsi();
-    }
-
-    private void setSpinnerProvinsi() {
-        adapterProvinsi = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, listProvinsi);
-        binding.spinnerProvinsi.setThreshold(0);
-        binding.spinnerProvinsi.setAdapter(adapterProvinsi);
     }
 
     private void checkNoTelp() {

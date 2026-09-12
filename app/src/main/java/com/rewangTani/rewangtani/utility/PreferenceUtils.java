@@ -300,6 +300,60 @@ public class PreferenceUtils extends AppCompatActivity {
         return prefs.getString(Constants.KEY_PL_KODEPOS, "");
     }
 
+    public static boolean saveIdProvinsi(String idProvinsi, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_ID_PROVINSI, idProvinsi);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getIdProvinsi(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_ID_PROVINSI, "");
+    }
+
+
+    public static boolean saveIdKabupaten(String idKabupaten, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_ID_KABUPATEN, idKabupaten);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getIdKabupaten(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_ID_KABUPATEN, "");
+    }
+
+
+    public static boolean saveIdKecamatan(String idKecamatan, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_ID_KECAMATAN, idKecamatan);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getIdKecamatan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_ID_KECAMATAN, "");
+    }
+
+
+    public static boolean saveIdKelurahan(String idKelurahan, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_ID_KELURAHAN, idKelurahan);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getIdKelurahan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_ID_KELURAHAN, "");
+    }
 
 
     // --------------- DATA RENCANA TANAM SEMENTARA ---------------
