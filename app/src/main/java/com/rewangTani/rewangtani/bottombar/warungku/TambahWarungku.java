@@ -2564,9 +2564,7 @@ public class TambahWarungku extends AppCompatActivity {
     }
 
     public void goToEtalase() {
-//        Intent a = new Intent(TambahWarungku.this, EtalaseWarungku.class);
-        // TODO : ini ganti jadi ke etalase, kalo etalase dah diperbaiki
-        Intent a = new Intent(TambahWarungku.this, Home.class);
+        Intent a = new Intent(TambahWarungku.this, EtalaseWarungku.class);
         startActivity(a);
         overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);

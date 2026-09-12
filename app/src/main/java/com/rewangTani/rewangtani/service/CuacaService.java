@@ -1,4 +1,5 @@
 package com.rewangTani.rewangtani.service;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -11,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
+import com.rewangTani.rewangtani.ui.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.utility.Global;
 
 import java.util.Locale;

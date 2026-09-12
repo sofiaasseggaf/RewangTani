@@ -1,4 +1,4 @@
-package com.rewangTani.rewangtani.upperbar.infoperingatancuaca;
+package com.rewangTani.rewangtani.ui.infoperingatancuaca;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,9 +20,8 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.data.remote.APIService.ApiClientNotification;
 import com.rewangTani.rewangtani.databinding.UpperbarInfoTambahinfoBinding;
 import com.rewangTani.rewangtani.model.modelinfo.ModelResultNotification;
-import com.rewangTani.rewangtani.service.CuacaService;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -418,18 +417,6 @@ public class TambahInfoPeringatanCuaca extends AppCompatActivity {
                 call.cancel();
             }
         });
-    }
-
-    public void startService(){
-        Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, CuacaService.class);
-        serviceIntent.putExtra("judul", binding.txtJudul.getText().toString());
-        serviceIntent.putExtra("ket", binding.txtKeterangan.getText().toString());
-        startService(serviceIntent);
-    }
-
-    public void stopService(){
-        Intent serviceIntent = new Intent(TambahInfoPeringatanCuaca.this, CuacaService.class);
-        stopService(serviceIntent);
     }
 
     public void goToBerandaInfo(){

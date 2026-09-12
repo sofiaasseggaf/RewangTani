@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rewangTani.rewangtani.R;
-import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca;
+import com.rewangTani.rewangtani.ui.infoperingatancuaca.TambahInfoPeringatanCuaca;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 

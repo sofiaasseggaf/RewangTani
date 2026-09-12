@@ -12,25 +12,22 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.viewpager.widget.ViewPager;
 
 import com.kosalgeek.android.photoutil.CameraPhoto;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.SwipeablePhotosAdapter;
-import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.bottombar.pesan.Inbox;
 import com.rewangTani.rewangtani.bottombar.profilakun.BerandaProfile;
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.databinding.BottombarWarungkuEditWarungkuBinding;
-import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
 import com.rewangTani.rewangtani.data.entity.product.DataProdukById;
 import com.rewangTani.rewangtani.data.entity.product.ModelProduk;
 import com.rewangTani.rewangtani.data.entity.warungbpp.DatumBpp;
@@ -39,10 +36,15 @@ import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.BottombarWarungkuEditWarungkuBinding;
+import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
+import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
+import com.rewangTani.rewangtani.utility.DialogUtil;
 import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.TextUtil;
-import com.rewangTani.rewangtani.utility.DialogUtil;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -93,7 +95,7 @@ public class EditWarungku extends AppCompatActivity {
         galleryPhoto = new GalleryPhoto(getApplicationContext());
 
         start();
-        initializeImageViewSetListener();
+//        initializeImageViewSetListener();
 
         binding.btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,47 +122,34 @@ public class EditWarungku extends AppCompatActivity {
             }
         });
 
-        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
+/*        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(EditWarungku.this, "Fitur edit belum tersedia", Toast.LENGTH_SHORT).show();
-                /*if(txt_tipe.equalsIgnoreCase("sewamesin")){
+                if(txt_tipe.equalsIgnoreCase("sewamesin")){
                     simpanProdukSewaMesin();
                 }else if(txt_tipe.equalsIgnoreCase("tenagakerja")){
                     simpanProdukTenagaKerja();
                 }else if(txt_tipe.equalsIgnoreCase("bpp")){
                     simpanProdukBPP();
-                }*/
+                }
             }
-        });
+        });*/
 
         binding.btnHapusProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditWarungku.this);
-                builder.setMessage("Hapus Produk ?")
-                        .setCancelable(false)
-                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                if(txt_tipe.equalsIgnoreCase("sewamesin")){
-                                    hapusProdukSewaMesin();
-                                }else if(txt_tipe.equalsIgnoreCase("tenagakerja")){
-                                    hapusProdukTenagaKerja();
-                                }else if(txt_tipe.equalsIgnoreCase("bpp")){
-                                    hapusProdukBPP();
-                                }
-                            }
-                        })
-
-                        .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alertDialog =builder.create();
-                alertDialog.show();
+                DialogUtil.showCustomAlertDialog(
+                EditWarungku.this,
+                "Hapus Produk ?",
+                        v -> {
+                    if ( txt_tipe.equalsIgnoreCase("sewamesin") ) {
+                        hapusProdukSewaMesin();
+                    } else if ( txt_tipe.equalsIgnoreCase("tenagakerja") ) {
+                        hapusProdukTenagaKerja();
+                    } else if ( txt_tipe.equalsIgnoreCase("bpp") ) {
+                        hapusProdukBPP();
+                    }
+                } );
             }
         });
 
@@ -309,18 +298,44 @@ public class EditWarungku extends AppCompatActivity {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumSewaMesin.getIdFoto();
             SwipeablePhotosAdapter swipeablePhotosAdapter = new SwipeablePhotosAdapter(this, imageUri);
             binding.viewPagerSewaMesin.setAdapter(swipeablePhotosAdapter);
-        }
-        binding.btnTambahFotoSewaMesin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( encodedImageSewaMesin.size() < 3 )
-                {
-                    chooseCameraOrGallery();
-                } else {
-                    Toast.makeText(EditWarungku.this, "Maksimal 3 Foto, Klik Foto Untuk Hapus", Toast.LENGTH_SHORT).show();
-                }
+
+            TextView[] dots = new TextView[3];
+            for (int i = 0; i < 3; i++) {
+                dots[i] = new TextView(this);
+                dots[i].setText("●");
+                dots[i].setTextSize(10);
+                dots[i].setPadding(6, 0, 6, 0);
+                binding.layoutDotsSewaMesin.addView(dots[i]);
             }
-        });
+
+            dots[0].setAlpha(1f);
+            dots[1].setAlpha(0.3f);
+            dots[2].setAlpha(0.3f);
+
+            binding.viewPagerSewaMesin.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+                @Override
+                public void onPageSelected(int position) {
+                    for (int i = 0; i < 3; i++) {
+                        dots[i].setAlpha(i == position ? 1f : 0.3f);
+                    }
+                }
+                @Override
+                public void onPageScrollStateChanged(int state) {}
+            } );
+        }
+//        binding.btnTambahFotoSewaMesin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if ( encodedImageSewaMesin.size() < 3 )
+//                {
+//                    chooseCameraOrGallery();
+//                } else {
+//                    Toast.makeText(EditWarungku.this, "Maksimal 3 Foto, Klik Foto Untuk Hapus", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     public void getDataProdukTenagaKerja(){
@@ -386,6 +401,32 @@ public class EditWarungku extends AppCompatActivity {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumTenagaKerja.getIdFoto();
             SwipeablePhotosAdapter swipeablePhotosAdapter = new SwipeablePhotosAdapter(this, imageUri);
             binding.viewPagerTenagaKerja.setAdapter(swipeablePhotosAdapter);
+
+            TextView[] dots = new TextView[3];
+            for (int i = 0; i < 3; i++) {
+                dots[i] = new TextView(this);
+                dots[i].setText("●");
+                dots[i].setTextSize(10);
+                dots[i].setPadding(6, 0, 6, 0);
+                binding.layoutDotsTenagaKerja.addView(dots[i]);
+            }
+
+            dots[0].setAlpha(1f);
+            dots[1].setAlpha(0.3f);
+            dots[2].setAlpha(0.3f);
+
+            binding.viewPagerTenagaKerja.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+                @Override
+                public void onPageSelected(int position) {
+                    for (int i = 0; i < 3; i++) {
+                        dots[i].setAlpha(i == position ? 1f : 0.3f);
+                    }
+                }
+                @Override
+                public void onPageScrollStateChanged(int state) {}
+            } );
         }
     }
 
@@ -452,12 +493,38 @@ public class EditWarungku extends AppCompatActivity {
             String imageUri = "http://167.172.72.217:8080/tanampadi/v1/photo/read?id=" + datumBpp.getIdFoto();
             SwipeablePhotosAdapter swipeablePhotosAdapter = new SwipeablePhotosAdapter(this, imageUri);
             binding.viewPagerBpp.setAdapter(swipeablePhotosAdapter);
+
+            TextView[] dots = new TextView[3];
+            for (int i = 0; i < 3; i++) {
+                dots[i] = new TextView(this);
+                dots[i].setText("●");
+                dots[i].setTextSize(10);
+                dots[i].setPadding(6, 0, 6, 0);
+                binding.layoutDotsBpp.addView(dots[i]);
+            }
+
+            dots[0].setAlpha(1f);
+            dots[1].setAlpha(0.3f);
+            dots[2].setAlpha(0.3f);
+
+            binding.viewPagerBpp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+                @Override
+                public void onPageSelected(int position) {
+                    for (int i = 0; i < 3; i++) {
+                        dots[i].setAlpha(i == position ? 1f : 0.3f);
+                    }
+                }
+                @Override
+                public void onPageScrollStateChanged(int state) {}
+            } );
         }
     }
 
     // PHOTOS
 
-    private void initializeImageViewSetListener()
+/*    private void initializeImageViewSetListener()
     {
         imageViewsBpp = new ImageView[]{
                 binding.imgProdukBpp1,
@@ -513,7 +580,7 @@ public class EditWarungku extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     public void chooseCameraOrGallery()
     {
@@ -1115,12 +1182,12 @@ public class EditWarungku extends AppCompatActivity {
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
-    public void onBackPressed() {
-        DialogUtil.showCustomAlertDialog(
-                EditWarungku.this,
-                "Batal edit produk ?",
-                okButton -> { goToEtalase();}
-        );
-    }
+//    public void onBackPressed() {
+//        DialogUtil.showCustomAlertDialog(
+//                EditWarungku.this,
+//                "Batal edit produk ?",
+//                okButton -> { goToEtalase();}
+//        );
+//    }
 
 }

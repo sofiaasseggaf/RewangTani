@@ -38,7 +38,7 @@ import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKer
 import com.rewangTani.rewangtani.service.ChatService;
 import com.rewangTani.rewangtani.ui.keranjang.ActivityKeranjang;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
-import com.rewangTani.rewangtani.upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca;
+import com.rewangTani.rewangtani.ui.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;

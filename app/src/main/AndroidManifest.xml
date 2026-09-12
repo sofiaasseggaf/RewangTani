@@ -162,7 +162,7 @@
             android:name=".upperbar.rencanatanam.DetailRencanaTanamRAB"
             android:exported="false" />
         <activity
-            android:name=".upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca"
+            android:name=".ui.infoperingatancuaca.BerandaInfoPeringatanCuaca"
             android:exported="false" />
         <activity
             android:name=".upperbar.rab.ListRancanganAnggaranBiaya"
@@ -177,7 +177,7 @@
             android:name=".upperbar.rencanatanam.ListRencanaTanam"
             android:exported="false" />
         <activity
-            android:name=".upperbar.infoperingatancuaca.TambahInfoPeringatanCuaca"
+            android:name=".ui.infoperingatancuaca.TambahInfoPeringatanCuaca"
             android:exported="false" /> <!-- BottomBar -->
         <activity
             android:name=".bottombar.warungku.EtalaseWarungku"
@@ -200,7 +200,7 @@
         <activity
             android:name=".bottombar.warungku.TambahWarungku"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".bottombar.warungku.EditWarungku"
             android:exported="false" />

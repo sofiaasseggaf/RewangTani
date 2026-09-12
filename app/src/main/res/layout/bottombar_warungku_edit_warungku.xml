@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:fontFamily="@font/inter_bold"
-            android:text="Edit Warungku"
+            android:text="Warungku"
             android:textColor="@color/white"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
@@ -35,9 +35,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="25dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@+id/btnSimpan"
+            app:layout_constraintBottom_toTopOf="@+id/btnHapusProduk"
             app:layout_constraintEnd_toEndOf="@+id/frameLayout"
             app:layout_constraintStart_toStartOf="@+id/frameLayout"
             app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -71,7 +71,7 @@
                         <RelativeLayout
                             android:id="@+id/imgWarungBpp"
                             android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_height="230dp"
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center"
                             android:background="@drawable/rounded_carousle_background">
@@ -84,9 +84,18 @@
                                 android:clipToPadding="false"
                                 android:overScrollMode="never" />
 
+                            <LinearLayout
+                                android:id="@+id/layoutDotsBpp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:layout_below="@id/viewPagerBpp" />
+
                         </RelativeLayout>
 
-                        <LinearLayout
+<!--                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="10sp"
@@ -142,7 +151,7 @@
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop" />
                             </FrameLayout>
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                     </LinearLayout>
 
@@ -170,6 +179,8 @@
                             android:hint="Masukkan Nama Produk"
                             android:paddingLeft="15dp"
                             android:textColor="@color/black"
+                            android:editable="false"
+                            android:enabled="false"
                             android:textColorHint="#ADABAB"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -190,6 +201,8 @@
 
                         <EditText
                             android:id="@+id/hargaProdukBpp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
@@ -250,6 +263,8 @@
                             android:id="@+id/beratProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
@@ -289,6 +304,8 @@
                         <EditText
                             android:id="@+id/deskProdukBpp"
                             android:layout_width="match_parent"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
@@ -321,6 +338,8 @@
                             android:id="@+id/kotaProdukBpp"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
@@ -364,7 +383,7 @@
                         <RelativeLayout
                             android:id="@+id/imgWarungSewaMesin"
                             android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_height="230dp"
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center"
                             android:background="@drawable/rounded_carousle_background">
@@ -377,9 +396,18 @@
                                 android:clipToPadding="false"
                                 android:overScrollMode="never" />
 
+                            <LinearLayout
+                                android:id="@+id/layoutDotsSewaMesin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:layout_below="@id/viewPagerSewaMesin" />
+
                         </RelativeLayout>
 
-                        <LinearLayout
+<!--                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="10sp"
@@ -435,7 +463,7 @@
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop" />
                             </FrameLayout>
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                     </LinearLayout>
 
@@ -456,6 +484,8 @@
                         <EditText
                             android:id="@+id/namaProdukSewaMesin"
                             android:layout_width="match_parent"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
@@ -484,6 +514,8 @@
                         <EditText
                             android:id="@+id/hargaProdukSewaMesin"
                             android:layout_width="match_parent"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_height="45dp"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
@@ -523,6 +555,8 @@
 
                         <EditText
                             android:id="@+id/deskProdukSewaMesin"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
@@ -556,6 +590,8 @@
                             android:id="@+id/spesifikasiProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/roboto_regular"
@@ -587,6 +623,8 @@
                             android:id="@+id/kotaProdukSewaMesin"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
@@ -656,7 +694,7 @@
                         <RelativeLayout
                             android:id="@+id/imgWarungTenagaKerja"
                             android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_height="230dp"
                             android:layout_marginTop="10dp"
                             android:layout_gravity="center"
                             android:background="@drawable/rounded_carousle_background">
@@ -669,9 +707,18 @@
                                 android:clipToPadding="false"
                                 android:overScrollMode="never" />
 
+                            <LinearLayout
+                                android:id="@+id/layoutDotsTenagaKerja"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:layout_below="@id/viewPagerTenagaKerja" />
+
                         </RelativeLayout>
 
-                        <LinearLayout
+<!--                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:layout_marginTop="10sp"
@@ -727,7 +774,7 @@
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop" />
                             </FrameLayout>
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                     </LinearLayout>
 
@@ -749,6 +796,8 @@
                             android:id="@+id/namaProdukPenyediaJasa"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
@@ -777,6 +826,8 @@
                             android:id="@+id/hargaProdukLayananJasa"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:layout_marginTop="5dp"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
@@ -818,6 +869,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:editable="false"
+                            android:enabled="false"
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
                             android:gravity="left"
@@ -852,6 +905,8 @@
                             android:background="@drawable/rect_input_blank_green_radius"
                             android:fontFamily="@font/inter_regular"
                             android:gravity="left"
+                            android:editable="false"
+                            android:enabled="false"
                             android:hint="Masukkan Keahlian Penyedia Jasa"
                             android:minLines="5"
                             android:padding="15dp"
@@ -884,6 +939,8 @@
                             android:fontFamily="@font/inter_regular"
                             android:gravity="left"
                             android:hint="Masukkan Nama Kota"
+                            android:editable="false"
+                            android:enabled="false"
                             android:padding="15dp"
                             android:textAlignment="gravity"
                             android:textColor="@color/black"
@@ -897,7 +954,7 @@
 
         </ScrollView>
 
-        <RelativeLayout
+<!--        <RelativeLayout
             android:id="@+id/btnSimpan"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -918,7 +975,7 @@
                 android:text="SIMPAN"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <RelativeLayout
             android:id="@+id/btnHapusProduk"

@@ -54,5 +54,7 @@ public class Global
     // URL
 
     public static String WEATHER_API_URL = "http://api.weatherapi.com/v1/current.json?key=14e35e2d6e264c6198c163938222104&q=";
+    public static String WEATHER_FORECAST_API_URL = "https://api.weatherapi.com/v1/forecast.json?key=14e35e2d6e264c6198c163938222104&q=";
+
 
 }

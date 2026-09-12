@@ -1,4 +1,4 @@
-package com.rewangTani.rewangtani.upperbar.infoperingatancuaca;
+package com.rewangTani.rewangtani.ui.infoperingatancuaca;
 
 import android.Manifest;
 import android.content.Context;
@@ -9,7 +9,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,34 +22,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
-import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.adapter.adaptermiddlebar.AdapterListInfo;
-import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.bottombar.profilakun.EditProfil;
-import com.rewangTani.rewangtani.databinding.UpperbarInfoBerandainfoBinding;
 import com.rewangTani.rewangtani.data.entity.profilakun.ModelProfilById;
+import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
+import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
+import com.rewangTani.rewangtani.databinding.UpperbarInfoBerandainfoBinding;
 import com.rewangTani.rewangtani.model.modelinfo.DatumInfo;
 import com.rewangTani.rewangtani.model.modelinfo.ModelInfo;
+import com.rewangTani.rewangtani.ui.home.Home;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.StringDateComparator;
+import com.rewangTani.rewangtani.utility.TextUtil;
 import com.squareup.picasso.Picasso;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -131,6 +129,8 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                 ActivityCompat.checkSelfPermission(BerandaInfoPeringatanCuaca.this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(BerandaInfoPeringatanCuaca.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
+
+            return;
         }
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -141,27 +141,24 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
         Location location = locationManager.getLastKnownLocation(bestProvider);
 
         if (location == null) {
-            Location location2 = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (location2 != null) {
-                lat = location2.getLatitude();
-                longt = location2.getLongitude();
-                if (lat != 0.0 && longt != 0.0 && lat != null && longt != null) {
-                    getData();
-                } else {
-                    getLoc();
-                }
-            }
-        } else if (location != null) {
+            location =
+                    locationManager.getLastKnownLocation(
+                            LocationManager.NETWORK_PROVIDER
+                    );
+        }
+
+        if (location != null) {
             lat = location.getLatitude();
             longt = location.getLongitude();
-            if (lat != 0.0 && longt != 0.0 && lat != null && longt != null) {
-                getData();
-            } else {
-                getLoc();
-            }
-        } else {
-            getLoc();
+            Log.d(
+                    "LOCATION",
+                    "lat = " + lat
+                            + ", long = " + longt
+            );
 
+            getData();
+        } else {
+            Toast.makeText(this, "Lokasi tidak terdeteksi", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -276,6 +273,7 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
                             public void run() {
                                 findViewById(R.id.viewLoading).setVisibility(View.GONE);
                                 getDataWeather(lat,longt);
+//                                getWeather(lat, longt);
                                 Toast.makeText(BerandaInfoPeringatanCuaca.this, "Data info belum ada", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -302,72 +300,183 @@ public class BerandaInfoPeringatanCuaca extends AppCompatActivity {
         binding.rvInfo.setLayoutManager(new LinearLayoutManager(BerandaInfoPeringatanCuaca.this));
         binding.rvInfo.setAdapter(itemList);
         getDataWeather(lat, longt);
+//        getWeather(lat, longt);
     }
 
+    public void getDataWeather(Double a, Double b)
+    {
+        String url = Global.WEATHER_API_URL + a + "," + b;
+        String urlThreeDays = Global.WEATHER_FORECAST_API_URL + a + "," + b + "&days=7";
 
-    public void getDataWeather(Double a, Double b){
-        String url = "http://api.weatherapi.com/v1/current.json?key=14e35e2d6e264c6198c163938222104&q=" + a + "," + b;
         RequestQueue requestQueue = Volley.newRequestQueue(BerandaInfoPeringatanCuaca.this);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
 
-                    SimpleDateFormat formatIncoming = new SimpleDateFormat("EEEE, dd MMMM y", new Locale("id"));
-                    TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
-                    formatIncoming.setTimeZone(tz);
-                    binding.txtDate.setText(formatIncoming.format(new Date()));
-                    String temp = response.getJSONObject("current").getString("temp_c");
-                    binding.txtTemp.setText(temp + " C");
-                    String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
-                    translate(cond);
-                    String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
-                    Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
-                    String city = response.getJSONObject("location").getString("name");
-                    binding.txtCity.setText(city);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                SimpleDateFormat formatIncoming = new SimpleDateFormat("EEEE, dd MMMM y", new Locale("id"));
+                TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
+                formatIncoming.setTimeZone(tz);
+                binding.txtDate.setText(formatIncoming.format(new Date()));
+                String temp = response.getJSONObject("current").getString("temp_c");
+                String txtTemperature = temp + " C";
+                binding.txtTemp.setText(txtTemperature);
+                String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
+                String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
+                Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
+                String city = response.getJSONObject("location").getString("name");
+                binding.txtCity.setText(city);
+
+                TextUtil.translateText(this, cond, new TextUtil.TranslationCallback() {
+                    @Override
+                    public void onTranslationSuccess(String translatedText) {
+                        binding.txtTempDesc.setText(translatedText);
+                    }
+                    @Override
+                    public void onTranslationError(Exception e) {
+                        Toast.makeText(BerandaInfoPeringatanCuaca.this, cond + " - Translation Error", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(BerandaInfoPeringatanCuaca.this, "Weather Error", Toast.LENGTH_SHORT).show();
+            catch (JSONException e)
+            {
+                e.printStackTrace();
             }
-        });
+        }, error -> Toast.makeText(BerandaInfoPeringatanCuaca.this, "Weather Error", Toast.LENGTH_SHORT).show());
 
-        requestQueue.add(jsonObjectRequest);
-    }
+        JsonObjectRequest jsonObjectRequestDays = new JsonObjectRequest(Request.Method.GET, urlThreeDays, null, response -> {
+            try {
+                SimpleDateFormat formatIncoming = new SimpleDateFormat("EEEE, dd MMMM y", new Locale("id"));
+                TimeZone tz = TimeZone.getTimeZone("Asia/Jakarta");
+                formatIncoming.setTimeZone(tz);
+                binding.txtDate.setText(formatIncoming.format(new Date()));
+                String temp = response.getJSONObject("current").getString("temp_c");
+                String txtTemperature = temp + " C";
+                binding.txtTemp.setText(txtTemperature);
+                String cond = response.getJSONObject("current").getJSONObject("condition").getString("text");
+                String icon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
+                Picasso.get().load("http:".concat(icon)).into(binding.imgTemp);
+                String city = response.getJSONObject("location").getString("name");
+                binding.txtCity.setText(city);
 
-    public void translate(String text) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String query = URLEncoder.encode(text, "UTF-8");
-                    String url = "http://mymemory.translated.net/api/get?q="+query+"&langpair=en%7Cid";
-                    HttpClient hc = new DefaultHttpClient();
-                    HttpGet hg = new HttpGet(url);
-                    hr = hc.execute(hg);
-                    if(hr.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                        JSONObject response = new JSONObject(EntityUtils.toString(hr.getEntity()));
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    translated = response.getJSONObject("responseData").getString("translatedText");
-                                    binding.txtTempDesc.setText(translated);
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
+                TextUtil.translateText(this, cond, new TextUtil.TranslationCallback() {
+                    @Override
+                    public void onTranslationSuccess(String translatedText) {
+                        binding.txtTempDesc.setText(translatedText);
+                    }
+                    @Override
+                    public void onTranslationError(Exception e) {
+                        Toast.makeText(BerandaInfoPeringatanCuaca.this, cond + " - Translation Error", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                // =========================
+                // 3-DAY FORECAST
+                // =========================
+
+                JSONArray forecastDays = response.getJSONObject("forecast").getJSONArray("forecastday");
+
+                ImageView[] weatherImages = {
+                        binding.imgTemp1,
+                        binding.imgTemp2,
+                        binding.imgTemp3
+                };
+
+                TextView[] weatherDates = {
+                        binding.txtDate1,
+                        binding.txtDate2,
+                        binding.txtDate3
+                };
+
+                TextView[] weatherTexts = {
+                        binding.txtTemp1,
+                        binding.txtTemp2,
+                        binding.txtTemp3
+                };
+
+                for (int i = 0; i < 7 && i <   forecastDays.length(); i++)
+                {
+
+                    JSONObject dayObject = forecastDays.getJSONObject(i);
+                    JSONObject day = dayObject.getJSONObject("day");
+                    String date = dayObject.getString("date");
+                    JSONObject condition = day.getJSONObject("condition");
+                    String conditionText = condition.getString("text");
+                    String icon2 = condition.getString("icon");
+
+                    try {
+                        SimpleDateFormat input =
+                                new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+                        SimpleDateFormat output =
+                                new SimpleDateFormat("EEE, dd MMM", new Locale("id"));
+
+                        Date parsedDate = input.parse(date);
+
+                        if (parsedDate != null) {
+                            weatherDates[i].setText(output.format(parsedDate));
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Picasso.get()
+                            .load("http:".concat(icon2))
+                            .into(weatherImages[i]);
+
+                    final int index = i;
+                    final String conditionToTranslate = conditionText;
+
+                    TextUtil.translateText(
+                            this,
+                            conditionToTranslate,
+                            new TextUtil.TranslationCallback() {
+
+                                @Override
+                                public void onTranslationSuccess(
+                                        String translatedText
+                                ) {
+
+                                    weatherTexts[index]
+                                            .setText(translatedText);
+                                }
+
+                                @Override
+                                public void onTranslationError(
+                                        Exception e
+                                ) {
+
+                                    weatherTexts[index]
+                                            .setText(conditionToTranslate);
+
+                                    Log.e(
+                                            "WEATHER_TRANSLATION",
+                                            "Translation failed for: "
+                                                    + conditionToTranslate,
+                                            e
+                                    );
                                 }
                             }
-                        });
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    );
                 }
+
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
             }
-        }).start();
+        },
+
+                error -> {
+
+                    Toast.makeText(
+                            BerandaInfoPeringatanCuaca.this,
+                            "Weather Error",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+        );
+
+        requestQueue.add(jsonObjectRequestDays);
     }
 
     public void goToTambahInfo(){

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".upperbar.infoperingatancuaca.BerandaInfoPeringatanCuaca">
+        tools:context=".ui.infoperingatancuaca.BerandaInfoPeringatanCuaca">
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -127,155 +127,143 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/viewInfo"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="7 Hari Kedepan"
-                android:fontFamily="@font/inter_medium"
-                android:textSize="10sp"
-                android:textColor="#777777"/>
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <!-- 3 Days -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="7"
-                android:layout_marginTop="10dp">
+                android:weightSum="3">
+
+                <!-- DAY 1 -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:padding="4dp">
+
+                    <!-- Date -->
+                    <TextView
+                        android:id="@+id/txtDate1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hari ini"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <!-- Icon -->
                     <ImageView
                         android:id="@+id/imgTemp1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="6dp"
+                        android:contentDescription="Cuaca hari pertama"
+                        android:scaleType="fitCenter" />
+
+                    <!-- Condition -->
                     <TextView
+                        android:id="@+id/txtTemp1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:maxLines="2" />
+
                 </LinearLayout>
+
+
+                <!-- DAY 2 -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:padding="4dp">
+
+                    <!-- Date -->
+                    <TextView
+                        android:id="@+id/txtDate2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Besok"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <!-- Icon -->
                     <ImageView
                         android:id="@+id/imgTemp2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="6dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Cuaca hari kedua" />
+
+                    <!-- Condition -->
                     <TextView
+                        android:id="@+id/txtTemp2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:maxLines="2" />
+
                 </LinearLayout>
+
+
+                <!-- DAY 3 -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_weight="1">
+                    android:padding="4dp">
+
+                    <!-- Date -->
+                    <TextView
+                        android:id="@+id/txtDate3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hari berikutnya"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                    <!-- Icon -->
                     <ImageView
                         android:id="@+id/imgTemp3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
+                        android:layout_width="36dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="6dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Cuaca hari ketiga" />
+
+                    <!-- Condition -->
                     <TextView
+                        android:id="@+id/txtTemp3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:maxLines="2" />
+
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/imgTemp4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/imgTemp5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/imgTemp6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/imgTemp7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cerah"
-                        android:fontFamily="@font/inter_regular"
-                        android:textSize="8sp"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="5dp"/>
-                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
 
         <ScrollView
