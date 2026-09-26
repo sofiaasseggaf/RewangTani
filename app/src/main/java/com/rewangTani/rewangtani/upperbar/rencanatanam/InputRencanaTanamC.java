@@ -93,8 +93,12 @@ public class InputRencanaTanamC extends AppCompatActivity
         viewModel.updateDraftRencanaTanam(draft -> {
             if (draft.withPompa)
             {
+                int bbmMesinPompa = Integer.valueOf(TextUtil.cleanNumber(binding.bbmMesinPompa));
+                int durasiMesinPompa = Integer.valueOf(binding.durasiMesinPompa .getText().toString());
+                int totalBiayaMesinPompa = bbmMesinPompa * durasiMesinPompa;
+
                 draft.idSewamesinPompa = TextUtil.cleanNumber(binding.mesinPompa);
-                draft.idSewamesinPompaBbm = TextUtil.cleanNumber(binding.bbmMesinPompa);
+                draft.idSewamesinPompaBbm = String.valueOf(totalBiayaMesinPompa);
             }
             draft.idSewaMesinBajak = TextUtil.cleanNumber(binding.mesinBajak);
             draft.idSewaMesinTanam = TextUtil.cleanNumber(binding.mesinTanam);

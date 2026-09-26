@@ -316,7 +316,7 @@ public class InputRencanaTanamA extends AppCompatActivity
                 idSistemIrigasi != null && idVarietas != null)
         {
 
-            isWithPompa = !idSistemIrigasi.equalsIgnoreCase(Global.SI_B_PERMUKAAN);
+            isWithPompa = !idSistemIrigasi.equalsIgnoreCase(Global.SI_BENDUNGAN);
             viewModel.updateDraftRencanaTanam(draft -> {
                 draft.namaRencanaTanam = binding.namaRencanaTanam.getText().toString();
                 draft.idProfilTanah = idProfilLahan;

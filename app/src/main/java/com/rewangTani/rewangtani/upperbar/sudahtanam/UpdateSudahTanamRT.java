@@ -97,7 +97,7 @@ public class UpdateSudahTanamRT extends AppCompatActivity
     private void saveLocalData()
     {
 
-        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(Global.SI_B_PERMUKAAN);
+        isWithPompa = !idSistemIrigasi.equalsIgnoreCase(Global.SI_BENDUNGAN);
 
         DatumSudahTanam datumSudahTanam = new DatumSudahTanam(datumRencanaTanam.getIdRencanaTanam(), datumRencanaTanam.getIdProfilTanah(), "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "","", "", "", "", "","", "", "", "", isWithPompa, "");
         ListSudahTanam.getInstance().setDetailSudahTanam(getApplicationContext(), datumSudahTanam);

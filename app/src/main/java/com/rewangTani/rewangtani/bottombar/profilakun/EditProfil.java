@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.util.ArrayMap;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -92,23 +91,25 @@ public class EditProfil extends AppCompatActivity {
             }
         };
 
-        binding.spinnerJenisKelamin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
-                String jk = binding.spinnerJenisKelamin.getSelectedItem().toString();
-                if (jk.equalsIgnoreCase("Laki - Laki")) {
-                    jenis_kelamin = "l";
-                } else if (jk.equalsIgnoreCase("Perempuan")) {
-                    jenis_kelamin = "p";
-
+        binding.spinnerJenisKelamin.setOnClickListener(
+                view -> {
+                    binding.spinnerJenisKelamin.requestFocus();
+                    binding.spinnerJenisKelamin.showDropDown();
                 }
-            }
+        );
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+        binding.spinnerJenisKelamin.setOnItemClickListener(
+                (parent, view, position, id) ->
+                {
+                    String selectedGender = parent.getItemAtPosition(position).toString();
+                    if ( selectedGender.equalsIgnoreCase("Laki-Laki") )
+                    {
+                        jenis_kelamin = "l";
+                    } else {
+                        jenis_kelamin = "p";
+                    }
+                }
+        );
 
 /*        binding.spinnerStatusPekerja.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -640,17 +641,28 @@ public class EditProfil extends AppCompatActivity {
     }*/
 
     public void setSpinnerJk() {
-        gender = getResources().getStringArray(R.array.gender);
-        ArrayAdapter<String> adapterJK = new ArrayAdapter<String>(EditProfil.this, R.layout.z_spinner_list, gender);
-        adapterJK.setDropDownViewResource(R.layout.z_spinner_list);
-        binding.spinnerJenisKelamin.setAdapter(adapterJK);
 
-        if (dataProfil.getGender() != null) {
-            if (dataProfil.getGender().equalsIgnoreCase("l")) {
-                binding.spinnerJenisKelamin.setSelection(0);
+        gender = getResources().getStringArray(R.array.gender);
+
+        ArrayAdapter<String> adapterJK = new ArrayAdapter<>(
+                EditProfil.this,
+                R.layout.z_spinner_list,
+                gender
+        );
+
+        binding.spinnerJenisKelamin.setAdapter(adapterJK);
+        binding.spinnerJenisKelamin.setThreshold(1);
+
+        if ( dataProfil.getGender() != null )
+        {
+            if ( dataProfil.getGender().equalsIgnoreCase("l") )
+            {
+                binding.spinnerJenisKelamin.setText("Laki-Laki", false);
                 jenis_kelamin = "l";
-            } else {
-                binding.spinnerJenisKelamin.setSelection(1);
+            }
+            else
+            {
+                binding.spinnerJenisKelamin.setText("Perempuan", false);
                 jenis_kelamin = "p";
             }
         }

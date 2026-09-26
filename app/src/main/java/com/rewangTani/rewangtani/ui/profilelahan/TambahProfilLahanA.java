@@ -20,14 +20,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanABinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
-import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -46,11 +45,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//public class TambahProfilLahanA extends FragmentActivity implements OnMapReadyCallback, OnMapsSdkInitializedCallback {
 public class TambahProfilLahanA extends FragmentActivity {
 
     BottombarPlTambahProfilLahanABinding binding;
-    private GoogleMap mMap;
     ModelProfilLahan modelProfilLahan;
     List<String> listProfilLahan = new ArrayList<>();
     int checkNama, checkLatLong;
@@ -66,7 +63,7 @@ public class TambahProfilLahanA extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_tambah_profil_lahan_a);
-//        MapsInitializer.initialize(getApplicationContext(), MapsInitializer.Renderer.LEGACY, this);
+
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

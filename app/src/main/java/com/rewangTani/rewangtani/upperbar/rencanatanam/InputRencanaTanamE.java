@@ -79,24 +79,6 @@ public class InputRencanaTanamE extends AppCompatActivity
                         InputRencanaTanamE.this,
                         getString(R.string.confirm_tambah_rt),
                         okButton -> saveLocalData());
-
-//                builder.setMessage("Simpan Rencana Tanam ?")
-//                        .setCancelable(false)
-//                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int i) {
-//                                saveLocalData();
-//                            }
-//                        })
-//
-//                        .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int i) {
-//                                dialog.cancel();
-//                            }
-//                        });
-//                AlertDialog alertDialog = builder.create();
-//                alertDialog.show();
             } else {
                 Toast.makeText(InputRencanaTanamE.this, "Lengkapi field terlebih dahulu !", Toast.LENGTH_SHORT).show();
             }
@@ -160,8 +142,7 @@ public class InputRencanaTanamE extends AppCompatActivity
         pendapatan = 10000 * hasil;
 
         if (datumRencanaTanam.isWithPompa()) {
-            int durasi = Integer.valueOf(datumRencanaTanam.getIdSewamesinPompaBbm().replaceAll("[^0-9]", "")) * 2;
-            double bbm = l * durasi * hektar;
+            double bbm = l * hektar;
             txtPompa = datumRencanaTanam.getIdSewamesinPompa().replaceAll("[^0-9]", "");
             txtPompaBbm = String.valueOf(bbm);
             total = a + b + c + d + e + f + g + h + i + j + k + bbm + m + n + o + +s + obat;

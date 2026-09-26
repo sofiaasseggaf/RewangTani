@@ -31,6 +31,7 @@ import com.rewangTani.rewangtani.data.entity.warungsewamesin.DatumSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungsewamesin.ModelSewaMesin;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.DatumTenagaKerja;
 import com.rewangTani.rewangtani.data.entity.warungtenagakerja.ModelTenagaKerja;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
@@ -98,24 +99,31 @@ public class EtalaseWarungku extends AppCompatActivity {
         binding.btnTambahProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToTambahWarungku();
-                if (checkKelengkapan == 1) {
+                if ( modelProfilById.getData().getIdAkun().equalsIgnoreCase(Global.REWANG_STORE_ID_AKUN) )
+                {
                     goToTambahWarungku();
-                } else if (checkKelengkapan == 0) {
-                    binding.viewBelumPunya.setVisibility(View.GONE);
-                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(EtalaseWarungku.this);
-                    builder.setView(customLayout);
-                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-                    buttonOk.setOnClickListener(v -> {
-                        goToEditProfil();
-                    });
-                    buttonCancel.setOnClickListener(v -> {
-                        goToEtalase();
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    if (checkKelengkapan == 1) {
+                        goToTambahWarungku();
+                    } else if (checkKelengkapan == 0) {
+                        binding.viewBelumPunya.setVisibility(View.GONE);
+                        View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EtalaseWarungku.this);
+                        builder.setView(customLayout);
+                        RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+                        RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+                        buttonOk.setOnClickListener(v -> {
+                            goToEditProfil();
+                        });
+                        buttonCancel.setOnClickListener(v -> {
+                            goToEtalase();
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(EtalaseWarungku.this, "Fitur ini hanya tesedia untuk Demo", Toast.LENGTH_LONG).show();
                 }
             }
         });

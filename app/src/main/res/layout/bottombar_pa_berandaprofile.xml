@@ -155,7 +155,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sectionB">
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:id="@+id/btnPesanan"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -178,7 +178,7 @@
                     android:text="Pesanan"
                     android:textColor="#5B5B5B"
                     android:textSize="12sp" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <View
                 android:layout_width="match_parent"

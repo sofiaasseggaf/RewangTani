@@ -94,10 +94,10 @@ public class BerandaProfile extends AppCompatActivity {
 
         setData();
 
-        binding.btnPesanan.setOnClickListener(v->{
-            Toast.makeText(BerandaProfile.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
+//        binding.btnPesanan.setOnClickListener(v->{
+//            Toast.makeText(BerandaProfile.this, "Fitur sedang dalam perbaikan", Toast.LENGTH_SHORT).show();
 //            goToPesanan();
-        });
+//        });
 
         binding.btnUbahProfile.setOnClickListener(new View.OnClickListener() {
             @Override

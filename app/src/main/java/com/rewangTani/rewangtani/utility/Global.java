@@ -47,14 +47,14 @@ public class Global
 
     // SISTEM IRIGASI
 
-    public static String SI_A_SUMUR_BOR = "10a9631e-6add-459e-b7e2-aed3a0c907df";
-    public static String SI_B_PERMUKAAN = "26b145d3-632b-4f59-8571-b85a993169b3";
-    public static String SI_C_TADAH_HUJAN = "570ca522-6cca-4c9a-9b83-adc7d3cc0389";
+    public static String SI_TADAH_HUJAN = "c921a805-41e6-4f7a-9dd5-c75e96eb312b";
+    public static String SI_BENDUNGAN = "c921a805-41e6-4f7a-9dd5-c75e96eb312a";
 
     // URL
 
     public static String WEATHER_API_URL = "http://api.weatherapi.com/v1/current.json?key=14e35e2d6e264c6198c163938222104&q=";
     public static String WEATHER_FORECAST_API_URL = "https://api.weatherapi.com/v1/forecast.json?key=14e35e2d6e264c6198c163938222104&q=";
 
+    public static String REWANG_STORE_ID_AKUN = "f3f2ddc9-c5ac-43e9-a655-644d285d29f8";
 
 }

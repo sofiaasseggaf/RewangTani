@@ -168,12 +168,11 @@ public class DetailProfilLahan extends AppCompatActivity {
 
         Integer ph2 = dataProfilLahan.getPhTanah();
 //        double ph = Double.valueOf(ph2.substring(0, ph2.length() - 2))/10;
-        double ph = ph2/10;
+        double ph = ph2 / 10.0;
         binding.phTanah.setText(String.valueOf(ph));
 
         Integer kt2 = dataProfilLahan.getKemiringanTanah();
-//        double kt = Double.valueOf(kt2.substring(0, kt2.length() - 2))/10;
-        double kt = kt2/10;
+        double kt = kt2 / 10.0;
         binding.kemiringanTanah.setText(String.valueOf(kt));
 
         binding.sistemIrigasi.setText(namaSistemIrigasi);

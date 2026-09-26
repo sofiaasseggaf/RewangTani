@@ -96,7 +96,7 @@ public class ListProfileLahan extends AppCompatActivity
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent a = new Intent(ListProfileLahan.this, DetailProfilLahan.class);
-                        a.putExtra("idProfilLahan", items.get(position).getIdProfileTanah());
+                            a.putExtra("idProfilLahan", items.get(position).getIdProfileTanah());
                         startActivity(a);
                     }
 
