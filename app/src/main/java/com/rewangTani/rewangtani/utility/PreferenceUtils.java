@@ -235,6 +235,19 @@ public class PreferenceUtils extends AppCompatActivity {
         return prefs.getString(Constants.KEY_PL_NAMA_PL, "");
     }
 
+    public static boolean savePLLuasGarapanProfilLahan(String luasGarapan, Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefsEditor = prefs.edit();
+        prefsEditor.putString(Constants.KEY_PL_LUAS_GARAPAN, luasGarapan);
+        prefsEditor.apply();
+        return true;
+    }
+
+    public static String getPLLuasGarapanProfilLahan(Context context){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(Constants.KEY_PL_LUAS_GARAPAN, "");
+    }
+
     public static boolean savePLProvinsi(String provinsi, Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor = prefs.edit();

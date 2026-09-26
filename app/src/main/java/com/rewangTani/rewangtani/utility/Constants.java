@@ -25,11 +25,11 @@ public class Constants {
     public static String KEY_PL_ID_ALAMAT = "idalamat";
     public static String KEY_PL_LAT = "lat";
     public static String KEY_PL_LONG = "long";
-    public static String KEY_PL_LUAS_GARAPAN = "luasgarapan";
     public static String KEY_PL_ID_SISTEM_IRIGASI = "idsistemirigasi";
     public static String KEY_PL_KEMIRINGAN_TANAh = "kemiringantanah";
     public static String KEY_PL_PH_TANAH = "phtanah";
     public static String KEY_PL_NAMA_PL = "namapl";
+    public static String KEY_PL_LUAS_GARAPAN = "luasgarapanpl";
     public static String KEY_PL_PROVINSI = "provinsi";
     public static String KEY_PL_KABUPATEN = "kabupaten";
     public static String KEY_PL_KECAMATAN = "kecamatan";

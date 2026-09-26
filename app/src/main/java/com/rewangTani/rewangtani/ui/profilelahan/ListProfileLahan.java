@@ -3,6 +3,7 @@ package com.rewangTani.rewangtani.ui.profilelahan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -20,6 +21,8 @@ import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.ui.home.Home;
 import com.rewangTani.rewangtani.ui.home.HomeViewModel;
 import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.Global;
+import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.rewangTani.rewangtani.utility.RecyclerItemClickListener;
 
 import java.util.List;
@@ -123,10 +126,18 @@ public class ListProfileLahan extends AppCompatActivity
         finish();
     }
 
-    public void goToWarungku(){
-        Intent a = new Intent(ListProfileLahan.this, PesananWarungku.class);
-        startActivity(a);
-        finish();
+    public void goToWarungku()
+    {
+        if ( PreferenceUtils.getIdAkun(this).equalsIgnoreCase(Global.REWANG_STORE_ID_AKUN) )
+        {
+            Intent a = new Intent(ListProfileLahan.this, PesananWarungku.class);
+            startActivity(a);
+            finish();
+        }
+        else
+        {
+            Toast.makeText(ListProfileLahan.this, "Fitur ini hanya tesedia untuk Demo", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void goToPesan(){

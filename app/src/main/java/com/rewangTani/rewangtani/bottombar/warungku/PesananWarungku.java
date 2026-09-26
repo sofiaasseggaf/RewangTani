@@ -95,31 +95,24 @@ public class PesananWarungku extends AppCompatActivity {
         binding.btnTambahProduk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( modelProfilById.getData().getIdAkun().equalsIgnoreCase(Global.REWANG_STORE_ID_AKUN) )
-                {
+                goToTambahWarungku();
+                if (checkKelengkapan == 1) {
                     goToTambahWarungku();
-                    if (checkKelengkapan == 1) {
-                        goToTambahWarungku();
-                    } else if (checkKelengkapan == 0) {
-                        binding.viewBelumPunya.setVisibility(View.GONE);
-                        View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(PesananWarungku.this);
-                        builder.setView(customLayout);
-                        RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
-                        RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
-                        buttonOk.setOnClickListener(v -> {
-                            goToEditProfil();
-                        });
-                        buttonCancel.setOnClickListener(v -> {
-                            goToEtalase();
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
-                }
-                else
-                {
-                    Toast.makeText(PesananWarungku.this, "Fitur ini hanya tesedia untuk Demo", Toast.LENGTH_LONG).show();
+                } else if (checkKelengkapan == 0) {
+                    binding.viewBelumPunya.setVisibility(View.GONE);
+                    View customLayout = getLayoutInflater().inflate(R.layout.dialog_lengkapi_profil, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PesananWarungku.this);
+                    builder.setView(customLayout);
+                    RelativeLayout buttonOk = customLayout.findViewById(R.id.btn_lengkapi_data_profil);
+                    RelativeLayout buttonCancel = customLayout.findViewById(R.id.btn_kembali);
+                    buttonOk.setOnClickListener(v -> {
+                        goToEditProfil();
+                    });
+                    buttonCancel.setOnClickListener(v -> {
+                        goToEtalase();
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             }
         });

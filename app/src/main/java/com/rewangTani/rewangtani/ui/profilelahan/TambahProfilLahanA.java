@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -37,8 +38,11 @@ import org.osmdroid.views.Projection;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Polygon;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,10 +58,13 @@ public class TambahProfilLahanA extends FragmentActivity {
     LocationManager locationManager;
     int PERMISSION_CODE = 1;
     Double lat, longt;
-    String lat2, longt2;
+    String lat2, longt2, luasGarapan;
     private IMapController osmMapController;
-    private static final int PERMISSION_REQUEST_CODE = 1;
     ItemizedIconOverlay<OverlayItem> anotherItemizedIconOverlay = null;
+
+    ArrayList<OverlayItem> markerItems = new ArrayList<>();
+    private ArrayList<GeoPoint> landPoints = new ArrayList<>();
+    private Polygon landPolygon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,29 +118,46 @@ public class TambahProfilLahanA extends FragmentActivity {
                 int markerWidth = marker.getIntrinsicWidth();
                 int markerHeight = marker.getIntrinsicHeight();
                 marker.setBounds(0, markerHeight, markerWidth, 0);
+
                 Projection proj = mapView.getProjection();
                 GeoPoint loc = (GeoPoint) proj.fromPixels((int)e.getX(), (int)e.getY());
                 String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
                 String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
-                lat2 = latitude.substring(0, 8);
-                longt2 = longitude.substring(0, 7);
-                binding.koordinatLahan.setText(lat2 + ", " + longt2);
-                osmMapController.setCenter(loc);
-                binding.osmMapView.setZoomLevel(18);
-                ArrayList<OverlayItem> overlayArray = new ArrayList<OverlayItem>();
-                OverlayItem mapItem = new OverlayItem("", "", new GeoPoint((((double)loc.getLatitudeE6())/1000000), (((double)loc.getLongitudeE6())/1000000)));
-                mapItem.setMarker(marker);
-                overlayArray.add(mapItem);
-                if(anotherItemizedIconOverlay==null){
-                    anotherItemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(getApplicationContext(), overlayArray,null);
-                    mapView.getOverlays().add(anotherItemizedIconOverlay);
-                    mapView.invalidate();
-                }else{
-                    mapView.getOverlays().remove(anotherItemizedIconOverlay);
-                    mapView.invalidate();
-                    anotherItemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(getApplicationContext(), overlayArray,null);
-                    mapView.getOverlays().add(anotherItemizedIconOverlay);
+
+                if ( landPoints.size() == 4 )
+                {
+                    resetLandDrawing();
                 }
+
+                landPoints.add(loc);
+
+                if ( landPoints.size() == 4 )
+                {
+                    createLandPolygon();
+                }
+
+                OverlayItem mapItem = new OverlayItem(
+                        "",
+                        "",
+                        loc
+                );
+
+                mapItem.setMarker(marker);
+                markerItems.add(mapItem);
+
+                if (anotherItemizedIconOverlay != null) {
+                    mapView.getOverlays().remove(anotherItemizedIconOverlay);
+                }
+
+                anotherItemizedIconOverlay =
+                        new ItemizedIconOverlay<>(
+                                getApplicationContext(),
+                                markerItems,
+                                null
+                        );
+
+                mapView.getOverlays().add(anotherItemizedIconOverlay);
+                mapView.invalidate();
                 return true;
             }
         };
@@ -146,7 +170,8 @@ public class TambahProfilLahanA extends FragmentActivity {
         });
     }
 
-    public void getData() {
+    public void getData()
+    {
         binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -176,7 +201,8 @@ public class TambahProfilLahanA extends FragmentActivity {
         }).start();
     }
 
-    public void getDataProfilLahan() {
+    public void getDataProfilLahan()
+    {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelProfilLahan> dataPL = apiInterface.getDataProfilLahan();
         dataPL.enqueue(new Callback<ModelProfilLahan>() {
@@ -222,51 +248,16 @@ public class TambahProfilLahanA extends FragmentActivity {
         });
     }
 
-    private void checkLocalData(){
-        if (!PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()).equalsIgnoreCase("")){
+    private void checkLocalData()
+    {
+        if ( !PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()).equalsIgnoreCase("") )
+        {
             binding.namaProfilLahan.setText(PreferenceUtils.getPLnamaProfilLahan(getApplicationContext()));
         }
-
-//        if (!PreferenceUtils.getPLlatitude(getApplicationContext()).equalsIgnoreCase("") && !PreferenceUtils.getPLlongitude(getApplicationContext()).equalsIgnoreCase("")) {
-//            binding.koordinatLahan.setText(PreferenceUtils.getPLlatitude(getApplicationContext()) + ", " + PreferenceUtils.getPLlongitude(getApplicationContext()));
-//            Overlay touchOverlay = new Overlay(this){
-//                @Override
-//                public void draw(Canvas arg0, MapView mapView, boolean arg2) {
-//                    binding.osmMapView.invalidate();
-//                    final Drawable marker = getApplicationContext().getResources().getDrawable(R.drawable.ic_osm_marker);
-//                    int markerWidth = marker.getIntrinsicWidth();
-//                    int markerHeight = marker.getIntrinsicHeight();
-//                    marker.setBounds(0, markerHeight, markerWidth, 0);
-//                    GeoPoint lastPoint = new GeoPoint(Double.valueOf(PreferenceUtils.getPLlatitude(getApplicationContext())), Double.valueOf(PreferenceUtils.getPLlongitude(getApplicationContext())));
-//                    osmMapController.setCenter(lastPoint);
-//                    binding.osmMapView.setZoomLevel(18);
-//
-//                    ArrayList<OverlayItem> overlayArray = new ArrayList<OverlayItem>();
-//                    OverlayItem mapItem = new OverlayItem("", "", lastPoint);
-//                    mapItem.setMarker(marker);
-//                    overlayArray.add(mapItem);
-//                    if(anotherItemizedIconOverlay==null){
-//                        anotherItemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(getApplicationContext(), overlayArray,null);
-//                        mapView.getOverlays().add(anotherItemizedIconOverlay);
-//                        mapView.invalidate();
-//                    }else{
-//                        mapView.getOverlays().remove(anotherItemizedIconOverlay);
-//                        mapView.invalidate();
-//                        anotherItemizedIconOverlay = new ItemizedIconOverlay<OverlayItem>(getApplicationContext(), overlayArray,null);
-//                        mapView.getOverlays().add(anotherItemizedIconOverlay);
-//                    }
-//                    super.draw(arg0, mapView, arg2);
-//                }
-//                @Override
-//                public boolean onSingleTapConfirmed(final MotionEvent e, final MapView mapView) {
-//                    return true;
-//                }
-//            };
-//            binding.osmMapView.getOverlays().add(touchOverlay);
-//        }
     }
 
-    private void checkNama() {
+    private void checkNama()
+    {
         if (!binding.namaProfilLahan.getText().toString().equalsIgnoreCase("")){
             if (listProfilLahan.size() == 0) {
                 checkLatLong();
@@ -290,7 +281,8 @@ public class TambahProfilLahanA extends FragmentActivity {
         }
     }
 
-    private void checkLatLong() {
+    private void checkLatLong()
+    {
         if (!lat2.equalsIgnoreCase("") && !longt2.equalsIgnoreCase("")) {
             for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
                 if (modelProfilLahan.getData().get(i).getLatitude().equalsIgnoreCase(lat2) &&
@@ -309,10 +301,136 @@ public class TambahProfilLahanA extends FragmentActivity {
         }
     }
 
-    private void saveLocalData() {
+    private void createLandPolygon()
+    {
+        if ( landPolygon != null )
+        {
+            binding.osmMapView.getOverlays().remove(landPolygon);
+        }
+
+        GeoPoint center = getPolygonCenter();
+
+        osmMapController.setCenter(center);
+        binding.osmMapView.setZoomLevel(18);
+
+        String centerLatitude = String.valueOf(center.getLatitude());
+        String centerLongitude = String.valueOf(center.getLongitude());
+
+        lat2 = centerLatitude.substring(0, 8);
+        longt2 = centerLongitude.substring(0, 7);
+        String latLong = lat2 + ", " + longt2;
+        binding.koordinatLahan.setText(latLong);
+
+        luasGarapan = String.valueOf(Math.round(calculateLandArea()));
+
+        landPolygon = new Polygon();
+        landPolygon.setPoints(sortPolygonPoints());
+        landPolygon.getFillPaint().setColor(Color.argb(80, 0, 128, 0));
+        landPolygon.getOutlinePaint().setColor(Color.GREEN);
+        landPolygon.getOutlinePaint().setStrokeWidth(3f);
+        binding.osmMapView.getOverlays().add(landPolygon);
+
+        binding.osmMapView.invalidate();
+    }
+
+    private double calculateLandArea()
+    {
+        GeoPoint center = getPolygonCenter();
+
+        double centerLat = Math.toRadians(center.getLatitude());
+        double metersPerDegreeLat = 111320.0;
+        double metersPerDegreeLon = 111320.0 * Math.cos(centerLat);
+
+        ArrayList<GeoPoint> points = sortPolygonPoints();
+
+        double area = 0.0;
+
+        for ( int i = 0; i < points.size(); i++ )
+        {
+            GeoPoint current = points.get(i);
+            GeoPoint next = points.get((i + 1) % points.size());
+
+            double x1 = (current.getLongitude() - center.getLongitude())
+                    * metersPerDegreeLon;
+
+            double y1 = (current.getLatitude() - center.getLatitude())
+                    * metersPerDegreeLat;
+
+            double x2 = (next.getLongitude() - center.getLongitude())
+                    * metersPerDegreeLon;
+
+            double y2 = (next.getLatitude() - center.getLatitude())
+                    * metersPerDegreeLat;
+
+            area += (x1 * y2) - (x2 * y1);
+        }
+
+        return Math.abs(area) / 2.0;
+    }
+
+    private GeoPoint getPolygonCenter()
+    {
+        double latitude = 0;
+        double longitude = 0;
+
+        for ( GeoPoint point : landPoints )
+        {
+            latitude += point.getLatitude();
+            longitude += point.getLongitude();
+        }
+
+        latitude /= landPoints.size();
+        longitude /= landPoints.size();
+
+        return new GeoPoint(latitude, longitude);
+    }
+
+    private ArrayList<GeoPoint> sortPolygonPoints()
+    {
+        GeoPoint center = getPolygonCenter();
+        ArrayList<GeoPoint> sortedPoints = new ArrayList<>(landPoints);
+
+        Collections.sort(sortedPoints, new Comparator<GeoPoint>()
+        {
+            @Override
+            public int compare(GeoPoint p1, GeoPoint p2)
+            {
+                double angle1 = Math.atan2(p1.getLatitude() - center.getLatitude(), p1.getLongitude() - center.getLongitude());
+                double angle2 = Math.atan2(p2.getLatitude() - center.getLatitude(), p2.getLongitude() - center.getLongitude());
+
+                return Double.compare(angle1, angle2);
+            }
+        });
+
+        return sortedPoints;
+    }
+
+    private void resetLandDrawing()
+    {
+        if ( landPolygon != null )
+        {
+            binding.osmMapView.getOverlays().remove(landPolygon);
+            landPolygon = null;
+        }
+
+        if ( anotherItemizedIconOverlay != null )
+        {
+            binding.osmMapView.getOverlays().remove(anotherItemizedIconOverlay);
+            anotherItemizedIconOverlay = null;
+        }
+
+        landPoints.clear();
+        markerItems.clear();
+
+        binding.osmMapView.invalidate();
+    }
+
+    private void saveLocalData()
+    {
         PreferenceUtils.savePLnamaProfilLahan(binding.namaProfilLahan.getText().toString(), getApplicationContext());
         PreferenceUtils.savePLlatitude(lat2, getApplicationContext());
         PreferenceUtils.savePLlongitude(longt2, getApplicationContext());
+        PreferenceUtils.savePLLuasGarapanProfilLahan(luasGarapan, getApplicationContext());
         goToTambahProfilLahanB();
     }
 

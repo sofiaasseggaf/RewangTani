@@ -85,7 +85,17 @@ public class Inbox extends AppCompatActivity implements AdapterInbox.OnInboxItem
         binding.btnHome.setOnClickListener( v -> NavigationManager.startActivity(this, Home.class));
         binding.btnAkun.setOnClickListener( v -> NavigationManager.startActivity(this, BerandaProfile.class) );
         binding.btnLahan.setOnClickListener( v -> NavigationManager.startActivity(this, ListProfileLahan.class) );
-        binding.btnWarungku.setOnClickListener( v -> NavigationManager.startActivity(this, PesananWarungku.class) );
+        binding.btnWarungku.setOnClickListener( v ->
+        {
+            if ( PreferenceUtils.getIdAkun(this).equalsIgnoreCase(Global.REWANG_STORE_ID_AKUN) )
+            {
+                NavigationManager.startActivity(this, PesananWarungku.class);
+            }
+            else
+            {
+                Toast.makeText(Inbox.this, "Fitur ini hanya tesedia untuk Demo", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void initObserver()

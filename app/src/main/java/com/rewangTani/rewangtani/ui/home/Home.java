@@ -36,9 +36,9 @@ import com.rewangTani.rewangtani.middlebar.warungpestisida.ListWarungPestisida;
 import com.rewangTani.rewangtani.middlebar.warungsewamesin.ListWarungSewaMesin;
 import com.rewangTani.rewangtani.middlebar.warungtenagakerja.ListWarungTenagaKerja;
 import com.rewangTani.rewangtani.service.ChatService;
+import com.rewangTani.rewangtani.ui.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.ui.keranjang.ActivityKeranjang;
 import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
-import com.rewangTani.rewangtani.ui.infoperingatancuaca.BerandaInfoPeringatanCuaca;
 import com.rewangTani.rewangtani.upperbar.kendalapertumbuhan.ListKendalaPertumbuhan;
 import com.rewangTani.rewangtani.upperbar.panen.ListPanen;
 import com.rewangTani.rewangtani.upperbar.rab.ListRancanganAnggaranBiaya;
@@ -126,7 +126,18 @@ public class Home extends AppCompatActivity
         binding.btnPesan.setOnClickListener( v -> NavigationManager.startActivity(this, Inbox.class) );
         binding.btnAkun.setOnClickListener( v -> NavigationManager.startActivity(this, BerandaProfile.class) );
         binding.btnLahan.setOnClickListener( v -> NavigationManager.startActivity(this, ListProfileLahan.class) );
-        binding.btnWarungku.setOnClickListener( v -> NavigationManager.startActivity(this, PesananWarungku.class) );
+
+        binding.btnWarungku.setOnClickListener( v -> {
+            if ( PreferenceUtils.getIdAkun(this).equalsIgnoreCase(Global.REWANG_STORE_ID_AKUN) )
+            {
+                NavigationManager.startActivity(this, PesananWarungku.class);
+            }
+            else
+            {
+                Toast.makeText(Home.this, "Fitur ini hanya tesedia untuk Demo", Toast.LENGTH_LONG).show();
+            }
+        } );
+
         binding.btnSudahTanam.setOnClickListener( v -> {
             DialogUtil.showCustomAlertDialogTwoCustomTextButtons(
                     Home.this,

@@ -273,6 +273,8 @@ public class TambahProfilLahanC extends FragmentActivity {
     public void setData(){
         adapterSistemIrigasi = new ArrayAdapter<>(TambahProfilLahanC.this, R.layout.z_spinner_list, listSistemIrigasi);
         binding.spSistemIrigasi.setAdapter(adapterSistemIrigasi);
+
+        binding.luasGarapan.setText(PreferenceUtils.getPLLuasGarapanProfilLahan(getApplicationContext()));
     }
 
     public void tambahProfilTanah(){
@@ -366,6 +368,7 @@ public class TambahProfilLahanC extends FragmentActivity {
         PreferenceUtils.savePLnamaProfilLahan("", getApplicationContext());
         PreferenceUtils.savePLlatitude("", getApplicationContext());
         PreferenceUtils.savePLlongitude("", getApplicationContext());
+        PreferenceUtils.savePLLuasGarapanProfilLahan("", getApplicationContext());
         PreferenceUtils.savePLidAlamat("", getApplicationContext());
         PreferenceUtils.savePLProvinsi("", getApplicationContext());
         PreferenceUtils.savePLKabupaten("", getApplicationContext());

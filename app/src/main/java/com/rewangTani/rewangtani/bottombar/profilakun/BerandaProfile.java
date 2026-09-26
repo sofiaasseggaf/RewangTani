@@ -44,6 +44,7 @@ import com.rewangTani.rewangtani.ui.profilelahan.ListProfileLahan;
 import com.rewangTani.rewangtani.bottombar.warungku.PesananWarungku;
 import com.rewangTani.rewangtani.databinding.BottombarPaBerandaprofileBinding;
 import com.rewangTani.rewangtani.model.modelphoto.DatumPhoto;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -629,10 +630,18 @@ public class BerandaProfile extends AppCompatActivity {
         finish();
     }
 
-    public void goToWarungku(){
-        Intent a = new Intent(BerandaProfile.this, PesananWarungku.class);
-        startActivity(a);
-        finish();
+    public void goToWarungku()
+    {
+        if ( PreferenceUtils.getIdAkun(this).equalsIgnoreCase(Global.REWANG_STORE_ID_AKUN) )
+        {
+            Intent a = new Intent(BerandaProfile.this, PesananWarungku.class);
+            startActivity(a);
+            finish();
+        }
+        else
+        {
+            Toast.makeText(BerandaProfile.this, "Fitur ini hanya tesedia untuk Demo", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void goToPesan(){

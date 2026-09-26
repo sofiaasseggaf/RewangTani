@@ -47,7 +47,6 @@ public class Global
 
     // SISTEM IRIGASI
 
-    public static String SI_TADAH_HUJAN = "c921a805-41e6-4f7a-9dd5-c75e96eb312b";
     public static String SI_BENDUNGAN = "c921a805-41e6-4f7a-9dd5-c75e96eb312a";
 
     // URL
