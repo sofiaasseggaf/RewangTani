@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".ui.profilelahan.TambahProfilLahanA">
+        tools:context=".ui.profilelahan.TambahProfilLahanA" >
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -40,13 +41,13 @@
             android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal" >
 
                 <LinearLayout
                     android:id="@+id/btnNamaLahan"
@@ -54,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp" >
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -68,6 +69,7 @@
                         android:fontFamily="@font/inter_medium"
                         android:text="Nama Lahan"
                         android:textColor="#303030" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,7 +80,7 @@
                     android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp" >
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -92,6 +94,7 @@
                         android:fontFamily="@font/inter_medium"
                         android:text="Lokasi"
                         android:textColor="#A0A0A0" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -101,7 +104,7 @@
                     android:layout_marginLeft="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp" >
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -115,6 +118,7 @@
                         android:fontFamily="@font/inter_medium"
                         android:text="Ukuran Lahan"
                         android:textColor="#A0A0A0" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -125,7 +129,7 @@
                     android:layout_marginRight="30dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp" >
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -139,111 +143,12 @@
                         android:fontFamily="@font/inter_medium"
                         android:text="Status Pekerja"
                         android:textColor="#A0A0A0" />
+
                 </LinearLayout>
 
             </LinearLayout>
+
         </HorizontalScrollView>
-
-        <!-- <LinearLayout
-             android:id="@+id/linearLayout"
-             android:layout_width="match_parent"
-             android:layout_height="60dp"
-             android:layout_marginTop="10dp"
-             android:layout_marginHorizontal="1dp"
-             android:orientation="horizontal"
-             android:weightSum="3"
-             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintStart_toStartOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1"
-                 android:layout_gravity="center"
-                 android:gravity="center"
-                 android:orientation="horizontal">
-
-                 <ImageView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:background="@drawable/ic_circle_on" />
-
-                 <TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="5dp"
-                     android:lines="1"
-                     android:gravity="center_vertical"
-                     android:fontFamily="@font/inter_medium"
-                     android:text="Nama Lahan"
-                     android:textColor="#303030" />
-             </LinearLayout>
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="center"
-                 android:gravity="center"
-                 android:layout_weight="1"
-                 android:orientation="horizontal"
-                 android:layout_marginHorizontal="10dp">
-
-                 <ImageView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:background="@drawable/ic_circle_off" />
-
-                 &lt;!&ndash;<TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="5dp"
-                     android:gravity="center"
-                     android:lines="1"
-                     android:autoSizeTextType="uniform"
-                     android:autoSizeMinTextSize="10sp"
-                     android:autoSizeMaxTextSize="100sp"
-                     android:autoSizeStepGranularity="2sp"
-                     android:fontFamily="@font/inter_medium"
-                     android:text="Lokasi"
-                     android:textColor="#A0A0A0" />&ndash;&gt;
-
-                 <TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="5dp"
-                     android:gravity="center_vertical"
-                     android:lines="1"
-                     android:fontFamily="@font/inter_medium"
-                     android:text="Lokasi"
-                     android:textColor="#A0A0A0" />
-             </LinearLayout>
-
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:gravity="center"
-                 android:layout_gravity="center"
-                 android:layout_weight="1"
-                 android:orientation="horizontal">
-
-                 <ImageView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:background="@drawable/ic_circle_off" />
-
-                 <TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:layout_marginLeft="5dp"
-                     android:lines="1"
-                     android:gravity="center_vertical"
-                     android:fontFamily="@font/inter_medium"
-                     android:text="Ukuran Lahan"
-                     android:textColor="#A0A0A0" />
-             </LinearLayout>
-
-         </LinearLayout>-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -255,18 +160,12 @@
             app:layout_constraintBottom_toTopOf="@id/btnSelanjutnya"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontalScrollView">
+            app:layout_constraintTop_toBottomOf="@id/horizontalScrollView" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!--<fragment
-                    android:id="@+id/map"
-                    class="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp" />-->
+                android:orientation="vertical" >
 
                 <org.osmdroid.views.MapView
                     android:id="@+id/osmMapView"
@@ -275,11 +174,30 @@
                     android:clickable="true"
                     android:focusable="true" />
 
+                <RelativeLayout
+                    android:id="@+id/btnResetMarker"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rect_white_gray_stroke_radius" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="HAPUS MARKER"
+                        android:textColor="@color/red"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -302,13 +220,14 @@
                         android:textColor="@color/black"
                         android:textColorHint="#A0A0A0"
                         android:textSize="14sp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical" >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -318,435 +237,29 @@
                         android:textColor="@color/dark_green2"
                         android:textSize="14sp" />
 
-                    <EditText
-                        android:id="@+id/koordinatLahan"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/rect_input_blank_green_radius"
-                        android:fontFamily="@font/inter_regular"
-                        android:hint="Masukkan Koordinat Lahan"
-                        android:lines="1"
-                        android:paddingLeft="15dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="#A0A0A0"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <!--<LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Provinsi"
-                        android:textColor="#A0A0A0"
-                        android:textSize="12sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_provinsi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/bg_spinner">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/sp_provinsi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
-                            android:fontFamily="@font/roboto_regular"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Kabupaten / Kota"
-                        android:textColor="#A0A0A0"
-                        android:textSize="12sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_kab_kota"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/bg_spinner_off">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/sp_kab_kota"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
-                            android:enabled="false"
-                            android:fontFamily="@font/roboto_regular"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Kecamatan"
-                        android:textColor="#A0A0A0"
-                        android:textSize="12sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_kec"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/bg_spinner_off">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/sp_kec"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
-                            android:enabled="false"
-                            android:fontFamily="@font/roboto_regular"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Kelurahan"
-                        android:textColor="#A0A0A0"
-                        android:textSize="14sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_kel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/bg_spinner_off">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/sp_kel"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
-                            android:enabled="false"
-                            android:fontFamily="@font/roboto_regular"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Kode Pos"
-                        android:textColor="#A0A0A0"
-                        android:textSize="12sp" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_kodepos"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/bg_spinner_off">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/sp_kodepos"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:backgroundTint="@android:color/transparent"
-                            android:enabled="false"
-                            android:fontFamily="@font/roboto_regular"
-                            android:inputType="number"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Luas Garapan"
-                        android:textColor="@color/dark_green"
-                        android:textSize="14sp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/rect_edittext">
-
-                        <EditText
-                            android:id="@+id/et_luasgarapan"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:backgroundTint="@android:color/transparent"
-                            android:fontFamily="@font/roboto_regular"
-                            android:hint="Masukkan Luas Garapan"
-                            android:inputType="number"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
+                        android:background="@drawable/bg_greyfill_greenradius"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp">
 
                         <TextView
+                            android:id="@+id/koordinatLahan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="30dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="m2"
-                            android:textColor="@color/dark_green"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Sistem Irigasi"
-                        android:textColor="@color/dark_green"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/sp_sistemirigasi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/bg_spinner"
-                        android:fontFamily="@font/roboto_regular"
-                        android:paddingLeft="15dp"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="Kemiringan Tanah"
-                        android:textColor="@color/dark_green"
-                        android:textSize="14sp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/rect_edittext">
-
-                        <EditText
-                            android:id="@+id/et_kemiringantanah"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:backgroundTint="@android:color/transparent"
-                            android:fontFamily="@font/roboto_regular"
-                            android:hint="Masukkan Kemiringan Tanah"
-                            android:inputType="number"
-                            android:lines="1"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="#ADABAB"
+                            android:fontFamily="@font/inter_regular"
+                            android:textColor="#4C4C4C"
                             android:textSize="12sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="30dp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="%"
-                            android:textColor="@color/dark_green"
-                            android:textSize="18sp" />
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
-
-                    <TextView
-                        android:id="@+id/tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="pH Tanah"
-                        android:textColor="@color/dark_green"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/et_ph_tanah"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/rect_edittext"
-                        android:clickable="false"
-                        android:fontFamily="@font/roboto_regular"
-                        android:hint="Masukkan pH Tanah"
-                        android:inputType="number"
-                        android:lines="1"
-                        android:paddingLeft="15dp"
-                        android:textColor="@color/white"
-                        android:textColorHint="#ADABAB"
-                        android:textSize="12sp"
-                        android:visibility="visible" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_ph_tanah_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/rect_edittext"
-                        android:clickable="false"
-                        android:visibility="visible">
-
-                        <TextView
-                            android:id="@+id/txt_ph_tanah"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:clickable="false"
-                            android:fontFamily="@font/roboto_regular"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/panjang_ph_tanah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/et_ph_tanah"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/inter_semibold"
-                        android:text="pH tanah tidak boleh diatas 14.0"
-                        android:textColor="#F44336"
-                        android:textSize="12sp"
-                        android:visibility="gone" />
-
-                    <SeekBar
-                        android:id="@+id/sb_phtanah"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/tv"
-                        android:layout_marginTop="10dp"
-                        android:clickable="true"
-                        android:max="140"
-                        android:maxHeight="4dip"
-                        android:min="0"
-                        android:minHeight="4dip"
-                        android:progressDrawable="@drawable/seekbar_progress_style"
-                        android:thumb="@drawable/thumb"
-                        android:visibility="gone" />
-
-                    <RelativeLayout
-                        android:id="@+id/rl_ph_tanah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/sb_phtanah"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/rect_edittext"
-                        android:clickable="true"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:id="@+id/et_phtanah"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/roboto_regular"
-                            android:paddingLeft="15dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="#ADABAB"
-                            android:textSize="12sp" />
-                    </RelativeLayout>
-
-                </RelativeLayout>-->
 
             </LinearLayout>
 
         </ScrollView>
-
 
         <RelativeLayout
             android:id="@+id/btnSelanjutnya"
@@ -757,7 +270,7 @@
             android:background="@drawable/frame_button_white_dark_green_double_radius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -768,6 +281,7 @@
                 android:text="SELANJUTNYA"
                 android:textColor="#327036"
                 android:textSize="16sp" />
+
         </RelativeLayout>
 
         <FrameLayout
@@ -775,17 +289,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:visibility="gone">
+            android:visibility="gone" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent" >
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/new_logo"
-                    android:layout_centerInParent="true"/>
+                    android:layout_centerInParent="true" />
 
                 <TextView
                     android:id="@+id/textLoading"
@@ -796,11 +310,12 @@
                     android:layout_marginBottom="100dp"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/dark_green"
-                    android:textSize="22sp"/>
+                    android:textSize="22sp" />
 
             </RelativeLayout>
 
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

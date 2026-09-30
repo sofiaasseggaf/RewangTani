@@ -1,6 +1,8 @@
 package com.rewangTani.rewangtani.ui.profilelahan;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.ArrayMap;
@@ -10,9 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.data.remote.APIService.APIClient;
 import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
-import com.rewangTani.rewangtani.R;
 import com.rewangTani.rewangtani.databinding.BottombarPlDetailProfilLahanBinding;
 import com.rewangTani.rewangtani.model.modelnoneditable.sistemirigasi.ModelSistemIrigasi;
 import com.rewangTani.rewangtani.model.modelprofillahan.DataProfilLahanById;
@@ -20,7 +22,14 @@ import com.rewangTani.rewangtani.model.modelprofillahan.DatumProfilLahan;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 
 import org.json.JSONObject;
+import org.osmdroid.api.IMapController;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
+import org.osmdroid.views.overlay.Polygon;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -39,25 +48,25 @@ public class DetailProfilLahan extends AppCompatActivity {
     DataProfilLahanById dataProfilLahanById;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState )
+    {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_detail_profil_lahan);
 
         Intent intent = getIntent();
         String idProfilLahan = intent.getStringExtra("idProfilLahan");
 
+        binding.osmMapView.setTileSource(TileSourceFactory.MAPNIK);
+        binding.osmMapView.setBuiltInZoomControls(true);
+        binding.osmMapView.setMultiTouchControls(true);
+
         getData(idProfilLahan);
 
-        binding.btnSimpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateProfilLahan();
-            }
-        });
-
+        binding.btnSimpan.setOnClickListener( v -> updateProfilLahan() );
     }
 
-    public void getData(String idProfilLahan){
+    public void getData( String idProfilLahan )
+    {
         binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -86,7 +95,8 @@ public class DetailProfilLahan extends AppCompatActivity {
         }).start();
     }
 
-    public void getProfilLahan(String idProfilLahan) {
+    public void getProfilLahan( String idProfilLahan )
+    {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelProfilLahan> dataPL = apiInterface.getDataProfilLahan();
         dataPL.enqueue(new Callback<ModelProfilLahan>() {
@@ -100,7 +110,7 @@ public class DetailProfilLahan extends AppCompatActivity {
                             if (idProfilLahan.equalsIgnoreCase(idpl)) {
                                 dataProfilLahan = modelProfilLahan.getData().get(i);
                                 if (dataProfilLahan!=null){
-                                    getStatusPekerja();
+                                    getSistemIrigasi();
                                 }
                             }
                         }
@@ -121,11 +131,8 @@ public class DetailProfilLahan extends AppCompatActivity {
         });
     }
 
-    public void getStatusPekerja(){
-        getSistemIrigasi();
-    }
-
-    public void getSistemIrigasi(){
+    public void getSistemIrigasi()
+    {
         final APIInterfacesRest apiInterface = APIClient.getClient().create(APIInterfacesRest.class);
         final Call<ModelSistemIrigasi> data = apiInterface.getDataSistemIrigasi();
         data.enqueue(new Callback<ModelSistemIrigasi>() {
@@ -160,14 +167,28 @@ public class DetailProfilLahan extends AppCompatActivity {
         });
     }
 
-    public void setData(){
+    public void setData()
+    {
+        String latitude = dataProfilLahan.getLatitude();
+        String longitude = dataProfilLahan.getLongitude();
+
+        ArrayList<GeoPoint> points = new ArrayList<>();
+        String[] latitudes = latitude.split(";");
+        String[] longitudes = longitude.split(";");
+
+        for ( int i = 0; i < latitudes.length; i++ )
+        {
+            double lat = Double.parseDouble(latitudes[i]);
+            double lon = Double.parseDouble(longitudes[i]);
+            points.add(new GeoPoint(lat, lon));
+        }
+
+        drawLandDetail(points);
+
         binding.namaProfilLahan.setText(dataProfilLahan.getNamaProfilTanah());
-        binding.koordinatLahan.setText(dataProfilLahan.getLatitude()+", "+dataProfilLahan.getLongitude());
         binding.luasGarapan.setText(dataProfilLahan.getLuasGarapan().toString() + " m2");
 
-
         Integer ph2 = dataProfilLahan.getPhTanah();
-//        double ph = Double.valueOf(ph2.substring(0, ph2.length() - 2))/10;
         double ph = ph2 / 10.0;
         binding.phTanah.setText(String.valueOf(ph));
 
@@ -178,7 +199,80 @@ public class DetailProfilLahan extends AppCompatActivity {
         binding.sistemIrigasi.setText(namaSistemIrigasi);
     }
 
-    public void updateProfilLahan(){
+    private void drawLandDetail( ArrayList<GeoPoint> points )
+    {
+        if ( points == null || points.size() == 0 ) {
+            return;
+        }
+
+        double latitude = 0;
+        double longitude = 0;
+
+        for ( GeoPoint point : points )
+        {
+            latitude += point.getLatitude();
+            longitude += point.getLongitude();
+        }
+
+        latitude /= points.size();
+        longitude /= points.size();
+
+        GeoPoint center = new GeoPoint(latitude, longitude);
+
+        String centerLatitude = String.valueOf(center.getLatitude());
+        String centerLongitude = String.valueOf(center.getLongitude());
+
+        String lat = centerLatitude.substring(0, Math.min(8, centerLatitude.length()));
+        String lon = centerLongitude.substring(0, Math.min(7, centerLongitude.length()));
+
+        binding.koordinatLahan.setText(lat + ", " + lon);
+
+        binding.osmMapView.post(() -> {
+            IMapController mapController = binding.osmMapView.getController();
+            mapController.setZoom(18);
+            mapController.setCenter(center);
+            binding.osmMapView.invalidate();
+        });
+
+        ArrayList<OverlayItem> markerItems = new ArrayList<>();
+
+        Drawable marker = getApplicationContext().getResources().getDrawable(R.drawable.ic_osm_marker);
+
+        int markerWidth = marker.getIntrinsicWidth();
+        int markerHeight = marker.getIntrinsicHeight();
+
+        marker.setBounds(0, markerHeight, markerWidth, 0);
+
+        for ( GeoPoint point : points )
+        {
+            OverlayItem mapItem = new OverlayItem(
+                    "",
+                    "",
+                    point
+            );
+
+            mapItem.setMarker(marker);
+            markerItems.add(mapItem);
+        }
+
+        ItemizedIconOverlay<OverlayItem> markerOverlay = new ItemizedIconOverlay<>(getApplicationContext(), markerItems,null);
+
+        binding.osmMapView.getOverlays().add(markerOverlay);
+
+        Polygon polygon = new Polygon();
+        polygon.setPoints(points);
+        polygon.getFillPaint().setColor(Color.argb(80, 0, 128, 0));
+
+        polygon.getOutlinePaint().setColor(Color.GREEN);
+        polygon.getOutlinePaint().setStrokeWidth(3f);
+
+        binding.osmMapView.getOverlays().add(polygon);
+
+        binding.osmMapView.invalidate();
+    }
+
+    public void updateProfilLahan()
+    {
         binding.viewLoading.setVisibility(View.VISIBLE);
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -286,6 +380,18 @@ public class DetailProfilLahan extends AppCompatActivity {
         Intent a = new Intent(DetailProfilLahan.this, ListProfileLahan.class);
         startActivity(a);
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        binding.osmMapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        binding.osmMapView.onPause();
     }
 
     @Override

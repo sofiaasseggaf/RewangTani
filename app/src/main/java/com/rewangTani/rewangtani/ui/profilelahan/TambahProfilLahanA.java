@@ -27,6 +27,7 @@ import com.rewangTani.rewangtani.data.remote.APIService.APIInterfacesRest;
 import com.rewangTani.rewangtani.databinding.BottombarPlTambahProfilLahanABinding;
 import com.rewangTani.rewangtani.model.modelprofillahan.ModelProfilLahan;
 import com.rewangTani.rewangtani.utility.DialogUtil;
+import com.rewangTani.rewangtani.utility.Global;
 import com.rewangTani.rewangtani.utility.PreferenceUtils;
 
 import org.osmdroid.api.IMapController;
@@ -58,16 +59,17 @@ public class TambahProfilLahanA extends FragmentActivity {
     LocationManager locationManager;
     int PERMISSION_CODE = 1;
     Double lat, longt;
-    String lat2, longt2, luasGarapan;
+    String centerLat, centerLong, luasGarapan;
+    StringBuilder latitudeBuilder, longitudeBuilder;
     private IMapController osmMapController;
     ItemizedIconOverlay<OverlayItem> anotherItemizedIconOverlay = null;
-
     ArrayList<OverlayItem> markerItems = new ArrayList<>();
     private ArrayList<GeoPoint> landPoints = new ArrayList<>();
     private Polygon landPolygon;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState )
+    {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.bottombar_pl_tambah_profil_lahan_a);
 
@@ -92,16 +94,19 @@ public class TambahProfilLahanA extends FragmentActivity {
         String bestProvider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(bestProvider);
 
-        if (location != null) {
+        if ( location != null )
+        {
             lat = location.getLatitude();
             longt = location.getLongitude();
-            lat2 = String.valueOf(lat).substring(0, 8);
-            longt2 = String.valueOf(longt).substring(0, 7);
-            binding.koordinatLahan.setText(lat2 + ", " + longt2);
+            centerLat = String.valueOf(lat).substring(0, 8);
+            centerLong = String.valueOf(longt).substring(0, 7);
+            binding.koordinatLahan.setText(centerLat + ", " + centerLong);
             GeoPoint startPoint = new GeoPoint(lat, longt);
             osmMapController.setCenter(startPoint);
             binding.osmMapView.setZoomLevel(18);
-        } else {
+        }
+        else
+        {
             binding.koordinatLahan.setText("0.00, 0.00");
         }
 
@@ -121,17 +126,10 @@ public class TambahProfilLahanA extends FragmentActivity {
 
                 Projection proj = mapView.getProjection();
                 GeoPoint loc = (GeoPoint) proj.fromPixels((int)e.getX(), (int)e.getY());
-                String latitude = Double.toString(((double)loc.getLatitudeE6())/1000000);
-                String longitude = Double.toString(((double)loc.getLongitudeE6())/1000000);
-
-                if ( landPoints.size() == 4 )
-                {
-                    resetLandDrawing();
-                }
 
                 landPoints.add(loc);
 
-                if ( landPoints.size() == 4 )
+                if ( landPoints.size() >= 3 )
                 {
                     createLandPolygon();
                 }
@@ -165,9 +163,9 @@ public class TambahProfilLahanA extends FragmentActivity {
 
         getData();
 
-        binding.btnSelanjutnya.setOnClickListener(v -> {
-            checkNama();
-        });
+        binding.btnSelanjutnya.setOnClickListener( v -> checkNama() );
+
+        binding.btnResetMarker.setOnClickListener( v -> resetLandDrawing() );
     }
 
     public void getData()
@@ -276,28 +274,42 @@ public class TambahProfilLahanA extends FragmentActivity {
                     checkNama = 0;
                 }
             }
-        } else  {
+        }
+        else
+        {
             Toast.makeText(this, "Isi nama profil lahan terlebih dahulu !", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void checkLatLong()
     {
-        if (!lat2.equalsIgnoreCase("") && !longt2.equalsIgnoreCase("")) {
-            for (int i = 0; i < modelProfilLahan.getTotalData(); i++) {
-                if (modelProfilLahan.getData().get(i).getLatitude().equalsIgnoreCase(lat2) &&
-                        modelProfilLahan.getData().get(i).getLongitude().equalsIgnoreCase(longt2)) {
+        if ( !centerLat.equalsIgnoreCase("") && !centerLong.equalsIgnoreCase("") )
+        {
+            for ( int i = 0; i < modelProfilLahan.getTotalData(); i++ )
+            {
+                if ( modelProfilLahan.getData().get(i).getLatitude().equalsIgnoreCase(centerLat) &&
+                        modelProfilLahan.getData().get(i).getLongitude().equalsIgnoreCase(centerLong) )
+                {
                     Toast.makeText(this, "Lokasi lahan sudah terpakai", Toast.LENGTH_SHORT).show();
+//                    if ( )
                     checkLatLong = 1;
                     break;
                 }
             }
-            if (checkLatLong != 1) {
+
+            if ( checkLatLong != 1 )
+            {
                 checkLatLong = 0;
                 saveLocalData();
-            } else {
+            }
+            else
+            {
                 checkLatLong = 0;
             }
+        }
+        else
+        {
+            Toast.makeText(this, "Tambah koordinat lahan terlebih dahulu !", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -316,15 +328,32 @@ public class TambahProfilLahanA extends FragmentActivity {
         String centerLatitude = String.valueOf(center.getLatitude());
         String centerLongitude = String.valueOf(center.getLongitude());
 
-        lat2 = centerLatitude.substring(0, 8);
-        longt2 = centerLongitude.substring(0, 7);
-        String latLong = lat2 + ", " + longt2;
+        centerLat = centerLatitude.substring(0, 8);
+        centerLong = centerLongitude.substring(0, 7);
+        String latLong = centerLat + ", " + centerLong;
         binding.koordinatLahan.setText(latLong);
 
         luasGarapan = String.valueOf(Math.round(calculateLandArea()));
 
+        ArrayList<GeoPoint> sortedPoints = sortPolygonPoints();
+
+        latitudeBuilder = new StringBuilder();
+        longitudeBuilder = new StringBuilder();
+
+        for ( GeoPoint point : sortedPoints )
+        {
+            if ( latitudeBuilder.length() > 0 )
+            {
+                latitudeBuilder.append(";");
+                longitudeBuilder.append(";");
+            }
+
+            latitudeBuilder.append(point.getLatitude());
+            longitudeBuilder.append(point.getLongitude());
+        }
+
         landPolygon = new Polygon();
-        landPolygon.setPoints(sortPolygonPoints());
+        landPolygon.setPoints(sortedPoints);
         landPolygon.getFillPaint().setColor(Color.argb(80, 0, 128, 0));
         landPolygon.getOutlinePaint().setColor(Color.GREEN);
         landPolygon.getOutlinePaint().setStrokeWidth(3f);
@@ -421,15 +450,28 @@ public class TambahProfilLahanA extends FragmentActivity {
 
         landPoints.clear();
         markerItems.clear();
+        latitudeBuilder = new StringBuilder();
+        longitudeBuilder = new StringBuilder();
+        centerLat = Global.STRING_DEFAULT_VALUE;
+        centerLong = Global.STRING_DEFAULT_VALUE;
 
+        binding.koordinatLahan.setText(Global.STRING_DEFAULT_VALUE);
         binding.osmMapView.invalidate();
     }
 
     private void saveLocalData()
     {
+        if ( latitudeBuilder == null && longitudeBuilder == null )
+        {
+            latitudeBuilder = new StringBuilder();
+            longitudeBuilder = new StringBuilder();
+            latitudeBuilder.append(centerLat).append(";");
+            longitudeBuilder.append(centerLong).append(";");
+        }
+
         PreferenceUtils.savePLnamaProfilLahan(binding.namaProfilLahan.getText().toString(), getApplicationContext());
-        PreferenceUtils.savePLlatitude(lat2, getApplicationContext());
-        PreferenceUtils.savePLlongitude(longt2, getApplicationContext());
+        PreferenceUtils.savePLlatitude(latitudeBuilder.toString(), getApplicationContext());
+        PreferenceUtils.savePLlongitude(longitudeBuilder.toString(), getApplicationContext());
         PreferenceUtils.savePLLuasGarapanProfilLahan(luasGarapan, getApplicationContext());
         goToTambahProfilLahanB();
     }
